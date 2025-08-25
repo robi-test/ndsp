@@ -1,0 +1,123 @@
+// Import NHS.UK frontend library
+@import 'node_modules/nhsuk-frontend/packages/nhsuk';
+
+// Components that are not in the NHS.UK frontend library
+@import 'components/list-border';
+@import 'components/related-nav';
+
+///////////////////////////////////////////
+// Add your custom CSS/Sass styles below...
+///////////////////////////////////////////
+.nhsuk-ticket-panel { 
+margin-bottom: 64px; 
+max-width: 60%;
+}
+
+
+.nhsuk-ticket-panel__content {
+border: 1px solid #d8dde0; /* light grey keyline */
+border-left-width: 6px; /* accent stripe */
+border-radius: 0px; /* soft corners */
+padding: 16px; /* inner spacing */
+background: #fff; /* default background */
+}
+
+
+/* Focus state when focusing interactive elements inside the panel */
+.nhsuk-ticket-panel__content:focus-within {
+outline: 3px solid #ffbf47; /* NHS focus yellow */
+outline-offset: 0;
+}
+
+
+/* Accent colour modifiers (left stripe + subtle tint) */
+.nhsuk-ticket-panel__content--blue {
+border-left-color: #005eb8; /* NHS Blue */
+background: #ffffff; /* subtle blue tint */
+}
+
+
+.nhsuk-ticket-panel__content--green {
+border-left-color: #007f3b; /* NHS Green */
+background: #ecf7f1; /* subtle green tint */
+}
+
+
+.nhsuk-ticket-panel__content--grey {
+border-left-color: #4c6272; /* NHS Dark grey */
+background: #f5f8f9; /* subtle grey tint */
+}
+
+
+/* Space helpers for content blocks inside the panel */
+.nhsuk-ticket-panel__actions { margin-top: 12px; }
+
+
+/* Optional compact variant */
+.nhsuk-ticket-panel--compact .nhsuk-ticket-panel__content { padding: 12px; }
+
+
+.nhsuk-panel__title {
+    font-size: 32px;
+    font-size: 2rem;
+    line-height: 1.125;
+}
+
+/* NHS-styled translation of the MOJ filter layout. */
+
+
+.nhsuk-filter-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 48em) { /* tablet+ */
+.nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
+}
+
+
+.nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
+.nhsuk-filter-panel__header { padding: 16px; border-bottom: 1px solid #d8dde0; }
+.nhsuk-filter-panel__content { padding: 16px; }
+
+
+.nhsuk-filter-selected { background: #f5f8f9; border: 1px solid #d8dde0; border-radius: 8px; padding: 16px; }
+.nhsuk-filter-selected__heading { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+
+
+.nhsuk-filter-tags { list-style: none; padding: 0; margin: 8px 0 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+.nhsuk-tag--clickable { cursor: pointer; text-decoration: none; }
+.nhsuk-tag--clickable:focus { outline: 3px solid #ffbf47; outline-offset: 0; }
+
+
+.nhsuk-filter-actions { display: flex; gap: 8px; align-items: center; margin-bottom: 16px; }
+
+
+/* Optional small helper for a scrollable results pane */
+.nhsuk-scrollable-pane { max-height: 420px; overflow: auto; border: 1px solid #d8dde0; border-radius: 8px; }
+
+
+/* Space tweaks */
+.nhsuk-mb-0 { margin-bottom: 0}
+
+.nhsuk-filter { border: 1px solid #0b0c0c; border-top-width: 4px; border-radius: 0 0 4px 4px; background: #fff; }
+.nhsuk-filter__header { background: #d8dde0; /* grey bar */ border-top: 4px solid #ffbf47; /* NHS focus yellow */ padding: 10px 16px; }
+.nhsuk-filter__title { margin: 0; font-weight: 700; }
+.nhsuk-filter__content { padding: 16px; border-top: 1px solid #b1b4b6; }
+
+
+/* Selected filters */
+.nhsuk-filter__selected { background: #f5f8f9; border: 1px solid #d8dde0; border-radius: 4px; padding: 16px; }
+.nhsuk-filter__selected-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+
+
+/* "Chips" */
+.nhsuk-chip { display: inline-flex; align-items: center; gap: .5rem; border: 2px solid #0b0c0c; border-radius: 2px; padding: 4px 8px; background: #fff; font-size: 16px; line-height: 1.25; }
+.nhsuk-chip__remove { background: none; border: 0; cursor: pointer; text-decoration: none; }
+.nhsuk-chip__remove:focus { outline: 3px solid #ffbf47; outline-offset: 0; }
+
+
+/* Layout helper for the two-column grid (sidebar + results) */
+.nhsuk-filter-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 48em) { .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; } }
+
+
+/* Scrollable table container (optional) */
+.nhsuk-scrollable { border: 1px solid #d8dde0; border-radius: 4px; max-height: 480px; overflow: auto; }
+

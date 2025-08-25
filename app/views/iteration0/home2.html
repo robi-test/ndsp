@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% set pageName = serviceName %}
+
+
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-thirds">
+
+      <h1>
+        {{ pageName }}
+      </h1>
+
+
+{{ details({
+  text: "Why can't I see my collection?",
+  html: "
+  <p>A collection may not appear if your organisation hasn't been registered for it yet. If you believe this is incorrect, please contact your organisation’s administrator or call the national service desk for support:</p>
+    <p>You can find your NHS number by logging in to a GP online service or on any document the NHS has sent you, such as your:<br>
+    <a href='#'>ssd.nationalservicedesk@nhs.net</a></p>
+    <p>Visit the NHS Data Submission Portal website to read more details.<br><a href='#'>NHS Data Submission Portal guidance</a></p>
+  "
+}) }}
+      
+
+
+      <h2 class="nhsuk-heading-m">Submit your data</h2>
+
+      <p>Use the 'Submit data' button below to access your active submissions, or go directly to your collection’s page using the deadline table below.</p>
+
+      <a href="/iteration0/choose-collection" class="nhsuk-button">
+        Submit data
+      </a>
+      <hr>
+<table class="nhsuk-table">
+  <caption class="nhsuk-table__caption">Next deadlines</caption>
+  <p>Text</p>
+  <thead class="nhsuk-table__head">
+    <tr>
+      <th scope="col" class="nhsuk-table__header">Collection</th>
+      <th scope="col" class="nhsuk-table__header nhsuk-table__header--numeric">Reporting period</th>
+      <th scope="col" class="nhsuk-table__header nhsuk-table__header--numeric">Type of deadline</th>
+      <th scope="col" class="nhsuk-table__header nhsuk-table__header--numeric">End date</th>
+      <th scope="col" class="nhsuk-table__header nhsuk-table__header--numeric">Action</th>
+    </tr>
+  </thead>
+  <tbody class="nhsuk-table__body">
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£32.05</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="#">Submit</a></td>
+    </tr>
+   
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£19.30</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£19.80</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="#">Submit</a></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </div>
+{% endblock %}

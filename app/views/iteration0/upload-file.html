@@ -1,0 +1,299 @@
+{% extends "layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Upload and submit" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "#",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+          <form id="upload-form" method="post" action="upload" enctype="multipart/form-data" novalidate>
+            <h1 class="nhsuk-heading-l">Submit data</h1>
+            <p>You are submitting files for:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: {
+                    text: "Collection"
+                  },
+                  value: {
+                    text: data.collection
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-collection",
+                        text: "Change",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Organisation"
+                  },
+                  value: {
+                    text: data.organisation
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-organisation",
+                        text: "Change",
+                        visuallyHiddenText: "organisation"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Reporting period"
+                  },
+                  value: {
+                    text: data.period
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-period",
+                        text: "Change",
+                        visuallyHiddenText: "period"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Template version"
+                  },
+                  value: {
+                    text: data.template
+                  },
+                  actions: {
+                    items: [
+                      {
+                        text: " "
+                      }
+                    ]
+                  }
+                }
+                
+              ]
+            }) }}
+            
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Add files</h2>
+            <p class="nhsuk-hint">Only .csv and .xlsx files are accepted. The maximum file size is 2Gb.</p>
+            <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
+            {% from 'details/macro.njk' import details %}
+            {{ details({
+              text: "When should I submit multiple files?",
+              html: "
+              <p></p>
+              "
+            }) }} -->
+            
+            <h3 class="nhsuk-heading-s">Files added</h3>
+            <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
+              <ul id="files-list" class="nhsuk-list nhsuk-list--bullet nhsuk-u-margin-bottom-4">
+                <li id="files-list-empty">No files added yet.</li>
+              </ul>
+            </div>
+            <!-- Hidden real file input – driven by the custom UI below -->
+            <input id="file-input" name="files" type="file" multiple hidden accept=".csv,.xlsx">
+
+            <div id="dropzone" class="nhsuk-u-padding-6 nhsuk-u-margin-bottom-4 dropzone" role="group" aria-describedby="dropzone-hint">
+              <p class="nhsuk-body">Drag and drop files here or
+                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose files</button>
+              </p>
+              
+            </div>
+            <p><br></p>
+            <div class="nhsuk-form-group nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-7">
+              <label class="nhsuk-label" for="example">
+                 <h2 class="nhsuk-heading-m">Add a note (optional)</h2>
+              </label>
+             <div class="nhsuk-hint" id="example-hint">
+                 The note will be attached to all files submitted in this session. If you want to add a note to a specific file only, please submit the file separetely.<br>Do not include personal information like name, date of birth or NHS number.
+              </div> <textarea class="nhsuk-textarea" id="example" name="example" rows="5" aria-describedby="example-hint"></textarea>
+            </div>
+           
+            {% from 'checkboxes/macro.njk' import checkboxes %}
+
+<form method="post" novalidate>
+  {{ checkboxes({
+    idPrefix: "test",
+    name: "Test",
+    fieldset: {
+      legend: {
+        text: "Do you want to submit as a test?",
+        classes: "nhsuk-fieldset__legend--m",
+        isPageHeading: true
+      }
+    },
+    hint: {
+      text: "You can submit a test file in order to ascertain if the file to be submitted meets the requirements. You will receive a validation feedback but no data will be processed from a test submission. Note: all file submitted will be considered as test file."
+    },
+    items: [
+      {
+        value: "email",
+        text: "Yes, I want to submit a test file"
+      }
+    ]
+  }) }}
+</form>
+
+              <button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+                Submit
+              </button>
+          </form>
+        </main>
+      </div>
+
+      <style>
+        .nhsuk-link {color: #005eb8; text-decoration: underline; font-size:16px}
+        .dropzone { border: 3px dashed #0b0c0c; border-radius: 8px; min-height: 160px; display: flex; flex-direction: column; justify-content: center; }
+        .dropzone.dragover { outline: 4px solid #007f3b; outline-offset: -4px; }
+        .file-chip { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .5rem; }
+        .file-chip button { background: none; border: 0; text-decoration: underline; cursor: pointer; }
+      </style>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var organisation = "{{ data.organisation }}";
+  (function () {
+    var input = document.getElementById('file-input');
+    var chooseBtn = document.getElementById('choose-btn');
+    var dropzone = document.getElementById('dropzone');
+    var list = document.getElementById('files-list');
+    var listEmpty = document.getElementById('files-list-empty');
+    var form = document.getElementById('upload-form');
+    
+    if (!window.DataTransfer) return;
+
+    var store = new DataTransfer();
+
+    function normaliseName(name) { return (name || '').replace(/\s+/g, ' ').trim(); }
+
+    function addFiles(fileList) {
+      var added = 0;
+      Array.prototype.forEach.call(fileList, function (file) {
+        for (var i = 0; i < store.files.length; i++) {
+          var existing = store.files[i];
+          if (existing.name === file.name && existing.size === file.size) return;
+        }
+        // Only accept .csv, .xlsx, .txt files
+        if (matchesAccept(file, ".csv,.xlsx,.txt")) {
+          store.items.add(file);
+          added++;
+        }
+      });
+      sync();
+      if (added) announce(added + ' file' + (added > 1 ? 's' : '') + ' added');
+    }
+
+    function removeAt(index) {
+      store.items.remove(index);
+      sync();
+      announce('File removed');
+    }
+
+    function sync() {
+      input.files = store.files;
+      renderList();
+    }
+
+    function renderList() {
+      list.innerHTML = '';
+      if (!store.files.length) {
+        list.appendChild(listEmpty);
+        listEmpty.style.display = '';
+        return;
+      }
+      listEmpty.style.display = 'none';
+      Array.prototype.forEach.call(store.files, function(file, idx){
+        var li = document.createElement('li');
+        var chip = document.createElement('span');
+        chip.className = 'file-chip';
+        chip.innerHTML = '<span>' + normaliseName(file.name) + ' (' + formatSize(file.size) + ')</span>';
+        var rm = document.createElement('button');
+        rm.type = 'button';
+        rm.className = 'nhsuk-link';
+        rm.setAttribute('aria-label', 'Remove ' + file.name);
+        rm.textContent = 'Remove';
+        rm.addEventListener('click', function(){ removeAt(idx); });
+        chip.appendChild(rm);
+        li.appendChild(chip);
+        list.appendChild(li);
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      var kb = bytes / 1024; if (kb < 1024) return kb.toFixed(1) + ' KB';
+      var mb = kb / 1024; return mb.toFixed(1) + ' MB';
+    }
+
+    function announce(msg) {
+      list.setAttribute('data-announcement', msg);
+    }
+
+    chooseBtn.addEventListener('click', function () { input.click(); });
+    input.addEventListener('change', function (e) { addFiles(e.target.files); input.value = ''; });
+
+    function prevent(e){ e.preventDefault(); e.stopPropagation(); }
+    ['dragenter','dragover'].forEach(function(evt){
+      dropzone.addEventListener(evt, function(e){ prevent(e); dropzone.classList.add('dragover'); });
+    });
+    ['dragleave','dragend','drop'].forEach(function(evt){
+      dropzone.addEventListener(evt, function(e){ prevent(e); dropzone.classList.remove('dragover'); });
+    });
+    dropzone.addEventListener('drop', function(e){
+      if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+    });
+
+    var MAX_MB = "";//{ maxMb | default(10) };
+    var accept = '.csv,.xlsx,.txt';
+
+    form.addEventListener('submit', function (e) {
+      var tooBig = false, badType = false;
+      for (var i = 0; i < store.files.length; i++) {
+        var f = store.files[i];
+        if (f.size > MAX_MB * 1024 * 1024) tooBig = true;
+        if (accept && !matchesAccept(f, accept)) badType = true;
+      }
+      if (tooBig || badType) {
+        e.preventDefault();
+        var msg = tooBig ? ('Each file must be under ' + MAX_MB + 'MB. ') : '';
+        msg += badType ? ('Allowed types: ' + accept + '.') : '';
+        window.alert(msg);
+      }
+    });
+
+    function matchesAccept(file, acceptList) {
+      var parts = acceptList.split(',').map(function(p){ return p.trim().toLowerCase(); });
+      var name = file.name.toLowerCase();
+      return parts.some(function(rule){
+        if (!rule) return true;
+        if (rule.startsWith('.')) return name.endsWith(rule);
+        return false;
+      });
+    }
+  })();
+
+</script>
+{% endblock %}

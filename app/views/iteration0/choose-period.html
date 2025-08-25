@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% set pageName = "Choose organisation" %}
+{% set hintHtml -%}
+  <p class="nhsuk-u-margin-bottom-2">It looks like if you can submit data for more than one organisation. Select the organisation or site for which you are submitting data.</p>
+{%- endset %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "/iteration0/choose-collection",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l">
+      <span class="nhsuk-caption-l">Submit data</span>
+      </h1>
+
+      <form action="#" method="post" class="form">
+        {% from 'radios/macro.njk' import radios %}
+
+        {{ radios({
+          idPrefix: "period",
+          name: "period",
+          fieldset: {
+            legend: {
+              text: "Which period do you want to submit data for?",
+              classes: "nhsuk-fieldset__legend--l",
+              isPageHeading: true
+            }
+          },
+          hint: {
+          html: hintHtml
+          },
+          values: data.period,
+          items: [
+            {
+              value: "July 2025",
+              text: "July 2025"
+            },
+            {
+              value: "May/June",
+              text: "May/June"
+            }
+          ]
+        }) }}
+
+        {{ button({
+          text: "Continue"
+        }) }}
+
+       
+
+      </form>
+
+    </div>
+  </div>
+
+
+{% endblock %}
