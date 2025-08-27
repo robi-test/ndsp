@@ -2,13 +2,13 @@
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
-{% set pageName = "Choose organisation" %}
+{% set pageName = "Choose period" %}
 {% set hintHtml -%}
-  <p class="nhsuk-u-margin-bottom-2">It looks like if you can submit data for more than one organisation. Select the organisation or site for which you are submitting data.</p>
+  <p class="nhsuk-u-margin-bottom-2">Select the reporting period relevant to your data submission.</p>
 {%- endset %}
 {% block beforeContent %}
   {{ backLink({
-    href: "/iteration0/choose-collection",
+    href: "/iteration0/choose-organisation",
     text: "Back"
   }) }}
 {% endblock %}

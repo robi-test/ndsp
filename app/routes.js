@@ -9,7 +9,7 @@ router.post('/iteration0/choose-collection', (req, res) => {
     console.log('Organisation selected:', organisation);
 
   if (collection === 'Diagnostic Imaging Dataset') {
-    req.session.data['template'] = 'did-collection';
+    req.session.data['template'] = 'DID V2.0';
     res.redirect('/iteration0/choose-organisation');
   } else if (collection === 'Diagnostics Waiting Times and Activity') {
     req.session.data['organisation'] = 'Sheffield Teaching Hospital NHS Foundation Trust';
@@ -23,9 +23,15 @@ router.post('/iteration0/choose-collection', (req, res) => {
 router.post('/iteration0/choose-organisation', (req, res) => {
     res.redirect('/iteration0/choose-period');
 });
+
 router.post('/iteration0/choose-period', (req, res) => {
     res.redirect('/iteration0/upload-file');
 });
+
+router.post('/iteration0/choose-period2', (req, res) => {
+    res.redirect('/iteration0/upload-file2');
+});
+
 module.exports = router;
 
 

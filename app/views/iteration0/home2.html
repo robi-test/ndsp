@@ -6,28 +6,62 @@
 
 {% block content %}
   <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-three-thirds">
+    <div class="nhsuk-grid-column-full">
+<h2>
+  {{ pageName }}
+</h2>
+<!-- {% from 'warning-callout/macro.njk' import warningCallout %}
+{{ warningCallout({
+  heading: "Deadline approaching",
+  html: "<p>The submission deadline for Diagnostic Imaging Dataset is approaching and no data has been submitted by your organisation yet. Please ensure your submission is completed before the deadline.</p>"
+}) }} -->
 
-      <h1>
-        {{ pageName }}
-      </h1>
+  <p class="nhsuk-u-margin-bottom-6">Welcome to the new NHS Data Submission Portal. <br>You can use this portal to submit data, see validation feedback, and download reports for multiple collections based on your organisation's access. 
+  </p><p>Currently you can submit for the following collection(s):</p>
+  <li style="font-size: 18px;"><strong>Diagnostic Imaging Dataset</strong></li>
+<p></p>
+{% from 'details/macro.njk' import details %}
+{{ details({
+  text: "Why can't I see my collection?",
+  html: "
+    <p>A collection may not appear if you haven't been registered for it yet. If you believe this is incorrect, please contact the responsible for your organisation or call the national service desk for support:</p>
+    <p><a href='#'>ssd.nationalservicedesk@nhs.net</a></p>
+    <p>Visit the NHS Data Submission Portal website to read more details.<br><a href='#'>NHS Data Submission Portal guidance</a></p>
+        "
+  }) }}
+<hr>  
+<p>Start your submission here, or choose a collection in the deadline table below to go to its submission page.</p>
 
+{% from 'action-link/macro.njk' import actionLink %}
 
-
-      
-
-
+{{ actionLink({
+  text: "Start a submission",
+  href: "choose-period2"
+}) }}
+<hr>  
+<!-- <article class="nhsuk-ticket-panel" aria-label="Sub navigation 1">
+<section class="nhsuk-ticket-panel__content nhsuk-ticket-panel__content--blue" aria-label="Section 1">
+<h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-2">Submit your data</h2>
+<p class="nhsuk-body">Start from here a submission, or go directly to the collection’s submission page using the deadline table below.</p>
+<div class="nhsuk-ticket-panel__actions">
+<a href="/iteration0/choose-period2" role="button" draggable="false" class="nhsuk-button nhsuk-!-margin-bottom-1" data-module="nhsuk-button">
+  Start a submission
+</a>
+</div>
+</section>
+</article> -->
+<!-- 
       <h2 class="nhsuk-heading-m">Submit your data</h2>
 
       <p>Use the 'Submit data' button below to access your active submissions, or go directly to your collection’s page using the deadline table below.</p>
 
       <a href="/iteration0/choose-collection" class="nhsuk-button">
-        Submit data
+        Submit data -->
       </a>
-      <hr>
+<div class="nhsuk-table__panel-with-heading-tab">    <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>      
 <table class="nhsuk-table">
-  <caption class="nhsuk-table__caption">Next deadlines</caption>
-  <p>Text</p>
+  <caption class="nhsuk-table__caption--s nhsuk-u-margin-bottom-5  nhsuk-u-visually-hidden"">Next deadlines</caption>
+  
   <thead class="nhsuk-table__head">
     <tr>
       <th scope="col" class="nhsuk-table__header">Collection</th>
@@ -40,21 +74,36 @@
   <tbody class="nhsuk-table__body">
     <tr class="nhsuk-table__row">
       <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£32.05</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="#">Submit</a></td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">July 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">Monthly</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">26 Aug 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="/iteration0/upload-file2?period=July%202025">Submit</a></td>
     </tr>
-   
     <tr class="nhsuk-table__row">
       <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£19.30</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£19.80</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">£31.25</td>
-      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="#">Submit</a></td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">April 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">Extension</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">26 Aug 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="/iteration0/upload-file2?period=April%202025">Submit</a></td>
+    </tr>
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">May 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">Updates</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">26 Aug 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="/iteration0/upload-file2?period=May%202025">Submit</a></td>
+    </tr>
+
+        <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">June 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">Updates</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric">26 Sept 2025</td>
+      <td class="nhsuk-table__cell nhsuk-table__cell--numeric"><a href="/iteration0/upload-file2?period=June%202025">Submit</a></td>
     </tr>
   </tbody>
 </table>
+</div>
     </div>
   </div>
 {% endblock %}

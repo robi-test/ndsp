@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
-{% from 'hint/macro.njk' import hint %}
+
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
-{% set pageName = "Choose collection" %}
+{% set pageName = "Choose period" %}
 {% set hintHtml -%}
-  <p class="nhsuk-u-margin-bottom-2">Select a collection from the list below to begin your submission. You’ll be guided through the correct steps based on your choice.</p>
+  <p class="nhsuk-u-margin-bottom-2">Select the reporting period relevant to your data submission.</p>
 {%- endset %}
 {% block beforeContent %}
   {{ backLink({
@@ -15,20 +15,21 @@
 
 {% block content %}
   <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-two-thirds">
+    <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">
       <span class="nhsuk-caption-l">Submit data</span>
       </h1>
-  
+
       <form action="#" method="post" class="form">
         {% from 'radios/macro.njk' import radios %}
 
         {{ radios({
-          idPrefix: "collection",
-          name: "collection",
+          idPrefix: "period",
+          name: "period",
+          classes: "nhs-radios--small",
           fieldset: {
             legend: {
-              text: "Which collection do you want to submit data for?",
+              text: "Which period do you want to submit data for?",
               classes: "nhsuk-fieldset__legend--l",
               isPageHeading: true
             }
@@ -36,15 +37,23 @@
           hint: {
           html: hintHtml
           },
-          values: data.collection,
+          values: data.period,
           items: [
             {
-              value: "Diagnostic Imaging Dataset",
-              text: "Diagnostic Imaging Dataset"
+              value: "July 2025",
+              text: "July 2025"
             },
             {
-              value: "Diagnostics Waiting Times and Activity",
-              text: "Diagnostics Waiting Times and Activity"
+              value: "June 2025",
+              text: "June 2025"
+            },
+            {
+              value: "May 2025",
+              text: "May 2025"
+            },
+            {
+              value: "Aprile 2025",
+              text: "April 2025"
             }
           ]
         }) }}
@@ -59,5 +68,6 @@
 
     </div>
   </div>
+
 
 {% endblock %}

@@ -5,7 +5,7 @@
 
 {% block beforeContent %}
   {{ backLink({
-    href:  "javascript:history.back()",
+    href: "#",
     text: "Back"
   }) }}
 {% endblock %}
@@ -28,13 +28,13 @@
                     text: "Collection"
                   },
                   value: {
-                    text: data.collection
+                    text: "Diagnostics Waiting Times and Activity"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-collection",
-                    
+                        text: "Change",
                         visuallyHiddenText: "collection"
                       }
                     ]
@@ -45,13 +45,13 @@
                     text: "Organisation"
                   },
                   value: {
-                    text: data.organisation
+                    text: "Sheffield Teaching Hospital NHS Foundation Trust"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-organisation",
-                      
+                        
                         visuallyHiddenText: "organisation"
                       }
                     ]
@@ -62,13 +62,13 @@
                     text: "Reporting period"
                   },
                   value: {
-                    text: data.period
+                    text: "July 2025"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-period",
-                        text: "Change",
+                        
                         visuallyHiddenText: "period"
                       }
                     ]
@@ -79,7 +79,7 @@
                     text: "Template version"
                   },
                   value: {
-                    text: data.template
+                    text: "DWTA V1.4"
                   },
                   actions: {
                     items: [
