@@ -14,7 +14,7 @@ router.post('/iteration0/choose-collection', (req, res) => {
   } else if (collection === 'Diagnostics Waiting Times and Activity') {
     req.session.data['organisation'] = 'Sheffield Teaching Hospital NHS Foundation Trust';
     req.session.data['template'] = 'DWTA V1.4';
-    res.redirect('/iteration0/upload-file');
+    res.redirect('/iteration0/upload-file4');
   } else {
     res.redirect('/iteration0/submit-collection-error');
   }
