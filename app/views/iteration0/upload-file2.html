@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout2.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 {% set pageName = "Upload files" %}
@@ -28,12 +28,13 @@
                     text: "Collection"
                   },
                   value: {
-                    text: "Diagnostic Imaging Dataset"
+                    text: data.collection
                   },
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-collection",
+                        href: "/iteration0/choose-collection2",
+                        text: "Change",
                         visuallyHiddenText: "collection"
                       }
                     ]
@@ -44,12 +45,13 @@
                     text: "Organisation"
                   },
                   value: {
-                    text: "Sheffield Teaching Hospital NHS Foundation Trust "
+                    text: data.organisation
                   },
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-organisation",
+                        href: "/iteration0/choose-organisation2bis",
+                        text: "Change",
                         visuallyHiddenText: "organisation"
                       }
                     ]
@@ -77,7 +79,7 @@
                     text: "Template version"
                   },
                   value: {
-                    text: "CWT V2.0"
+                    text: data.template
                   },
                   actions: {
                     items: [
@@ -91,7 +93,7 @@
               ]
             }) }}
             
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
+  <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
             <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
             <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
             {% from 'details/macro.njk' import details %}
@@ -122,20 +124,16 @@
                 <li id="files-list-empty">No file added yet</li>
               </ul>
             </div>
-             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">
-
-
-
-              
-              
+             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">        
             </div>
-            <p><br></p>
+            <p><br></p>    
+           
             <div class="nhsuk-form-group nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-7">
               <label class="nhsuk-label" for="example">
                  <h2 class="nhsuk-heading-m">Add a note (optional)</h2>
               </label>
              <div class="nhsuk-hint" id="example-hint">
-                 To note a specific file, submit it separately.<br>Do not include personal information like name, date of birth or NHS number.
+                 Do not include personal information like name, date of birth or NHS number.
               </div> <textarea class="nhsuk-textarea" id="example" name="example" rows="5" aria-describedby="example-hint"></textarea>
             </div>
            
@@ -164,7 +162,7 @@
   }) }}
 </form>
 
-              <button onclick="location='uploading-page'" class="nhsuk-button nhsuk-u-margin-top-7">
+              <button onclick="location='uploading-page2'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue to upload and submit
               </button>
           </form>

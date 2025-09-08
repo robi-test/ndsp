@@ -1,0 +1,36 @@
+{% extends "layout2.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% set pageName = "Colelctions" %}
+
+
+
+{% block content %}
+
+{% from 'tabs/macro.njk' import tabs %} 
+
+{{ tabs({
+  items: [
+    {
+      text: "All collections",
+      href: "/iteration0/collections2",
+      current: "true"
+    },
+    {
+      text: "My collections",
+      href: "#"
+    }
+  ]
+}) }}
+{% set DID %}  
+
+
+{% endset -%}
+
+{% set XX %}  
+
+   
+{% endset -%}
+
+{% endblock %}

@@ -5,12 +5,27 @@
 @import 'components/list-border';
 @import 'components/related-nav';
 
+
 ///////////////////////////////////////////
 // Add your custom CSS/Sass styles below...
 ///////////////////////////////////////////
+/* General layout */
+.nhsuk-width-container {
+    max-width: 1200px;
+}
+.nhsuk-header__container {
+    max-width: 1200px;
+}
+.nhsuk-navigation {
+    max-width: 1200px;
+}
+
+/* Ticket panel from Gov.uk  */
 .nhsuk-ticket-panel { 
-margin-bottom: 64px; 
-max-width: 60%;
+    margin-bottom: 64px; 
+    margin-right:20px;
+    width: 45%;
+    display:inline-flex;
 }
 
 
@@ -253,13 +268,40 @@ a.nhsuk-pagination__link {
     min-height: 160px; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; }
+    justify-content: center; 
+}
 .dropzone.dragover 
  {
-    outline: 4px solid #007f3b; outline-offset: -4px; }
+    outline: 4px solid #007f3b; outline-offset: -4px; 
+}
 .file-chip 
 { 
-    display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .5rem; }
+    display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .5rem; 
+}
 .file-chip button 
 { 
-    background: none; border: 0; text-decoration: underline; cursor: pointer; }
+    background: none; border: 0; text-decoration: underline; cursor: pointer; 
+}
+
+.nhsuk-table--sortable thead th[aria-sort] { white-space: nowrap; }
+.nhsuk-table-sort__button { background: none; border: 0; color: #1d70b8; text-decoration: underline; cursor: pointer; padding: 0; font: inherit; display: inline-flex; align-items: center; gap: .35rem; }
+.nhsuk-table-sort__button:hover { text-decoration: none; }
+.nhsuk-table-sort__button:focus { outline: 3px solid #ffbf47; outline-offset: 0; }
+
+
+/* Indicator: default (unsorted) shows a faint double chevron */
+.nhsuk-table-sort__indicator { position: relative; width: .75rem; height: .75rem; display: inline-block; }
+.nhsuk-table-sort__indicator::before, .nhsuk-table-sort__indicator::after { content: ""; position: absolute; left: 50%; transform: translateX(-50%); border-left: 4px solid transparent; border-right: 4px solid transparent; opacity: 1; }
+.nhsuk-table-sort__indicator::before { top: 0; border-bottom: 6px solid #1d70b8; }
+.nhsuk-table-sort__indicator::after { bottom: 0; border-top: 6px solid #1d70b8; top: 8px;}
+
+
+/* Asc / desc states */
+.nhsuk-table--sortable thead th[aria-sort="ascending"] .nhsuk-table-sort__indicator::before { opacity: 1; }
+.nhsuk-table--sortable thead th[aria-sort="ascending"] .nhsuk-table-sort__indicator::after { opacity: .0; }
+.nhsuk-table--sortable thead th[aria-sort="descending"] .nhsuk-table-sort__indicator::before { opacity: .0; }
+.nhsuk-table--sortable thead th[aria-sort="descending"] .nhsuk-table-sort__indicator::after { opacity: 1; }
+
+.nhsuk-table__caption {
+        margin-bottom: 20px;
+    }

@@ -2,9 +2,9 @@
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
-{% set pageName = "Choose period" %}
+{% set pageName = "Choose organisation" %}
 {% set hintHtml -%}
-  <p class="nhsuk-u-margin-bottom-2">Select the reporting period relevant to your data submission.</p>
+  <p class="nhsuk-u-margin-bottom-2">It looks like you can submit data on behalf of more than one organisation or site. Please select the one you’re submitting for to continue.</p>
 {%- endset %}
 {% block beforeContent %}
   {{ backLink({
@@ -24,11 +24,11 @@
         {% from 'radios/macro.njk' import radios %}
 
         {{ radios({
-          idPrefix: "period",
-          name: "period",
+          idPrefix: "organisation",
+          name: "organisation",
           fieldset: {
             legend: {
-              text: "Which period do you want to submit data for?",
+              text: "Which organisation do you want to submit data for?",
               classes: "nhsuk-fieldset__legend--l",
               isPageHeading: true
             }
@@ -36,15 +36,15 @@
           hint: {
           html: hintHtml
           },
-          values: data.period,
+          values: data.organisation,
           items: [
             {
-              value: "July 2025",
-              text: "July 2025"
+              value: "Sheffield Children's NHS Foundation Trust",
+              text: "Sheffield Children's NHS Foundation Trust"
             },
             {
-              value: "June 2025",
-              text: "June 2025"
+              value: "Sheffield Teaching Hospital NHS Foundation Trust",
+              text: "Sheffield Teaching Hospital NHS Foundation Trust"
             }
           ]
         }) }}

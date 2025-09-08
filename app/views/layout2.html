@@ -17,10 +17,6 @@
 <!-- Header code examples can be found at https://service-manual.nhs.uk/design-system/components/header -->
 {% block header %}
 
-  <!-- <span style="position: absolute; top: 0; right: 10%; height: 64px; display: flex; align-items: center; font-weight: 600; font-size: 1rem; color: #ffffff; z-index: 2;">
-  John Smith | <a href="#" style="margin-left: 10px; color:white">Settings | </a><a href="#" style="margin-left: 10px; color:white">Log out</a>
-  </span> -->
-
   {{ header({
     service: {
       name: serviceName,
@@ -31,11 +27,11 @@
     searchAction: " ",
     primaryLinks: [
     {
-      url  : '/iteration0/home1',
+      url  : '/iteration0/home2',
       label : "Home"
     },
       {
-        url  : '/iteration0/submissions',
+        url  : '/iteration0/submissions2',
         label : "Submissions"
       },
       {
@@ -51,14 +47,6 @@
         label : 'Support'
       }]
   }) }}
-
-   <div style="font-weight: 600; font-size: 1rem; color: #ffffff; display: flex; align-items: center;">
-      John Smith | 
-      <a href="#" style="margin-left: 10px; color:white">Settings | </a>
-      <a href="#" style="margin-left: 10px; color:white">Log out</a>
-    </div>
-  </div>
-    
 {% endblock %}
 
 <!-- Edit the footer -->
@@ -93,14 +81,12 @@
           <a class="nhsuk-footer__list-item-link" href="home1">Scenario1 - DID 1 collection/1 organisation</a>
         </li>
         <li class="nhsuk-footer__list-item">
-          <a class="nhsuk-footer__list-item-link" href="home2">Scenario2 - 2 collections/ 2 organisationsPrivacy policy</a>
+          <a class="nhsuk-footer__list-item-link" href="home2">Scenario2 - 2 collections/ 2 organisations</a>
         </li>
       </ul>
 
   </div>
 {% endblock %}
-
-
 
 {% block bodyEnd %}
   {% block scripts %}

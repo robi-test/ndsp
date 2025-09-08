@@ -1,10 +1,10 @@
-{% extends "layout.html" %}
-
+{% extends "layout2.html" %}
+{% from 'hint/macro.njk' import hint %}
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
-{% set pageName = "Choose organisation" %}
+{% set pageName = "Choose collection" %}
 {% set hintHtml -%}
-  <p class="nhsuk-u-margin-bottom-2">It looks like you can submit data on behalf of more than one organisation or site. Please select the one you’re submitting for to continue.</p>
+  <p class="nhsuk-u-margin-bottom-2">Select a collection from the list below to begin your submission. You’ll be guided through the correct steps based on your choice.</p>
 {%- endset %}
 {% block beforeContent %}
   {{ backLink({
@@ -15,20 +15,20 @@
 
 {% block content %}
   <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-two-thirds">
       <h1 class="nhsuk-heading-l">
       <span class="nhsuk-caption-l">Submit data</span>
       </h1>
-
+  
       <form action="#" method="post" class="form">
         {% from 'radios/macro.njk' import radios %}
 
         {{ radios({
-          idPrefix: "organisation",
-          name: "organisation",
+          idPrefix: "collection",
+          name: "collection",
           fieldset: {
             legend: {
-              text: "Which organisation do you want to submit data for?",
+              text: "Which collection do you want to submit data for?",
               classes: "nhsuk-fieldset__legend--l",
               isPageHeading: true
             }
@@ -36,15 +36,15 @@
           hint: {
           html: hintHtml
           },
-          values: data.organisation,
+          values: data.collection,
           items: [
             {
-              value: "Sheffield Children's NHS Foundation Trust",
-              text: "Sheffield Children's NHS Foundation Trust (RCU)"
+              value: "Diagnostic Imaging Dataset",
+              text: "Diagnostic Imaging Dataset"
             },
             {
-              value: "Sheffield Teaching Hospital NHS Foundation Trust",
-              text: "Sheffield Teaching Hospital NHS Foundation Trust (RHQ)"
+              value: "Diagnostics Waiting Times and Activity",
+              text: "Diagnostics Waiting Times and Activity"
             }
           ]
         }) }}
@@ -59,6 +59,5 @@
 
     </div>
   </div>
-
 
 {% endblock %}

@@ -28,13 +28,13 @@
                     text: "Collection"
                   },
                   value: {
-                    text: data.collection
+                    text: "Diagnostic Imaging Dataset"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-collection",
-                        text: "Change",
+                        text: " ",
                         visuallyHiddenText: "collection"
                       }
                     ]
@@ -45,13 +45,13 @@
                     text: "Organisation"
                   },
                   value: {
-                    text: data.organisation
+                    text: "	Sheffield Teaching Hospital"
                   },
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-organisation",
-                        text: "Change",
+                        href: "/iteration0/choose-organisation2",
+                        text: " ",
                         visuallyHiddenText: "organisation"
                       }
                     ]
@@ -67,7 +67,7 @@
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-period",
+                        href: "/iteration0/choose-period1",
                         text: "Change",
                         visuallyHiddenText: "period"
                       }
@@ -79,12 +79,12 @@
                     text: "Template version"
                   },
                   value: {
-                    text: data.template
+                    text: "DID V2.0"
                   },
                   actions: {
                     items: [
                       {
-                        text: " "
+                        text: ""
                       }
                     ]
                   }
@@ -93,8 +93,10 @@
               ]
             }) }}
             
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Add files</h2>
-            <p class="nhsuk-hint">Only one file can be uploaded per submission for this collection.<br>Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
+              <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
+            <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
+
+          
             <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
             {% from 'details/macro.njk' import details %}
             {{ details({
@@ -104,28 +106,32 @@
               "
             }) }} -->
             
-            <h3 class="nhsuk-heading-s">Files added</h3>
-            <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
+            <!-- <h3 class="nhsuk-heading-s">Files added</h3> -->
+            <!-- <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
               <ul id="files-list" class="nhsuk-list nhsuk-list--bullet nhsuk-u-margin-bottom-4">
                 <li id="files-list-empty">No files added yet.</li>
               </ul>
-            </div>
-            <!-- Hidden real file input – driven by the custom UI below -->
-            <input id="file-input" name="files" type="file" multiple hidden accept=".csv,.xlm">
+            </div> -->
 
+            <!-- Hidden real file input – driven by the custom UI below -->
             <div id="dropzone" class="nhsuk-u-padding-6 nhsuk-u-margin-bottom-4 dropzone" role="group" aria-describedby="dropzone-hint">
-              <p class="nhsuk-body">Drag and drop files here or
-                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose files</button>
+              <p class="nhsuk-body">Drag and drop file here or
+                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose file</button>
               </p>
-              
+            <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
+              <ul id="files-list" class="nhsuk-list nhsuk-u-margin-bottom-4">
+                <li id="files-list-empty">No file added yet</li>
+              </ul>
             </div>
+             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">
+            </div>            
             <p><br></p>
             <div class="nhsuk-form-group nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-7">
               <label class="nhsuk-label" for="example">
                  <h2 class="nhsuk-heading-m">Add a note (optional)</h2>
               </label>
              <div class="nhsuk-hint" id="example-hint">
-                 This note applies to all files in this submission. To note a specific file, submit it separately.<br>Do not include personal information like name, date of birth or NHS number.
+                Do not include personal information like name, date of birth or NHS number.
               </div> <textarea class="nhsuk-textarea" id="example" name="example" rows="5" aria-describedby="example-hint"></textarea>
             </div>
            
@@ -148,13 +154,13 @@
     items: [
       {
         value: "email",
-        text: "Yes, I want to submit a test file"
+        text: "Yes, this is a test file"
       }
     ]
   }) }}
 </form>
 
-              <button onclick="location='uploading-page'" class="nhsuk-button nhsuk-u-margin-top-7">
+              <button onclick="location='uploading-page1'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue to upload and submit
               </button>
           </form>

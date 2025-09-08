@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout2.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 {% set pageName = "Upload files" %}
@@ -33,7 +33,7 @@
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-collection",
+                        href: "/iteration0/choose-collection2",
                         text: "Change",
                         visuallyHiddenText: "collection"
                       }
@@ -93,8 +93,8 @@
               ]
             }) }}
             
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Add files</h2>
-            <p class="nhsuk-hint">Only one file can be uploaded per submission for this collection.<br>Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
+            <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
             <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
             {% from 'details/macro.njk' import details %}
             {{ details({
@@ -104,20 +104,27 @@
               "
             }) }} -->
             
-            <h3 class="nhsuk-heading-s">Files added</h3>
-            <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
+            <!-- <h3 class="nhsuk-heading-s">Files added</h3> -->
+            <!-- <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
               <ul id="files-list" class="nhsuk-list nhsuk-list--bullet nhsuk-u-margin-bottom-4">
                 <li id="files-list-empty">No files added yet.</li>
               </ul>
-            </div>
+            </div> -->
             <!-- Hidden real file input – driven by the custom UI below -->
-            <input id="file-input" name="files" type="file" multiple hidden accept=".csv,.xlm">
+           
 
             <div id="dropzone" class="nhsuk-u-padding-6 nhsuk-u-margin-bottom-4 dropzone" role="group" aria-describedby="dropzone-hint">
-              <p class="nhsuk-body">Drag and drop files here or
-                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose files</button>
+
+
+              <p class="nhsuk-body">Drag and drop file here or
+                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose file</button>
               </p>
-              
+            <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
+              <ul id="files-list" class="nhsuk-list nhsuk-u-margin-bottom-4">
+                <li id="files-list-empty">No file added yet</li>
+              </ul>
+            </div>
+             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">
             </div>
             <p><br></p>
             <div class="nhsuk-form-group nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-7">
@@ -125,7 +132,7 @@
                  <h2 class="nhsuk-heading-m">Add a note (optional)</h2>
               </label>
              <div class="nhsuk-hint" id="example-hint">
-                 This note applies to all files in this submission. To note a specific file, submit it separately.<br>Do not include personal information like name, date of birth or NHS number.
+                 Do not include personal information like name, date of birth or NHS number.
               </div> <textarea class="nhsuk-textarea" id="example" name="example" rows="5" aria-describedby="example-hint"></textarea>
             </div>
            
@@ -154,7 +161,7 @@
   }) }}
 </form>
 
-              <button onclick="location='uploading-page'" class="nhsuk-button nhsuk-u-margin-top-7">
+              <button onclick="location='uploading-page2'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue to upload and submit
               </button>
           </form>

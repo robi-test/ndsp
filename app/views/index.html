@@ -38,16 +38,31 @@
         {{ serviceName }}
       </h1>
 
-      <p>Set the service name for your prototype by editing <strong>/app/config.js</strong>.</p>
-
-      <p>
-        This is the index page for your prototype. You can find it at <strong>/app/views/index.html</strong>.
-      </p>
-      <hr>
-      <h2 class="nhsuk-heading-l">
+      
+      <h2 class="nhsuk-heading-m">
         NHS prototype kit
-        <span class="nhsuk-caption-xl nhsuk-caption--bottom">Version {{version}}</span>
+        <span class="nhsuk-caption-l nhsuk-caption--bottom">Version {{version}}</span>
       </h2>
+       <h2 class="nhsuk-heading-m">
+        Useful links
+      </h2>
+
+      <ul class="nhsuk-list nhsuk-list--bullet">
+
+        <li>
+          <a href="https://app.mural.co/t/nhsdigital8118/m/nhsdigital8118/1752171577344/6b3cecdfd0729db5e3f6b4a3c25a3fbd2a0b3931">Main Mural board</a>
+        </li>
+        <li>
+          <a href="#">Assumptions tracker</a>
+        </li>
+        <li>
+          <a href="#">Iterations tracker</a>
+        </li>
+        <li>
+          <a href="https://service-manual.nhs.uk/design-system">NHS design system </a>
+        </li>
+      </ul>
+
       <hr>
 
       {% from 'details/macro.njk' import details %}
@@ -63,7 +78,7 @@
               <tbody class='nhsuk-table__body'>
                 <tr class='nhsuk-table__row'>
                   <td class='nhsuk-table__cell'>Last update</td>
-                  <td class='nhsuk-table__cell'>12 Aug 2025</td>
+                  <td class='nhsuk-table__cell'>5 Sept 2025</td>
                 </tr>
                 <tr class='nhsuk-table__row'>
                   <td class='nhsuk-table__cell'>Version</td>
@@ -77,9 +92,8 @@
             </table>
             <h3>Journeys:</h3>
             <ul>
-              <li><a href='/iteration0/home2'>File submission scenario 1 - DID 1 collection/ 1 organisation</a></li>
-              <li><a href='/iteration0/home'>File submission scenario 2</a></li>
-              
+              <li><a href='/iteration0/home1'>File submission scenario 1 - DID 1 collection/ 1 organisation</a></li>
+              <li><a href='/iteration0/home2'>File submission scenario 2 - 2 collections/ 2 organisations</a></li>
             </ul>
           "
         }) }}
@@ -145,34 +159,7 @@
 
       <hr>
 
-      <h2 class="nhsuk-heading-l">
-        Useful links
-      </h2>
-
-      <ul class="nhsuk-list nhsuk-list--bullet">
-        <li>
-          <a href="#">To-be service map</a>
-        </li>
-        <li>
-          <a href="#">Main Mural board</a>
-        </li>
-        <li>
-          <a href="#">Assumptions tracker</a>
-        </li>
-        <li>
-          <a href="#">Iterations tracker</a>
-        </li>
-        <li>
-          <a href="#">User research Mural board</a>
-        </li>
-        <li>
-          <a href="https://service-manual.nhs.uk/design-system">NHS design system </a>
-        </li>
-        <li>
-          <a href="https://prototype-kit.service-manual.nhs.uk/how-tos">NHS prototype kit</a>
-        </li>
-      </ul>
-
+     
       <p>
         There is a selection of <a href="/example-templates">example page templates</a> in <strong>/lib/example-templates/</strong>. To use these, copy and paste them into <strong>/app/views/</strong>.
       </p>
