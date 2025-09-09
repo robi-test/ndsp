@@ -1,0 +1,84 @@
+<!--
+  This is the main layout where you can:
+    - change the header and footer
+    - add custom CSS and JavaScript
+-->
+
+<!-- Extends the prototype kit template which in turn extends the NHS.UK frontend template -->
+{% extends "prototype-kit-template.njk" %}
+
+{% block head %}
+  <!-- Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+  <link href="/css/main.css" rel="stylesheet">
+  <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
+{% endblock %}
+
+
+<!-- Edit the header -->
+<!-- Header code examples can be found at https://service-manual.nhs.uk/design-system/components/header -->
+{% block header %}
+
+  <!-- <span style="position: absolute; top: 0; right: 10%; height: 64px; display: flex; align-items: center; font-weight: 600; font-size: 1rem; color: #ffffff; z-index: 2;">
+  John Smith | <a href="#" style="margin-left: 10px; color:white">Settings | </a><a href="#" style="margin-left: 10px; color:white">Log out</a>
+  </span> -->
+
+  {{ header({
+    service: {
+      name: serviceName,
+      href: "/"
+    },
+    showNav: "false",
+    showSearch: "false",
+    searchAction: " ",
+    primaryLinks: [
+    {
+      url  : '/iteration0/home1',
+      label : "Home"
+    },
+      {
+        url  : '/iteration0/submissions1',
+        label : "Submissions"
+      },
+      {
+        url : '#',
+        label : 'Reports'
+      },
+        {
+        url : '#',
+        label : 'Guidance'
+      },
+      {
+        url : '#',
+        label : 'Support'
+      }]
+  }) }}
+
+    
+{% endblock %}
+
+<!-- Edit the footer -->
+<!-- Footer code examples can be found at https://service-manual.nhs.uk/design-system/components/footer -->
+{% block footer %}
+  {{ footer(
+    {
+    links: [
+      {
+        URL: "#",
+        label: " "
+      }
+          ]
+    }
+          ) 
+  }}
+
+
+{% endblock %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+    <!-- Custom JavaScript files can be added to this file -->
+    {% include "includes/scripts.html" %}
+    <!-- For adding page specific JavaScript -->
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}
