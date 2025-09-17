@@ -20,6 +20,11 @@
     max-width: 1200px;
 }
 
+@media (min-width: 40.0625em) {
+    .nhsuk-main-wrapper {
+        padding-top: 18px; 
+    } 
+}
 /* Ticket panel from Gov.uk  */
 .nhsuk-ticket-panel { 
     margin-bottom: 64px; 
@@ -243,6 +248,8 @@ h1{font-size:1.5rem;margin:0 0 16px}
 }
 .nhsuk-pagination {
     text-align: left;
+    max-width:40%;
+    display: inline-block
 }
 a.nhsuk-pagination__link {
     text-decoration: underline;
@@ -305,3 +312,286 @@ a.nhsuk-pagination__link {
 .nhsuk-table__caption {
         margin-bottom: 20px;
     }
+
+/* Table filters*/
+.nhsuk-table-filters { padding:16px; margin-bottom:16px; }
+.nhsuk-table-filters__grid { display:grid; grid-template-columns: 1fr; gap:12px; }
+@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 150px 250px 250px 250px auto; align-items:end; } }
+.nhsuk-table-filters__actions { display:flex; gap:8px; }
+#results-count { font-size: 16px; color:#4c6272; }
+
+
+
+
+/* Selected section */
+.nhsuk-selected { margin-top: 16px; }
+.nhsuk-selected__header { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:8px; }
+.nhsuk-selected__title { display:inline-block; }
+.nhsuk-selected__group { margin-top: 8px; }
+.nhsuk-chiplist { list-style:none; padding:0; margin:8px 0 0; display:flex; gap:8px; flex-wrap:wrap; }
+
+
+/* Chip */
+.nhsuk-chip { display:inline-flex; align-items:center; gap:.5rem; border:2px solid #0b0c0c; border-radius:2px; padding:4px 8px; background:#fff; font-size:16px; line-height:1.25; }
+.nhsuk-chip__remove { background:none; border:0; cursor:pointer; text-decoration:none; font-weight:700; }
+.nhsuk-chip__remove:focus { outline:3px solid #ffbf47; outline-offset:0; }
+
+.nhsuk-selected__row { display:flex; gap:8px; flex-wrap:wrap; }
+
+
+/* Chips */
+.nhsuk-chip { display:inline-flex; align-items:center; gap:.5rem; border:2px solid #0b0c0c; border-radius:2px; padding:4px 8px; background:#fff; font-size:16px; line-height:1.25; }
+.nhsuk-chip__remove { background:none; border:0; cursor:pointer; text-decoration:none; font-weight:700; }
+.nhsuk-chip__remove:focus { outline:3px solid #ffbf47; outline-offset:0; }
+
+.nhsuk-notification-banner {
+    border: 4px solid #005eb8;
+    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner {
+        font-size:19px;
+        font-size: 1.1875rem;
+        line-height: 1.47368
+    }
+}
+
+@media print {
+    .nhsuk-notification-banner {
+        font-size: 13pt;
+        line-height: 1.25
+    }
+}
+
+.nhsuk-notification-banner {
+    margin-bottom: 48px
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner {
+        margin-bottom:56px
+    }
+}
+
+.nhsuk-notification-banner:focus {
+    outline: 4px solid #ffeb3b
+}
+
+.nhsuk-notification-banner__header {
+    background-color: #005eb8;
+    border-bottom: 1px solid transparent;
+    padding: 2px 16px 4px
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner__header {
+        padding:2px 24px 4px
+    }
+}
+
+.nhsuk-notification-banner__title {
+    color: #fff;
+    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner__title {
+        font-size:19px;
+        font-size: 1.1875rem;
+        line-height: 1.47368
+    }
+}
+
+@media print {
+    .nhsuk-notification-banner__title {
+        font-size: 13pt;
+        line-height: 1.25
+    }
+}
+
+.nhsuk-notification-banner__content {
+    color: #212b32;
+    padding: 16px
+}
+
+@media print {
+    .nhsuk-notification-banner__content {
+        color: #000
+    }
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner__content {
+        padding:24px
+    }
+}
+
+.nhsuk-notification-banner__content>* {
+    box-sizing: border-box;
+    max-width: 601.3333333333px
+}
+
+.nhsuk-notification-banner__content>:last-child {
+    margin-bottom: 0
+}
+
+.nhsuk-notification-banner__heading {
+    font-size: 22px;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.31818;
+    margin: 0 0 16px;
+    padding: 0
+}
+
+@media(min-width: 40.0625em) {
+    .nhsuk-notification-banner__heading {
+        font-size:26px;
+        font-size: 1.625rem;
+        line-height: 1.23077
+    }
+}
+
+@media print {
+    .nhsuk-notification-banner__heading {
+        font-size: 17pt;
+        line-height: 1.25
+    }
+}
+
+.nhsuk-notification-banner__link:visited {
+    color: #005eb8
+}
+
+.nhsuk-notification-banner__link:visited .nhsuk-icon {
+    fill: #005eb8
+}
+
+.nhsuk-notification-banner--success {
+    border-color: #007f3b
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__header {
+    background-color: #007f3b
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link {
+    color: #007f3b;
+    text-decoration: underline
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link .nhsuk-icon {
+    fill: #007f3b
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:visited {
+    color: #007f3b
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:visited .nhsuk-icon {
+    fill: #007f3b
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:hover,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:hover:visited {
+    color: nhsuk-shade(#007f3b,20%);
+    text-decoration: none
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:hover .nhsuk-icon,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:hover:visited .nhsuk-icon {
+    fill: nhsuk-shade(#007f3b,20%)
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:active,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:active:visited {
+    color: nhsuk-shade(#007f3b,50%)
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:active .nhsuk-icon,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:active:visited .nhsuk-icon {
+    fill: nhsuk-shade(#007f3b,50%)
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus:visited {
+    background-color: #ffeb3b;
+    box-shadow: 0 -2px #ffeb3b,0 4px #212b32;
+    outline: 4px solid transparent;
+    text-decoration: none
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus .nhsuk-icon,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus:visited,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus:visited .nhsuk-icon {
+    color: #212b32;
+    fill: #212b32
+}
+
+.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus:hover,.nhsuk-notification-banner--success .nhsuk-notification-banner__link:focus:visited:hover {
+    text-decoration: none
+}
+
+
+.nhs-warning-text__text {
+    color: #0b0c0c;
+    display: block;
+    font-weight: inherit;
+    padding-left: 45px;
+}
+.nhs-warning-text__icon {
+    background: #eea509;
+    border: 3px solid #eea509;
+    border-radius: 50%;
+    box-sizing: border-box;
+    color: #fff;
+    display: inline-block;
+    font-size: 30px;
+    forced-color-adjust: none;
+    left: 0;
+    line-height: 29px;
+    margin-top: -7px;
+    min-height: 35px;
+    min-width: 35px;
+    position: absolute;
+    text-align: center;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.nhs-warning-text {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    position: relative;
+}
+
+@media (min-width: 40.0625em) {
+    .nhs-warning-text {
+        font-size: 1.1875rem;
+        line-height: 1.3157894737;
+        margin-bottom: 30px;
+    }
+}
+.nhs-visually-hidden {
+    height: 1px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    border: 0 !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap !important;
+}

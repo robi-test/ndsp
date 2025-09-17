@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Upload files" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+          <form id="upload-form" method="post" action="upload" enctype="multipart/form-data" novalidate>
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l">Submit data</span>Upload files</h1>
+            <p>You are uploading files for:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: {
+                    text: "Collection"
+                  },
+                  value: {
+                    text: "Diagnostic Imaging Dataset"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-collection",
+                        text: " ",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Organisation"
+                  },
+                  value: {
+                    text: "	Sheffield Teaching Hospital"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-organisation2",
+                        text: " ",
+                        visuallyHiddenText: "organisation"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Reporting period"
+                  },
+                  value: {
+                    text: data.period
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-period1",
+                        text: "Change",
+                        visuallyHiddenText: "period"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Template version"
+                  },
+                  value: {
+                    text: "DID V2.0"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        text: ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Collection"
+                  },
+                  value: {
+                    text: "Diagnostic Imaging Dataset"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-collection",
+                        text: " ",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Organisation"
+                  },
+                  value: {
+                    text: "	Sheffield Teaching Hospital"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-organisation2",
+                        text: " ",
+                        visuallyHiddenText: "organisation"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Reporting period"
+                  },
+                  value: {
+                    text: data.period
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-period1",
+                        text: "Change",
+                        visuallyHiddenText: "period"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Template version"
+                  },
+                  value: {
+                    text: "DID V2.0"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        text: ""
+                      }
+                    ]
+                  }
+                }
+                
+              ]
+            }) }}
+      
+  </div>
+
+              <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
+           
+    </div>
+  </div>
+{% endblock %}

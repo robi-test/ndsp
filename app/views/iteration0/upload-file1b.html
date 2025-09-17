@@ -92,20 +92,16 @@
                 
               ]
             }) }}
-
-      {% if "August" not in data.period %}
-      <div class="nhs-warning-text nhsuk-grid-column-two-thirds">
-        <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="nhs-warning-text__text">
-          <span class="nhs-visually-hidden">Warning</span>
-          Your organisation has already submitted data for this reporting period. If you choose to submit again, please ensure the file includes all required records, NHS England will use the last successfully validated file as the official submission. 
-        </strong>
-      </div>
-      {% endif %}
-      
+            
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">Warning</span>
+      Do not use the error alert for validation errors. Continue to use the <a href="https://design-system.service.gov.uk/components/error-message">GOV.UK error message</a> for this.
+    </strong>
   </div>
 
-              <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
+              <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
             <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 2Gb.</p>
 
           

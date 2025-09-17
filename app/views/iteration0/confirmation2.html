@@ -5,22 +5,23 @@
 
 
 {% block content %}
-  {% from 'panel/macro.njk' import panel %}
-{% from "summary-list/macro.njk" import summaryList %}
 
+<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+  <div class="nhsuk-notification-banner__header">
+    <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+<div class="nhsuk-notification-banner__content">
+<h3 class="nhsuk-notification-banner__heading">
+    File uploaded
+  </h3>
+  <p>Your file has been uploaded and submitted</p>
+  <h4 class="nhsuk-notification-banner__heading">What happens next?</h2>
+   <p>Your file will go through the validation process. When it will be valiidated you will be able to download a feedback report.<br>You can see the status of your submission on the <a href="submissions2" class="nhsuk-link">submissions page</a></p>
+  </div>
+  </div>
+</div>
 
-    <div class="nhsuk-grid-row">
-        <div class="nhsuk-grid-column-two-thirds">
-
-            {{ panel({
-                titleText: "Your file has been uploaded and submitted"
-            }) }}
-
-            
-
-            <p><br>You can see the status of your submission on the <a href="submissions2" class="nhsuk-link">submissions page</a>.</p>
-<p style="margin-bottom:240px"> </p>
-        </div>
-    </div>
 
 {% endblock %}
