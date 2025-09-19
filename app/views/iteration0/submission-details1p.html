@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
-{% set pageName = "Upload files" %}
+{% set pageName = "Submission details" %}
 
 {% block beforeContent %}
   {{ backLink({
@@ -16,9 +16,8 @@
     <div class="nhsuk-grid-column-full">
       <div class="nhsuk-width-container">
         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
-          <form id="upload-form" method="post" action="upload" enctype="multipart/form-data" novalidate>
-            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l">Submit data</span>Upload files</h1>
-            <p>You are uploading files for:</p>
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            <p>Your submission details:</p>
             {% from "summary-list/macro.njk" import summaryList %}
             
             {{ summaryList({
@@ -67,8 +66,8 @@
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-period1",
-                        text: "Change",
+                        href: "#",
+                        text: " ",
                         visuallyHiddenText: "period"
                       }
                     ]
@@ -91,61 +90,78 @@
                 },
                 {
                   key: {
-                    text: "Collection"
+                    text: "Submission ID"
                   },
                   value: {
-                    text: "Diagnostic Imaging Dataset"
+                    text: "2736"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-collection",
                         text: " ",
-                        visuallyHiddenText: "collection"
+                        visuallyHiddenText: "Submission ID"
                       }
                     ]
                   }
                 },
                 {
                   key: {
-                    text: "Organisation"
+                    text: "File submitted"
                   },
                   value: {
-                    text: "	Sheffield Teaching Hospital"
+                    text: "DID_Aug2025_V2.csv"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: "Download file",
+                        visuallyHiddenText: "File submitted"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Submitted on"
+                  },
+                  value: {
+                    text: "15 Sep 2025, 09:30"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-organisation2",
                         text: " ",
-                        visuallyHiddenText: "organisation"
+                        visuallyHiddenText: "Submitted on"
                       }
                     ]
                   }
                 },
                 {
                   key: {
-                    text: "Reporting period"
+                    text: "Submitted by"
                   },
                   value: {
-                    text: data.period
+                    text: "John Smith"
                   },
                   actions: {
                     items: [
                       {
                         href: "/iteration0/choose-period1",
-                        text: "Change",
-                        visuallyHiddenText: "period"
+                        text: " ",
+                        visuallyHiddenText: "Submitted by"
                       }
                     ]
                   }
                 },
                 {
                   key: {
-                    text: "Template version"
+                    text: "Status"
                   },
                   value: {
-                    text: "DID V2.0"
+                    html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"})
                   },
                   actions: {
                     items: [
@@ -160,9 +176,10 @@
             }) }}
       
   </div>
-
-              <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
-           
+    <div style="margin-top:100px; margin-bottom:200px">
+                  <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+                  <p>The file is being validated. You will be able to download a feedback report when the validation is complete.</p>
+              
     </div>
   </div>
 {% endblock %}

@@ -96,9 +96,9 @@
       {% if "August" not in data.period %}
       <div class="nhs-warning-text nhsuk-grid-column-two-thirds">
         <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="nhs-warning-text__text">
+        <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
           <span class="nhs-visually-hidden">Warning</span>
-          Your organisation has already submitted data for this reporting period. If you choose to submit again, please ensure the file includes all required records, NHS England will use the last successfully validated file as the official submission. 
+          Your organisation has already submitted data for this reporting period. If you choose to submit again to update data, please ensure the file includes all required records, NHS England will use the last successfully validated file as the official submission.
         </strong>
       </div>
       {% endif %}
@@ -138,18 +138,10 @@
              <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">
             </div>            
             <p><br></p>
-            <div class="nhsuk-form-group nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-7">
-              <label class="nhsuk-label" for="example">
-                 <h2 class="nhsuk-heading-m">Add a note (optional)</h2>
-              </label>
-             <div class="nhsuk-hint" id="example-hint">
-                Do not include personal information like name, date of birth or NHS number.
-              </div> <textarea class="nhsuk-textarea" id="example" name="example" rows="5" aria-describedby="example-hint"></textarea>
-            </div>
-           
-            {% from 'checkboxes/macro.njk' import checkboxes %}
 
-<form method="post" novalidate>
+{% from 'checkboxes/macro.njk' import checkboxes %}
+
+<form method="post"  >
   {{ checkboxes({
     idPrefix: "test",
     name: "Test",

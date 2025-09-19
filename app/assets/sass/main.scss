@@ -85,17 +85,16 @@ background: #f5f8f9; /* subtle grey tint */
 
 /* NHS-styled translation of the MOJ filter layout. */
 
-
 .nhsuk-filter-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media (min-width: 48em) { /* tablet+ */
 .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
 }
 
 
+
 .nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
 .nhsuk-filter-panel__header { padding: 16px; border-bottom: 1px solid #d8dde0; }
 .nhsuk-filter-panel__content { padding: 16px; }
-
 
 .nhsuk-filter-selected { background: #f5f8f9; border: 1px solid #d8dde0; border-radius: 8px; padding: 16px; }
 .nhsuk-filter-selected__heading { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
@@ -164,6 +163,9 @@ h1{font-size:1.5rem;margin:0 0 16px}
         font-size: 1.0rem !important;
         line-height: 1.47368;
     }
+}
+thead th {
+    font-weight: 700;
 }
 /* Pagination container */
 .nhsuk-pagination {

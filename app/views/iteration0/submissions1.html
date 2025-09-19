@@ -22,24 +22,24 @@
 <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
 <div class="nhsuk-table-filters__grid">
 <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-id">Search by ID</label>
+<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
 <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
 </div>
+
 <div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
+  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+</div>
+<!-- <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-organisation">Organisation</label>
 <select class="nhsuk-select" id="filter-organisation" name="organisation">
 <option value="">All organisations</option>
 <option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
 </select>
-</div>
+</div> -->
+
 <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-submitted-by">Period</label>
-<select class="nhsuk-select" id="filter-period" name="filterPeriod">
-<option value=""> </option>
-</select>
-</div>
-<div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-submitted-by">Submitted by</label>
+<label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
 <select class="nhsuk-select" id="filter-submitted-by" name="submittedBy">
 <option value="">Anyone</option>
 <option value="James Jackson">James Jackson</option>
@@ -91,7 +91,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>{{ data.period }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Primary</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td>   
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1p">View</a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2735</td>            
@@ -261,7 +261,9 @@
   var idInput = form.querySelector('#filter-id')
   var orgSel = form.querySelector('#filter-organisation')
   var bySel = form.querySelector('#filter-submitted-by')
-  var periodSel = form.querySelector('#filter-period')
+  var monthSel = form.querySelector('#filter-month')
+  var yearSel = form.querySelector('#filter-year')
+    var periodInput = form.querySelector('#filter-period')
     var clearBtn= form.querySelector('[data-clear-filters]')
     var countEl = document.getElementById('results-count')
     var applyBtn = form.querySelector('button[type="submit"]')
@@ -284,7 +286,8 @@
         id: cellValue(c[keyIndex.id]),
         org: cellValue(c[keyIndex.organisation]),
         by: cellValue(c[keyIndex.submittedBy]),
-        type: cellValue(c[keyIndex.type])
+        type: cellValue(c[keyIndex.type]),
+        period: cellValue(c[keyIndex.Period])
       }
       return rec
     })
@@ -293,18 +296,32 @@
     function populateSelect(sel, values){ if (!sel || sel.options.length>1) return; uniqueSorted(values).forEach(v=>{ var o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o) }) }
   populateSelect(orgSel, data.map(r=>r.org))
   populateSelect(bySel, data.map(r=>r.by))
-  populateSelect(periodSel, data.map(r=>r.period))
+  // Extract months and years from period values
+  function extractMonth(period) {
+    if (!period) return '';
+    var parts = period.split(' ');
+    return parts[0] || '';
+  }
+  function extractYear(period) {
+    if (!period) return '';
+    var parts = period.split(' ');
+    return parts[1] || '';
+  }
+    // populateSelect(monthSel, data.map(r=>extractMonth(r.period)))
+    // populateSelect(yearSel, data.map(r=>extractYear(r.period)))
 
     function matches(rec){
       var idQ = (idInput?.value || '').trim().toLowerCase()
       var orgQ = (orgSel?.value || '')
       var byQ = (bySel?.value || '')
-      var periodQ = (periodSel?.value || '')
-      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
-      if (orgQ && rec.org !== orgQ) return false
-      if (byQ && rec.by !== byQ) return false
-      if (periodQ && rec.period !== periodQ) return false
-      return true
+  var monthQ = (monthSel?.value || '')
+  var yearQ = (yearSel?.value || '')
+  var periodQ = (periodInput?.value || '').trim().toLowerCase()
+  if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
+  if (orgQ && rec.org !== orgQ) return false
+  if (byQ && rec.by !== byQ) return false
+  if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
+  return true
     }
 
     function renderChips() {
@@ -319,9 +336,15 @@
       if (bySel && bySel.value) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + bySel.options[bySel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
-      if (periodSel && periodSel.value) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodSel.options[periodSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      if (monthSel && monthSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="month" title="Clear Month filter">Month: ' + monthSel.options[monthSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
+      if (yearSel && yearSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="year" title="Clear Year filter">Year: ' + yearSel.options[yearSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+        if (periodInput && periodInput.value.trim()) {
+          chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+        }
       chipsEl.innerHTML = chips.join(' ');
 
       // Add click handlers to clear individual filters
@@ -331,7 +354,9 @@
           if (filter === 'id' && idInput) idInput.value = '';
           if (filter === 'organisation' && orgSel) orgSel.value = '';
           if (filter === 'submittedBy' && bySel) bySel.value = '';
-          if (filter === 'period' && periodSel) periodSel.value = '';
+          if (filter === 'month' && monthSel) monthSel.value = '';
+          if (filter === 'year' && yearSel) yearSel.value = '';
+            if (filter === 'period' && periodInput) periodInput.value = '';
           // Re-render after clearing
           render();
         });
@@ -359,6 +384,7 @@
         render();
       });
     }
+  // Remove live filtering for period; only filter on Apply
 
     // Clear filters
     if (clearBtn) clearBtn.addEventListener('click', function(e){
@@ -366,7 +392,7 @@
       if (idInput) idInput.value = ''
       if (orgSel) orgSel.value = ''
       if (bySel) bySel.value = ''
-  if (periodSel) periodSel.value = ''
+      if (typeSel) typeSel.value = ''
       render()
     })
 
