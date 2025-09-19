@@ -25,18 +25,18 @@
 <label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
 <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
 </div>
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
+<select class="nhsuk-select" id="filter-organisation" name="organisation">
+<option value="">All organisations</option>
+<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
+</select>
+</div>
 
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
   <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
 </div>
-<!-- <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-organisation">Organisation</label>
-<select class="nhsuk-select" id="filter-organisation" name="organisation">
-<option value="">All organisations</option>
-<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
-</select>
-</div> -->
 
 <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
@@ -101,7 +101,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2025</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Updates</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2734</td>            
@@ -111,7 +111,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>July 2025</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1w">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2733</td>            

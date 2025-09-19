@@ -1,0 +1,249 @@
+{% extends "layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Submission details" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            <p>Your submission details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: {
+                    text: "Collection"
+                  },
+                  value: {
+                    text: "Diagnostic Imaging Dataset"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-collection",
+                        text: " ",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Organisation"
+                  },
+                  value: {
+                    text: "	Sheffield Teaching Hospital"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-organisation2",
+                        text: " ",
+                        visuallyHiddenText: "organisation"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Reporting period"
+                  },
+                  value: {
+                    text: data.period
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: " ",
+                        visuallyHiddenText: "period"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Template version"
+                  },
+                  value: {
+                    text: "DID V2.0"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        text: ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Submission ID"
+                  },
+                  value: {
+                    text: "2736"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-collection",
+                        text: " ",
+                        visuallyHiddenText: "Submission ID"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "File submitted"
+                  },
+                  value: {
+                    text: "DID_Aug2025_V2.csv"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: "Download file",
+                        visuallyHiddenText: "File submitted"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Submitted on"
+                  },
+                  value: {
+                    text: "15 Sep 2025, 09:30"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-organisation2",
+                        text: " ",
+                        visuallyHiddenText: "Submitted on"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Submitted by"
+                  },
+                  value: {
+                    text: "John Smith"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/choose-period1",
+                        text: " ",
+                        visuallyHiddenText: "Submitted by"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Status"
+                  },
+                  value: {
+                    html: tag({text: "Rejected", classes: "nhsuk-tag--red"})
+                  },
+                  actions: {
+                    items: [
+                      {
+                        text: ""
+                      }
+                    ]
+                  }
+                }
+                
+              ]
+            }) }}
+      
+  </div>
+    <div style="margin-top:100px; margin-bottom:200px">
+                  <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+                 <p>Your validation feedback details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: {
+                    text: "Number of records"
+                  },
+                  value: {
+                    text: "1,234"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: " ",
+                        visuallyHiddenText: "records"
+                      }
+                    ]
+                  }
+                },{
+                  key: {
+                    text: "Errors"
+                  },
+                  value: {
+                    text: "3 error(s)"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: "",
+                        text: " ",
+                        visuallyHiddenText: "errors"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: {
+                    text: "Warnings"
+                  },
+                  value: {
+                    text: "12 warning(s)"
+                  },
+                  actions: {
+                    items: [
+                      {
+                        href: " ",
+                        text: " ",
+                        visuallyHiddenText: "warnings"
+                      }
+                    ]
+                  }
+                }
+                
+                
+              ]
+            }) }}
+      
+         {% from 'action-link/macro.njk' import actionLink %}
+
+{{ actionLink({
+  text: "Download validation report",
+  href: "#"
+}) }}     
+    </div>
+  </div>
+{% endblock %}

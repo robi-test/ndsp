@@ -7,7 +7,7 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-l">Uploading your file(s)</h1>
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-top-4">Uploading your file</h1>
 
 
 
@@ -32,10 +32,44 @@
                 <div class="bar"></div>
                 </div>
                 </div>
-            <p class="filename nhsuk-u-margin-bottom-8">Please do not leave or refresh the page until the file upload has been completed.</p>
-            </div>      
-            <a href="confirmation1">continue > file uploaded</a>
-            <p style="margin-bottom:240px"> </p>
+                <p class="filename nhsuk-u-margin-bottom-8">Please do not leave or refresh the page until the file upload has been completed.</p>
+            </div>  
+
+
+             <div style="margin-bottom:200px">
+                <p><a href="confirmation1">File uploaded &gt; continue</a></p>
+                <p><a href="#" id="back-warning-link">If user tries to go back</a></p>
+                <!-- Custom Modal Popup -->
+                <div id="back-warning-modal" class="nhsuk-modal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+                  <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;margin:auto;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
+                    <h2 style="margin-top:0;font-size:1.3rem;">Upload not complete</h2>
+                    <p style="margin-bottom:2rem;">If you leave or go back, your upload will be cancelled and you will need to start the submission again.</p>
+                    <button id="close-back-warning" class="nhsuk-button" style="margin-bottom:0;">OK</button>
+                  </div>
+                </div>
+<script>
+// Show custom modal popup when user clicks the 'If users tries to go back' link
+document.addEventListener('DOMContentLoaded', function() {
+  var link = document.getElementById('back-warning-link');
+  var modal = document.getElementById('back-warning-modal');
+  var closeBtn = document.getElementById('close-back-warning');
+  if (link && modal && closeBtn) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+    // Optional: close modal when clicking outside the box
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+  }
+});
+</script>
+              </div>    
+             </div>
             
         </div>
     </div>
