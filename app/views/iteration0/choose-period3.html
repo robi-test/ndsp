@@ -1,4 +1,4 @@
-{% extends "layout2.html" %}
+{% extends "layout3.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 
@@ -26,6 +26,7 @@
         {{ radios({
           idPrefix: "period",
           name: "period",
+          classes: "nhs-radios--small",
           fieldset: {
             legend: {
               text: "Which period do you want to submit data for?",
@@ -38,7 +39,7 @@
           },
           values: data.period,
           items: [
-            {
+          {
               value: "August 2025",
               text: "August 2025"
             },
@@ -47,16 +48,8 @@
               text: "July 2025"
             },
             {
-              value: "May 2025",
-              text: "May 2025"
-            },
-            {
-              value: "April 2025",
-              text: "April 2025"
-            },
-            {
-              value: "March 2025",
-              text: "March 2025"
+              value: "June 2025",
+              text: "June 2025"
             }
           ]
         }) }}

@@ -1,3 +1,10 @@
+/* Align results count to the right */
+.results-count-align-right {
+    text-align: right;
+    max-width: 40%;
+    display: block;
+    margin-left: auto;
+}
 // Import NHS.UK frontend library
 @import 'node_modules/nhsuk-frontend/packages/nhsuk';
 
@@ -24,6 +31,11 @@
     .nhsuk-main-wrapper {
         padding-top: 18px; 
     } 
+
+li {
+    text-align: left;
+    margin-left: 15px;
+}
 }
 /* Ticket panel from Gov.uk  */
 .nhsuk-ticket-panel { 
@@ -89,7 +101,7 @@ background: #f5f8f9; /* subtle grey tint */
 @media (min-width: 48em) { /* tablet+ */
 .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
 }
-
+.nhsuk-select {min-width: 20ex;}
 
 
 .nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
@@ -130,7 +142,7 @@ background: #f5f8f9; /* subtle grey tint */
 .nhsuk-chip { display: inline-flex; align-items: center; gap: .5rem; border: 2px solid #0b0c0c; border-radius: 2px; padding: 4px 8px; background: #fff; font-size: 16px; line-height: 1.25; }
 .nhsuk-chip__remove { background: none; border: 0; cursor: pointer; text-decoration: none; }
 .nhsuk-chip__remove:focus { outline: 3px solid #ffbf47; outline-offset: 0; }
-
+span#no-filters-msg {margin-right: auto;}
 
 /* Layout helper for the two-column grid (sidebar + results) */
 .nhsuk-filter-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
@@ -155,6 +167,13 @@ background: #f5f8f9; /* subtle grey tint */
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#0b0c0c}
 h1{font-size:1.5rem;margin:0 0 16px}
 
+/* Expander */
+.nhsuk-expander .nhsuk-details__summary {
+    background-color: #ffffff;
+    border-top: 4px solid transparent;
+    display: block;
+    padding: 18px 12px 18px;
+}
 
 /* Table */
 @media (min-width: 40.0625em) {
@@ -259,10 +278,7 @@ a.nhsuk-pagination__link {
 
 
 #choose-btn {
-    font-size: 14px;
-    padding: 0px 8px;
-    top: 22px;
-    margin-left:5px;
+    margin-left:10px;
 }
 .nhsuk-link 
 {
@@ -318,7 +334,7 @@ a.nhsuk-pagination__link {
 /* Table filters*/
 .nhsuk-table-filters { padding:16px; margin-bottom:16px; }
 .nhsuk-table-filters__grid { display:grid; grid-template-columns: 1fr; gap:12px; }
-@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 150px 250px 250px 250px auto; align-items:end; } }
+@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 150px 200px 200px 200px 200px auto; align-items:end; } }
 .nhsuk-table-filters__actions { display:flex; gap:8px; }
 #results-count { font-size: 16px; color:#4c6272; }
 

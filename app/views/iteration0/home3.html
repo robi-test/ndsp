@@ -1,22 +1,24 @@
-{% extends "layout2.html" %}
+{% extends "layout3.html" %}
 
 {% set pageName = serviceName %}
 
-
-
 {% block content %}
-  <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds">
       <h2>
-        {{ pageName }}
+         {{ pageName }}
       </h2>
-        <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new NHS Data Submission Portal. <br>You can use this portal to submit data, see validation feedback, and download reports for multiple collections based on your organisation's access. 
+<!-- {% from 'warning-callout/macro.njk' import warningCallout %}
+{{ warningCallout({
+  heading: "Deadline approaching",
+  html: "<p>The submission deadline for Diagnostic Imaging Dataset is approaching and no data has been submitted by your organisation yet. Please ensure your submission is completed before the deadline.</p>"
+}) }} -->
+
+      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new NHS Data Submission Portal. <br>You can use this portal to submit data, see validation feedback, and download reports for multiple collections based on your organisation's access. 
       </p>
       <p >Currently you can submit for the following collection(s):
       <li style="font-size: 18px;"><strong>Diagnostic Imaging Dataset</strong></li>
-      <li style="font-size: 18px;" class="nhsuk-u-margin-bottom-5"><strong>Diagnostics Waiting Times and Activity</strong></li> 
       </p>
-
       {% from 'details/macro.njk' import details %}
       {{ details({
         text: "Submitting data using the Data Submission Portal",
@@ -32,94 +34,60 @@
       {% from 'action-link/macro.njk' import actionLink %}
       {{ actionLink({
         text: "Start a submission",
-        href: "choose-collection2"
+        href: "choose-organisation3"
       }) }}
-      <hr>  
-   </div>
-</div>    
- 
+  
+
+  </div>
+</div>
 <div class="nhsuk-grid-row">
-  <div class="nhsuk-grid-column-full">
-    <div class="nhsuk-table__panel-with-heading-tab">    
-      <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>       
-      <table class="nhsuk-table-responsive nhsuk-table--sortable">
+    <div class="nhsuk-grid-column-full">
+<div class="nhsuk-table__panel-with-heading-tab">    
+  <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>      
+    <table class="nhsuk-table-responsive nhsuk-table--sortable">
       <caption class="nhsuk-table__caption--s nhsuk-u-margin-bottom-5  nhsuk-u-visually-hidden">Next deadlines</caption>
   <thead class="nhsuk-table__head">
     <tr  role="row" class="nhsuk-table__row">
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Collection</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Collection</th>
       <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Reporting period</th>
       <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Type of deadline</th>
-      <th scope="col" class="nhsuk-table__heade" role="columnheader" data-sort="date">End date</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">End date</th>
       <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
     </tr>
   </thead>
-    
-    <tbody class="nhsuk-table__body">
-   <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostics Waiting Times and Activity</th>
-      <td class="nhsuk-table__cell">August 2025</td>
-      <td class="nhsuk-table__cell">Monthly</td>
-      <td class="nhsuk-table__cell">28 Sept 2025, 10.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/upload-file2bis?period=August%202025&collection=Diagnostic%20Waiting%20Times%20and%20Activity">Submit</a></td>
-    </tr>
+  <tbody class="nhsuk-table__body">
     <tr class="nhsuk-table__row">
       <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
       <td class="nhsuk-table__cell">August 2025</td>
       <td class="nhsuk-table__cell">Provisional</td>
-      <td class="nhsuk-table__cell">30 Sept 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=August%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-      
-    <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
-      <td class="nhsuk-table__cell">March 2025</td>
-      <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">30 Sept 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=March%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-    <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
-      <td class="nhsuk-table__cell">April 2025</td>
-      <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">31 Oct 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=April%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-
-        <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
-      <td class="nhsuk-table__cell">May 2025</td>
-      <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">30 Nov 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=May%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+      <td class="nhsuk-table__cell">26 Sept 2025, 11.59.59pm</td>
+      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=August%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
     </tr>
     <tr class="nhsuk-table__row">
       <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
       <td class="nhsuk-table__cell">June 2025</td>
       <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">31 Dec 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=June%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+      <td class="nhsuk-table__cell">26 Sept 2025, 11.59.59pm</td>
+      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=June&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
     </tr>
-
-        <tr class="nhsuk-table__row">
+    <tr class="nhsuk-table__row">
       <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DID)</th>
       <td class="nhsuk-table__cell">July 2025</td>
       <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">31 Jan 2026, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation2bis?period=July%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+      <td class="nhsuk-table__cell">26 Oct 2025, 11.59.59pm</td>
+      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=July%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
     </tr>
-
-    </tbody>
-  </table>
+  </tbody>
+</table>
 </div>
+    </div>
   </div>
-  </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-<!-- File: app/assets/javascripts/nhsuk-table-sort.js -->
-// Progressive enhancement: click column headers to sort rows
+<!-- Sortable table -->
 (function () {
 function parseValue(text, type) {
 var t = (text || '').trim()
@@ -131,7 +99,6 @@ return isNaN(d) ? t.toLowerCase() : d
 return t.toLowerCase()
 }
 
-
 function indexOfCell(th) {
 var cells = Array.prototype.slice.call(th.parentElement.children)
 var idx = 0
@@ -142,12 +109,10 @@ idx += cells[i].colSpan || 1
 return -1
 }
 
-
 function sortTable(table, colIndex, type, direction) {
 var tbody = table.tBodies[0]
 if (!tbody) return
 var rows = Array.prototype.slice.call(tbody.rows)
-
 
 rows.sort(function (a, b) {
 var av = parseValue(a.cells[colIndex]?.innerText, type)
@@ -157,12 +122,10 @@ if (av > bv) return direction === 'ascending' ? 1 : -1
 return 0
 })
 
-
 var frag = document.createDocumentFragment()
 rows.forEach(function (r) { frag.appendChild(r) })
 tbody.appendChild(frag)
 }
-
 
 document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
 var ths = table.tHead ? table.tHead.querySelectorAll('th') : []

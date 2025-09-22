@@ -23,95 +23,28 @@
             {{ summaryList({
               rows: [
                 {
-                  key: {
-                    text: "Collection"
-                  },
-                  value: {
-                    text: "Diagnostic Imaging Dataset"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "/iteration0/choose-collection",
-                        text: " ",
-                        visuallyHiddenText: "collection"
-                      }
-                    ]
-                  }
+                  key: { text: "Collection" },
+                  value: { text: "Diagnostic Imaging Dataset" }
                 },
                 {
-                  key: {
-                    text: "Organisation"
-                  },
-                  value: {
-                    text: "	Sheffield Teaching Hospital"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "/iteration0/choose-organisation2",
-                        text: " ",
-                        visuallyHiddenText: "organisation"
-                      }
-                    ]
-                  }
+                  key: { text: "Organisation" },
+                  value: { text: "\tSheffield Teaching Hospital" }
                 },
                 {
-                  key: {
-                    text: "Reporting period"
-                  },
-                  value: {
-                    text: data.period
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "#",
-                        text: " ",
-                        visuallyHiddenText: "period"
-                      }
-                    ]
-                  }
+                  key: { text: "Reporting period" },
+                  value: { text: "August 2025" }
                 },
                 {
-                  key: {
-                    text: "Template version"
-                  },
-                  value: {
-                    text: "DID V2.0"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        text: ""
-                      }
-                    ]
-                  }
+                  key: { text: "Template version" },
+                  value: { text: "DID V2.0" }
                 },
                 {
-                  key: {
-                    text: "Submission ID"
-                  },
-                  value: {
-                    text: "2736"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "/iteration0/choose-collection",
-                        text: " ",
-                        visuallyHiddenText: "Submission ID"
-                      }
-                    ]
-                  }
+                  key: { text: "Submission ID" },
+                  value: { text: "2736" }
                 },
                 {
-                  key: {
-                    text: "File submitted"
-                  },
-                  value: {
-                    text: "DID_Aug2025_V2.csv"
-                  },
+                  key: { text: "File submitted" },
+                  value: { text: "DID_Aug2025_V2.csv" },
                   actions: {
                     items: [
                       {
@@ -123,53 +56,20 @@
                   }
                 },
                 {
-                  key: {
-                    text: "Submitted on"
-                  },
-                  value: {
-                    text: "15 Sep 2025, 09:30"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "/iteration0/choose-organisation2",
-                        text: " ",
-                        visuallyHiddenText: "Submitted on"
-                      }
-                    ]
-                  }
+                  key: { text: "Submitted on" },
+                  value: { text: "15 Sep 2025, 09:30" }
                 },
                 {
-                  key: {
-                    text: "Submitted by"
-                  },
-                  value: {
-                    text: "John Smith"
-                  },
-                  actions: {
-                    items: [
-                      {
-                        href: "/iteration0/choose-period1",
-                        text: " ",
-                        visuallyHiddenText: "Submitted by"
-                      }
-                    ]
-                  }
+                  key: { text: "Submitted by" },
+                  value: { text: "John Smith" }
                 },
                 {
-                  key: {
-                    text: "Status"
-                  },
-                  value: {
-                    html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"})
-                  },
-                  actions: {
-                    items: [
-                      {
-                        text: ""
-                      }
-                    ]
-                  }
+                  key: { text: "Type" },
+                  value: { text: "Primary" }
+                },
+                {
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }
                 }
                 
               ]

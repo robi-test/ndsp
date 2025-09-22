@@ -26,12 +26,21 @@ router.post('/iteration0/choose-organisation2', (req, res) => {
 router.post('/iteration0/choose-organisation2bis', (req, res) => {
     res.redirect('/iteration0/upload-file2');
 });
+router.post('/iteration0/choose-organisation3', (req, res) => {
+    res.redirect('/iteration0/choose-period3');
+});
+router.post('/iteration0/choose-organisation3bis', (req, res) => {
+    res.redirect('/iteration0/upload-file3');
+});
 router.post('/iteration0/choose-period2', (req, res) => {
     res.redirect('/iteration0/upload-file2');
 });
 
 router.post('/iteration0/choose-period1', (req, res) => {
     res.redirect('/iteration0/upload-file1');
+});
+router.post('/iteration0/choose-period3', (req, res) => {
+    res.redirect('/iteration0/upload-file3');
 });
 
 module.exports = router;
