@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% set pageName = serviceName %}
+
+{% block content %}
+<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 100px;margin-bottom: 300px;">
+  <div class="nhsuk-notification-banner__header">
+    <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+  <div class="nhsuk-notification-banner__content">
+    <h3 class="nhsuk-notification-banner__heading">
+      No data declared for this period
+    </h3>
+    <p>You have declared that your organisation has no data to submit for the selected reporting period.</p>
+    <h4 class="nhsuk-notification-banner__heading">What happens next?</h4>
+    <p>Your declaration has been recorded. <br>
+    You can see the status of your declaration on the <a href="submissions1">submissions page</a>.</p>
+  </div>
+</div>
+{% endblock %}

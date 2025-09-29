@@ -334,7 +334,7 @@ a.nhsuk-pagination__link {
 /* Table filters*/
 .nhsuk-table-filters { padding:16px; margin-bottom:16px; }
 .nhsuk-table-filters__grid { display:grid; grid-template-columns: 1fr; gap:12px; }
-@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 150px 200px 200px 200px 200px auto; align-items:end; } }
+@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 200px 200px 200px 200px 200px auto; align-items:end; } }
 .nhsuk-table-filters__actions { display:flex; gap:8px; }
 #results-count { font-size: 16px; color:#4c6272; }
 

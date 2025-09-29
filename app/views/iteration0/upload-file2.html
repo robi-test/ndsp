@@ -92,18 +92,17 @@
                 
               ]
             }) }}
-
-    {% if "August" not in data.period %}
-      <div class="nhs-warning-text nhsuk-grid-column-two-thirds">
-        <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
-          <span class="nhs-visually-hidden">Warning</span>
-          Your organisation has already submitted data for this reporting period. If you choose to submit again to update data, please ensure the file includes all required records for the reporting period, NHS England will use the last successfully validated file as the official submission.
-        </strong>
+        {% if "August" not in data.period %}
+        <div class="nhs-warning-text nhsuk-grid-column-two-thirds">
+          <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
+            <span class="nhs-visually-hidden">Warning</span>
+            Your organisation has already submitted data for this reporting period. <br>If you choose to submit again to update data, please ensure the file includes all required records for the reporting period. <br>NHS England will use the last successfully validated file as the official submission.
+          </strong>
+        </div>
+        {% endif %}
       </div>
-      {% endif %}
-            
-  <h2 class="nhsuk-heading-m nhsuk-u-margin-top-7">Choose file to upload</h2>
+      <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
             <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 6Gb.</p>
             <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
             {% from 'details/macro.njk' import details %}
@@ -181,7 +180,7 @@
 
 
     </div>
-  </div>
+
 {% endblock %}
 
 {% block scripts %}

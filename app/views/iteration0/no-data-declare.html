@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% set pageName = "Declare No data" %}
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+    <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l">Submit data</span>Declare no data for selected reporting period</h1>
+    <div class="nhsuk-u-margin-top-8 ">
+      <dl class="nhsuk-summary-list">
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Collection</dt>
+          <dd class="nhsuk-summary-list__value">Diagnostic Imaging Dataset</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Organisation</dt>
+          <dd class="nhsuk-summary-list__value">Sheffield Teaching Hospital</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Reporting Period</dt>
+          <dd class="nhsuk-summary-list__value">August 2025</dd>
+        </div>
+
+      </dl>
+    </div>
+
+    {% from 'inset-text/macro.njk' import insetText %}
+
+    {% set insetTextHtml %}
+    <p>Declaring no data means you are confirming that your organisation has no data to submit for this reporting period.<br>
+        This does not prevent you from submitting data later.<br>
+        </p>
+    {% endset %}
+
+    {{ insetText({
+    html: insetTextHtml
+    }) }}
+    
+    <form id="no-data-form">
+      <fieldset class="nhsuk-fieldset">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+          Are you sure you want to declare no data for this period?
+        </legend>
+        <div class="nhsuk-u-margin-bottom-7">
+        <p>Declaring no data is important for ensuring accuracy and transparency in national reporting. <br>It helps distinguish between genuinely missing data and periods where no activity occurred, improving the overall quality for your organisation.</p>
+    </div>
+        <button class="nhsuk-button" type="submit">Proceed with No data</button>
+      </fieldset>
+    </form>
+    <script>
+      document.getElementById('no-data-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        window.location.href = '/iteration0/confirmation-no-data';
+      });
+    </script>
+
+  </div>
+</div>
+{% endblock %}
