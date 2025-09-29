@@ -32,7 +32,7 @@
                 },
                 {
                   key: { text: "Reporting period" },
-                  value: { text: "July 2025" }
+                  value: { text: "August 2025" }
                 },
                 {
                   key: { text: "Template version" },
@@ -48,7 +48,7 @@
                 },
                 {
                   key: { text: "File submitted" },
-                  value: { text: "DID_Jul2025_V2.csv" },
+                  value: { text: "DID_Aug2025_V2.csv" },
                   actions: {
                     items: [
                       {
@@ -68,8 +68,12 @@
                   value: { text: "John Smith" }
                 },
                 {
+                  key: { text: "Type" },
+                  value: { text: "No data" }
+                },
+                {
                   key: { text: "Status" },
-                  value: { html: tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }
+                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }
                 }
                 
               ]
@@ -78,32 +82,8 @@
   </div>
     <div style="margin-top:100px; margin-bottom:200px">
                   <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
-                 <p>Your validation feedback details:</p>
-            {% from "summary-list/macro.njk" import summaryList %}
-            
-            {{ summaryList({
-              rows: [
-                {
-                  key: { text: "Number of records" },
-                  value: { text: "1,734" }
-                },
-                {
-                  key: { text: "Errors" },
-                  value: { text: "0 error(s)" }
-                },
-                {
-                  key: { text: "Warnings" },
-                  value: { text: "25 Warning(s)" }
-                }
-              ]
-            }) }}
-      
-         {% from 'action-link/macro.njk' import actionLink %}
-
-{{ actionLink({
-  text: "Download validation report",
-  href: "#"
-}) }}     
+                  <p>The file is being validated. You will be able to download a feedback report when the validation is complete.</p>
+              
     </div>
   </div>
 {% endblock %}
