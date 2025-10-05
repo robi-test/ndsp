@@ -2,7 +2,7 @@
 
 module.exports = {
   // Service name
-  serviceName: 'Data Submission Portal',
+  serviceName: 'National Data Submission Portal',
 
   // Service name 2
   serviceName2: 'Data',

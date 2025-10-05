@@ -1,10 +1,10 @@
-{% extends "layout3.html" %}
+{% extends "layout.html" %}
 
 {% set pageName = serviceName %}
 
 {% block content %}
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
       <h2>
          {{ pageName }}
       </h2>
@@ -23,62 +23,13 @@
       {{ details({
         text: "Submitting data using the Data Submission Portal",
         html: "
-          <p>You can now use the new National Data Submission Portal on NDIT (National Data Integration Tenant) to submit your data. If you experience any issues accessing the portal or submitting your data, please contact the national service desk for support:</p>
+          <p>You can now use the new NHS Data Submission Portal on NDIT (National Data Integration Tenant) to submit your data. If you experience any issues accessing the portal or submitting your data, please contact the national service desk for support:</p>
           <p><a href='#'>ssd.nationalservicedesk@nhs.net</a></p>
           <p>Visit the NHS Data Submission Portal website to read more details.<br><a href='#'>NHS Data Submission Portal guidance</a></p>
               "
         }) }}
       <hr>  
-      <p>Start your submission here, or use the deadline table below to proceed directly to the submission page for the relevant reporting period.</p>
 
-      {% from 'action-link/macro.njk' import actionLink %}
-      {{ actionLink({
-        text: "Start a submission",
-        href: "choose-organisation3"
-      }) }}
-  
-
-  </div>
-</div>
-<div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
-<div class="nhsuk-table__panel-with-heading-tab">    
-  <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>      
-    <table class="nhsuk-table-responsive nhsuk-table--sortable">
-      <caption class="nhsuk-table__caption--s nhsuk-u-margin-bottom-5  nhsuk-u-visually-hidden">Next deadlines</caption>
-  <thead class="nhsuk-table__head">
-    <tr  role="row" class="nhsuk-table__row">
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Collection</th>
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Reporting period</th>
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Type of deadline</th>
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">End date</th>
-      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
-    </tr>
-  </thead>
-  <tbody class="nhsuk-table__body">
-    <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DIDS)</th>
-      <td class="nhsuk-table__cell">August 2025</td>
-      <td class="nhsuk-table__cell">Provisional</td>
-      <td class="nhsuk-table__cell">26 Sept 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=August%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-    <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DIDS)</th>
-      <td class="nhsuk-table__cell">June 2025</td>
-      <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">26 Sept 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=June&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-    <tr class="nhsuk-table__row">
-      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Dataset (DIDS)</th>
-      <td class="nhsuk-table__cell">July 2025</td>
-      <td class="nhsuk-table__cell">Final</td>
-      <td class="nhsuk-table__cell">26 Oct 2025, 11.59.59pm</td>
-      <td class="nhsuk-table__cell"><a href="/iteration0/choose-organisation3bis?period=July%202025&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
-    </tr>
-  </tbody>
-</table>
 </div>
     </div>
   </div>

@@ -8,8 +8,8 @@
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">Submissions</h1>
-    <p class="nhsuk-body">View your previous data submissions. Select a submission to see more details or take further actions.</p>
-      <p class="nhsuk-body">See your submissions and their current status below. After validation, select a submission to view feedback.</p>
+    <p class="nhsuk-body">View data submissions for your organisation. Select a submission to see more details and download a validation feedback if available.</p>
+       
       <hr>
 <div>
 <h2 class="nhsuk-heading-m">Past submissions for Diagnostic Imaging Dataset</h2> 
@@ -54,9 +54,9 @@
   <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
   <select class="nhsuk-select" id="filter-type" name="type">
     <option value="">All types</option>
-    <option value="Primary">First submission</option>
-    <option value="Updates">Re-submission</option>
-    <option value="Updates">No data</option>
+    <option value="First submission">First submission</option>
+    <option value="Re-submission">Re-submission</option>
+    <option value="No data">No data</option>
     <option value="Test">Test</option>
   </select>
 </div>
@@ -73,7 +73,7 @@
 <button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
 </div>
 </div>
-<div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+<div id="selected-filters" class="nhsuk-selected" aria-live="clear filters">
 <div class="nhsuk-selected__header">
 <h3 class="nhsuk-heading-s nhsuk-selected__title">Selected filters</h3>
 <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
@@ -94,7 +94,7 @@
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="organisation">Organisation</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Period</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
-           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
+           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
           </tr>
         </thead>
@@ -106,8 +106,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>August 2025</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>No data</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1p">View</a></td>   
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>N/A</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href=""> </a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2735</td>  -->           

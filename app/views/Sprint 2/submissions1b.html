@@ -1,4 +1,4 @@
-{% extends "layout3.html" %}
+{% extends "layout.html" %}
 
 {% set pageName = serviceName %}
 
@@ -8,7 +8,8 @@
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">Submissions</h1>
-      <p class="nhsuk-body">View data submissions for your organisation. Select a submission to see more details and download a validation feedback if available.</p>
+    <p class="nhsuk-body">View your previous data submissions. Select a submission to see more details or take further actions.</p>
+      <p class="nhsuk-body">See your submissions and their current status below. After validation, select a submission to view feedback.</p>
       <hr>
 <div>
 <h2 class="nhsuk-heading-m">Past submissions for Diagnostic Imaging Dataset</h2> 
@@ -22,6 +23,7 @@
   </summary>
 <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
 <div class="nhsuk-table-filters__grid">
+
 <!-- <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
 <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
@@ -52,9 +54,9 @@
   <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
   <select class="nhsuk-select" id="filter-type" name="type">
     <option value="">All types</option>
-    <option value="First submission">First submission</option>
-    <option value="Re-submission">Re-submission</option>
-    <option value="No data">No data</option>
+    <option value="Primary">First submission</option>
+    <option value="Updates">Re-submission</option>
+    <option value="Updates">No data</option>
     <option value="Test">Test</option>
   </select>
 </div>
@@ -80,6 +82,7 @@
 </div>
 </form>
 </details>
+
 </div>
       <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
@@ -97,14 +100,14 @@
         </thead>
         <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row" role="row">      
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2736</td>  -->           
+<!--             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2736</td>    -->         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>15 Sep 2025, 09:30</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>{{ data.period }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>First-submission</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href=" ">View</a></td>   
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>August 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>No data</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#"></a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2735</td>  -->           
@@ -114,7 +117,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2025</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href=" ">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2734</td> -->            
@@ -124,10 +127,10 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>July 2025</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href=" ">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1w">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2733</td>  -->           
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2733</td>   -->          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>08 Sep 2025, 16:20</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
@@ -137,7 +140,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2732</td>    -->         
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2732</td>   -->          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>05 Sep 2025, 10:55</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
@@ -167,7 +170,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2729</td>  -->           
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2729</td> -->            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>7 Aug 2025, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
@@ -177,17 +180,17 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2728</td> -->            
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2728</td>   -->          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Aug 2025, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2025</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>First submission</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2727</td> -->            
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>2727</td>   -->          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Aug 2025, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>
@@ -277,6 +280,7 @@
   var monthSel = form.querySelector('#filter-month')
   var yearSel = form.querySelector('#filter-year')
   var typeSel = form.querySelector('#filter-type')
+  var statusSel = form.querySelector('#filter-status')
     var periodInput = form.querySelector('#filter-period')
     var clearBtn= form.querySelector('[data-clear-filters]')
     var countEl = document.getElementById('results-count')
@@ -364,6 +368,7 @@
       var orgQ = (orgSel?.value || '')
       var byQ = (bySel?.value || '')
       var typeQ = (typeSel?.value || '')
+      var statusQ = (statusSel?.value || '')
       var monthQ = (monthSel?.value || '')
       var yearQ = (yearSel?.value || '')
       var periodQ = (periodInput?.value || '').trim().toLowerCase()
@@ -371,6 +376,7 @@
       if (orgQ && rec.org !== orgQ) return false
       if (byQ && rec.by !== byQ) return false
       if (typeQ && rec.type !== typeQ) return false
+      if (statusQ && !rec.row.querySelector('td:nth-child(6)').innerText.includes(statusQ)) return false
       if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
       return true
     }
@@ -389,6 +395,9 @@
       }
       if (typeSel && typeSel.value) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (statusSel && statusSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" title="Clear Status filter">Status: ' + statusSel.options[statusSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
       if (periodInput && periodInput.value.trim()) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
@@ -425,6 +434,7 @@
           if (filter === 'organisation' && orgSel) orgSel.value = '';
           if (filter === 'submittedBy' && bySel) bySel.value = '';
           if (filter === 'type' && typeSel) typeSel.value = '';
+          if (filter === 'status' && statusSel) statusSel.value = '';
           if (filter === 'period' && periodInput) periodInput.value = '';
           // Re-render after clearing
           render();

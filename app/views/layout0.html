@@ -1,9 +1,3 @@
-<!--
-  This is the main layout where you can:
-    - change the header and footer
-    - add custom CSS and JavaScript
--->
-
 <!-- Extends the prototype kit template which in turn extends the NHS.UK frontend template -->
 {% extends "prototype-kit-template.njk" %}
 
@@ -13,14 +7,9 @@
   <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
 {% endblock %}
 
-
 <!-- Edit the header -->
 <!-- Header code examples can be found at https://service-manual.nhs.uk/design-system/components/header -->
 {% block header %}
-
-  <!-- <span style="position: absolute; top: 0; right: 10%; height: 64px; display: flex; align-items: center; font-weight: 600; font-size: 1rem; color: #ffffff; z-index: 2;">
-  John Smith | <a href="#" style="margin-left: 10px; color:white">Settings | </a><a href="#" style="margin-left: 10px; color:white">Log out</a>
-  </span> -->
 
   {{ header({
     service: {
@@ -32,17 +21,9 @@
     searchAction: " ",
     primaryLinks: [
     {
-      url  : '/iteration0/home1',
+      url  : '/sprint2/home',
       label : "Home"
     },
-      {
-        url  : '/iteration0/submissions1',
-        label : "Submissions"
-      },
-      {
-        url : '#',
-        label : 'Reports'
-      },
         {
         url : '#',
         label : 'Guidance'
@@ -56,15 +37,23 @@
     
 {% endblock %}
 
-<!-- Edit the footer -->
-<!-- Footer code examples can be found at https://service-manual.nhs.uk/design-system/components/footer -->
+
+<!-- Footer -->
 {% block footer %}
   {{ footer(
     {
     links: [
       {
         URL: "#",
-        label: " "
+        label: "Our policies"
+      },
+      {
+        URL: "#",
+        label: "Accessibility statement"
+      },
+      {
+        URL: "#",
+        label: "Cookies"
       }
           ]
     }

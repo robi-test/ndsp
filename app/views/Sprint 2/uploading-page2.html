@@ -1,0 +1,43 @@
+{% extends "layout2.html" %}
+
+{% set pageName = serviceName %}
+
+
+
+{% block content %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l">Uploading your file(s)</h1>
+
+
+
+    <div class="nhsuk-grid-row">
+        <div class="nhsuk-grid-column-full">
+         
+        
+            <!-- <p>Collection: Diagnostic Imaging Dataset
+            <br>Organisation: Sheffield Teaching Hospital NHS Foundation Trust (RHQ)
+            <br>Period: July 2025
+            <br>Type of submission: Standard</p> -->
+            <div class="upload-card nhsuk-u-margin-bottom-4">
+                <div class="row">
+                <p class="filename">file_name.csv</p>
+                <p class="size">1.07GB</p>
+                </div>
+                <div class="status">
+                <p style="margin:0">30% uploaded…</p>
+                <a class="cancel" href="javascript:history.back()">Cancel</a>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30">
+                <div class="bar"></div>
+                </div>
+                </div>
+            <p class="filename nhsuk-u-margin-bottom-8">Please do not leave or refresh the page until the file upload has been completed.</p>
+            </div>      
+            <a href="confirmation2">continue > file uploaded</a>
+            <p style="margin-bottom:240px"> </p>
+            
+        </div>
+    </div>
+
+{% endblock %}
