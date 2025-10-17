@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+    <title>NHS Sign in</title>
+    
+    <!-- NHS.UK frontend -->
+    <link href="/nhsuk-frontend/nhsuk.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #e8e5f3 0%, #d4e7f7 100%);
+            margin: 0;
+            padding: 0;
+            font-family: "Frutiger W01", Arial, sans-serif;
+            min-height: 100vh;
+        }
+        
+        .signin-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .signin-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        
+        .nhs-logo {
+            background-color: #005eb8;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .signin-title {
+            font-size: 24px;
+            font-weight: normal;
+            color: #212b32;
+            margin-bottom: 30px;
+        }
+        
+        .email-display {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #d8dde0;
+        }
+        
+        .help-link {
+            color: #005eb8;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+        
+        .help-link:hover {
+            text-decoration: underline;
+        }
+        
+        .next-button {
+            background-color: #005eb8;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: normal;
+            cursor: pointer;
+            margin-bottom: 20px;
+            min-width: 80px;
+        }
+        
+        .next-button:hover {
+            background-color: #004299;
+        }
+        
+        .signin-options {
+            background-color: white;
+            border: 1px solid #d8dde0;
+            border-radius: 4px;
+            padding: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        .signin-options:hover {
+            border-color: #005eb8;
+        }
+        
+        .signin-options-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .signin-options-icon {
+            margin-right: 10px;
+            color: #666;
+        }
+        
+        .signin-options-text {
+            color: #212b32;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signin-container">
+        <div class="signin-card">
+            <div class="nhs-logo">NHS</div>
+            
+            <h1 class="signin-title">Sign in</h1>
+            
+            <div class="email-display">someone@example.com</div>
+            
+            <a href="#" class="help-link">Can't access your account?</a>
+            
+            <div>
+                <button type="submit" class="next-button">Next</button>
+            </div>
+        </div>
+        
+        <div class="signin-options">
+            <div class="signin-options-content">
+                <span class="signin-options-icon">🔍</span>
+                <span class="signin-options-text">Sign-in options</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/nhsuk-frontend/nhsuk.min.js"></script>
+</body>
+</html>

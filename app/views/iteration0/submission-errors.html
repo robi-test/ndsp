@@ -1,0 +1,152 @@
+{% extends "layout2.html" %}
+
+{% set pageName = "Submission Errors" %}
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        
+        
+
+        <h1 class="nhsuk-heading-l">Submission Detail</h1>
+        
+        <!-- Submission Details -->
+        <div class="nhsuk-card">
+            <div class="nhsuk-card__content">
+                <h2 class="nhsuk-heading-m">Submission Information</h2>
+                <dl class="nhsuk-summary-list">
+                    <div class="nhsuk-summary-list__row">
+                        <dt class="nhsuk-summary-list__key">Filename:</dt>
+                        <dd class="nhsuk-summary-list__value">RA7_202111.csv</dd>
+                    </div>
+                    <div class="nhsuk-summary-list__row">
+                        <dt class="nhsuk-summary-list__key">Timestamp:</dt>
+                        <dd class="nhsuk-summary-list__value">11:02 16/12/2021</dd>
+                    </div>
+                    
+                </dl>
+                
+            </div>
+        </div>
+
+
+        <!-- Merged Error Details Table -->
+        <div class="nhsuk-card" style="margin-top: 30px;">
+            <div class="nhsuk-card__content">
+                
+                <p><a href="#" class="nhsuk-link">Open data dictionary in new window</a></p>
+                
+                <table class="nhsuk-table">
+                    <caption class="nhsuk-table__caption">Detailed validation errors for submission</caption>
+                    <thead class="nhsuk-table__head">
+                        <tr class="nhsuk-table__row">
+                            <th class="nhsuk-table__header" scope="col">Field</th>
+                            <th class="nhsuk-table__header" scope="col">Row Number</th>
+                            <th class="nhsuk-table__header" scope="col">Accession Number</th>
+                            <th class="nhsuk-table__header" scope="col">Provider Site Code</th>
+                            <th class="nhsuk-table__header" scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="nhsuk-table__body">
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">postalCode</td>
+                            <td class="nhsuk-table__cell">8057</td>
+                            <td class="nhsuk-table__cell">RA725012448</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'postalCode'. The value 'bs37 7dw' is invalid according to its datatype - The Pattern constraint failed.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">postalCode</td>
+                            <td class="nhsuk-table__cell">15090</td>
+                            <td class="nhsuk-table__cell">RA725021248</td>
+                            <td class="nhsuk-table__cell">RA723</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'postalCode'. The value 'EX3 ODF' is invalid according to its datatype - The Pattern constraint failed.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">postalCode</td>
+                            <td class="nhsuk-table__cell">23456</td>
+                            <td class="nhsuk-table__cell">RA725034567</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'postalCode'. The value 'M1 7HF' is invalid according to its datatype - The Pattern constraint failed.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">dateOfBirth</td>
+                            <td class="nhsuk-table__cell">34512</td>
+                            <td class="nhsuk-table__cell">RA725045678</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'dateOfBirth'. The value '32/12/1980' is invalid according to its datatype - Invalid date format.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">nhsNumber</td>
+                            <td class="nhsuk-table__cell">45623</td>
+                            <td class="nhsuk-table__cell">RA725056789</td>
+                            <td class="nhsuk-table__cell">RA723</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'nhsNumber'. The value '123456789' is invalid according to its datatype - NHS number check digit validation failed.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">gender</td>
+                            <td class="nhsuk-table__cell">56734</td>
+                            <td class="nhsuk-table__cell">RA725067890</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'gender'. The value 'X' is invalid according to its datatype - Value not in allowed enumeration.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">appointmentDate</td>
+                            <td class="nhsuk-table__cell">67845</td>
+                            <td class="nhsuk-table__cell">RA725078901</td>
+                            <td class="nhsuk-table__cell">RA723</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'appointmentDate'. The value '2025/13/01' is invalid according to its datatype - Invalid date format.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">ethnicCategory</td>
+                            <td class="nhsuk-table__cell">78956</td>
+                            <td class="nhsuk-table__cell">RA725089012</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'ethnicCategory'. The value 'ZZ' is invalid according to its datatype - Value not in allowed enumeration.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">referralSource</td>
+                            <td class="nhsuk-table__cell">89067</td>
+                            <td class="nhsuk-table__cell">RA725090123</td>
+                            <td class="nhsuk-table__cell">RA723</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'referralSource'. The value '99' is invalid according to its datatype - Value not in allowed enumeration.</td>
+                        </tr>
+                        <tr class="nhsuk-table__row">
+                            <td class="nhsuk-table__cell">postalCode</td>
+                            <td class="nhsuk-table__cell">90178</td>
+                            <td class="nhsuk-table__cell">RA725101234</td>
+                            <td class="nhsuk-table__cell">RA701</td>
+                            <td class="nhsuk-table__cell">An error occurred on the element 'postalCode'. The value 'SW1A 1AA' is invalid according to its datatype - The Pattern constraint failed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Pagination -->
+                <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin-top: 20px;">
+                    <ul class="nhsuk-list nhsuk-pagination__list">
+                        
+                        <li class="nhsuk-pagination__item nhsuk-pagination__item--previous">
+                            <a class="nhsuk-pagination__link nhsuk-pagination__link--prev" href="#" rel="prev">
+                                <span class="nhsuk-pagination__title">Previous</span>
+                            </a>
+                        </li>
+                      
+                        <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+                            <a class="nhsuk-pagination__link nhsuk-pagination__link--next" href="#" rel="next">
+                                <span class="nhsuk-pagination__title">Next</span>
+                            </a>
+                        </li>
+               </ul>
+                </nav>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+{% endblock %}

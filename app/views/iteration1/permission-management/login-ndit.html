@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+    <title>NHS Federated Data Platform - Login</title>
+    
+    <!-- NHS.UK frontend -->
+    <link href="/nhsuk-frontend/nhsuk.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #3c4650;
+            margin: 0;
+            padding: 0;
+            font-family: "Frutiger W01", Arial, sans-serif;
+        }
+        
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .nhs-logo {
+            margin-bottom: 40px;
+        }
+        
+        .nhs-logo h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .login-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d8dde0;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f0f4f5;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #005eb8;
+            background-color: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .checkbox-group label {
+            color: #3c4650;
+            font-size: 14px;
+        }
+        
+        .next-button {
+            width: 100%;
+            background-color: #005eb8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .next-button:hover {
+            background-color: #004299;
+        }
+        
+        .login-info {
+            background-color: #f0f4f5;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #3c4650;
+        }
+        
+        .login-info a {
+            color: #005eb8;
+            text-decoration: none;
+        }
+        
+        .login-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="nhs-logo">
+            <h1>
+                NHS<br>
+                Federated Data<br>
+                Platform
+            </h1>
+        </div>
+        
+        <form class="login-form" action="#" method="post">
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="user@domain.com" required>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Remember me</label>
+            </div>
+            
+            <button type="submit" class="next-button">Next</button>
+            
+            <div class="login-info">
+                <p>Please login with your <strong>@nhs.net</strong> email address if you have one.</p>
+                <p>If you have a different email address, or for more details, please see the <a href="#">Detailed Login Instructions</a>.</p>
+            </div>
+        </form>
+    </div>
+    
+    <script src="/nhsuk-frontend/nhsuk.min.js"></script>
+</body>
+</html>

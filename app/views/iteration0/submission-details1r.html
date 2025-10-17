@@ -89,11 +89,22 @@
                 {
                   key: { text: "Number of records" },
                   value: { text: "1,234" }
+                  
                 },
+                
                 {
                   key: { text: "Errors" },
-                  value: { text: "3 error(s)" }
-                },
+                  value: { text: "3 error(s)" },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/submission-errors",
+                        text: "View",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                 },
                 {
                   key: { text: "Warnings" },
                   value: { text: "12 warning(s)" }

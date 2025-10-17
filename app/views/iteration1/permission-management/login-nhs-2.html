@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+    <title>NHSmail Login</title>
+    
+    <!-- NHS.UK frontend -->
+    <link href="/nhsuk-frontend/nhsuk.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f0f4f5;
+            margin: 0;
+            padding: 0;
+            font-family: "Frutiger W01", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+        }
+        
+        .left-panel {
+            flex: 1;
+            background-color: #f0f4f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+        }
+        
+        .network-diagram {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjMwMCIgY3k9IjIwMCIgcj0iMjAiIGZpbGw9IiMwMDVlYjgiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iIzY2OGJmZiIvPgo8Y2lyY2xlIGN4PSI0MDAiIGN5PSIxNTAiIHI9IjE1IiBmaWxsPSIjNjY4YmZmIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjI1MCIgcj0iMTIiIGZpbGw9IiM5Y2IzZmYiLz4KPGNpcmNsZSBjeD0iNDUwIiBjeT0iMjUwIiByPSIxMiIgZmlsbD0iIzljYjNmZiIvPgo8bGluZSB4MT0iMzAwIiB5MT0iMjAwIiB4Mj0iMjAwIiB5Mj0iMTUwIiBzdHJva2U9IiM2NjhiZmYiIHN0cm9rZS13aWR0aD0iMiIvPgo8bGluZSB4MT0iMzAwIiB5MT0iMjAwIiB4Mj0iNDAwIiB5Mj0iMTUwIiBzdHJva2U9IiM2NjhiZmYiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4K');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+        
+        .nhs-logo-left {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .nhs-logo-left img {
+            width: 80px;
+            height: auto;
+        }
+        
+        .right-panel {
+            width: 400px;
+            background-color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nhs-logo-right {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        
+        .nhs-logo-right .nhs-box {
+            background-color: #005eb8;
+            color: white;
+            padding: 8px 16px;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-block;
+        }
+        
+        .policy-notice {
+            background-color: #e8f4fd;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .policy-notice a {
+            color: #005eb8;
+            text-decoration: none;
+        }
+        
+        .policy-notice a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-form {
+            margin-bottom: 30px;
+        }
+        
+        .form-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #212b32;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d8dde0;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #005eb8;
+        }
+        
+        .signin-button {
+            background-color: #005eb8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        
+        .signin-button:hover {
+            background-color: #004299;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        
+        .checkbox-group label {
+            font-size: 14px;
+            color: #212b32;
+        }
+        
+        .forgot-password {
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        
+        .forgot-password a {
+            color: #005eb8;
+            text-decoration: none;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .alternative-signin {
+            border-top: 1px solid #d8dde0;
+            padding-top: 20px;
+        }
+        
+        .alternative-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #212b32;
+        }
+        
+        .care-identity-button {
+            width: 100%;
+            background-color: #005eb8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .care-identity-button:hover {
+            background-color: #004299;
+        }
+        
+        .care-identity-info {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .care-identity-info a {
+            color: #005eb8;
+            text-decoration: none;
+        }
+        
+        .care-identity-info a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                height: 200px;
+            }
+            
+            .right-panel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left-panel">
+        <div class="network-diagram">
+            <!-- Network diagram would be implemented with SVG or CSS -->
+            <svg width="100%" height="100%" viewBox="0 0 600 400" fill="none">
+                <!-- Network nodes and connections -->
+                <circle cx="300" cy="200" r="20" fill="#005eb8"/>
+                <circle cx="200" cy="150" r="15" fill="#668bff"/>
+                <circle cx="400" cy="150" r="15" fill="#668bff"/>
+                <circle cx="150" cy="100" r="12" fill="#9cb3ff"/>
+                <circle cx="450" cy="100" r="12" fill="#9cb3ff"/>
+                <circle cx="100" cy="200" r="10" fill="#b8ccff"/>
+                <circle cx="500" cy="200" r="10" fill="#b8ccff"/>
+                <circle cx="150" cy="300" r="12" fill="#9cb3ff"/>
+                <circle cx="450" cy="300" r="12" fill="#9cb3ff"/>
+                
+                <!-- Connection lines -->
+                <line x1="300" y1="200" x2="200" y2="150" stroke="#668bff" stroke-width="2"/>
+                <line x1="300" y1="200" x2="400" y2="150" stroke="#668bff" stroke-width="2"/>
+                <line x1="200" y1="150" x2="150" y2="100" stroke="#9cb3ff" stroke-width="1"/>
+                <line x1="400" y1="150" x2="450" y2="100" stroke="#9cb3ff" stroke-width="1"/>
+                <line x1="300" y1="200" x2="100" y2="200" stroke="#b8ccff" stroke-width="1"/>
+                <line x1="300" y1="200" x2="500" y2="200" stroke="#b8ccff" stroke-width="1"/>
+                <line x1="200" y1="150" x2="150" y2="300" stroke="#9cb3ff" stroke-width="1"/>
+                <line x1="400" y1="150" x2="450" y2="300" stroke="#9cb3ff" stroke-width="1"/>
+                
+                <!-- Icons in nodes -->
+                <text x="300" y="205" text-anchor="middle" fill="white" font-size="12">💻</text>
+                <text x="200" y="155" text-anchor="middle" fill="white" font-size="10">👥</text>
+                <text x="400" y="155" text-anchor="middle" fill="white" font-size="10">🔒</text>
+            </svg>
+        </div>
+        
+        <div class="nhs-logo-left">
+            <div class="nhs-box" style="background-color: #005eb8; color: white; padding: 8px 16px; font-weight: bold; font-size: 18px;">NHS</div>
+        </div>
+    </div>
+    
+    <div class="right-panel">
+        <div class="nhs-logo-right">
+            <div class="nhs-box">NHS</div>
+        </div>
+        
+        <div class="policy-notice">
+            To use the NHSmail shared tenant services you must review and accept the <a href="#">NHSmail Acceptable Use Policy (AUP)</a>.<br>
+            No action is needed if you have already accepted the AUP.
+        </div>
+        
+        <div class="login-form">
+            <div class="form-title">Sign in with your NHSmail account</div>
+            
+            <div class="form-group">
+                <input type="email" class="form-input" value="roberta.pavone1@nhs.net" readonly>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Password">
+            </div>
+            
+            <button type="submit" class="signin-button">Sign in</button>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="private-computer">
+                <label for="private-computer">This is a private computer</label>
+            </div>
+            
+            <div class="forgot-password">
+                Forgotten Password? Please visit <a href="#">Self-Service Password Reset Portal</a>.
+            </div>
+        </div>
+        
+        <div class="alternative-signin">
+            <div class="alternative-title">Sign in with another account</div>
+            
+            <button type="button" class="care-identity-button">
+                <span style="margin-right: 8px;">NHS</span> Log in with my Care Identity
+            </button>
+            
+            <div class="care-identity-info">
+                To register your NHS Care Identity (Smartcard)<br>
+                <a href="#">Please visit My Identity Portal</a>.
+            </div>
+        </div>
+    </div>
+    
+    <script src="/nhsuk-frontend/nhsuk.min.js"></script>
+</body>
+</html>
