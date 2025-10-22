@@ -1,0 +1,207 @@
+
+
+{% set pageName = "Email Preview" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        
+        <h1 class="nhsuk-heading-l">Email Notification Preview</h1>
+        
+        <!-- Email Container -->
+        <div style="max-width: 800px; margin: 0 auto; background-color: white; border: 1px solid #d8dde0; font-family: Arial, sans-serif;">
+            
+            <!-- Email Header -->
+            <div style="background-color: #005eb8; color: white; padding: 20px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <div style="font-size: 18px; font-weight: bold;">NHS Federated Data Platform</div>
+                        <div style="font-size: 14px; margin-top: 5px;">Validation Feedback</div>
+                    </div>
+                    <div style="background-color: white; color: #005eb8; padding: 8px 16px; font-weight: bold; font-size: 18px;">
+                        NHS
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Email Details -->
+            <div style="background-color: #f8f8f8; padding: 15px; border-bottom: 1px solid #d8dde0;">
+                <table style="width: 100%; font-size: 14px;">
+                    <tr>
+                        <td style="font-weight: bold; width: 80px;">From:</td>
+                        <td>NHS Federated Data Platform &lt;noreply@nhs.net&gt;</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">To:</td>
+                        <td>roberta.pavone1@nhs.net</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Subject:</td>
+                        <td>Validation Feedback - Submission ID: 2736 - RA7_202111.csv</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Date:</td>
+                        <td>16 Dec 2021, 11:15 AM</td>
+                    </tr>
+                </table>
+                
+                <!-- Attachment indicator -->
+                <div style="margin-top: 10px; padding: 8px; background-color: #e8f4fd; border-left: 4px solid #005eb8;">
+                    <span style="font-weight: bold;">📎 Attachment:</span> Validation_Report_2736_RA7_202111.xlsx (45.2 KB)
+                </div>
+            </div>
+            
+            <!-- Email Body -->
+            <div style="padding: 30px; line-height: 1.6;">
+                
+                <h2 style="color: #005eb8; margin-top: 0;">Validation Results for Your Submission</h2>
+                
+                <p>Dear Data Submitter,</p>
+                
+                <p>We have completed the validation of your data submission. Please find the details below:</p>
+                
+                <!-- Submission Details -->
+                <div style="background-color: #f0f4f5; padding: 20px; border-radius: 4px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #212b32;">Submission Details</h3>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="font-weight: bold; padding: 5px 0; width: 150px;">Submission ID:</td>
+                            <td style="padding: 5px 0;">2736</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 5px 0;">Filename:</td>
+                            <td style="padding: 5px 0;">RA7_202111.csv</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 5px 0;">Organisation:</td>
+                            <td style="padding: 5px 0;">UNIVERSITY HOSPITALS BRISTOL NHS FOUNDATION TRUST (RA7)</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 5px 0;">Submitted:</td>
+                            <td style="padding: 5px 0;">16 Dec 2021, 11:02 AM</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; padding: 5px 0;">Collection:</td>
+                            <td style="padding: 5px 0;">Diagnostic Imaging Dataset</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- Validation Status -->
+                <div style="background-color: #fff2cc; border: 1px solid #f4c842; padding: 15px; border-radius: 4px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #b58900;">⚠️ Validation Status: Issues Found</h3>
+                    <p style="margin-bottom: 0;">Your submission has been processed but validation issues were identified that require your attention.</p>
+                </div>
+                
+                <!-- Summary -->
+                <h3 style="color: #212b32;">Validation Summary</h3>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Total Records Processed:</strong> 15,432</li>
+                    <li><strong>Records with Errors:</strong> 10</li>
+                    <li><strong>Records with Warnings:</strong> 0</li>
+                    <li><strong>Error Types Found:</strong> 5 different validation issues</li>
+                </ul>
+                
+                <!-- Error Breakdown -->
+                <h3 style="color: #212b32;">Error Breakdown</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                    <thead>
+                        <tr style="background-color: #f0f4f5;">
+                            <th style="border: 1px solid #d8dde0; padding: 10px; text-align: left;">Field</th>
+                            <th style="border: 1px solid #d8dde0; padding: 10px; text-align: left;">Error Count</th>
+                            <th style="border: 1px solid #d8dde0; padding: 10px; text-align: left;">Error Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">postalCode</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">4</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">Pattern constraint failed</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">dateOfBirth</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">2</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">Invalid date format</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">nhsNumber</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">2</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">Check digit validation failed</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">gender</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">1</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">Invalid enumeration value</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">ethnicCategory</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">1</td>
+                            <td style="border: 1px solid #d8dde0; padding: 10px;">Invalid enumeration value</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Next Steps -->
+                <h3 style="color: #212b32;">Next Steps</h3>
+                <ol style="margin: 15px 0; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Review the attached Excel report</strong> which contains detailed information about each validation error, including row numbers and specific error descriptions.</li>
+                    <li><strong>View detailed validation results online</strong> by clicking the link below to access our web portal.</li>
+                    <li><strong>Correct the identified errors</strong> in your source data and resubmit.</li>
+                    <li><strong>Contact support</strong> if you need assistance understanding any validation errors.</li>
+                </ol>
+                
+                <!-- Action Buttons -->
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="/iteration0/submission-errors" style="display: inline-block; background-color: #005eb8; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; margin: 5px;">
+                        View Detailed Results Online
+                    </a>
+                    <a href="#" style="display: inline-block; background-color: #768692; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; margin: 5px;">
+                        Download Excel Report
+                    </a>
+                </div>
+                
+                <!-- Important Information -->
+                <div style="background-color: #e8f4fd; border-left: 4px solid #005eb8; padding: 15px; margin: 20px 0;">
+                    <h4 style="margin-top: 0; color: #005eb8;">📋 Important Information</h4>
+                    <ul style="margin-bottom: 0; padding-left: 20px;">
+                        <li>Your submission has been retained in our system for 30 days</li>
+                        <li>You can resubmit corrected data at any time</li>
+                        <li>The attached Excel file contains row-by-row error details</li>
+                        <li>For urgent queries, please contact our support team</li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Information -->
+                <h3 style="color: #212b32;">Need Help?</h3>
+                <p>If you have any questions about these validation results or need assistance with your data submission, please contact us:</p>
+                
+                <div style="background-color: #f0f4f5; padding: 15px; border-radius: 4px;">
+                    <p style="margin: 0;"><strong>Email:</strong> <a href="mailto:scft.team@nhs.net" style="color: #005eb8;">scft.team@nhs.net</a></p>
+                    <p style="margin: 5px 0 0 0;"><strong>Support Portal:</strong> <a href="#" style="color: #005eb8;">NHS Data Platform Support</a></p>
+                </div>
+                
+                <p style="margin-top: 20px;">Thank you for your submission to the NHS Federated Data Platform.</p>
+                
+                <p>Best regards,<br>
+                <strong>NHS Federated Data Platform Team</strong></p>
+                
+            </div>
+            
+            <!-- Email Footer -->
+            <div style="background-color: #f0f4f5; padding: 20px; border-top: 1px solid #d8dde0; font-size: 12px; color: #666;">
+                <p style="margin: 0 0 10px 0;">This is an automated message from the NHS Federated Data Platform. Please do not reply to this email.</p>
+                <p style="margin: 0;">© 2021 NHS England. All rights reserved.</p>
+            </div>
+            
+        </div>
+        
+        <!-- Back to Portal Button -->
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="/iteration0/submissions2" class="nhsuk-button nhsuk-button--secondary">
+                Back to Submissions Portal
+            </a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
