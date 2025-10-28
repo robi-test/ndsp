@@ -1,0 +1,77 @@
+{% extends "layout0.html" %}
+{% set pageName = "IG lead contact details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To request permissions, you must provide the contact details of your organisation’s Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
+Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
+      </p>
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'input/macro.njk' import input %}
+
+{{ input({
+  label: {
+    text: "Full name",
+    classes: "nhsuk-label--l",
+    isPageHeading: "true"
+  },
+  id: "ig-name",
+  name: "ig-name",
+  classes: "nhsuk-input--width-30",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "Email address",
+    classes: "nhsuk-label--l",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Use the official NHS or organisational email address for the IG lead."
+  },
+  id: "email-address-field",
+  name: "email-address-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "Telephone number (optional)",
+    classes: "nhsuk-label--l",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Enter a direct contact number in case of queries."
+  },
+  id: "telephone-number-field",
+  name: "telephone-number-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
+}) }}
+ <button onclick="location='add-ig-context2'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+
+
+    </div>
+ 
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+
+

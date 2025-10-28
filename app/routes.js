@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-//const organisation = req.session.data['organisation'];
 
 router.post('/iteration0/choose-collection2', (req, res) => {
   const collection = req.session.data['collection'];
@@ -43,9 +42,39 @@ router.post('/iteration0/choose-period3', (req, res) => {
     res.redirect('/iteration0/upload-file3');
 });
 
+router.post("/iteration1/permission-management/select-role", (req, res) => {
+  const role = req.session.data.role;
+
+  if (role === "local-admin") {
+    res.redirect("/iteration1/permission-management/local-admin-message");
+  } else if (role === "submitter") {
+    res.redirect("/iteration1/permission-management/submitter-terms");
+  } else {
+    res.redirect("/iteration1/permission-management/select-role-error");
+  }
+});
+
+router.post("/iteration1/permission-management/local-admin-message", (req, res) => {
+  const continueChoice = req.session.data.continue;
+
+  if (continueChoice === "yes") {
+    res.redirect("/iteration1/permission-management/add-ig-contact");
+  } else if (continueChoice === "no") {
+    res.redirect("/iteration1/permission-management/home-no-permission");
+  } else {
+    res.redirect("/iteration1/permission-management/local-admin-message");
+  }
+});
+
+router.post("/iteration1/permission-management/submitter-message", (req, res) => {
+  const continueChoice = req.session.data.continue;
+
+  if (continueChoice === "yes") {
+    res.redirect("/iteration1/permission-management/add-ig-contact2");
+  } else if (continueChoice === "no") {
+    res.redirect("/iteration1/permission-management/home-no-permission");
+  } else {
+    res.redirect("/iteration1/permission-management/local-admin-message");
+  }
+});
 module.exports = router;
-
-
-
-
-

@@ -1,0 +1,126 @@
+{% extends "layout0.html" %}
+{% set pageName = "Check your request details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+    <div class="nhsuk-u-margin-bottom-6"> 
+      <p>Please review the details below before submitting your access request.<br>
+The name and email address shown are taken from the account you used to sign in. This will be the account you must use to access the portal. If any of these details are incorrect, please contact your identity provider to update them.
+<br>Once submitted, your request will be reviewed and processed by the appropriate administrators.        
+      </p>
+</div>
+
+{% from "summary-list/macro.njk" import summaryList %}
+
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Name"
+      },
+      value: {
+        text: "Laura Smith"
+      }
+    },
+    {
+      key: {
+        text: "Email address"
+      },
+      value: {
+        text: "laura.smith@nhs.net"
+      }
+    },
+    {
+      key: {
+        text: "Collection"
+      },
+      value: {
+        text: "Diagnostic Imaging Data Set (DIDS)"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-collection",
+            text: "Change",
+            visuallyHiddenText: "collection"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        html: "Milton Keynes Hospital - NHS Trust Site"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "organisation"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Role"
+      },
+      value: {
+        html: '<p>Submitter</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-role",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Terms and conditions"
+      },
+      value: {
+        html: '<p>Agreed</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "submitter-terms",
+            text: "Change",
+            visuallyHiddenText: "terms"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+ <button onclick="location='submitter-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Submit
+              </button>
+
+</div>
+
+   
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

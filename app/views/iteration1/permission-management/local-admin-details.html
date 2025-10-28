@@ -1,0 +1,228 @@
+{% extends "layout0.html" %}
+{% set pageName = "Check your request details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+    <div class="nhsuk-u-margin-bottom-6"> 
+      <p>Please review the details below before submitting your access request.<br>
+The name and email address shown are taken from the account you used to sign in. This will be the account you must use to access the portal. If any of these details are incorrect, please contact your identity provider to update them.
+<br>Once submitted, your request will be reviewed and processed by the appropriate administrators.        
+      </p>
+</div>
+
+{% from "summary-list/macro.njk" import summaryList %}
+
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Name"
+      },
+      value: {
+        text: "Rick Marley"
+      }
+    },
+    {
+      key: {
+        text: "Email address"
+      },
+      value: {
+        text: "rick.marley@nhs.net"
+      }
+    },
+    {
+      key: {
+        text: "Collection"
+      },
+      value: {
+        text: "Diagnostic Imaging Data Set (DIDS)"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-collection",
+            text: "Change",
+            visuallyHiddenText: "collection"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        html: "Milton Keynes Hospital - NHS Trust Site"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "organisation"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Role"
+      },
+      value: {
+        html: '<p>Local administrator</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-role",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead full name"
+      },
+      value: {
+        html: '<p>Susan Jackson</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead email address"
+      },
+      value: {
+        html: '<p>susan.jackson@nhs.net</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead telephone number"
+      },
+      value: {
+        html: '<p>-</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Your team or department"
+      },
+      value: {
+        html: '<p>Diagnostic department</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Job title"
+      },
+      value: {
+        html: '<p>Line manager</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Reason for requesting administrator access (optional)"
+      },
+      value: {
+        html: '<p>-</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Terms and conditions"
+      },
+      value: {
+        html: '<p>Agreed</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "local-admin-terms",
+            text: "Change",
+            visuallyHiddenText: "terms"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+ <button onclick="location='local-admin-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Submit
+              </button>
+
+</div>
+
+   
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

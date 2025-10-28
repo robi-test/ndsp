@@ -1,32 +1,35 @@
 {% extends "layout0.html" %}
-
+{% set pageName = "Request permissions" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
-      <h2>
-         Request permissions
-      </h2>
-      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new NHS Data Submission Portal. <br>You can use this portal to submit data, see validation feedback, and download reports for multiple collections based on your organisation's access. 
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1 style="font-size:38px">
+         {{ pageName }}
+      </h1>
+      <p class="class="nhsuk-u-margin-bottom-6">You can request permissions to submit data and/or act as an administrator on behalf of an organisation. This can be your own organisation or another, such as when your organisation submits data on behalf of a different provider.
+You’ll be directed to the appropriate permission request process based on the role you request: Submitter or Local administrator.
       </p>
-      <p >Currently you have permissions for the following collection(s):
-      </p>
-       <div class="nhs-warning-text nhsuk-grid-column-full">
-          <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
-            <span class="nhs-visually-hidden">Warning</span>
-            You don't currently have permissions for any collections on this portal.
-          </strong>
-        </div>
-      {% from 'details/macro.njk' import details %}
-      {{ details({
-        text: "Who can have permissions for Data Submission Portal?",
-        html: "
-          <p> </p>
-          <p><a href='#'> </a></p>
-          <p> <br><a href='#'> </a></p>
-              "
-        }) }}
-      <hr>  
+      <h2>Roles description</h2>
+      <h3>Submitter</h3>
+      <p>You’ll be able to submit data on behalf of your organisation for this collection.
+If a local administrator is already assigned for your organisation and this collection, your request will be reviewed and approved by them.
+If there is no local administrator, your request will need to be approved by your organisation’s Information Governance (IG) lead and will then be processed by the service desk.</p>
+<h3>Local administrator</h3>
+      <p>You’ll be responsible for managing user permissions for this collection within your organisation. This includes submitter permissions, allowing you to submit data.
+Your request must be approved by your organisation’s Information Governance (IG) lead and will be processed by the service desk.</p>
+<h2>What you’ll need to provide</h2>
+<p>If you need IG approval, you’ll also be asked to provide the name and contact details of your organisation’s Information Governance (IG) lead.
+All requests require you to confirm the organisation’s ODS code.</p>
+<p>If you don’t know the organisation’s ODS code, you can find it on <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS portal</a></p>
+ <button onclick="location='select-collection'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
 </div>
     </div>
   </div>
@@ -34,72 +37,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-<!-- Sortable table -->
-(function () {
-function parseValue(text, type) {
-var t = (text || '').trim()
-if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
-if (type === 'date') {
-var d = Date.parse(t)
-return isNaN(d) ? t.toLowerCase() : d
-}
-return t.toLowerCase()
-}
 
-function indexOfCell(th) {
-var cells = Array.prototype.slice.call(th.parentElement.children)
-var idx = 0
-for (var i = 0; i < cells.length; i++) {
-if (cells[i] === th) return idx
-idx += cells[i].colSpan || 1
-}
-return -1
-}
-
-function sortTable(table, colIndex, type, direction) {
-var tbody = table.tBodies[0]
-if (!tbody) return
-var rows = Array.prototype.slice.call(tbody.rows)
-
-rows.sort(function (a, b) {
-var av = parseValue(a.cells[colIndex]?.innerText, type)
-var bv = parseValue(b.cells[colIndex]?.innerText, type)
-if (av < bv) return direction === 'ascending' ? -1 : 1
-if (av > bv) return direction === 'ascending' ? 1 : -1
-return 0
-})
-
-var frag = document.createDocumentFragment()
-rows.forEach(function (r) { frag.appendChild(r) })
-tbody.appendChild(frag)
-}
-
-document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
-var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
-ths.forEach(function (th) {
-var type = th.getAttribute('data-sort') || 'string'
-if (type === 'none') return
-th.setAttribute('aria-sort', 'none')
-var label = th.textContent.trim()
-if (!th.querySelector('button')) {
-var btn = document.createElement('button')
-btn.type = 'button'
-btn.className = 'nhsuk-table-sort__button'
-btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
-th.textContent = ''
-th.appendChild(btn)
-}
-th.querySelector('button').addEventListener('click', function () {
-var current = th.getAttribute('aria-sort')
-var next = current === 'ascending' ? 'descending' : 'ascending'
-th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
-th.setAttribute('aria-sort', next)
-var colIndex = indexOfCell(th)
-sortTable(table, colIndex, type, next)
-})
-})
-})
-})()
-</script>
 {% endblock %}

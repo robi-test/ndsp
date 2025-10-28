@@ -1,0 +1,44 @@
+{% extends "layout0.html" %}
+
+{% set pageName = 'Request submitted' %}
+
+
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds">
+
+<div class="nhsuk-notification-banner" role="region" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 50px; ">
+  <div class="nhsuk-notification-banner__header">
+    <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+<div class="nhsuk-notification-banner__content">
+
+  <p>A local administrator is already assigned for this collection and organisation. If you need to know who holds this role, contact the <a href="#">service desk</a>.
+<br>You can still continue requesting local administrator permissions if needed.</p>
+  </div>
+  </div>
+
+
+  <form action="/iteration1/permission-management/local-admin-message" method="post">
+  {{ radios({
+    name: "continue",
+    items: [
+      {
+        value: "yes",
+        text: "Yes, continue"
+      },
+      {
+        value: "no", 
+        text: "No, I don't want to continue"
+      }
+    ]
+  }) }}
+  <button type="submit" class="nhsuk-button">Continue</button>
+</form>
+</div>     
+</div>
+
+{% endblock %}

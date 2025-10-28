@@ -1,0 +1,36 @@
+{% extends "layout0.html" %}
+
+{% set pageName = 'Request submitted' %}
+
+
+
+{% block content %}
+<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 50px; margin-bottom: 150px;">
+  <div class="nhsuk-notification-banner__header">
+    <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+      Success
+    </h2>
+  </div>
+<div class="nhsuk-notification-banner__content">
+<h3 class="nhsuk-notification-banner__heading">
+    Request sent successfully
+  </h3>
+  <p>Your request for access has been submitted. <br>We will contact you if we need any further information.</p>
+  </div>
+  </div>
+
+  <div style="margin-top:-100px">
+  <h2>What happens next?</h2>
+   <p>Your request will now be reviewed by the appropriate team.<br>
+Your request will now be reviewed in two steps:
+<ul>
+<li>It will first be sent to your organisation’s Information Governance (IG) Lead for approval.</li>
+<li>Once approved by the IG Lead, it will be reviewed by the service desk, who will grant your permissions.</li>
+</ul>
+You’ll receive email notifications at each step or if any additional information is needed.</p>
+</div>
+ <div  class="nhsuk-u-margin-top-4" >
+      <a href="home-submitter-request" class="nhsuk-u-margin-top-8">Home</a>
+    </div>
+
+{% endblock %}
