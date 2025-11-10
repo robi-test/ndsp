@@ -47,14 +47,6 @@ The ODS code will be automatically shown once you select the organisation.
   
   <!-- Dropdown suggestions -->
   <div id="organisation-suggestions" style="display: none; position: absolute; background: white; border: 2px solid #005eb8; border-top: none; max-width: 600px; z-index: 1000;">
-    <div class="suggestion-item" data-org="Milton Keynes University Hospital NHS Foundation Trust" data-ods="RTH83" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;">
-      <strong>Milton Keynes University Hospital NHS Foundation Trust</strong><br>
-      <!-- <span style="color: #666; font-size: 14px;">ODS Code: RTH83</span> -->
-    </div>
-    <div class="suggestion-item" data-org="Milton Keynes Hospital - Independent provider - INHEALTH LIMITED" data-ods="NV1H0" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;">
-      <strong>Milton Keynes Clinical Commissioning Group</strong><br>
-      <!-- <span style="color: #666; font-size: 14px;">ODS Code: NV1H0</span> -->
-    </div>
   </div>
 </div>
 
@@ -110,6 +102,27 @@ document.addEventListener('DOMContentLoaded', function() {
             name: "Milton Keynes Hospital - Independent provider - INHEALTH LIMITED",
             ods: "NV1H0",
             searchTerms: ["milton", "keynes", "hospital", "independent", "provider", "inhealth", "mil", "key", "hos"]
+        },
+        // London organisations
+        {
+            name: "London North West University Healthcare NHS Trust",
+            ods: "R1K01",
+            searchTerms: ["london", "north", "west", "university", "healthcare", "lon", "nor", "wes", "uni", "hea"]
+        },
+        {
+            name: "Royal Free London NHS Foundation Trust",
+            ods: "RAL01",
+            searchTerms: ["royal", "free", "london", "foundation", "roy", "fre", "lon", "fou"]
+        },
+        {
+            name: "South London and Maudsley NHS Foundation Trust",
+            ods: "RV501",
+            searchTerms: ["south", "london", "maudsley", "foundation", "sou", "lon", "mau", "fou"]
+        },
+        {
+            name: "University College London Hospitals NHS Foundation Trust",
+            ods: "RRV01",
+            searchTerms: ["university", "college", "london", "hospitals", "foundation", "uni", "col", "lon", "hos", "fou"]
         }
     ];
     
@@ -127,17 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Clear previous suggestions
                 suggestionsDiv.innerHTML = '';
                 
-                // Add matching organisations    <span style="color: #666; font-size: 14px;">ODS Code: ${org.ods}</span> */
+                // Add matching organisations
                 matches.forEach(org => {
                     const suggestionItem = document.createElement('div');
                     suggestionItem.className = 'suggestion-item';
                     suggestionItem.setAttribute('data-org', org.name);
                     suggestionItem.setAttribute('data-ods', org.ods);
                     suggestionItem.style.cssText = 'padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;';
-                    suggestionItem.innerHTML = `
-                        <strong>${org.name}</strong><br>
-                     
-                    `;
+                    suggestionItem.innerHTML = `<strong>${org.name}</strong>`;
                     
                     // Add hover effects
                     suggestionItem.addEventListener('mouseenter', function() {

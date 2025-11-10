@@ -77,4 +77,17 @@ router.post("/iteration1/permission-management/submitter-message", (req, res) =>
     res.redirect("/iteration1/permission-management/local-admin-message");
   }
 });
+
+router.post("/iteration1/permission-management/select-collection", (req, res) => {
+  const collection = req.session.data.collections;
+
+  // Check if a collection was selected
+  if (collection) {
+    // If collection is selected, go to next page
+    res.redirect("/iteration1/permission-management/select-organisation");
+  } else {
+    // If no collection selected, show error page
+    res.redirect("/iteration1/permission-management/select-collection-error");
+  }
+});
 module.exports = router;

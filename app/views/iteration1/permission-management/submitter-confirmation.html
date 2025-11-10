@@ -5,7 +5,8 @@
 
 
 {% block content %}
-<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 50px; margin-bottom: 150px;">
+
+<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 50px; margin-bottom: 150px; max-width:800px">
   <div class="nhsuk-notification-banner__header">
     <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
       Success
@@ -25,10 +26,12 @@
 You’ll receive an email once your request has been approved or if further information is needed.<br>
 If you’ve requested access to more than one collection or organisation, you’ll see a separate entry for each request.</p>
 </div>
- <div  class="nhsuk-u-margin-top-4" >
+<div  class="nhsuk-u-margin-top-8" >
       <a href="home-submitter-request" class="nhsuk-u-margin-top-8">Home</a><br><br>
       <a href="submitter-email-confirmation" class="nhsuk-u-margin-top-8">Request confirmation - Email</a><br><br>
-      <a href="submitter-email-permission" class="nhsuk-u-margin-top-8">Permission confirmation - Email</a>
-    </div>
+      <a href="submitter-email-permission" class="nhsuk-u-margin-top-8">Permission confirmation - Email</a><br><br>
+      <a href="submitter-email-permission-denied" class="nhsuk-u-margin-top-8">Permission denied - Email</a>
+
+</div>
 
 {% endblock %}

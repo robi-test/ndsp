@@ -103,7 +103,7 @@
         {% endif %}
       </div>
       <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
-            <p class="nhsuk-hint">Only .csv and .xlm files are accepted. The maximum file size is 6Gb.</p>
+            <p class="nhsuk-hint">Only .csv and <div class="xml"></div> files are accepted. The maximum file size is 6Gb.</p>
             <!-- <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
             {% from 'details/macro.njk' import details %}
             {{ details({
@@ -133,7 +133,7 @@
                 <li id="files-list-empty">No file added yet</li>
               </ul>
             </div>
-             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">        
+             <input id="file-input" name="files" type="file" single hidden accept=".csv,.xml">        
             </div>
             <p><br></p>    
            

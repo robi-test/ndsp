@@ -13,17 +13,6 @@
 
 {% block content %}
 
-{{ errorSummary({
-  titleText: "There is a problem",
-  descriptionText: "You must select a file to submit before proceeding",
-  errorList: [
-    {
-      text: "Select a file to submit",
-      href: "#example-error-1"
-    }
-  ]
-}) }}
-
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
       <div class="nhsuk-width-container">
@@ -80,7 +69,7 @@
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-period1",
+                        href: "/iteration1/data-submission/choose-period1",
                         text: "Change",
                         visuallyHiddenText: "period"
                       }
@@ -106,7 +95,7 @@
               ]
             }) }}
 
-            {% if "August" not in data.period %}
+            {% if "October" not in data.period %}
             <div class="nhs-warning-text nhsuk-u-margin-bottom-8 nhsuk-grid-column-full">
               <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
               <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
@@ -115,7 +104,7 @@
               </strong>
             </div>
             {% endif %}
-            {% if "August" in data.period %}
+            {% if "October" in data.period %}
             <details class="nhsuk-details">
             <summary class="nhsuk-details__summary">
               <span class="nhsuk-details__summary-text">
@@ -156,9 +145,7 @@
 
             
             <div id="dropzone" class="nhsuk-u-padding-6 nhsuk-u-margin-bottom-4 dropzone" role="group" aria-describedby="dropzone-hint">
-             <div class="nhsuk-form-group nhsuk-form-group--error">
-              <span class="nhsuk-u-visually-hidden">Error:</span> 
-              <span class="nhsuk-error-message" id="name-error">Select a file to submit</span>
+             <div class="nhsuk-form-group ">
               <p class="nhsuk-body">Drag and drop file here or
                 <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose file</button>
               </p>
@@ -206,6 +193,7 @@
               </button>
               </form>
           </main>
+          <a href="upload-file1-error-no-file-selected" class="nhsuk-link">error: no file selected</a>
         </div>
       </div>
     </div>

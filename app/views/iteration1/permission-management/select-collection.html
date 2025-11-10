@@ -12,6 +12,7 @@
     
 {% from 'radios/macro.njk' import radios %}
 
+<form action="/iteration1/permission-management/select-collection" method="post">
 {{ radios({
   idPrefix: "collections",
   name: "collections",
@@ -33,9 +34,10 @@
   ]
 }) }}
 <p class="nhsuk-u-margin-top-2">Note: At this time, only one collection is available through this portal.</p>
- <button onclick="location='select-organisation'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
+</form>
 </div>
     </div>
     <div  class="nhsuk-u-margin-top-4" >
