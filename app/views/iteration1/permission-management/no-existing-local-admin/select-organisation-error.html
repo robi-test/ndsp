@@ -1,0 +1,97 @@
+{% extends "layout00.html" %}
+{% set pageName = "Which organisation do you want permissions for?" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from 'error-summary/macro.njk' import errorSummary %}
+
+{{ errorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: "Select an organisation",
+      href: "#organisation"
+    }
+  ]
+}) }}
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To continue your request, search and select the organisation you will be submitting data for.
+Only organisations that are authorised to submit data for the selected collection will appear in the list.
+This may be:
+<ul>
+  <li>Your own organisation, or</li>
+  <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
+</ul>
+The ODS code will be automatically shown once you select the organisation.
+      </p>
+
+ {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Why my organisation is not appearing?",
+        html: "
+  <p>There are a few reasons why your organisation may not be appearing in the list :</p>
+  <ul>
+    <li>Your organisation may not be registered to submit data for the selected collection.</li>
+    <li>You may be looking for a different name or ODS code for your organisation.</li>
+  </ul>"
+        }) }}
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'input/macro.njk' import input %}
+
+{{ input({
+  label: {
+    text: "Organisation name",
+    classes: "nhsuk-label--l",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Start typing to search the organisation. Only organisations that are in the list of data providers for this collection will appear. "
+  },
+  id: "example-with-hint-text",
+  name: "example-with-hint-text",
+  errorMessage: {
+    text: "Select an organisation"
+  },
+  classes: "nhsuk-input--width-30",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "ODS code",
+    classes: "nhsuk-label--l",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "This ODS code appears based on the organisation name code you entered."
+  },
+  id: "ods-code-field",
+  name: "ods-code-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string",
+  attributes: {
+    disabled: "disabled",
+    readonly: "readonly",
+    style: "background-color: #dfe4e5; cursor: not-allowed;"
+  }
+}) }}
+ <button onclick="location='select-role'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

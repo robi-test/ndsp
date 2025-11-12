@@ -1,4 +1,4 @@
-{% extends "layout0.html" %}
+{% extends "layout00.html" %}
 {% set pageName = "Check your request details" %}
 {% block beforeContent %}
   {{ backLink({
@@ -56,12 +56,12 @@ The name and email address shown are taken from the account you used to sign in.
         ]
       }
     },
-    {
+   {
       key: {
         text: "Organisation"
       },
       value: {
-        html: "Milton Keynes Hospital - NHS Trust Site"
+        html: "London North West University Healthcare NHS Trust"
       },
       actions: {
         items: [
@@ -74,6 +74,23 @@ The name and email address shown are taken from the account you used to sign in.
       }
     },
     {
+      key: {
+        text: "ODS"
+      },
+      value: {
+        text: "R1K01"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "ODS"
+          }
+        ]
+      }
+    },
+     {
       key: {
         text: "Role"
       },
@@ -92,6 +109,108 @@ The name and email address shown are taken from the account you used to sign in.
     },
     {
       key: {
+        text: "IG Lead full name"
+      },
+      value: {
+        html: '<p>Susan Jackson</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead email address"
+      },
+      value: {
+        html: '<p>susan.jackson@nhs.net</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead telephone number"
+      },
+      value: {
+        html: '<p>-</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Your team or department"
+      },
+      value: {
+        html: '<p>Diagnostic department</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Job title"
+      },
+      value: {
+        html: '<p>Analyst</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Reason for requesting administrator access (optional)"
+      },
+      value: {
+        html: '<p>-</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
         text: "Terms and conditions"
       },
       value: {
@@ -100,7 +219,7 @@ The name and email address shown are taken from the account you used to sign in.
       actions: {
         items: [
           {
-            href: "submitter-terms",
+            href: "local-admin-terms",
             text: "Change",
             visuallyHiddenText: "terms"
           }
@@ -110,7 +229,7 @@ The name and email address shown are taken from the account you used to sign in.
   ]
 }) }}
 
- <button onclick="location='submitter-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='submitter2-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Submit
               </button>
 

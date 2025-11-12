@@ -42,52 +42,116 @@ router.post('/iteration0/choose-period3', (req, res) => {
     res.redirect('/iteration0/upload-file3');
 });
 
-router.post("/iteration1/permission-management/select-role", (req, res) => {
+router.post("/iteration1/permission-management/existing-local-admin/select-role", (req, res) => {
   const role = req.session.data.role;
 
   if (role === "local-admin") {
-    res.redirect("/iteration1/permission-management/local-admin-message");
+    res.redirect("/iteration1/permission-management/existing-local-admin/local-admin-message");
   } else if (role === "submitter") {
-    res.redirect("/iteration1/permission-management/submitter-terms");
+    res.redirect("/iteration1/permission-management/existing-local-admin/submitter-terms");
   } else {
-    res.redirect("/iteration1/permission-management/select-role-error");
+    res.redirect("/iteration1/permission-management/existing-local-admin/select-role");
   }
 });
 
-router.post("/iteration1/permission-management/local-admin-message", (req, res) => {
+
+router.post("/iteration1/permission-management/no-existing-local-admin/select-role", (req, res) => {
+  const role = req.session.data.role;
+
+  if (role === "local-admin") {
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/add-ig-contact");
+  } else if (role === "submitter") {
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/submitter-message");
+  } else {
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/select-role");
+  }
+});
+
+
+
+router.post("/iteration1/permission-management/existing-local-admin/local-admin-message", (req, res) => {
   const continueChoice = req.session.data.continue;
 
   if (continueChoice === "yes") {
-    res.redirect("/iteration1/permission-management/add-ig-contact");
+    res.redirect("/iteration1/permission-management/existing-local-admin/add-ig-contact");
   } else if (continueChoice === "no") {
-    res.redirect("/iteration1/permission-management/home-no-permission");
+    res.redirect("/iteration1/permission-management/existing-local-admin/home-no-permission");
   } else {
-    res.redirect("/iteration1/permission-management/local-admin-message");
+    res.redirect("/iteration1/permission-management/existing-local-admin/local-admin-message");
   }
 });
 
-router.post("/iteration1/permission-management/submitter-message", (req, res) => {
+router.post("/iteration1/permission-management/no-existing-local-admin/submitter-message", (req, res) => {
   const continueChoice = req.session.data.continue;
 
   if (continueChoice === "yes") {
-    res.redirect("/iteration1/permission-management/add-ig-contact2");
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/add-ig-contact2");
   } else if (continueChoice === "no") {
-    res.redirect("/iteration1/permission-management/home-no-permission");
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/home-no-permission");
   } else {
-    res.redirect("/iteration1/permission-management/local-admin-message");
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/submitter-message");
   }
 });
 
-router.post("/iteration1/permission-management/select-collection", (req, res) => {
+router.post("/iteration1/permission-management/existing-local-admin/select-collection", (req, res) => {
   const collection = req.session.data.collections;
 
   // Check if a collection was selected
   if (collection) {
     // If collection is selected, go to next page
-    res.redirect("/iteration1/permission-management/select-organisation");
+    req.session.data.collection = collection;
+    res.redirect("/iteration1/permission-management/existing-local-admin/select-organisation");
   } else {
     // If no collection selected, show error page
-    res.redirect("/iteration1/permission-management/select-collection-error");
+    res.redirect("/iteration1/permission-management/existing-local-admin/select-collection-error");
   }
 });
+
+
+router.post("/iteration1/permission-management/existing-local-admin/select-collection-error", (req, res) => {
+  const collection = req.session.data.collections;
+
+  // Check if a collection was selected
+  if (collection) {
+    // If collection is selected, go to next page
+    req.session.data.collection = collection;
+    res.redirect("/iteration1/permission-management/existing-local-admin/select-organisation");
+  } else {
+    // If no collection selected, show error page
+    res.redirect("/iteration1/permission-management/existing-local-admin/select-collection-error");
+  }
+});
+
+router.post("/iteration1/permission-management/no-existing-local-admin/select-collection", (req, res) => {
+  const collection = req.session.data.collections;
+
+  // Check if a collection was selected
+  if (collection) {
+    // If collection is selected, go to next page
+    req.session.data.collection = collection;
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/select-organisation");
+  } else {
+    // If no collection selected, show error page
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/select-collection-error");
+  }
+});
+
+
+router.post("/iteration1/permission-management/no-existing-local-admin/select-collection-error", (req, res) => {
+  const collection = req.session.data.collections;
+
+  // Check if a collection was selected
+  if (collection) {
+    // If collection is selected, go to next page
+    req.session.data.collection = collection;
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/select-organisation");
+  } else {
+    // If no collection selected, show error page
+    res.redirect("/iteration1/permission-management/no-existing-local-admin/select-collection-error");
+  }
+});
+
+
+
+ 
 module.exports = router;

@@ -28,7 +28,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Name"
       },
       value: {
-        text: "Laura Smith"
+        text: "Rick Marley"
       }
     },
     {
@@ -36,7 +36,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Email address"
       },
       value: {
-        text: "laura.smith@nhs.net"
+        text: "rick.marley@nhs.net"
       }
     },
     {
@@ -61,7 +61,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Organisation"
       },
       value: {
-        html: "Milton Keynes Hospital - NHS Trust Site"
+        html: "London North West University Healthcare NHS Trust"
       },
       actions: {
         items: [
@@ -73,12 +73,29 @@ The name and email address shown are taken from the account you used to sign in.
         ]
       }
     },
+    {
+      key: {
+        text: "ODS"
+      },
+      value: {
+        text: "R1K01"
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "ODS"
+          }
+        ]
+      }
+    },
      {
       key: {
         text: "Role"
       },
       value: {
-        html: '<p>Submitter</p>'
+        html: '<p>Local administrator</p>'
       },
       actions: {
         items: [
@@ -163,7 +180,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Job title"
       },
       value: {
-        html: '<p>Analyst</p>'
+        html: '<p>Line manager</p>'
       },
       actions: {
         items: [
@@ -212,7 +229,7 @@ The name and email address shown are taken from the account you used to sign in.
   ]
 }) }}
 
- <button onclick="location='submitter2-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='local-admin-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Submit
               </button>
 

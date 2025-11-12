@@ -1,4 +1,4 @@
-{% extends "layout0.html" %}
+{% extends "layout00.html" %}
 {% set pageName = "Provide additional context" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,13 +7,31 @@
   }) }}
 {% endblock %}
 {% block content %}
+
+<!-- Error Summary -->
+{% from 'error-summary/macro.njk' import errorSummary %}
+
+{{ errorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: "Enter your team or department",
+      href: "#team"
+    },
+    {
+      text: "Enter your job title",
+      href: "#job-title"
+    }
+  ]
+}) }}
+
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        <h1>
          {{ pageName }}
       </h1>
-      <p>To help your organisation’s Information Governance (IG) lead review your request, please provide any additional information that can help them identify you and understand your role.
-<br>This is especially useful in large organisations or when multiple requests are being made. You do not need to complete every field — just include what’s relevant and helpful.
+      <p>To help your organisation's Information Governance (IG) lead review your request, please provide any additional information that can help them identify you and understand your role.
+<br>This is especially useful in large organisations or when multiple requests are being made. You do not need to complete every field — just include what's relevant and helpful.
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
@@ -24,6 +42,9 @@
     text: "Your team or department",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
+  },
+  errorMessage: {
+    text: "Enter your team or department"
   },
   id: "team",
   name: "team",
@@ -37,9 +58,12 @@
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
+  errorMessage: {
+    text: "Enter your job title"
+  },
   id: "job-title",
   name: "job-title",
-  classes: "nhsuk-input--width-10",
+  classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
@@ -49,7 +73,7 @@
   name: "reason-for-access-field",
   id: "reason-for-access-field",
   label: {
-    text: "Reason for requesting permissions (optional)",
+    text: "Reason for requesting administrator access (optional)",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
@@ -59,16 +83,14 @@
 }) }}
 
 
- <button onclick="location='add-ig-context-error'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='local-admin-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 </div>
 
 
     </div>
-    <div  class="nhsuk-u-margin-top-4" >
-      <a href="add-ig-context-error" class="nhsuk-u-margin-top-8">Error</a>
-    </div>
+   
     </div>
     
   </div>

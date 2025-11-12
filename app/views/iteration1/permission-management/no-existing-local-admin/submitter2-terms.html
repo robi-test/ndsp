@@ -1,4 +1,4 @@
-{% extends "layout0.html" %}
+{% extends "layout00.html" %}
 {% set pageName = "Terms and conditions" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,27 +7,13 @@
   }) }}
 {% endblock %}
 {% block content %}
-
-<!-- Error Summary -->
-{% from 'error-summary/macro.njk' import errorSummary %}
-
-{{ errorSummary({
-  titleText: "There is a problem",
-  errorList: [
-    {
-      text: "You must agree to the terms and conditions to continue",
-      href: "#term"
-    }
-  ]
-}) }}
-
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        <h1>
          {{ pageName }}
       </h1>
     <div class="nhsuk-u-margin-bottom-6"> 
-      <p>Before submitting your request, you must confirm that you've read and agree to the terms and conditions for using the National Data Submission Portal.
+      <p>Before submitting your request, you must confirm that you’ve read and agree to the terms and conditions for using the National Data Submission Portal.
 These terms apply to users requesting submitter permissions and explain:
 <ul>
 <li>Your responsibilities when submitting or managing data</li>
@@ -51,9 +37,6 @@ Please take the time to review the full document.
 {{ checkboxes({
   idPrefix: "term",
   name: "terms",
-  errorMessage: {
-    text: "You must agree to the terms and conditions to continue"
-  },
   fieldset: {
     legend: {
       text: "Do you agree to the terms and conditions?",
@@ -69,7 +52,7 @@ Please take the time to review the full document.
   ]
 }) }}
 
- <button onclick="location='submitter-details2'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='submitter2-details'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
@@ -77,7 +60,7 @@ Please take the time to review the full document.
 
     </div>
     <div  class="nhsuk-u-margin-top-4" >
-      <a href="select-role-error" class="nhsuk-u-margin-top-8">Error</a>
+      <a href="submitter2-terms-error" class="nhsuk-u-margin-top-8">Error</a>
     </div>
       
   </div>

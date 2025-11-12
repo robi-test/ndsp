@@ -1,0 +1,41 @@
+{% extends "layout0.html" %}
+{% set pageName = "Request permissions" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1 style="font-size:38px">
+         {{ pageName }}
+      </h1>
+      <p class="class="nhsuk-u-margin-bottom-6">You can request permissions to submit data and/or act as an administrator on behalf of an organisation. This can be your own organisation or another, such as when your organisation submits data on behalf of a different provider.
+You’ll be directed to the appropriate permission request process based on the role you request: Submitter or Local administrator.
+      </p>
+      <h2>Roles description</h2>
+      <h3>Submitter</h3>
+      <p>You’ll be able to submit data on behalf of your organisation for this collection.
+If a local administrator is already assigned for your organisation and this collection, your request will be reviewed and approved by them.
+If there is no local administrator, your request will need to be approved by your organisation’s Information Governance (IG) lead and will then be processed by the service desk.</p>
+<h3>Local administrator</h3>
+      <p>You’ll be responsible for managing user permissions for this collection within your organisation. This includes submitter permissions, allowing you to submit data.
+Your request must be approved by your organisation’s Information Governance (IG) lead and will be processed by the service desk.</p>
+<h2>What you’ll need to provide</h2>
+<p>If you need IG approval, you’ll also be asked to provide the name and contact details of your organisation’s Information Governance (IG) lead.
+All requests require you to confirm the organisation’s ODS code.</p>
+<p>If you don’t know the organisation’s ODS code, you can find it on <a target='blank' href="https://www.odsdatasearchandexport.nhs.uk/">ODS portal</a></p>
+ <button onclick="location='select-collection'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

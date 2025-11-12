@@ -1,0 +1,233 @@
+{% extends "layout00.html" %}
+{% set pageName = "Which organisation do you want permissions for?" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To continue your request, search and select the organisation you will be submitting data for.
+Only organisations that are authorised to submit data for the selected collection will appear in the list.
+This may be:
+<ul>
+  <li>Your own organisation, or</li>
+  <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
+</ul>
+The ODS code will be automatically shown once you select the organisation.
+      </p>
+
+ {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Why my organisation is not appearing?",
+        html: "
+  <p>There are a few reasons why your organisation may not be appearing in the list :</p>
+  <ul>
+    <li>Your organisation may not be registered to submit data for the selected collection.</li>
+    <li>You may be looking for a different name or ODS code for your organisation.</li>
+  </ul>"
+        }) }}
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'input/macro.njk' import input %}
+
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label nhsuk-label--m" for="organisation-search">
+    Organisation name
+  </label>
+  <div class="nhsuk-hint" id="organisation-search-hint">
+    Start typing to search the organisation. Only organisations that are in the list of data providers for this collection will appear.
+  </div>
+  <input class="nhsuk-input nhsuk-input--width-30" id="organisation-search" name="organisation-search" type="text" aria-describedby="organisation-search-hint" autocomplete="off">
+  
+  <!-- Dropdown suggestions -->
+  <div id="organisation-suggestions" style="display: none; position: absolute; background: white; border: 2px solid #005eb8; border-top: none; max-width: 600px; z-index: 1000;">
+  </div>
+</div>
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "ODS code",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "This ODS code appears based on the organisation name code you entered."
+  },
+  id: "ods-code-field",
+  name: "ods-code-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string",
+  attributes: {
+    disabled: "disabled",
+    readonly: "readonly",
+    style: "background-color: #dfe4e5; cursor: not-allowed;"
+  }
+}) }}
+ <button onclick="location='select-role'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+
+
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="select-organisation-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('organisation-search');
+    const suggestionsDiv = document.getElementById('organisation-suggestions');
+    const odsCodeField = document.getElementById('ods-code-field');
+    
+    // Sample organisations data (in real implementation, this could come from an API)
+    const organisations = [
+        {
+            name: "Milton Keynes University Hospital NHS Foundation Trust",
+            ods: "RTH83",
+            searchTerms: ["milton", "keynes", "university", "hospital", "mil", "key", "uni"]
+        },
+        {
+            name: "Milton Keynes Hospital - Independent provider - INHEALTH LIMITED",
+            ods: "NV1H0",
+            searchTerms: ["milton", "keynes", "hospital", "independent", "provider", "inhealth", "mil", "key", "hos"]
+        },
+        // London organisations
+        {
+            name: "London North West University Healthcare NHS Trust",
+            ods: "R1K01",
+            searchTerms: ["london", "north", "west", "university", "healthcare", "lon", "nor", "wes", "uni", "hea"]
+        },
+        {
+            name: "Royal Free London NHS Foundation Trust",
+            ods: "RAL01",
+            searchTerms: ["royal", "free", "london", "foundation", "roy", "fre", "lon", "fou"]
+        },
+        {
+            name: "South London and Maudsley NHS Foundation Trust",
+            ods: "RV501",
+            searchTerms: ["south", "london", "maudsley", "foundation", "sou", "lon", "mau", "fou"]
+        },
+        {
+            name: "University College London Hospitals NHS Foundation Trust",
+            ods: "RRV01",
+            searchTerms: ["university", "college", "london", "hospitals", "foundation", "uni", "col", "lon", "hos", "fou"]
+        }
+    ];
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        if (searchTerm.length >= 3) {
+            // Filter organisations that match the search term
+            const matches = organisations.filter(org => 
+                org.searchTerms.some(term => term.includes(searchTerm)) ||
+                org.name.toLowerCase().includes(searchTerm)
+            );
+            
+            if (matches.length > 0) {
+                // Clear previous suggestions
+                suggestionsDiv.innerHTML = '';
+                
+                // Add matching organisations
+                matches.forEach(org => {
+                    const suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.setAttribute('data-org', org.name);
+                    suggestionItem.setAttribute('data-ods', org.ods);
+                    suggestionItem.style.cssText = 'padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;';
+                    suggestionItem.innerHTML = `<strong>${org.name}</strong>`;
+                    
+                    // Add hover effects
+                    suggestionItem.addEventListener('mouseenter', function() {
+                        this.style.backgroundColor = '#f0f4f5';
+                    });
+                    
+                    suggestionItem.addEventListener('mouseleave', function() {
+                        this.style.backgroundColor = 'white';
+                    });
+                    
+                    // Add click handler
+                    suggestionItem.addEventListener('click', function() {
+                        const orgName = this.getAttribute('data-org');
+                        const odsCode = this.getAttribute('data-ods');
+                        
+                        searchInput.value = orgName;
+                        odsCodeField.value = odsCode;
+                        suggestionsDiv.style.display = 'none';
+                    });
+                    
+                    suggestionsDiv.appendChild(suggestionItem);
+                });
+                
+                suggestionsDiv.style.display = 'block';
+            } else {
+                suggestionsDiv.style.display = 'none';
+            }
+        } else {
+            suggestionsDiv.style.display = 'none';
+            odsCodeField.value = '';
+        }
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!searchInput.contains(event.target) && !suggestionsDiv.contains(event.target)) {
+            suggestionsDiv.style.display = 'none';
+        }
+    });
+    
+    // Handle keyboard navigation
+    searchInput.addEventListener('keydown', function(event) {
+        const suggestions = suggestionsDiv.querySelectorAll('.suggestion-item');
+        
+        if (suggestions.length > 0) {
+            let selectedIndex = Array.from(suggestions).findIndex(item => 
+                item.style.backgroundColor === 'rgb(240, 244, 245)'
+            );
+            
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                selectedIndex = selectedIndex < suggestions.length - 1 ? selectedIndex + 1 : 0;
+                updateSelection(suggestions, selectedIndex);
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                selectedIndex = selectedIndex > 0 ? selectedIndex - 1 : suggestions.length - 1;
+                updateSelection(suggestions, selectedIndex);
+            } else if (event.key === 'Enter' && selectedIndex >= 0) {
+                event.preventDefault();
+                suggestions[selectedIndex].click();
+            }
+        }
+    });
+    
+    function updateSelection(suggestions, selectedIndex) {
+        suggestions.forEach((item, index) => {
+            item.style.backgroundColor = index === selectedIndex ? '#f0f4f5' : 'white';
+        });
+    }
+});
+</script>
+
+<style>
+.suggestion-item:hover {
+    background-color: #f0f4f5 !important;
+}
+
+#organisation-suggestions {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+{% endblock %}

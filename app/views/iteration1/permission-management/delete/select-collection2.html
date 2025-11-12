@@ -1,0 +1,55 @@
+{% extends "layout0.html" %}
+{% set pageName = "Select the collection" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    
+{% from 'radios/macro.njk' import radios %}
+
+<form action="/iteration1/permission-management/select-collection" method="post">
+{{ radios({
+  idPrefix: "collections",
+  name: "collections",
+  fieldset: {
+    legend: {
+      text: "Which collection do you want permissions for?",
+      classes: "nhsuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  },
+   hint: {
+    text: "Select the collection you need permissions for. "
+  },
+  values: data.collection,
+  items: [
+    {
+      value: "DIDS",
+      text: "Diagnostic Imaging Data Set (DIDS)"
+    }
+  ]
+}) }}
+<p class="nhsuk-u-margin-top-2">Note: At this time, only one collection is available through this portal.</p>
+ <button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</form>
+</div>
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="select-collection-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

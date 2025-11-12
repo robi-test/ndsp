@@ -1,4 +1,4 @@
-{% extends "layout0.html" %}
+{% extends "layout00.html" %}
 {% set pageName = "Terms and conditions" %}
 {% block beforeContent %}
   {{ backLink({
@@ -13,10 +13,10 @@
          {{ pageName }}
       </h1>
     <div class="nhsuk-u-margin-bottom-6"> 
-      <p>Before submitting your request, you must confirm that you’ve read and agree to the terms and conditions for using the National Data Submission Portal.
-These terms apply to users requesting submitter permissions and explain:
+      <p>BBefore submitting your access request, you must confirm that you’ve read and agree to the terms and conditions for using the National Data Submission Portal.
+<br>These terms apply to users requesting local administrator permissions and explain:
 <ul>
-<li>Your responsibilities when submitting or managing data</li>
+<li>Your responsibilities for managing user access and overseeing data submissions</li>
 <li>How your personal information will be used</li>
 <li>The rules for accessing data on behalf of your organisation</li>
 <li>What to do if your role or responsibilities change</li>
@@ -52,17 +52,13 @@ Please take the time to review the full document.
   ]
 }) }}
 
- <button onclick="location='submitter2-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='local-admin-details'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
 </div>
 
-    </div>
-    <div  class="nhsuk-u-margin-top-4" >
-      <a href="submitter2-terms-error" class="nhsuk-u-margin-top-8">Error</a>
-    </div>
-      
+
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,88 @@
+{% extends "layout0.html" %}
+{% set pageName = "Choose your role" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+ <div class="nhsuk-form-group">
+   <form action="/iteration1/permission-management/existing-local-admin/select-role" method="post">
+  <fieldset class="nhsuk-fieldset" aria-describedby="example-hints-hint">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+      <h1 class="nhsuk-fieldset__heading">
+        What role do you need?
+      </h1>
+    </legend>
+    <div id="example-hints-hint" class="nhsuk-hint">
+      Choose the role you are applying for.
+    </div>
+   
+    <div class="nhsuk-radios" data-module="nhsuk-radios">
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="role" name="role" type="radio" value="local-admin">
+        <label class="nhsuk-label nhsuk-radios__label" for="role">
+          Local administrator
+        </label>
+      </div>
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="example-hints-2" name="role" type="radio" value="submitter">
+        <label class="nhsuk-label nhsuk-radios__label" for="role">
+          Submitter
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>     
+<!-- {% from 'radios/macro.njk' import radios %}
+
+{{ radios({
+  idPrefix: "role",
+  name: "role",
+  fieldset: {
+    legend: {
+      text: "What role do you need?",
+      classes: "nhsuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  },
+   hint: {
+    text: "Choose the role you are applying for."
+  },
+  items: [
+    {
+      value: "local-admin",
+      text: "Local administrator"
+    },
+    {
+      value: "submitter",
+      text: "Submitter"
+    }
+  ]
+}) }} -->
+<p class="nhsuk-u-margin-top-4">Note: At this time, only one collection is available through this portal.</p>
+ <button onclick="location='submitter-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</form>
+</div>
+
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="select-role-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+
+     <div>
+      <a href="submitter-message" class="nhsuk-u-margin-top-8">Request a submitter role, but no local admin existing</a>
+    </div>
+      
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

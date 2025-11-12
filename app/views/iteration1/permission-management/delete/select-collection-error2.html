@@ -21,7 +21,7 @@
     }
   ]
 }) }}
-    
+  <form action="/iteration1/permission-management/select-collection" method="post" class="form">     
 {% from 'radios/macro.njk' import radios %}
 
 {{ radios({
@@ -40,6 +40,7 @@
    hint: {
     text: "Select the collection you need permissions for. "
   },
+  values: data.collection,
   items: [
     {
       value: "DIDS",
@@ -51,6 +52,7 @@
  <button onclick="location='select-organisation'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
+              </form>
 </div>
     </div>
   </div>

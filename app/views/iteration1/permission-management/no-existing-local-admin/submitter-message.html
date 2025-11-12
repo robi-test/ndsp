@@ -1,4 +1,4 @@
-{% extends "layout0.html" %}
+{% extends "layout00.html" %}
 
 {% set pageName = 'Request submitted' %}
 
@@ -23,7 +23,7 @@ If your team considers you the appropriate person to act as a local administrato
   </div>
 
 
-  <form action="/iteration1/permission-management/submitter-message" method="post">
+  <form action="/iteration1/permission-management/no-existing-local-admin/submitter-message" method="post">
   {{ radios({
     name: "continue",
     items: [

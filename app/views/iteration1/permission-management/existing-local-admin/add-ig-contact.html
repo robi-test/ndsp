@@ -1,0 +1,79 @@
+{% extends "layout0.html" %}
+{% set pageName = "IG lead contact details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To request permissions, you must provide the contact details of your organisation’s Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
+Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a target="_blank" href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a target="_blank" href="#">public registers</a>.
+      </p>
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'input/macro.njk' import input %}
+
+{{ input({
+  label: {
+    text: "IG lead full name",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  id: "ig-name",
+  name: "ig-name",
+  classes: "nhsuk-input--width-30",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "IG lead email address",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Use the email address for the IG lead, as shown on the ODS portal."
+  },
+  id: "email-address-field",
+  name: "email-address-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "Telephone number (optional)",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Enter a direct contact number in case of queries."
+  },
+  id: "telephone-number-field",
+  name: "telephone-number-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
+}) }}
+ <button onclick="location='add-ig-context'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+
+
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="add-ig-contact-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,66 @@
+{% extends "layout0.html" %}
+
+{% set pageName = serviceName %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
+
+    <div class="nhsuk-notification-banner role="region" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" >
+  <div class="nhsuk-notification-banner__header">
+    <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+      Important
+    </h2>
+  </div>
+<div class="nhsuk-notification-banner__content">
+<h3 class="nhsuk-notification-banner__heading">
+    Access request submitted 
+  </h3>
+  <p>You’ve recently submitted a request for access. 
+<br>You’ll receive an email once your request has been approved or if further information is needed.</p>
+  </div>
+  </div>
+      <h1>
+         {{ pageName }}
+      </h1>
+
+
+      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new NHS Data Submission Portal. <br>You can use this portal to submit data, see validation feedback, and download reports for multiple collections based on your organisation's access. 
+      </p>
+      <p >Currently you have permissions for the following collection(s):
+      </p>
+       <div class="nhs-warning-text nhsuk-grid-column-full">
+          <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
+            <span class="nhs-visually-hidden">Warning</span>
+            You don't currently have permissions for any collections on this portal.
+          </strong>
+        </div>
+      {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Need help with access or submitting data?",
+        html: "
+          <p>If you need to request access to another organisation or collection, or ask additional permissions, you can do this online:</p>
+          <p><a href='#'>Start a permission request</a></p>
+          <p>If you experience any issues accessing the portal or submitting your data, please contact the National Service Desk for support:</p>
+          <p><a href='mailto:ssd.nationalservicedesk@nhs.net'>ssd.nationalservicedesk@nhs.net</a></p> 
+          <p>For more information and guidance, visit the NHS Data Submission Portal guidance page.</p>
+          <p><a href='/iteration1/permission-management/existing-local-admin/permission-request-start'>View NHS Data Submission Portal guidance</a></p>   
+          "
+        }) }}
+      <hr>  
+      {% from 'action-link/macro.njk' import actionLink %}
+      {{ actionLink({
+        text: "Start a permission request",
+        href: "permission-request-start"
+      }) }}
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+
+{% endblock %}
