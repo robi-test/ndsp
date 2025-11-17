@@ -12,11 +12,15 @@
        <h1>
          {{ pageName }}
       </h1>
-      <p>To help your organisation’s Information Governance (IG) lead review your request, please provide any additional information that can help them identify you and understand your role.
-<br>This is especially useful in large organisations or when multiple requests are being made. You do not need to complete every field — just include what’s relevant and helpful.
+      <p>To help your organisation's Information Governance (IG) lead review your request, please provide any additional information that can help them identify you and understand your role.
+<br>This is especially useful in large organisations or when multiple requests are being made. You do not need to complete every field — just include what's relevant and helpful.
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-context" method="post">
+
 {% from 'input/macro.njk' import input %}
 
 {{ input({
@@ -27,6 +31,7 @@
   },
   id: "team",
   name: "team",
+  value: data['team'],
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
@@ -39,6 +44,7 @@
   },
   id: "job-title",
   name: "job-title",
+  value: data['job-title'],
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
@@ -46,8 +52,9 @@
 {% from 'textarea/macro.njk' import textarea %}
 
 {{ textarea({
-  name: "reason-for-access-field",
-  id: "reason-for-access-field",
+  name: "reason",
+  id: "reason",
+  value: data['reason'],
   label: {
     text: "Reason for requesting permissions (optional)",
     classes: "nhsuk-label--m",
@@ -58,10 +65,12 @@
   }
 }) }}
 
+<button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+  Continue
+</button>
 
- <button onclick="location='local-admin-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
+</form>
+
 </div>
 
 

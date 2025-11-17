@@ -12,11 +12,15 @@
        <h1>
          {{ pageName }}
       </h1>
-      <p>To request permissions, you must provide the contact details of your organisation’s Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
+      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper with proper action and method -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
+
 {% from 'input/macro.njk' import input %}
 
 {{ input({
@@ -27,6 +31,7 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "ig-name",
   name: "ig-name",
+  value: data['ig-name'],
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
@@ -42,6 +47,7 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "email-address-field",
   name: "email-address-field",
+  value: data['email-address-field'],
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
@@ -57,12 +63,17 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "telephone-number-field",
   name: "telephone-number-field",
+  value: data['telephone-number-field'],
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
- <button onclick="location='add-ig-context'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
+
+<button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+  Continue
+</button>
+
+</form>
+
 </div>
 
 

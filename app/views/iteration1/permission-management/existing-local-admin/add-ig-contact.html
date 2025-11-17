@@ -16,8 +16,7 @@
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a target="_blank" href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a target="_blank" href="#">public registers</a>.
       </p>
 
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{% from 'input/macro.njk' import input %}
+<form action="/iteration1/permission-management/existing-local-admin/add-ig-contact" method="post">
 
 {{ input({
   label: {
@@ -27,10 +26,11 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "ig-name",
   name: "ig-name",
+  value: data['ig-name'],
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
-<p class="nhsuk-u-margin-bottom-8"> </p>
+
 {{ input({
   label: {
     text: "IG lead email address",
@@ -42,10 +42,11 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "email-address-field",
   name: "email-address-field",
+  value: data['email-address-field'],
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
-<p class="nhsuk-u-margin-bottom-8"> </p>
+
 {{ input({
   label: {
     text: "Telephone number (optional)",
@@ -57,14 +58,16 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   id: "telephone-number-field",
   name: "telephone-number-field",
+  value: data['telephone-number-field'],
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
- <button onclick="location='add-ig-context'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
-</div>
 
+<button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+  Continue
+</button>
+
+</form>
 
     </div>
     <div  class="nhsuk-u-margin-top-4" >

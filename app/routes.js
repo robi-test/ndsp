@@ -152,6 +152,64 @@ router.post("/iteration1/permission-management/no-existing-local-admin/select-co
 });
 
 
+router.post("/iteration1/permission-management/existing-local-admin/add-ig-contact", (req, res) => {
+  // Store the IG contact data in session
+  req.session.data['ig-name'] = req.session.data['ig-name'];
+  req.session.data['email-address-field'] = req.session.data['email-address-field'];
+  req.session.data['telephone-number-field'] = req.session.data['telephone-number-field'];
+  
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/existing-local-admin/add-ig-context");
+});
+ 
+router.post("/iteration1/permission-management/existing-local-admin/add-ig-context", (req, res) => {
+  // Store the team data in session
+  req.session.data['team'] = req.session.data['team'];
+  req.session.data['job-title'] = req.session.data['job-title'];
+  req.session.data['reason'] = req.session.data['reason'];
 
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/existing-local-admin/local-admin-terms");
+});
+
+router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-contact", (req, res) => {
+  // Store the IG contact data in session
+  req.session.data['ig-name'] = req.session.data['ig-name'];
+  req.session.data['email-address-field'] = req.session.data['email-address-field'];
+  req.session.data['telephone-number-field'] = req.session.data['telephone-number-field'];
+  
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/no-existing-local-admin/add-ig-context");
+});
+ 
+router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-context", (req, res) => {
+  // Store the team data in session
+  req.session.data['team'] = req.session.data['team'];
+  req.session.data['job-title'] = req.session.data['job-title'];
+  req.session.data['reason'] = req.session.data['reason'];
+
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/no-existing-local-admin/local-admin-terms");
+});
+
+router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-contact2", (req, res) => {
+  // Store the IG contact data in session
+  req.session.data['ig-name2'] = req.session.data['ig-name2'];
+  req.session.data['email-address-field2'] = req.session.data['email-address-field2'];
+  req.session.data['telephone-number-field2'] = req.session.data['telephone-number-field2'];
+  
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/no-existing-local-admin/add-ig-context2");
+});
+ 
+router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-context2", (req, res) => {
+  // Store the team data in session
+  req.session.data['team2'] = req.session.data['team2'];
+  req.session.data['job-title2'] = req.session.data['job-title2'];
+  req.session.data['reason2'] = req.session.data['reason2'];
+
+  // Redirect back to the details page
+  res.redirect("/iteration1/permission-management/no-existing-local-admin/submitter2-terms");
+});
  
 module.exports = router;

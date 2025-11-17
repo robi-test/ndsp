@@ -56,12 +56,12 @@ The name and email address shown are taken from the account you used to sign in.
         ]
       }
     },
-  {
+    {
       key: {
         text: "Organisation"
       },
       value: {
-        html: "London North West University Healthcare NHS Trust"
+        html: "Milton Keynes Hospital - Independent provider - INHEALTH LIMITED"
       },
       actions: {
         items: [
@@ -75,10 +75,10 @@ The name and email address shown are taken from the account you used to sign in.
     },
     {
       key: {
-        text: "ODS"
+        text: "ODS Code"
       },
       value: {
-        text: "R1K01"
+        text: "NV1H0"
       },
       actions: {
         items: [
@@ -129,7 +129,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "IG Lead full name"
       },
       value: {
-        html: '<p>Susan Jackson</p>'
+        html: data['ig-name'] 
       },
       actions: {
         items: [
@@ -146,7 +146,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "IG Lead email address"
       },
       value: {
-        html: '<p>susan.jackson@nhs.net</p>'
+        html: data['email-address-field'] 
       },
       actions: {
         items: [
@@ -163,7 +163,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "IG Lead telephone number"
       },
       value: {
-        html: '<p>-</p>'
+        html: data['telephone-number-field'] 
       },
       actions: {
         items: [
@@ -180,14 +180,14 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Your team or department"
       },
       value: {
-        html: '<p>Diagnostic department</p>'
-      },
+        html: data['team'] 
+        },
       actions: {
         items: [
           {
             href: "add-ig-context",
             text: "Change",
-            visuallyHiddenText: "role"
+            visuallyHiddenText: "team"
           }
         ]
       }
@@ -197,14 +197,14 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Job title"
       },
       value: {
-        html: '<p>Line manager</p>'
+        html: data['job-title'] 
       },
       actions: {
         items: [
           {
             href: "add-ig-context",
             text: "Change",
-            visuallyHiddenText: "role"
+            visuallyHiddenText: "job title"
           }
         ]
       }
@@ -214,14 +214,14 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Reason for requesting administrator access (optional)"
       },
       value: {
-        html: '<p>-</p>'
+        html: data['reason'] 
       },
       actions: {
         items: [
           {
             href: "add-ig-context",
             text: "Change",
-            visuallyHiddenText: "role"
+            visuallyHiddenText: "reason"
           }
         ]
       }

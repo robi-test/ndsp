@@ -12,26 +12,34 @@
        <h1>
          {{ pageName }}
       </h1>
-      <p>To request permissions, you must provide the contact details of your organisation’s Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
+      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper with proper action and method -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact2" method="post">
+
 {% from 'input/macro.njk' import input %}
 
 {{ input({
+  id: "ig-name2",
+  name: "ig-name2",
+  value: data['ig-name2'],
   label: {
     text: "IG lead full name",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
-  id: "ig-name",
-  name: "ig-name",
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
+  id: "email-address-field2",
+  name: "email-address-field2",
+  value: data['email-address-field2'],
   label: {
     text: "IG lead email address",
     classes: "nhsuk-label--m",
@@ -40,13 +48,14 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   hint: {
     text: "Use the email address for the IG lead, as shown on the ODS portal."
   },
-  id: "email-address-field",
-  name: "email-address-field",
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
+  id: "telephone-number-field2",
+  name: "telephone-number-field2",
+  value: data['telephone-number-field2'],
   label: {
     text: "Telephone number (optional)",
     classes: "nhsuk-label--m",
@@ -55,14 +64,16 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   hint: {
     text: "Enter a direct contact number in case of queries."
   },
-  id: "telephone-number-field",
-  name: "telephone-number-field",
   classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
- <button onclick="location='add-ig-context2'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
+
+<button type="submit" class="nhsuk-button nhsuk-u-margin-top-7">
+  Continue
+</button>
+
+</form>
+
 </div>
 
 
