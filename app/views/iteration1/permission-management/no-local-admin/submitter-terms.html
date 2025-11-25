@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
 {% set pageName = "Agree to terms and conditions" %}
 {% block beforeContent %}
   {{ backLink({
@@ -30,7 +30,7 @@ Please take the time to review the full document.
 {% from 'action-link/macro.njk' import actionLink %}
       {{ actionLink({
         text: "Read terms and conditions",
-        href: "submitter2-terms-and-conditions"
+        href: "submitter-terms-and-conditions"
       }) }}
 {% from 'checkboxes/macro.njk' import checkboxes %}
 
@@ -52,16 +52,14 @@ Please take the time to review the full document.
   ]
 }) }}
 
- <button onclick="location='submitter2-details'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='submitter-details'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
 </div>
 
     </div>
-    <div  class="nhsuk-u-margin-top-4" >
-      <a href="submitter2-terms-error" class="nhsuk-u-margin-top-8">Error</a>
-    </div>
+
       
   </div>
 </div>

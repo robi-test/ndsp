@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
 {% set pageName = "Select the collection" %}
 {% block beforeContent %}
   {{ backLink({
@@ -9,28 +9,13 @@
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-
-{% from 'error-summary/macro.njk' import errorSummary %}
-
-{{ errorSummary({
-  titleText: "There is a problem",
-  descriptionText: "You must select a data collection to continue.",
-  errorList: [
-    {
-      text: "Select a collection",
-      href: "#collection"
-    }
-  ]
-}) }}
- <form action="/iteration1/permission-management/no-existing-local-admin/select-collection" method="post" class="form">  
+    
 {% from 'radios/macro.njk' import radios %}
 
+<form action="/iteration1/permission-management/no-existing-local-admin/select-collection" method="post" class="form">
 {{ radios({
   idPrefix: "collections",
   name: "collections",
-  errorMessage: {
-    text: "Select a collection"
-  },
   fieldset: {
     legend: {
       text: "Which collection do you want permissions for?",
@@ -41,7 +26,7 @@
    hint: {
     text: "Select the collection you need permissions for. "
   },
-  values: data.collection,
+   values: data.collection,
   items: [
     {
       value: "Diagnostic Imaging Data Set (DIDS)",
@@ -49,14 +34,17 @@
     }
   ]
 }) }}
+
+</form>
 <p class="nhsuk-u-margin-top-2">Note: At this time, only one collection is available through this portal.</p>
  <button onclick="location='select-organisation'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
-
-              </form> 
 </div>
     </div>
+   
+    </div>
+
   </div>
 </div>
 {% endblock %}

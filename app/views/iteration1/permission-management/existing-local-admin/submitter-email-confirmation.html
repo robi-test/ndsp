@@ -1,0 +1,122 @@
+
+{% set pageName = "Email Preview" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        
+
+        
+        <!-- Email Container -->
+        <div style="max-width: 800px; margin: 0 auto; background-color: white; border: 1px solid #d8dde0; font-family: Arial, sans-serif;">
+            
+            <!-- Email Header -->
+            <div style="background-color: #005eb8; color: white; padding: 20px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <div style="font-size: 18px; font-weight: bold;">National Data Submission Portal</div>
+                        <div style="font-size: 14px; margin-top: 5px;">Permission request confirmation</div>
+                    </div>
+                    <div style="background-color: white; color: #005eb8; padding: 8px 16px; font-weight: bold; font-size: 18px;">
+                        NHS
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Email Details -->
+            <div style="background-color: #f8f8f8; padding: 15px; border-bottom: 1px solid #d8dde0;">
+                <table style="width: 100%; font-size: 14px;">
+                    <tr>
+                        <td style="font-weight: bold; width: 80px;">From:</td>
+                        <td>National Data Submission Portal &lt;ndsp-noreply@nhs.net&gt;</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">To:</td>
+                        <td>laura.smith@nhs.net</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Subject:</td>
+                        <td>Permission request submitted - Awaiting approval</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Date:</td>
+                        <td>15 Oct 2025, 11:15 AM</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Email Body -->
+            <div style="padding: 30px; line-height: 1.6;">
+                
+             
+                
+                <p>Dear Laura Smith,</p>
+                
+                <p>Thank you for submitting your permission request to access the National Data Submission Portal. We have received your request and it is now being processed.</p>
+                
+              
+                
+                <!-- Request Details -->
+                <h3 style="color: #212b32;">Request Details</h3>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Collection:Diagnostic Imaging Data Set (DIDS)</li>
+                    <li>Organisation: Milton Keynes Hospital NHS Trust</li>
+                    <li>ODS Code: R1K</li>
+                    <li>Role requested: Submitter</li>
+                    <li>Submitted on:15 October 2025 at 11:15 AM</li>
+                </ul>
+                
+                <!-- Next Steps -->
+
+                <p>Your request will be forwarded to the right team for final approval.
+                    Once approved, your account will be activated and you will receive login instructions.
+                </p> 
+                
+            
+                
+                <!-- Important Information -->
+                <div style="background-color: #ffff; margin: 20px 0;">
+                    <h4 >Important Information</h4>
+                    <ul style="margin-bottom: 0; padding-left: 20px;">
+                        <li>Keep this reference number for your records: REQ-2025-10-0156</li>
+                        <li>Ensure your organisation's local administrator is aware of your request</li>
+                        <li>Contact us if the request details are not correct</li>
+                        <li>You will need to use the same email address and/or details to access the portal once approved</li>
+                    </ul>
+                </div>
+                
+                 <!-- Contact Information -->
+                <!-- <h3 style="color: #212b32;">Need help or have questions?</h3>
+                <p>If you have any questions about your permission request or need to provide additional information, please contact us:</p>
+                
+                <div style="background-color: #f0f4f5; padding: 15px; border-radius: 4px;">
+                    <p style="margin: 0;"><strong>Email:</strong> <a href="mailto:ndsp.team@nhs.net" style="color: #005eb8;">ndsp.team@nhs.net</a></p>
+                    <p style="margin: 5px 0 0 0;"><strong>Include your reference number:</strong> REQ-2025-10-0156</p>
+                </div>
+                
+                <p style="margin-top: 20px;">Thank you for your interest in contributing to the National Data Submission Portal.</p> -->
+                
+                <p>Best regards,<br>
+                National Data Submission Portal Team</p>
+                
+            </div>
+            
+            <!-- Email Footer -->
+            <div style="background-color: #f0f4f5; padding: 20px; border-top: 1px solid #d8dde0; font-size: 12px; color: #666;">
+                <p style="margin: 0 0 10px 0;">This is an automated message from the National Data Submission Portal. Please do not reply to this email.</p>
+                <p style="margin: 0;">If you need assistance, please contact ssd.nationalservicedesk@nhs.net</p>
+                <p style="margin: 5px 0 0 0;">© 2025 NHS England. All rights reserved.</p>
+            </div>
+            
+        </div>
+        
+        <!-- Back to Portal Button -->
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="nhsuk-button nhsuk-button--secondary">
+                Back to Portal
+            </a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

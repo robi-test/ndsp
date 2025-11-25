@@ -1,0 +1,85 @@
+{% extends "layout00.html" %}
+{% set pageName = "Terms and conditions" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+    <div class="nhsuk-u-margin-bottom-6"> 
+    <h2>Introduction</h2>
+      <p>The National Data Submission Portal (NDSP) is a new secure platform for submitting data to NHS England. The NDSP is designed to gradually replace older NHS England data collection systems, providing a single, consistent, and secure place for organisations to submit required data.  
+It is being delivered through the National Data Integration Tenant (NDIT) to ensure a secure, accessible and consistent data submission experience. <br>
+<br>The portal supports a standardised and auditable process for user access and data submission, helping NHS England to maintain data governance standards.
+Each user is granted permissions based on a combination of:
+</p>
+<ul>
+<li>Organisation (ODS code)</li>
+<li>Collection</li>
+<li>Role</li>
+</ul>
+<p>
+Access to NDSP is granted only following appropriate authorisation by the relevant data controllers or designated local authorities, and in line with data governance responsibilities. 
+</p>
+<h2>Purpose</h2>
+<p>
+These Terms and Conditions apply to individuals acting as Submitters within the NDSP. Submitters are permitted to upload data files and view submission status and validation feedback, for their approved organisation(s) and collection(s).
+</p>
+
+<h2>Access and use</h2>
+<p>
+NHS England grants named users access to submit and view data only for their authorised organisation and collection(s). Access will be removed automatically after 6 months of inactivity.
+<br>User credentials must not be shared.
+
+</p>
+<h2>Responsibilities</h2>
+<p>
+Submitters must:
+<ul>
+<li>Only upload data their organisation is authorised and legally permitted to submit.</li>
+<li>Follow all collection-specific instructions and meet deadlines.</li>
+<li>Ensure that data is complete, accurate, and formatted as per collection guidance.</li>
+<li>Avoid submitting any data outside the defined scope.</li>
+<li>Immediately report any suspected data breach or misuse to the support team.</li>
+</ul>
+</p>
+<h2>Access changes</h2>
+<p>
+If a user leaves the organisation or no longer requires access, it is the responsibility of the organisation to inform NHS England. This should be done by the local administrator, if one is in place, or by the submitter themselves by emailing: <br>
+<a>ssd.nationalservicedesk@nhs.net</a>
+</p>
+<h2>Termination of access</h2>
+<p>
+Access may be suspended or revoked if:
+<ul>
+<li>A user is found to have misused the system.</li>
+<li>The user's organisational affiliation changes.</li>
+</ul>
+</p>
+<h2>Communication</h2>
+<p>
+NHS England may contact users using the email address provided during registration for updates, service messages, or information requests.
+</p>
+
+</div>
+
+
+
+</div>
+
+    </div>
+    
+      
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

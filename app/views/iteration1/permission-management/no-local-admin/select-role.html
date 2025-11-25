@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
 {% set pageName = "Choose your role" %}
 {% block beforeContent %}
   {{ backLink({
@@ -22,58 +22,28 @@
     </div>
    
     <div class="nhsuk-radios" data-module="nhsuk-radios">
-      <div class="nhsuk-radios__item">
-        <input class="nhsuk-radios__input" id="role" name="role" type="radio" value="local-admin">
-        <label class="nhsuk-label nhsuk-radios__label" for="role">
-          Local administrator
-        </label>
-      </div>
+      
       <div class="nhsuk-radios__item">
         <input class="nhsuk-radios__input" id="example-hints-2" name="role" type="radio" value="submitter">
         <label class="nhsuk-label nhsuk-radios__label" for="role">
           Submitter
         </label>
+       
       </div>
     </div>
   </fieldset>
 </div>     
-<!-- {% from 'radios/macro.njk' import radios %}
 
-{{ radios({
-  idPrefix: "role",
-  name: "role",
-  fieldset: {
-    legend: {
-      text: "What role do you need?",
-      classes: "nhsuk-fieldset__legend--l",
-      isPageHeading: true
-    }
-  },
-   hint: {
-    text: "Choose the role you are applying for."
-  },
-  items: [
-    {
-      value: "local-admin",
-      text: "Local administrator"
-    },
-    {
-      value: "submitter",
-      text: "Submitter"
-    }
-  ]
-}) }} -->
+<p class="nhsuk-u-margin-top-4">Note: The collection you selected only supports one role.</p>
 
-{{ button({
-          text: "Continue"
-        }) }}
 </form>
+ <button onclick="location='add-ig-contact'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
 </div>
 
     </div>
-    <div  class="nhsuk-u-margin-top-4" >
-      <a href="select-role-error" class="nhsuk-u-margin-top-8">Error</a>
-    </div>
+
 
      
   </div>

@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
 {% set pageName = "Provide additional context" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,25 +7,6 @@
   }) }}
 {% endblock %}
 {% block content %}
-
-<!-- Error Summary -->
-{% from 'error-summary/macro.njk' import errorSummary %}
-
-{{ errorSummary({
-  titleText: "There is a problem",
-  descriptionText: "You must  complete the mandatory fields to continue.",
-  errorList: [
-    {
-      text: "Enter your team or department",
-      href: "#team"
-    },
-    {
-      text: "Enter your job title",
-      href: "#job-title"
-    }
-  ]
-}) }}
-
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        <h1>
@@ -36,6 +17,10 @@
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-context" method="post">
+
 {% from 'input/macro.njk' import input %}
 
 {{ input({
@@ -44,11 +29,9 @@
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
-  errorMessage: {
-    text: "Enter your team or department"
-  },
   id: "team",
   name: "team",
+  value: data['team'],
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
@@ -59,22 +42,21 @@
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
-  errorMessage: {
-    text: "Enter your job title"
-  },
   id: "job-title",
   name: "job-title",
-  classes: "nhsuk-input--width-30",
+  value: data['job-title'],
+  classes: "nhsuk-input--width-10",
   inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {% from 'textarea/macro.njk' import textarea %}
 
 {{ textarea({
-  name: "reason-for-access-field",
-  id: "reason-for-access-field",
+  name: "reason",
+  id: "reason",
+  value: data['reason'],
   label: {
-    text: "Reason for requesting administrator access (optional)",
+    text: "Reason for requesting permissions (optional)",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
@@ -84,14 +66,16 @@
 }) }}
 
 
- <button onclick="location='local-admin-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
+
+</form>
+<button onclick="location='submitter-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 </div>
 
 
     </div>
-   
+
     </div>
     
   </div>

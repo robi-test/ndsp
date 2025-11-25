@@ -1,0 +1,36 @@
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
+{% set pageName = "Request permissions" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1 style="font-size:38px">
+         {{ pageName }}
+      </h1>
+      <p class="class="nhsuk-u-margin-bottom-6">You’re starting a request to get permissions for yourself to use NDSP. The permission you receive will depend on the role available for the collection and, if more than one role is offered, the one you select.</p>
+      <p>You can use this process whether you’re new to National Data Submission Portal or already have an account and need additional access, for example, to a different data collection or organisation. Each request covers one organisation and one data collection, and you can request access for your own organisation or another organisation you submit data for.</p>
+      <p>You can read more about the available roles in the <a>permission guidance</a>.
+      </p>
+    
+<h2>What you’ll need to provide</h2>
+<p>All requests require you to confirm the organisation’s ODS code.<br>
+If you don’t know the organisation’s ODS code, you can find it on <a target='blank' href="https://www.odsdatasearchandexport.nhs.uk/">ODS portal</a>.<br><br>
+If you need IG approval, you’ll also be asked to provide the name and contact details of your organisation’s Information Governance (IG) lead.</p>
+
+ <button onclick="location='select-collection'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

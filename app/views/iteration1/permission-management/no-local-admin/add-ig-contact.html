@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
 {% set pageName = "IG lead contact details" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,68 +7,49 @@
   }) }}
 {% endblock %}
 {% block content %}
-
-<!-- Error Summary -->
-{% from 'error-summary/macro.njk' import errorSummary %}
-
-{{ errorSummary({
-  titleText: "There is a problem",
-  descriptionText: "You must  complete the mandatory fields to continue.",
-  errorList: [
-    {
-      text: "Enter the full name of the IG lead",
-      href: "#ig-name"
-    },
-    {
-      text: "Enter a valid email address",
-      href: "#email-address-field"
-    }
-  ]
-}) }}
-
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        <h1>
          {{ pageName }}
       </h1>
-      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead. They will be asked to review and approve your request directly on this portal.
+      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
       </p>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper with proper action and method -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
+
 {% from 'input/macro.njk' import input %}
 
 {{ input({
   label: {
-    text: "Full name",
+    text: "IG lead full name",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
-  errorMessage: {
-    text: "Enter the full name of the IG lead"
-  },
   id: "ig-name",
   name: "ig-name",
+  value: data['ig-name'],
   classes: "nhsuk-input--width-30",
   inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
   label: {
-    text: "Email address",
+    text: "IG lead email address",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
   hint: {
-    text: "Use the official NHS or organisational email address for the IG lead."
-  },
-  errorMessage: {
-    text: "Enter a valid email address"
+    text: "Use the email address for the IG lead, as shown on the ODS portal."
   },
   id: "email-address-field",
   name: "email-address-field",
-  classes: "nhsuk-input--width-30",
-  inputmode: "email"
+  value: data['email-address-field'],
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
@@ -79,12 +60,11 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
   },
   hint: {
     text: "Enter a direct contact number in case of queries."
-  },
-  id: "telephone-number-field",
-  name: "telephone-number-field",
-  classes: "nhsuk-input--width-20",
-  inputmode: "tel"
+  }
 }) }}
+
+
+</form>
  <button onclick="location='add-ig-context'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
@@ -92,7 +72,7 @@ Please ensure your IG lead is registered with ODS. You can confirm this by check
 
 
     </div>
-   
+    
     </div>
     
   </div>
