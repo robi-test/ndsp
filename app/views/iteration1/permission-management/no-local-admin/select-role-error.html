@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "layout0.html" %}
 {% set pageName = "Choose your role" %}
 {% block beforeContent %}
   {{ backLink({
@@ -18,7 +18,7 @@
 
 {{ errorSummary({
   titleText: "There is a problem",
-  descriptionText: "You must select a role to continue.",
+  descriptionText: "You must select a role to continue.", 
   errorList: [
     {
       text: "Select a role",
@@ -45,11 +45,7 @@
   hint: {
     text: "Choose the role you are applying for."
   },
-  items: [
-     {
-      value: "Local administrator",
-      text: "Local administrator"
-    },
+
     {
       value: "Submitter",
       text: "Submitter"
@@ -57,9 +53,9 @@
   ]
 }) }}
 <p class="nhsuk-u-margin-top-4">Note: At this time, only one collection is available through this portal.</p>
-{{ button({
-          text: "Continue"
-        }) }}
+ <button onclick="location='#'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
 </div>
     </div>
   </div>

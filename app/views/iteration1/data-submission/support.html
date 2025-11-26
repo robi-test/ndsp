@@ -1,0 +1,67 @@
+{% extends "iteration1/data-submission/layout.html" %}
+{% set pageName = "Support" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+          <p>If you need help using the National Data Submission Portal (NDSP), you can find answers and guidance using the resources below.
+          </p>
+          <h2>NDSP guidance 
+          </h2>
+          <p>You can visit our guidance section for step-by-step instructions and information about:
+            <ul>
+            <li>Accessing the portal</li>
+            <li>Managing your permissions and roles</li>
+            <li>How to submit data</li>
+            <li>Setting up API submissions</li>
+            <ul>
+          </p>
+        </div>
+<div class="nhsuk-u-margin-bottom-6">
+
+{% from "action-link/macro.njk" import actionLink %}
+
+{{ actionLink({
+  text: "Go to NDSP guidance",
+  href: "#"
+}) }}
+
+<h2>Contact support</h2>
+<p>If you can’t find what you need in the guidance or you’re experiencing an issue with the portal, you can contact the NDSP Service Desk.
+<br>Service Desk email address: <a>ssd.nationalservicedesk@nhs.net</a>
+</p>
+<p>
+When contacting support, please include:
+<ul>
+
+<li>Your organisation</li>
+
+<li>The data collection you’re working with</li>
+
+<li>A brief description of the issue</li>
+</ul>
+</p>
+<p>
+<b>Please do not include any personal, confidential, or patient-identifiable information in your message.<b>
+This will help us respond to your request as quickly as possible.
+</p>
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

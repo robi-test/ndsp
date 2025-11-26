@@ -1,0 +1,82 @@
+<!-- Extends the prototype kit template which in turn extends the NHS.UK frontend template -->
+{% extends "prototype-kit-template.njk" %}
+
+{% block head %}
+  <!-- Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+  <link href="/css/main.css" rel="stylesheet">
+  <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
+{% endblock %}
+
+
+<!-- Edit the header -->
+<!-- Header code examples can be found at https://service-manual.nhs.uk/design-system/components/header -->
+{% block header %}
+  {{ header({
+    service: {
+      name: serviceName,
+      href: "/"
+    },
+    showNav: "true",
+    showSearch: "false",
+    searchAction: " ",
+    primaryLinks: [
+      {
+        url  : 'home',
+        label : "Home"
+      },
+      {
+        url  : 'submissions',
+        label : "Submissions"
+      },
+      {
+        url : 'permissions',
+        label : 'Guidance and permissions'
+      },
+      {
+        url : 'support',
+        label : 'Support'
+      }
+    ]
+  }) }}
+
+  <span style="position: absolute; top: 0; right: 14%; height: 64px; display: flex; align-items: center; font-weight: 600; font-size: 1rem; color: #ffffff; z-index: 2;">
+    John Smith |
+    <a href="#" style="margin-left: 10px; color:white">Settings | </a>
+    <a href="#" style="margin-left: 10px; color:white">Log out</a>
+  </span>
+{% endblock %}
+
+<!-- Edit the footer -->
+{% block footer %}
+  {{ footer(
+    {
+    links: [
+      {
+        URL: "our-policies",
+        label: "Our policies"
+      },
+      {
+        URL: "accessibility",
+        label: "Accessibility statement"
+      },
+      {
+        URL: "cookies",
+        label: "Privacy and cookies"
+      }
+          ]
+    }
+          ) 
+  }}
+
+{% endblock %}
+
+
+
+{% block bodyEnd %}
+  {% block scripts %}
+    <!-- Custom JavaScript files can be added to this file -->
+    {% include "includes/scripts.html" %}
+    <!-- For adding page specific JavaScript -->
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}
