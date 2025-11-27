@@ -1,10 +1,21 @@
 {% extends "iteration1/data-submission/layout.html" %}
 
 {% set pageName = "Guidance and permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
 
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row ">
-   <div class=" nhsuk-u-margin-top-7">
+   <div class=" nhsuk-u-margin-top-3">
     
 <div class="nhsuk-grid-row">
   <div class=" app-component-reading-width">
