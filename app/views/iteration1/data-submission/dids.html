@@ -1,10 +1,10 @@
 {% extends "iteration1/data-submission/layout.html" %}
 
-{% set pageName = "My collections" %}
+{% set pageName = "Diagnostic Imaging Data Set (DIDS)" %}
 
 {% block content %}
 <div class="nhsuk-grid-row ">
-   <div class=" nhsuk-u-margin-top-7">
+   <div class="nhsuk-u-margin-top-7">
     
 <div class="nhsuk-grid-row">
   <div class=" app-component-reading-width">
@@ -25,41 +25,118 @@
 
 <div class=" app-pane__main-content nhsuk-grid-column-two-thirds">
 
-      <h1>   
-       My collections
-      </h1> 
 
-
-<p>If your organisation is participating in a data collection and you are a designated team member, you can request access here.<br>
-Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
-
- {% from 'action-link/macro.njk' import actionLink %}
-      {{ actionLink({
-        text: "Start a permission request",
-        href: "permission-request-start"
-      }) }}
-<hr>
-
-{% from "card/macro.njk" import card %}
-
-<ul class="nhsuk-grid-row nhsuk-card-group">
-  <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
-  {{ card({
-    href: "dids",
-    primary: "true",
-    clickable: "true",
-    heading: "Diagnostic Imaging Data Set",
-    headingClasses: "nhsuk-heading-m",
-    description: "See guidance and permissions"
-  }) }}
-  </li>
+<h1>   
+  Diagnostic Imaging Data Set (DIDS)
+</h1>
+<h3>   
+  Resources
+</h3>
+<p>
+Quick access to guidance and tools to help you manage your data submissions.
+</p>
+<ul>
+<li><a>DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources)
+</li>
+<li><a>DIDS timetable</a>: Full list of current submission periods and deadlines
+</li>
+<li><a>DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file)
+</li>
+<li><a>Roles model</a>Guidance about roles and permissions
+</li>
+<li><a>Submission guidance</a>: Step-by-step guidance for preparing and submitting your data
+</li>
 </ul>
 
+<div class="nhsuk-u-margin-top-7">
+  <h3>   
+    Your permissions
+  </h3>
+
+  {% from "summary-list/macro.njk" import summaryList %}
+
+  {{ summaryList({
+    rows: [
+      {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+          text: "Milton Keynes Hospital"
+        }
+      },
+      {
+        key: {
+          text: "Your role"
+        },
+        value: {
+          text: "Submitter"
+        }
+      },
+      {
+        key: {
+          text: "Submission method"
+        },
+        value: {
+          html: "	File submission"
+        }
+      }
+    ]
+  }) }}
+<!--<p><br></p>
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        text: "Bedford Hospital"
+      }
+    },
+    {
+      key: {
+        text: "Your role"
+      },
+      value: {
+        text: "Submitter"
+      }
+    },
+    {
+      key: {
+        text: "Submission method"
+      },
+      value: {
+        html: "	File submission"
+      }
+    }
+  ]
+}) }}
+-->
+
+<p><a>Set up API submission</a> (open a new page)</p>
+<details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      How to start setting up an API submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+    <p>Selecting the following link will take you to a separate system on Foundry for API setup.</p>
+<ul>
+<li>From there, you'll be able to:
+
+<li>Generate a secure API token linked to your organisation and collection</li>
+
+<li>Access technical documentation
+
+Begin connecting and testing your data submission system
+<ul>
   </div>
 </details>
 
 
-
+ </div>
         </div>
       </div>
     </div>
