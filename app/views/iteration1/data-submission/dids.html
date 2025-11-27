@@ -36,15 +36,15 @@
 Quick access to guidance and tools to help you manage your data submissions.
 </p>
 <ul>
-<li><a>DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources)
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/tools-and-guidance" >DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources)
 </li>
-<li><a>DIDS timetable</a>: Full list of current submission periods and deadlines
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/submit-data">DIDS timetable</a>: Full list of current submission periods and deadlines
 </li>
-<li><a>DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file)
+<li><a href="https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/36/items/248/releases">DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file)
 </li>
-<li><a>Roles model</a>Guidance about roles and permissions
+<li><a  href="">Roles model</a>Guidance about roles and permissions
 </li>
-<li><a>Submission guidance</a>: Step-by-step guidance for preparing and submitting your data
+<li><a href="">Submission guidance</a>: Step-by-step guidance for preparing and submitting your data
 </li>
 </ul>
 
@@ -72,14 +72,6 @@ Quick access to guidance and tools to help you manage your data submissions.
         value: {
           text: "Submitter"
         }
-      },
-      {
-        key: {
-          text: "Submission method"
-        },
-        value: {
-          html: "	File submission"
-        }
       }
     ]
   }) }}
@@ -101,20 +93,19 @@ Quick access to guidance and tools to help you manage your data submissions.
       value: {
         text: "Submitter"
       }
-    },
-    {
-      key: {
-        text: "Submission method"
-      },
-      value: {
-        html: "	File submission"
-      }
+    
     }
   ]
 }) }}
 -->
+{% from "action-link/macro.njk" import actionLink %}
 
-<p><a>Set up API submission</a> (open a new page)</p>
+{{ actionLink({
+  text: "Ask for an API token",
+  openInNewWindow: true,
+  href: "https://nationaldataintegration.federateddataplatform.nhs.uk/"
+}) }}
+
 <details class="nhsuk-details">
   <summary class="nhsuk-details__summary">
     <span class="nhsuk-details__summary-text">
@@ -127,10 +118,6 @@ Quick access to guidance and tools to help you manage your data submissions.
 <li>From there, you'll be able to:
 
 <li>Generate a secure API token linked to your organisation and collection</li>
-
-<li>Access technical documentation
-
-Begin connecting and testing your data submission system
 <ul>
   </div>
 </details>
