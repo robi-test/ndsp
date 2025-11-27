@@ -1,6 +1,17 @@
 {% extends "iteration1/data-submission/layout.html" %}
 {% set pageName = "Our policies" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
 
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
@@ -11,11 +22,7 @@
 
 {{ contentsList({
   items: [
-     {
-      href: "#",
-      text: "Our policies",
-      current: "true"
-    },
+   
     {
       href: "submitter-terms",
       text: "Terms and conditions - Submitter role"
@@ -35,7 +42,7 @@
 This page provides links to the terms and conditions associated with each user role in the National Data Submission Portal (NDSP).
 
 </p><p>Each role in the portal comes with different levels of responsibility and access.
-</p><p>Before using the portal, all users must review and agree to the responsibilities and expectations outlined for their role. These policies ensure that data is submitted securely, accurately, and in line with national governance and compliance standards.   </div>
+< </div>
 </div>
 {% endblock %}
 
