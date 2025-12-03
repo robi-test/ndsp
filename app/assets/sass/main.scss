@@ -101,7 +101,7 @@ background: #f5f8f9; /* subtle grey tint */
 @media (min-width: 48em) { /* tablet+ */
 .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
 }
-.nhsuk-select {min-width: 20ex;}
+.nhsuk-select {min-width: 30ex;}
 
 
 .nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
@@ -337,7 +337,11 @@ a.nhsuk-pagination__link {
 .nhsuk-table-filters__actions { display:flex; gap:8px; }
 #results-count { font-size: 16px; color:#4c6272; }
 
-
+.nhsuk-table-filters { padding:16px; margin-bottom:16px; }
+.nhsuk-table-filters__grid2 { display:grid; grid-template-columns: 1fr; gap:12px; }
+@media (min-width: 38em) { .nhsuk-table-filters__grid2 { grid-template-columns: 300px 300px 300px auto; align-items:end; } }
+.nhsuk-table-filters__actions { display:flex; gap:8px; }
+#results-count { font-size: 16px; color:#4c6272; }
 
 
 /* Selected section */

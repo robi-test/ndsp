@@ -15,157 +15,62 @@
 {% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row ">
-   <div class=" nhsuk-u-margin-top-3">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+    <h1>   
+        {{ pageName }}
+    </h1> 
+    <p>If you need help using the National Data Submission Portal (NDSP), you can find answers and guidance using the resources below.
+    </p>
+    <h2>NDSP guidance 
+    </h2>
     
-<div class="nhsuk-grid-row">
-  <div class=" app-component-reading-width">
+      <p>You can visit our guidance section for step-by-step instructions and information about:
+        <ul>
+          <li>Accessing the portal</li>
+          <li>Managing your permissions and roles</li>
+          <li>How to submit data</li>
+          <li>Setting up API submissions</li>
+        <ul>
+      </p> 
+    </div>
+    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+    {% from "action-link/macro.njk" import actionLink %}
 
-    <div class="app-pane">
+    {{ actionLink({
+      text: "Go to NDSP guidance",
+      href: "#"
+    }) }}
+    <hr>
+    <h2>Permissions
+    </h2>
+    <p>If your organisation is participating in a data collection and you are a designated team member, you can request access here.<br>
+    Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.
+    </p>
 
-<div class="app-pane__side-bar">
+    {% from 'action-link/macro.njk' import actionLink %}
+          {{ actionLink({
+            text: "Start a permission request",
+            href: "permission-request-start"
+          }) }}
+    <hr>
+    <p>Currently you have permissions for the following collection(s):</p>
+    {% from "card/macro.njk" import card %}
 
-<!--
-<nav class="app-side-nav">    <h2 class="app-side-nav__heading">Form elements</h2>
-    <ul class="nhsuk-list app-side-nav__list">
-      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/buttons">Diagnostic Imaging Dataset (DIDS)</a></li>
-      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/character-count">Collection 2</a></li>
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+      <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
+      {{ card({
+        href: "dids",
+        primary: "true",
+        clickable: "true",
+        heading: "Diagnostic Imaging Data Set",
+        headingClasses: "nhsuk-heading-m",
+        description: "See guidance and permissions"
+      }) }}
+      </li>
     </ul>
 
-</nav>-->
-</div>
-
-<div class=" app-pane__main-content nhsuk-grid-column-two-thirds">
-
-      <h1>   
-       Guidance and permissions
-      </h1> 
-
-
-<p>If your organisation is participating in a data collection and you are a designated team member, you can request access here.<br>
-Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
-
- {% from 'action-link/macro.njk' import actionLink %}
-      {{ actionLink({
-        text: "Start a permission request",
-        href: "permission-request-start"
-      }) }}
-<hr>
-<p>Currently you have permissions for the following collection(s):</p>
-{% from "card/macro.njk" import card %}
-
-<ul class="nhsuk-grid-row nhsuk-card-group">
-  <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
-  {{ card({
-    href: "dids",
-    primary: "true",
-    clickable: "true",
-    heading: "Diagnostic Imaging Data Set",
-    headingClasses: "nhsuk-heading-m",
-    description: "See guidance and permissions"
-  }) }}
-  </li>
-</ul>
-
-  </div>
-</details>
-
-
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-
   </div>
 </div>
 
-
-
 {% endblock %}
 
-{% block scripts %}
-<script>
-<!-- Sortable table -->
-(function () {
-function parseValue(text, type, cell) {
-  var t = (text || '').trim()
-  
-  // Check for data-sort-value attribute first
-  if (cell && cell.hasAttribute('data-sort-value')) {
-    var sortValue = cell.getAttribute('data-sort-value')
-    if (type === 'date') {
-      return new Date(sortValue).getTime()
-    }
-    return sortValue
-  }
-  
-  if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
-  if (type === 'date') {
-    var d = Date.parse(t)
-    return isNaN(d) ? t.toLowerCase() : d
-  }
-  return t.toLowerCase()
-}
-
-function indexOfCell(th) {
-var cells = Array.prototype.slice.call(th.parentElement.children)
-var idx = 0
-for (var i = 0; i < cells.length; i++) {
-if (cells[i] === th) return idx
-idx += cells[i].colSpan || 1
-}
-return -1
-}
-
-function sortTable(table, colIndex, type, direction) {
-var tbody = table.tBodies[0]
-if (!tbody) return
-var rows = Array.prototype.slice.call(tbody.rows)
-
-rows.sort(function (a, b) {
-var av = parseValue(a.cells[colIndex]?.innerText, type, a.cells[colIndex])
-var bv = parseValue(b.cells[colIndex]?.innerText, type, b.cells[colIndex])
-if (av < bv) return direction === 'ascending' ? -1 : 1
-if (av > bv) return direction === 'ascending' ? 1 : -1
-return 0
-})
-
-var frag = document.createDocumentFragment()
-rows.forEach(function (r) { frag.appendChild(r) })
-tbody.appendChild(frag)
-}
-
-document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
-var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
-ths.forEach(function (th) {
-var type = th.getAttribute('data-sort') || 'string'
-if (type === 'none') return
-th.setAttribute('aria-sort', 'none')
-var label = th.textContent.trim()
-if (!th.querySelector('button')) {
-var btn = document.createElement('button')
-btn.type = 'button'
-btn.className = 'nhsuk-table-sort__button'
-btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
-th.textContent = ''
-th.appendChild(btn)
-}
-th.querySelector('button').addEventListener('click', function () {
-var current = th.getAttribute('aria-sort')
-var next = current === 'ascending' ? 'descending' : 'ascending'
-th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
-th.setAttribute('aria-sort', next)
-var colIndex = indexOfCell(th)
-sortTable(table, colIndex, type, next)
-})
-})
-})
-})()
-</script>
-{% endblock %}
