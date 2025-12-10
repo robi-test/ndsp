@@ -96,13 +96,25 @@
             }) }}
 
             {% if "October" not in data.period %}
-            <div class="nhs-warning-text nhsuk-u-margin-bottom-8 nhsuk-grid-column-full">
+            {% from "inset-text/macro.njk" import insetText %}
+
+            {% set insetTextHtml %}
+              <p>Your organisation has already submitted data for this reporting period. <br>If you choose to submit again to update data, please ensure the file includes all required records for the reporting period. NHS England will use the last successfully validated file as the official submission.</p>
+            {% endset %}
+
+            {{ insetText({
+              html: insetTextHtml
+            }) }}
+
+
+           <!--  <div class="nhs-warning-text nhsuk-u-margin-bottom-8 nhsuk-grid-column-full">
               <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
               <strong class="nhs-warning-text__text" style="line-height: 32px;"> 
                   <span class="nhs-visually-hidden">Warning</span>
                   Your organisation has already submitted data for this reporting period. <br>If you choose to submit again to update data, please ensure the file includes all required records for the reporting period. <br>NHS England will use the last successfully validated file as the official submission.
               </strong>
-            </div>
+            </div>-->
+
             {% endif %}
             {% if "October" in data.period %}
             <details class="nhsuk-details">
@@ -147,7 +159,7 @@
             <div id="dropzone" class="nhsuk-u-padding-6 nhsuk-u-margin-bottom-4 dropzone" role="group" aria-describedby="dropzone-hint">
              <div class="nhsuk-form-group ">
               <p class="nhsuk-body">Drag and drop file here or
-                <button id="choose-btn" style="margin-top: -20px;" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button">Choose file</button>
+                <button id="choose-btn" style="margin-top: -10px;" class="nhsuk-button nhsuk-button--small nhsuk-u-margin-bottom-0" type="button">Choose file</button>
               </p>
               <div class="nhsuk-body" aria-live="polite" aria-atomic="true">
                 <ul id="files-list" class="nhsuk-list nhsuk-u-margin-bottom-4">
@@ -162,7 +174,7 @@
             </div>            
             <p><br></p>
           
-
+<div class="nhsuk-grid-column-two-thirds ">
           {% from 'checkboxes/macro.njk' import checkboxes %}
 
           
@@ -171,32 +183,35 @@
               name: "Test",
               fieldset: {
                 legend: {
-                  text: "Do you want to submit as a test?",
+                  text: "Do you want to submit as a test? (optional)",
                   classes: "nhsuk-fieldset__legend--m",
                   isPageHeading: true
                 }
               },
               hint: {
-                text: "Test submissions let you check if your file meets the requirements. You’ll receive validation feedback, but no data will be processed."
+                text: "Test submissions provide validation feedback only and do not count as your submission.
+You must upload the file again when you are ready to make your official submission."
               },
               items: [
                 {
                   value: "email",
-                  text: "Yes, this is a test file"
+                  text: "Yes, submit as test file"
                 }
               ]
             }) }}
           
 
               <button onclick="location='uploading-page1'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue to upload and submit
+                Continue to submit
               </button>
               </form>
           </main>
-          <a href="upload-file1-error-no-file-selected" class="nhsuk-link">error: no file selected</a>
+          
         </div>
       </div>
     </div>
+   <a href="upload-file1-error-no-file-selected" class="nhsuk-link">error: no file selected</a>
+</div>
 
     <style>
         .nhsuk-link {color: #005eb8; text-decoration: underline; font-size:16px}
@@ -268,7 +283,7 @@
         chip.innerHTML = '<span>' + normaliseName(file.name) + ' (' + formatSize(file.size) + ')</span>';
         var rm = document.createElement('button');
         rm.type = 'button';
-        rm.className = 'nhsuk-link';
+        rm.className = 'nhsuk-button--secondary nhsuk-button--small';
         rm.setAttribute('aria-label', 'Remove ' + file.name);
         rm.textContent = 'Remove';
         rm.addEventListener('click', function(){ removeAt(idx); });

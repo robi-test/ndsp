@@ -3,7 +3,7 @@
 <!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
 
 <!-- Extends the layout from /app/views/layout.html -->
-{% extends 'layout0.html' %}
+{% extends 'layout000.html' %}
 <!--
   In /app/views/layout.html you can:
     - change the header and footer
@@ -53,16 +53,9 @@
           <a href="https://app.mural.co/t/nhsdigital8118/m/nhsdigital8118/1752171577344/6b3cecdfd0729db5e3f6b4a3c25a3fbd2a0b3931">Main Mural board</a>
         </li>
         <li>
-          <a href="#">Assumptions tracker</a>
-        </li>
-        <li>
-          <a href="#">Iterations tracker</a>
-        </li>
-        <li>
           <a href="https://service-manual.nhs.uk/design-system">NHS design system </a>
         </li>
       </ul>
-
       <hr>
 
       {% from 'details/macro.njk' import details %}
@@ -71,9 +64,9 @@
         {{ details({
           classes: "nhsuk-expander",
           open: true,
-          text: "Iteration no.0",
+          text: "Sprint 1-2",
           html: "
-            <p>Text</p>
+            
             <table class='nhsuk-table'>
               <tbody class='nhsuk-table__body'>
                 <tr class='nhsuk-table__row'>
@@ -88,9 +81,9 @@
             </table>
             <h3>Journeys:</h3>
             <ul>
-              <li><a href='/iteration0/home1'>File submission scenario 1 - DID 1 collection/ 1 organisation</a></li>
+              <li><a href='/iteration0/home1'>File submission scenario 1 - DIDS 1 collection/ 1 organisation</a></li>
               <li><a href='/iteration0/home2'>File submission scenario 2 - 2 collections/ 2 organisations</a></li>
-              <li><a href='/iteration0/home3'>File submission scenario 3 - DID 1 collection/ 2 organisations</a></li>
+              <li><a href='/iteration0/home3'>File submission scenario 3 - DIDS 1 collection/ 2 organisations</a></li>
               <li><a href='/iteration0/home-no-permission'>Request permissions</a></li>
             </ul>
           "
@@ -99,7 +92,7 @@
         {{ details({
           classes: "nhsuk-expander",
           open: true,
-          text: "Iteration no.1",
+          text: "Sprint 3-6",
           html: "
           
             <table class='nhsuk-table'>
@@ -107,7 +100,7 @@
               <tbody class='nhsuk-table__body'>
                <tr class='nhsuk-table__row'>
                   <td class='nhsuk-table__cell'>Last update</td>
-                  <td class='nhsuk-table__cell'>5 Nov 2025</td>
+                  <td class='nhsuk-table__cell'>5 Dec 2025</td>
                 </tr>
                 <tr class='nhsuk-table__row'>
                   <td class='nhsuk-table__cell'>Ready to test</td>
@@ -115,16 +108,16 @@
                 </tr>
               </tbody>
             </table>
-            <h3>What changed in this iteration</h3>
+            <h3>What changed in these sprints</h3>
             <p>Text</p>
             <h3>Journeys:</h3>
             <ul>
  
-              <li><a href='iteration1/permission-management/existing-local-admin/home-no-permission'>Request permissions local admin existing</a></li>
-              <li><a href='iteration1/permission-management/no-existing-local-admin/home-no-permission'>Request permissions no existing local admin</a></li>
-              <li><a href='iteration1/permission-management/no-local-admin/home-no-permission'>Request permissions, no local admin role offered</a></li>
+              <li><a href='iteration1/permission-management/existing-local-admin/home-no-permission'>Request permissions - local admin existing</a></li>
+              <li><a href='iteration1/permission-management/no-existing-local-admin/home-no-permission'>Request permissions - no local admin</a></li>
+              <li><a href='iteration1/permission-management/no-local-admin/home-no-permission'>Request permissions - no local admin role feature</a></li>
               <li><a href='#'>Grant permissions</a></li>
-              <li><a href='iteration1/data-submission/home'>File submission</a></li>
+              <li><a href='iteration1/data-submission/home'>File submission - Iteration 1</a></li>
               <li><a href='iteration1/emails/emails'>Email templates</a></li>
               
             </ul>

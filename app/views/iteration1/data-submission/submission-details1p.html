@@ -4,10 +4,18 @@
 {% set pageName = "Submission details" %}
 
 {% block beforeContent %}
-  {{ backLink({
-    href:  "javascript:history.back()",
-    text: "Back"
-  }) }}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "submissions",
+  text: "Submissions"
+}) }}
 {% endblock %}
 
 {% block content %}
@@ -35,18 +43,6 @@
                   value: { text: "October 2025 - Provisional" }
                 },
                 {
-                  key: { text: "Template version" },
-                  value: { text: "DID 2.0" }
-                },
-                {
-                  key: { text: "Submission ID" },
-                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
-                },
-                {
-                  key: { text: "Submission route" },
-                  value: { text: "File submission" }
-                },
-                {
                   key: { text: "File submitted" },
                   value: { text: "DID_OctProv2025_2.xml" },
                   actions: {
@@ -59,9 +55,40 @@
                     ]
                   }
                 },
+                 {
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }
+                }
+                
+              ]
+            }) }}
+
+            <details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      More details about the submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+           {{ summaryList({
+              rows: [
+                
+                {
+                  key: { text: "Template version" },
+                  value: { text: "DID V2.0" }
+                },
+                {
+                  key: { text: "Submission ID" },
+                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
+                },
+                {
+                  key: { text: "Submission route" },
+                  value: { text: "File submission" }
+                },
+                
                 {
                   key: { text: "Submitted on" },
-                  value: { text: "	15 Nov 2025, 09:30" }
+                  value: { text: "15 Nov 2025, 09:30" }
                 },
                 {
                   key: { text: "Submitted by" },
@@ -70,14 +97,11 @@
                 {
                   key: { text: "Type" },
                   value: { text: "Submission" }
-                },
-                {
-                  key: { text: "Status" },
-                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }
                 }
-                
               ]
             }) }}
+
+
       
   </div>
     <div style="margin-top:100px; margin-bottom:200px">

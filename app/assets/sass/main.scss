@@ -101,7 +101,7 @@ background: #f5f8f9; /* subtle grey tint */
 @media (min-width: 48em) { /* tablet+ */
 .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
 }
-.nhsuk-select {min-width: 30ex;}
+.nhsuk-select {min-width: 250px;}
 
 
 .nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
@@ -300,11 +300,14 @@ a.nhsuk-pagination__link {
 }
 .file-chip 
 { 
-    display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .5rem; 
+    display: inline-flex; align-items: center; gap: .5rem; 
 }
 .file-chip button 
 { 
-    background: none; border: 0; text-decoration: underline; cursor: pointer; 
+            padding: 6px 12px;
+            box-shadow: 0 4px 0 #005eb8;    
+            border: 1px solid #00401e !important;
+            border-radius: 4px !important;
 }
 
 .nhsuk-table--sortable thead th[aria-sort] { white-space: nowrap; }
@@ -312,6 +315,13 @@ a.nhsuk-pagination__link {
 .nhsuk-table-sort__button:hover { text-decoration: none; }
 .nhsuk-table-sort__button:focus { outline: 3px solid #ffbf47; outline-offset: 0; }
 
+@media (min-width: 40.0625em) and (min-width: 40.0625em) {
+    .nhsuk-button--small {
+        font-size: 1rem;
+        line-height: 1.1875;
+        padding: 6px 12px;
+    }
+}
 
 /* Indicator: default (unsorted) shows a faint double chevron */
 .nhsuk-table-sort__indicator { position: relative; width: .75rem; height: .75rem; display: inline-block; }
@@ -333,7 +343,7 @@ a.nhsuk-pagination__link {
 /* Table filters*/
 .nhsuk-table-filters { padding:16px; margin-bottom:16px; }
 .nhsuk-table-filters__grid { display:grid; grid-template-columns: 1fr; gap:12px; }
-@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 200px 200px 200px 200px 200px auto; align-items:end; } }
+@media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 250px 250px 250px 250px auto; align-items:end; } }
 .nhsuk-table-filters__actions { display:flex; gap:8px; }
 #results-count { font-size: 16px; color:#4c6272; }
 
