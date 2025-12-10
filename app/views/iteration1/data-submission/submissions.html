@@ -1,19 +1,7 @@
 {% extends "iteration1/data-submission/layout.html" %}
 
 {% set pageName = serviceName %}
-{% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
 
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    }
-  ]
-}) }}
-{% endblock %}
-{% block content %}
 {% from 'tag/macro.njk' import tag %}
 
 <div class="nhsuk-grid-row">
@@ -256,7 +244,11 @@
 
 </div>
 </div>
+ <div class="nhsuk-u-margin-top-7">
+  <p><a href="email-validation-results">File validated > Email notifications</a></p>
+ 
 <p><a href="submissions2" id="back-warning-link">More than one collection</a></p>
+ </div>
 {% endblock %}
 
 {% block scripts %}
