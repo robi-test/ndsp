@@ -78,12 +78,31 @@
 </div>
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
-  <select class="nhsuk-select" id="filter-status" name="status">
-    <option value="">All statuses</option>
-    <option value="Successful">Successful</option>
-    <option value="Successful with warnings">Successful with warnings</option>
-    <option value="Rejected">Rejected</option>
-  </select>
+  <div class="status-multiselect" style="position: relative;">
+    <button type="button" class="nhsuk-select status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+      <span data-status-summary>All statuses</span>
+    </button>
+    <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
+      <div class="nhsuk-checkboxes nhsuk-checkboxes--small" id="filter-status-list">
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-pending" name="status" type="checkbox" value="Pending validation">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-pending">Pending validation</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful" name="status" type="checkbox" value="Successful">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful">Successful</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful-warnings" name="status" type="checkbox" value="Successful with warnings">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-warnings">Successful with warnings</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-rejected" name="status" type="checkbox" value="Rejected">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-rejected">Rejected</label>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="nhsuk-table-filters__actions">
 <button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
@@ -315,7 +334,10 @@
   var monthSel = form.querySelector('#filter-month')
   var yearSel = form.querySelector('#filter-year')
   var typeSel = form.querySelector('#filter-type')
-  var statusSel = form.querySelector('#filter-status')
+  var statusChecks = Array.from(form.querySelectorAll('#filter-status-list input[name="status"]'))
+  var statusToggle = form.querySelector('[data-status-toggle]')
+  var statusPanel = form.querySelector('#status-panel')
+  var statusSummary = form.querySelector('[data-status-summary]')
     var periodInput = form.querySelector('#filter-period')
     var clearBtn= form.querySelector('[data-clear-filters]')
     var countEl = document.getElementById('results-count')
@@ -407,12 +429,12 @@
       var monthQ = (monthSel?.value || '')
       var yearQ = (yearSel?.value || '')
       var periodQ = (periodInput?.value || '').trim().toLowerCase()
-      var statusQ = (statusSel?.value || '')
+      var statusQ = statusChecks.filter(function(cb){ return cb.checked }).map(function(cb){ return cb.value })
       if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
       if (orgQ && rec.org !== orgQ) return false
       if (byQ && rec.by !== byQ) return false
       if (typeQ && rec.type !== typeQ) return false
-      if (statusQ && rec.status !== statusQ) return false
+      if (statusQ.length && statusQ.indexOf(rec.status) === -1) return false
       if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
       return true
     }
@@ -432,8 +454,10 @@
       if (typeSel && typeSel.value) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
-      if (statusSel && statusSel.value) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" title="Clear Status filter">Status: ' + statusSel.options[statusSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      if (statusChecks && statusChecks.length) {
+        statusChecks.filter(function(cb){ return cb.checked }).forEach(function(cb){
+          chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" data-value="' + cb.value + '" title="Clear Status filter">Status: ' + cb.value + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+        })
       }
       if (periodInput && periodInput.value.trim()) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
@@ -470,7 +494,11 @@
           if (filter === 'organisation' && orgSel) orgSel.value = '';
           if (filter === 'submittedBy' && bySel) bySel.value = '';
           if (filter === 'type' && typeSel) typeSel.value = '';
-          if (filter === 'status' && statusSel) statusSel.value = '';
+          if (filter === 'status' && statusChecks) {
+            var val = tag.getAttribute('data-value')
+            statusChecks.forEach(function(cb){ if (cb.value === val) cb.checked = false })
+            updateStatusSummary()
+          }
           if (filter === 'period' && periodInput) periodInput.value = '';
           // Re-render after clearing
           render();
@@ -509,9 +537,108 @@
       if (bySel) bySel.value = ''
       if (typeSel) typeSel.value = ''
       if (periodInput) periodInput.value = ''
-      if (statusSel) statusSel.value = ''
+      if (statusChecks && statusChecks.length) statusChecks.forEach(function(cb){ cb.checked = false })
+      updateStatusSummary()
       render()
     })
+
+    function updateStatusSummary(){
+      if (!statusSummary) return
+      var selected = statusChecks.filter(function(cb){ return cb.checked })
+      if (selected.length === 0) {
+        statusSummary.textContent = 'All statuses'
+      } else if (selected.length === 1) {
+        statusSummary.textContent = selected[0].value
+      } else {
+        statusSummary.textContent = selected.length + ' statuses selected'
+      }
+    }
+
+    // Toggle open/close of status panel
+    function closeStatusPanel(){ if (statusPanel) statusPanel.style.display = 'none' }
+    if (statusToggle && statusPanel) {
+      statusToggle.addEventListener('click', function(){
+        var isOpen = statusPanel.style.display === 'block'
+        statusPanel.style.display = isOpen ? 'none' : 'block'
+      })
+      document.addEventListener('click', function(evt){
+        if (!statusPanel.contains(evt.target) && !statusToggle.contains(evt.target)) {
+          closeStatusPanel()
+        }
+      })
+    }
+
+    // Close panel on escape
+    document.addEventListener('keydown', function(evt){
+      if (evt.key === 'Escape') closeStatusPanel()
+    })
+
+    // Update summary when status checkboxes change
+    if (statusChecks && statusChecks.length) {
+      statusChecks.forEach(function(cb){
+        cb.addEventListener('change', function(){
+          updateStatusSummary()
+        })
+      })
+    }
+
+    // Style tweaks for status dropdown arrow and checkbox sizing
+    var style = document.createElement('style')
+    style.textContent = `
+      .status-toggle-btn {
+        position: relative;
+        padding-right: 2.5rem;
+      }
+      .status-toggle-btn::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        width: 10px;
+        height: 6px;
+        margin-top: -3px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('data:image/svg+xml,%3Csvg width="12" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"%3E%3Cpath fill="%23000" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/%3E%3C/svg%3E');
+      }
+      #filter-status-list .nhsuk-checkboxes__input {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:before {
+        width: 26px;
+        height: 26px;
+        border-radius: 0px;
+        top: 2px;
+        border-color:black;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:after {
+        top: 9px;
+        left: 6px;
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input:checked + .nhsuk-checkboxes__label:after {
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__label {
+        padding-left: 0px;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+      }
+      .nhsuk-checkboxes__label {
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 0px;
+        touch-action: manipulation;
+        padding: 0px;
+    }
+    `
+    document.head.appendChild(style)
 
     // Initial render to show all
     render()
