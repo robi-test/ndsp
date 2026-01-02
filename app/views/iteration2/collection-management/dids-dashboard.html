@@ -1,0 +1,101 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+        DIDS V2.0 Dashboard
+      </h1>
+
+      <p>
+        xxx
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "submissions",
+        primary: "true",
+        clickable: "true",
+        heading: "Submissions",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "providers",
+        primary: "true",
+        clickable: "true",
+        heading: "Data providers",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "deadlines",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage reporting periods and deadlines",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "dids",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage notifications",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "setup",
+        primary: "true",
+        clickable: "true",
+        heading: "General setup",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "setup",
+        primary: "true",
+        clickable: "true",
+        heading: "Test submission",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+    </ul>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

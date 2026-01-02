@@ -1,0 +1,51 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = serviceName %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
+      <h1>
+        Administrative Portal
+      </h1>
+      <h2 class="">
+          
+      </h2>
+      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new NDSP (National Data Submission Portal) Administrative portal. <br><br> Currently, from this portal, you can manage the following collection(s):
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+      <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
+      {{ card({
+        href: "dids-dashboard",
+        primary: "true",
+        clickable: "true",
+        heading: "Diagnostic Imaging Data Set (V2.0)",
+        headingClasses: "nhsuk-heading-s",
+        description: "Set up collection and see real time submissions"
+      }) }}
+      </li>
+    </ul>
+   
+      <hr>  
+     
+    
+
+      {% from 'action-link/macro.njk' import actionLink %}
+      {{ actionLink({
+        text: "Set up a new collection",
+        href: "#"
+      }) }}
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}
