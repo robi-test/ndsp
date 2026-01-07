@@ -1,0 +1,258 @@
+{% extends "iteration2/guidance/layout-guidance.html" %}
+
+{% set pageName = "User guidance" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+<hr>
+ {{ breadcrumb({
+  items: [
+     {
+      href: "home",
+      text: "NHS digital"
+    },
+    {
+      href: "home",
+      text: "Services"
+    },
+     {
+      href: "home",
+  text: "National Data Submission Portal"
+    }
+  ],
+  href: "home",
+  text: "User guidance"
+}) }}
+<div class="grey-header nhsuk-u-margin-top-4 "><h1 class="nhsuk-heading-l" id="top">Getting started with NDSP</h1></div>
+{% endblock %}
+{% block content %}
+
+
+
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-full nhsuk-u-margin-top-1">
+      
+
+
+      <div class="nhsuk-grid-row whitebg nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4">
+     
+        <div class="nhsuk-grid-column-one-third nhsuk-u-margin-top-6">
+          {% from "contents-list/macro.njk" import contentsList %}
+          {{ contentsList({
+            items: [
+              { href: "#top", text: "Top of page" },
+              { href: "#ods-code", text: "Organisational Data Service (ODS) code" },
+              { href: "#ig-leads", text: "Information Governance (IG) management leads" },
+              { href: "#roles-and-permissions", text: "Roles and permissions: what you need to know" },
+              { href: "#grant-permissions", text: "Granting permissions " }
+            ]
+          }) }}
+        </div>
+
+        <div class="nhsuk-grid-column-two-thirds nhsuk-u-padding-top-6">
+          <p class="nhsuk-body-m">This guide is for organisations submitting data to NHS England via the National Data Submission Portal (NDSP) for the first time, whether your organisation is new to submitting a collection or is moving from a legacy submission system to NDSP. </p>
+         <p>There are several things that should be in place before your organisation starts using NDSP: 
+         <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>Ensure you have an Organisational Data Service (ODS) code, and that it is appropriate to be used for your data submission. </li>
+            <li>Ensure you have IG Management leads listed on the ODS Data Search and Export (DSE) service. </li>
+            <li>Review and understand the roles and permissions available in NDSP and agree within your team which role is appropriate for each person who needs access before submitting permission requests.</li>
+          </ul>
+         </p>
+
+          <h2 class="nhsuk-heading-m" id="ods-code">Organisational Data Service (ODS) code</h2>
+          <p>Your organisation will need an ODS code to submit data via NDSP. </p>
+
+           <p>An ODS is a unique identifier, also called 'organisation code', that holds key information such as organisation name, type, address, contact details and other reference data related to the healthcare organisation. You can read more information on the <a href="https://digital.nhs.uk/services/organisation-data-service">Organisation Data Service web page</a>. 
+            </p>
+           <p> It is very possible that you already have an ODS code for your organisation. We recommend speaking to a senior person involved in data or in finance to find out what your ODS code is. 
+
+           If your organisation does not yet have an ODS code, your organisation needs to <a href="https://digital.nhs.uk/services/organisation-data-service/get-an-ods-code">generate a new ODS code for the organisation</a>. 
+         </p>
+         <div class="nhsuk-inset-text">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p>When requesting access, make sure you select the ODS code of the organisation that is acting as the data provider for the collection.</p><p> Not necessarily this is your organisation especially if your organisation is an Independent Sector Healthcare Providers (ISHPs) that deliver services for other NHS organisations. </p>
+         </div>
+
+          <h2 class="nhsuk-heading-m" id="ig-leads">Information Governance (IG) management leads information </h2>
+          <p>
+            Your organisation needs to identify senior Information Governance (IG) management Leads, listed against your ODS code. IG Management Leads include Caldicott Guardians, Senior Information Risk Owners (SIRO), and Information Asset Owners (IAO). 
+            </p>
+            <p>
+            To grant permissions for some kind of roles, NHS England requires confirmation that the user has been authorised by an IG Management Lead at their organisation. NHS England will verify that this authorisation has been provided by one of the IG Management Leads listed for that organisation. 
+            </p>
+            <p>
+            Once the first Local Administrator is approved, they in turn can approve future submitters and view-only requests for their organisation and collection. If no Local Administrator is in place, all permission requests (including submitter access) must be approved by an IG management lead. 
+            </p>
+            <p>
+            To check if you have your IG management leads listed on the ODS Data Search and Export (DSE) service, and who they are, you can search the <a href="https://digital.nhs.uk/services/organisation-data-service/data-search-and-export"> ODS Data Search and Export (DSE)</a>  service with your ODS code. You will find their names and contact details in the IG Management tab. Or alternatively, you can search the <a href="https://digital.nhs.uk/services/organisation-data-service/view-or-update-registers">public registers</a>. 
+          </p>
+            <img src="/public/images/iteration2/guidance/ods-ig-leads.png" alt="Screenshot of ODS Data Search and Export (DSE) service showing IG Management Leads tab" class="nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4">
+          <p>If your organisation does not have IG management leads listed, or the list is out of date, your organisation must <a href="https://digital.nhs.uk/services/organisation-data-service/update-contacts">update the list</a>. 
+          </P>
+
+          <h2 class="nhsuk-heading-m" id="roles-and-permissions">Roles and permissions: what you need to know</h2>
+
+
+          <p>The National Data Submission Portal (NDSP) uses a partially devolved permissions model. This means some access is managed centrally by NHS England, while other access can be delegated to local administrators within provider organisations. 
+
+NDSP also uses a many-to-many permissions structure. </p><p>
+A single user account can hold multiple permissions, and each permission is defined by a combination of: </p>
+          <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>Organisation (ODS code) </li>
+            <li>Collection </li>
+            <li>Role </li>
+          </ul>
+          <p>
+      A user may therefore hold different roles for different organisation–collection pairings.
+          </p>
+<p>Roles available in NDSP: </p>
+          <ol class="nhsuk-list
+   nhsuk-list--number">
+               <li>Local administrator (approver)  <p>Local administrators allow devolved, local control of user management so organisations can manage their own submitters. <ul><li>Can grant and remove permissions for submitters and only view users for their specific organisation–collection pairing.</li><li>Assigned centrally by an NHS England system administrator. </li><li>Appointment must be approved first by the organisation’s Information Governance Lead, Caldicott Guardian, or Senior Information Risk Owner (SIRO) (as named in the ODS portal).</li><li>Local admins cannot exceed the scope of the organisation and collection they were assigned.</li></ul></p></li>
+               <li>Submitter: <p>This is the standard operational role for users responsible for submitting data. </p><ul><li>Can submit files for the organisation–collection pairing.</li><li>Can view their organisational submission history and validation feedback. </li><li>Can be granted permission by:<ul><li>A local administrator, or </li><li>NHS England (if the organisation has no local admin in place). </li></ul></li></ul> </li>
+               <li>View-only: <p>Typical use cases include IG leads, managers, or analysts who need oversight without contributing with submissions. </p><ul><li>Can view submission history and validation results</li><li>Cannot submit files. </li><li>Can be granted by: <ul><li>A local administrator, or</li><li>NHS England (if the organisation has no local admin).</li></ul></li></ul></li>
+        
+        
+              <h2 class="nhsuk-heading-m" id="grant-permissions">Granting permissions </h2>    
+              <p>Permissions follow these rules: </p>
+              <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>Each permission is tied to both a collection and an organisation.  </li>
+            <li>A user may have different roles for different collections or organisations. </li>
+            <li>A local admin can only manage permissions within the same organisation–collection pairing they hold admin rights for. </li>
+            <li>NHS England administrators can override or assign any permission where needed. </li>
+          </ul>
+
+          <table class="nhsuk-table">
+            <caption class="nhsuk-table__caption"> </caption>
+            <thead role="rowgroup" class="nhsuk-table__head">
+              <tr role="row">
+                <th role="columnheader" class="">Scope of the role</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr role="row">
+                <td>Assign/ remove local admin permissions</td>
+                <td>NO</td>
+                <td>NO</td>
+                <td>NO</td>
+              </tr>
+              <tr role="row">
+                <td>Assign/ remove submitter & view only permissions</td>
+                <td>YES</td>
+                <td>NO</td>
+                <td>NO</td>
+              </tr>
+              <tr role="row">
+                <td>Amend submitting organisation list</td>
+                <td>NO</td>
+                <td>NO</td>
+                <td>NO</td>
+              </tr>
+              <tr role="row">
+                <td>Upload data</td>
+                <td>YES</td>
+                <td>YES</td>
+                <td>NO</td>
+              </tr>
+              <tr role="row">
+                <td>Opt in/ out of notifications</td>
+                <td>YES</td>
+                <td>YES</td>
+                <td>YES</td>
+              </tr>
+              <tr role="row">
+                <td>View data submitted by themselves*</td>
+                <td>YES*</td>
+                <td>YES*</td>
+                <td>N/A</td>
+              </tr>
+              <tr role="row">
+                <td>View data submitted by their organisation*</td>
+                <td>YES*</td>
+                <td>YES*</td>
+                <td>YES*</td>
+              </tr>
+              <tr role="row">
+                <td>View validation feedback</td>
+                <td>YES</td>
+                <td>YES</td>
+                <td>YES</td>
+              </tr>
+              <tr role="row">
+                <td>View reports*</td>
+                <td>YES*</td>
+                <td>YES*</td>
+                <td>YES*</td>
+              </tr>
+              <tr role="row">
+                <td>View collection/ organisation performance data</td>
+                <td>NO</td>
+                <td>NO</td>
+                <td>NO</td>
+              </tr>
+              <tr role="row">
+                <td>Manage collection (reporting period/ notifications etc.)</td>
+                <td>NO</td>
+                <td>NO</td>
+                <td>NO</td>
+              </tr>
+            </tbody>
+          </table>
+
+            <div class="nhsuk-inset-text">
+  <span class="nhsuk-u-visually-hidden">Information: </span>
+  <h3>Note on role availability </h3>
+  <p>Not all roles in NDSP are available for every collection. 
+Even if a role exists within the platform, it may not be enabled for a particular collection. 
+Role availability is determined by regulatory requirements and governance rules that apply to each individual data collection. </p>
+</div>
+
+        </div>
+      </div>
+
+      <style>
+      body {
+    background-color: #fff;
+      }
+
+      .whitebg {
+          background-color: #ffffff!important;
+          padding: 20px;
+      }
+      .grey-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #e8edee;
+      }
+      .nhsuk-header {
+          background-color: #ffffff!important;
+      }
+
+      .nhsuk-header__navigation-link {
+          color: #101010;
+          text-decoration: underline;
+      }
+
+      .nhsuk-header__service-name {
+          color: #101010;
+          display: block;
+          padding-left: 0;
+          padding-right: 0;
+      }
+
+      .nhsuk-header__navigation {
+          border: 0 solid #61809dff!important;
+      }
+
+      }
+      @media (min-width: 40.0625em) {
+          .nhsuk-navigation {
+              border-top: 1px solid rgba(56, 105, 179, 0.5);
+          }
+      }
+      </style>
+   </div>
+ </div>
+{% endblock %}

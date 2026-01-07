@@ -1,0 +1,126 @@
+<!-- Extends the prototype kit template which in turn extends the NHS.UK frontend template -->
+{% extends "prototype-kit-template.njk" %}
+
+{% block head %}
+  <!-- Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+  <link href="/css/main.css" rel="stylesheet">
+  <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
+{% endblock %}
+
+
+<!-- Edit the header -->
+<!-- Header code examples can be found at https://service-manual.nhs.uk/design-system/components/header -->
+{% from "header/macro.njk" import header %}
+ 
+
+{% block header %}
+  {{ header({
+    service: {
+      name: "England",
+      href: "/"
+    },
+    showNav: "true",
+    showSearch: "false",
+    searchAction: " ",
+    primaryLinks: [
+      
+      {
+        url : '#',
+        label : 'Services'
+      },
+      {
+        url : '#',
+        label : 'Data'
+      },
+      {
+        url : '#',
+        label : 'Cyber'
+      },
+      {
+        url : '#',
+        label : 'Developer'
+      },
+      {
+        url : '#',
+        label : 'News'
+      },
+      {
+        url : '#',
+        label : 'About'
+      }
+    ]
+  }) }}
+
+
+{% endblock %}
+
+<!-- Edit the footer -->
+{% block footer %}
+  {{ footer(
+    {
+    links: [
+      {
+        URL: "our-policies",
+        label: "Our policies"
+      },
+      {
+        URL: "accessibility",
+        label: "Accessibility statement"
+      },
+      {
+        URL: "cookies",
+        label: "Privacy and cookies"
+      }
+          ]
+    }
+          ) 
+  }}
+
+
+  
+<style>
+.whitebg {
+    background-color: #ffffff!important;
+    padding: 20px;
+    }
+
+    .nhsuk-header {
+    background-color: #ffffff!important;
+    }
+
+    .nhsuk-header__navigation-link {
+    color: #101010;
+    text-decoration: underline;
+}
+
+.nhsuk-header__service-name {
+    color: #101010;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.nhsuk-header__navigation {
+    border: 0 solid #61809dff!important;
+}
+
+}
+@media (min-width: 40.0625em) {
+    .nhsuk-navigation {
+        border-top: 1px solid rgba(56, 105, 179, 0.5);
+    }
+}
+</style>
+
+{% endblock %}
+
+
+
+{% block bodyEnd %}
+  {% block scripts %}
+    <!-- Custom JavaScript files can be added to this file -->
+    {% include "includes/scripts.html" %}
+    <!-- For adding page specific JavaScript -->
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+{% endblock %}

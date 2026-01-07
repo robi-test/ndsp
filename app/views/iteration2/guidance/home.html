@@ -1,0 +1,177 @@
+{% extends "iteration2/guidance/layout-guidance.html" %}
+
+{% set pageName = "User guidance" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+<hr>
+ {{ breadcrumb({
+  items: [
+     {
+      href: "home",
+      text: "NHS digital"
+    },
+    {
+      href: "home",
+      text: "Services"
+    },
+     {
+      href: "home",
+  text: "National Data Submission Portal"
+    }
+  ],
+  href: "home",
+  text: "User guidance"
+}) }}
+<div class="grey-header nhsuk-u-margin-top-4 "><h1 class="nhsuk-heading-l" id="top">Getting started with NDSP</h1>
+      <p class="nhsuk-body-m">Use this guidance to understand how to access the National Data Submission Portal (NDSP), submit data, and manage permissions and validation feedback.</p>
+      </div>
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+      
+
+      <div class="nhsuk-grid-row whitebg ">
+         <!-- Card 1 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">Getting started with NDSP</h3>
+                  <p class="nhsuk-body-s">What your organisation needs to know and put in place before submitting data through the National Data Submission Portal for the first time.</p>
+                  <p>
+                     <a href="getting-started" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+
+         <!-- Card 2 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">How to access NDSP</h3>
+                  <p class="nhsuk-body-s">How to sign in to the portal for the first time and what you need to access it securely.<br>.</p>
+                  <p>
+                     <a href="#" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="nhsuk-grid-row whitebg ">
+         <!-- Card 3 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">How to ask for permissions</h3>
+                  <p class="nhsuk-body-s">How to request the right level of access for your role, organisation, and collection.<br>.</p>
+                  <p>
+                     <a href="#" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+
+         <!-- Card 4 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">Manage permissions as a local administrator</h3>
+                  <p class="nhsuk-body-s">How Local Administrators can approve requests and manage access for their organisation.</p>
+                  <p>
+                     <a href="#" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="nhsuk-grid-row whitebg">
+         <!-- Card 5 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">How to submit data via file submission</h3>
+                  <p class="nhsuk-body-s">Step-by-step guidance on uploading data files and tracking their submission status.<br>.</p>
+                  <p>
+                     <a href="#" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+
+         <!-- Card 6 -->
+         <div class="nhsuk-grid-column-one-half nhsuk-u-margin-bottom-2">
+            <div class="nhsuk-card">
+               <div class="nhsuk-card__content">
+                  <h3 class="nhsuk-heading-m">Understanding validation feedback and data quality in NDSP</h3>
+                  <p class="nhsuk-body-s">How to interpret validation results, review errors and warnings, and improve data quality.</p>
+                  <p>
+                     <a href="#" class="nhsuk-link">
+                        Find out more
+                        <span class="nhsuk-link-arrow" aria-hidden="true">→</span>
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+  <style>
+      body {
+    background-color: #fff;
+      }
+
+      .whitebg {
+          background-color: #ffffff!important;
+          padding: 20px;
+      }
+      .grey-header {
+    padding: 50px;
+    background-color: #e8edee;
+      }
+      .nhsuk-header {
+          background-color: #ffffff!important;
+      }
+
+      .nhsuk-header__navigation-link {
+          color: #101010;
+          text-decoration: underline;
+      }
+
+      .nhsuk-header__service-name {
+          color: #101010;
+          display: block;
+          padding-left: 0;
+          padding-right: 0;
+      }
+
+      .nhsuk-header__navigation {
+          border: 0 solid #61809dff!important;
+      }
+
+      }
+      @media (min-width: 40.0625em) {
+          .nhsuk-navigation {
+              border-top: 1px solid rgba(56, 105, 179, 0.5);
+          }
+      }
+      </style>
+{% endblock %}
