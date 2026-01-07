@@ -14,42 +14,50 @@
  
 
 {% block header %}
-  {{ header({
-    service: {
-      name: "England",
-      href: "/"
-    },
-    showNav: "true",
-    showSearch: "false",
-    searchAction: " ",
-    primaryLinks: [
-      
+
+{{ header({
+  classes: "nhsuk-header--white",
+  logo: {
+    href: "#",
+    ariaLabel: "England"
+  },
+  organisation: {
+    name: "England"
+  },
+ 
+  navigation: {
+    items: [
       {
-        url : '#',
-        label : 'Services'
+        text: "Services",
+        href: "#"
       },
       {
-        url : '#',
-        label : 'Data'
+        text: "Data",
+        href: "#",
+        active: true
       },
       {
-        url : '#',
-        label : 'Cyber'
+        text: "Cyber",
+        href: "#"
       },
       {
-        url : '#',
-        label : 'Developer'
+        text: "Developers",
+        href: "#"
       },
       {
-        url : '#',
-        label : 'News'
+        text: "News",
+        href: "#"
       },
       {
-        url : '#',
-        label : 'About'
+        text: "About",
+        href: "#"
       }
     ]
-  }) }}
+  }
+}) }}
+
+
+
 
 
 {% endblock %}
