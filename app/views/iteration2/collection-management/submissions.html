@@ -28,52 +28,40 @@
               href: "#"
             }) }} 
 
-    <!-- Table filters -->
-    <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
-      <div class="nhsuk-table-filters__grid">
-        <!-- <div class="nhsuk-form-group">
-        <label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
-        <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
-        <div class="nhsuk-form-group">
-        <label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
-        <select class="nhsuk-select" id="filter-organisation" name="organisation">
-        <option value="">All organisations</option>
-        <option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
-        </select>
-        </div> 
-        </div>-->
+    <!-- Tabs navigation -->
+    <div class="nhsuk-tabs" data-module="nhsuk-tabs">
+      <h2 class="nhsuk-tabs__title">Contents</h2>
+      <ul class="nhsuk-tabs__list">
+        <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+          <a class="nhsuk-tabs__tab" href="#periods">Reporting Periods</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#organisations">Organisations</a>
+        </li>
+      </ul>
 
-        <div class="nhsuk-form-group">
-          <label class="nhsuk-label" for="filter-period"><strong>Reporting period:</strong></label>
-          <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
-          <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
-        </div>
+      <!-- First tab: Reporting Periods -->
+      <div class="nhsuk-tabs__panel" id="periods">
+        <p class="nhsuk-body-m nhsuk-u-margin-bottom-4">View all submissions organised by reporting period. Track submission deadlines, completion status, and rejection rates for each period.</p>
+        <!-- Table filters -->
+        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
 
-        <div class="nhsuk-form-group">
-          <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
-          <select class="nhsuk-select" id="filter-status" name="status">
-            <option value="">All statuses</option>
-            <option value="Open">Open</option>
-            <option value="Closed">Closed</option>
-          </select>
-        </div>
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-period"><strong>Search by period</strong></label>
+              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="" autocomplete="on">
+              <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+            </div>
 
-        <div class="nhsuk-table-filters__actions">
-          <button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
-        </div>
-      </div>
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button nhsuk-button--small" style="top: 15px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 15px;" type="button" data-clear-filters>Clear</button>
+            </div>
+          </div>
 
-      <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
-        <div class="nhsuk-selected__header">
-          <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
-          <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
-        </div>
-        <div class="nhsuk-selected__row" id="selected-chips"></div>
-      </div>
-    </form>
-  
-
-  <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+        </form>
+      
+        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
     <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
     <thead class="nhsuk-table__head" role="rowgroup">
       <tr role="row" class="nhsuk-table__row">
@@ -191,34 +179,176 @@
     </tbody>
   </table>
 
-  <p>*Percentage of providers with at least one successful submission in this period.<br>
-    **All submissions in this period, including successful, rejected, and resubmitted data.</p>
+        <p>*Percentage of providers with at least one successful submission in this period.<br>
+          **All submissions in this period, including successful, rejected, and resubmitted data.</p>
 
-  <!-- Pagination -->
-  <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
-    <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
-      <ul class="nhsuk-list nhsuk-pagination__list">
-        <li class="nhsuk-pagination__item--current">
-          <a class="nhsuk-pagination__link" href="?page=1">1</a>
-        </li>
-        <li class="nhsuk-pagination__item nhsuk-pagination__item">
-          <a class="nhsuk-pagination__link" href="?page=2">2</a>
-        </li>
-        <li class="nhsuk-pagination__item">
-          <a class="nhsuk-pagination__link" href="?page=3">3</a>
-        </li>
-        <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
-          <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
-            <span class="nhsuk-pagination__title">Next →</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
-  </div>
+        <!-- Pagination -->
+        <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+          <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+            <ul class="nhsuk-list nhsuk-pagination__list">
+              <li class="nhsuk-pagination__item--current">
+                <a class="nhsuk-pagination__link" href="?page=1">1</a>
+              </li>
+              <li class="nhsuk-pagination__item nhsuk-pagination__item">
+                <a class="nhsuk-pagination__link" href="?page=2">2</a>
+              </li>
+              <li class="nhsuk-pagination__item">
+                <a class="nhsuk-pagination__link" href="?page=3">3</a>
+              </li>
+              <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+                <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+                  <span class="nhsuk-pagination__title">Next →</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+        </div>
 
-    <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-      <button class="nhsuk-button nhsuk-button--secondary" type="button" id="toggle-metrics-columns" aria-pressed="false">Hide metrics columns</button>
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+          <button class="nhsuk-button nhsuk-button--secondary" type="button" id="toggle-metrics-columns" aria-pressed="false">Hide metrics columns</button>
+        </div>
+      </div>
+
+      <!-- Second tab: Organisations -->
+      <div class="nhsuk-tabs__panel" id="organisations">
+        <p class="nhsuk-body-m nhsuk-u-margin-bottom-4">View submission performance by organisation. Monitor submission counts, rejection rates, and last submission dates across all providers.</p>
+              <!-- Table filters -->
+        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
+
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-period"><strong>Search by organisation</strong></label>
+              <input class="nhsuk-input" id="filter-period" name="filterOrganisation" type="text" placeholder="" autocomplete="off">
+              <div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+            </div>
+
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button nhsuk-button--small" style="top: 15px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 15px;" type="button" data-clear-filters>Clear</button>
+            </div>
+          </div>
+
+        </form>
+        <table id="organisations-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Organisations Overview</caption>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name">Organisation</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions">Total submissions</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="periods-submitted">Periods submitted (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Rejections (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last submission</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>24</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>92%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>25%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>15 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submissions-org">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>19</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>88%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>16%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>16 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>22</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>100%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>9%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>14 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>8</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>65%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>38%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>10 Oct 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>27</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>96%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>11%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>13 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>21</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>85%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>12%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>18 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>18</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>78%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>14%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>12 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>25</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>94%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>8%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>17 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>23</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>90%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>13%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>19 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>26</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Periods Submitted (%)</span>98%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejections (%)</span>7%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>20 Nov 2025</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination for organisations tab -->
+        <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+          <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+            <ul class="nhsuk-list nhsuk-pagination__list">
+              <li class="nhsuk-pagination__item--current">
+                <a class="nhsuk-pagination__link" href="?page=1">1</a>
+              </li>
+            </ul>
+          </nav>
+          <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 10 </strong> results</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

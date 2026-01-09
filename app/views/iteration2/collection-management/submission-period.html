@@ -4,22 +4,11 @@
 {% set pageName = "December 2025 Submission details" %}
 
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
 
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    },
-     {
-      href: "dids-dashboard",
-  text: "DIDS Dashboard"
-    }
-  ],
-  href: "submissions",
-  text: "Submissions"
-}) }}
 {% endblock %}
 
 {% block content %}
