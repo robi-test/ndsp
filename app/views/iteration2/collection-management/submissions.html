@@ -1,7 +1,7 @@
-{% extends "iteration1/data-submission/layout.html" %}
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
 
 {% set pageName = "Diagnostic Imaging Data Set (V2.0) Submissions" %}
- <!-- {% block beforeContent %}
+<!-- {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
 {{ breadcrumb({
@@ -15,199 +15,212 @@
   text: "DIDS Dashboard"
 }) }}
 {% endblock %}-->
+
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
 
 <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-l  nhsuk-u-margin-top-3">DIDS V2.0 Submissions</h1>
+  <div class="nhsuk-grid-column-full">
+    <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">DIDS V2.0 Submissions</h1>
+      <!-- Download reports -->      
+            {{ actionLink({
+              text: "Download reports",
+              href: "#"
+            }) }} 
 
-<!-- Table filters -->
+    <!-- Table filters -->
+    <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+      <div class="nhsuk-table-filters__grid">
+        <!-- <div class="nhsuk-form-group">
+        <label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
+        <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
+        <div class="nhsuk-form-group">
+        <label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
+        <select class="nhsuk-select" id="filter-organisation" name="organisation">
+        <option value="">All organisations</option>
+        <option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
+        </select>
+        </div> 
+        </div>-->
 
-<form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
-<div class="nhsuk-table-filters__grid">
-<!-- <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
-<input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
-<div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
-<select class="nhsuk-select" id="filter-organisation" name="organisation">
-<option value="">All organisations</option>
-<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
-</select>
-</div> 
-</div>-->
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="filter-period"><strong>Reporting period:</strong></label>
+          <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+          <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+        </div>
 
-<div class="nhsuk-form-group">
-  <label class="nhsuk-label" for="filter-period"><strong>Reporting period:</strong></label>
-  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
-  <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
-</div>
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+          <select class="nhsuk-select" id="filter-status" name="status">
+            <option value="">All statuses</option>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
 
-<div class="nhsuk-form-group">
-  <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
-  <select class="nhsuk-select" id="filter-status" name="status">
-    <option value="">All statuses</option>
-    <option value="Open">Open</option>
-    <option value="Closed">Closed</option>
-  </select>
-</div>
-<div class="nhsuk-table-filters__actions">
-<button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
-</div>
-</div>
-<div id="selected-filters" class="nhsuk-selected" aria-live="polite">
-<div class="nhsuk-selected__header">
-<h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
-<a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
-</div>
-<div class="nhsuk-selected__row" id="selected-chips"></div>
-</div>
-</form>
-</div>
+        <div class="nhsuk-table-filters__actions">
+          <button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
+        </div>
+      </div>
 
+      <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+        <div class="nhsuk-selected__header">
+          <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+          <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+        </div>
+        <div class="nhsuk-selected__row" id="selected-chips"></div>
+      </div>
+    </form>
+  
 
-      <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
-        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
-        <thead class="nhsuk-table__head" role="rowgroup">
-          <tr role="row" class="nhsuk-table__row">
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th> 
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Deadline</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-percentage">Providers submitted (%)*</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Providers not submitted</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions**</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Rejections (%)</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
-          </tr>
-        </thead>
-        <tbody class="nhsuk-table__body">
-          <tr class="nhsuk-table__row" role="row">      
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 June 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>68%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>17</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>115</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details">View</a></td>   
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>           
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>95%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>1</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>121</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2025</td>    
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2025</td>        
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 March 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2025</td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>91%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>2</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>120</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>20%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2025</td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>86%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>3</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>119</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2025</td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2025</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>95%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>1</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>121</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2025</td>          
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2025</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2025</td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2025</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>77%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>5</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>117</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>23%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2025</td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2025</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>91%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>2</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>120</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
-          </tr>
-        </tbody>
-      </table>
-<p>*Percentage of providers with at least one successful submission in this period.<br>
-**All submissions in this period, including successful, rejected, and resubmitted data.</p>
-<!-- Pagination -->
-<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
-  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
-    <ul class="nhsuk-list nhsuk-pagination__list">
-      <li class="nhsuk-pagination__item--current">
-        <a class="nhsuk-pagination__link" href="?page=1">1</a>
-      </li>
-      <li class="nhsuk-pagination__item nhsuk-pagination__item">
-        <a class="nhsuk-pagination__link" href="?page=2">2</a>
-      </li>
-      <li class="nhsuk-pagination__item">
-        <a class="nhsuk-pagination__link" href="?page=3">3</a>
-      </li>
-      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
-        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
-          <span class="nhsuk-pagination__title">Next →</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
-</div>
+  <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+    <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+    <thead class="nhsuk-table__head" role="rowgroup">
+      <tr role="row" class="nhsuk-table__row">
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Deadline</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-percentage">Providers submitted (%)*</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Providers not submitted</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions**</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Rejections (%)</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+      </tr>
+    </thead>
+    <tbody class="nhsuk-table__body">
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 June 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>68%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>17</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>115</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-period">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>95%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>1</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>121</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 March 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>91%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>2</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>120</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>20%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>86%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>3</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>119</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>95%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>1</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>121</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>100%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>0</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>122</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>77%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>5</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>117</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>23%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% completed submissions</span>91%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. providers not submitted</span>2</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>120</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>*Percentage of providers with at least one successful submission in this period.<br>
+    **All submissions in this period, including successful, rejected, and resubmitted data.</p>
+
+  <!-- Pagination -->
+  <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+    <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+      <ul class="nhsuk-list nhsuk-pagination__list">
+        <li class="nhsuk-pagination__item--current">
+          <a class="nhsuk-pagination__link" href="?page=1">1</a>
+        </li>
+        <li class="nhsuk-pagination__item nhsuk-pagination__item">
+          <a class="nhsuk-pagination__link" href="?page=2">2</a>
+        </li>
+        <li class="nhsuk-pagination__item">
+          <a class="nhsuk-pagination__link" href="?page=3">3</a>
+        </li>
+        <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+          <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+            <span class="nhsuk-pagination__title">Next →</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+  </div>
+
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+      <button class="nhsuk-button nhsuk-button--secondary" type="button" id="toggle-metrics-columns" aria-pressed="false">Hide metrics columns</button>
+    </div>
+  </div>
 </div>
 
 <style>
@@ -228,7 +241,7 @@
   document.addEventListener('DOMContentLoaded', function(){
     var details = document.querySelector('.nhsuk-details.nhsuk-expander');
     var textSpan = document.getElementById('filters-expander-text');
-    if(details && textSpan) {
+    if (details && textSpan) {
       function updateText() {
         textSpan.textContent = details.open ? 'Hide filters' : 'Show filters';
       }
@@ -251,48 +264,55 @@
       }
     }
     // fallback: get all text and remove the heading
-    let txt = (cell.textContent || '').trim();
-    let heading = cell.querySelector('.nhsuk-table-responsive__heading');
+    var txt = (cell.textContent || '').trim();
+    var heading = cell.querySelector('.nhsuk-table-responsive__heading');
     if (heading) {
       txt = txt.replace(heading.textContent, '').trim();
     }
     return txt;
   }
 
-  function uniqueSorted(values){ return Array.from(new Set(values.filter(Boolean))).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})) }
+  function uniqueSorted(values) {
+    return Array.from(new Set(values.filter(Boolean))).sort(function(a, b) {
+      return a.localeCompare(b, undefined, { sensitivity: 'base' });
+    });
+  }
 
-  function initTableFilters(opts){
-    var table = document.getElementById(opts.tableId)
-    var form = document.getElementById(opts.formId)
-    if (!table || !form || !table.tBodies.length) return
+  function initTableFilters(opts) {
+    var table = document.getElementById(opts.tableId);
+    var form = document.getElementById(opts.formId);
+    if (!table || !form || !table.tBodies.length) return;
 
     // Locate inputs
-  var idInput = form.querySelector('#filter-id')
-  var orgSel = form.querySelector('#filter-organisation')
-  var bySel = form.querySelector('#filter-submitted-by')
-  var monthSel = form.querySelector('#filter-month')
-  var yearSel = form.querySelector('#filter-year')
-  var typeSel = form.querySelector('#filter-type')
-  var statusSel = form.querySelector('#filter-status')
-    var periodInput = form.querySelector('#filter-period')
-    var clearBtn= form.querySelector('[data-clear-filters]')
-    var countEl = document.getElementById('results-count')
-    var applyBtn = form.querySelector('button[type="submit"]')
-    var chipsEl = document.getElementById('selected-chips')
+    var idInput = form.querySelector('#filter-id');
+    var orgSel = form.querySelector('#filter-organisation');
+    var bySel = form.querySelector('#filter-submitted-by');
+    var monthSel = form.querySelector('#filter-month');
+    var yearSel = form.querySelector('#filter-year');
+    var typeSel = form.querySelector('#filter-type');
+    var statusSel = form.querySelector('#filter-status');
+    var periodInput = form.querySelector('#filter-period');
+    var clearBtn = form.querySelector('[data-clear-filters]');
+    var countEl = document.getElementById('results-count');
+    var applyBtn = form.querySelector('button[type="submit"]');
+    var chipsEl = document.getElementById('selected-chips');
 
     // Map headers by data-key to column index
-    var keyIndex = {}
-    var i = 0
-    ;[].slice.call(table.tHead.rows[0].cells).forEach(function(th){
-      var span = th.colSpan || 1
-      var key = th.getAttribute('data-key')
-      for (var k=0; k<span; k++) { if (key && k===0) keyIndex[key] = i; i++ }
-    })
+    var keyIndex = {};
+    var i = 0;
+    [].slice.call(table.tHead.rows[0].cells).forEach(function(th) {
+      var span = th.colSpan || 1;
+      var key = th.getAttribute('data-key');
+      for (var k = 0; k < span; k++) {
+        if (key && k === 0) keyIndex[key] = i;
+        i++;
+      }
+    });
 
-    var rows = [].slice.call(table.tBodies[0].rows)
-    var data = rows.map(function(row){
-      var c = row.cells
-      var rec = {
+    var rows = [].slice.call(table.tBodies[0].rows);
+    var data = rows.map(function(row) {
+      var c = row.cells;
+      return {
         row: row,
         id: cellValue(c[keyIndex.id]),
         org: cellValue(c[keyIndex.organisation]),
@@ -300,14 +320,23 @@
         type: cellValue(c[keyIndex.type]),
         period: cellValue(c[keyIndex.period]),
         status: cellValue(c[keyIndex.status])
-      }
-      return rec
-    })
+      };
+    });
 
-  // Populate selects if blank
-  function populateSelect(sel, values){ if (!sel || sel.options.length>1) return; uniqueSorted(values).forEach(v=>{ var o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o) }) }
-  populateSelect(orgSel, data.map(r=>r.org))
-  populateSelect(bySel, data.map(r=>r.by))
+    // Populate selects if blank
+    function populateSelect(sel, values) {
+      if (!sel || sel.options.length > 1) return;
+      uniqueSorted(values).forEach(function(v) {
+        var o = document.createElement('option');
+        o.value = v;
+        o.textContent = v;
+        sel.appendChild(o);
+      });
+    }
+
+    populateSelect(orgSel, data.map(function(r) { return r.org; }));
+    populateSelect(bySel, data.map(function(r) { return r.by; }));
+
     // --- Period autocomplete dropdown ---
     var suggestionBox = document.getElementById('period-suggestions');
     if (periodInput && suggestionBox) {
@@ -318,15 +347,15 @@
           suggestionBox.innerHTML = '';
           return;
         }
-        // Get unique period values from table
-        var periods = uniqueSorted(data.map(r => r.period).filter(Boolean));
-        var matches = periods.filter(p => p.toLowerCase().startsWith(val));
+
+        var periods = uniqueSorted(data.map(function(r) { return r.period; }).filter(Boolean));
+        var matches = periods.filter(function(p) { return p.toLowerCase().startsWith(val); });
         if (matches.length === 0) {
           suggestionBox.style.display = 'none';
           suggestionBox.innerHTML = '';
           return;
         }
-        // Style and position
+
         suggestionBox.style.display = 'block';
         suggestionBox.style.background = '#fff';
         suggestionBox.style.color = '#000';
@@ -336,9 +365,11 @@
         suggestionBox.style.borderTop = 'none';
         suggestionBox.style.maxHeight = '200px';
         suggestionBox.style.overflowY = 'auto';
-        suggestionBox.innerHTML = matches.map(m => '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>').join('');
+        suggestionBox.innerHTML = matches.map(function(m) {
+          return '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>';
+        }).join('');
       });
-      // Click to select
+
       suggestionBox.addEventListener('mousedown', function(e) {
         if (e.target.classList.contains('period-suggestion')) {
           periodInput.value = e.target.textContent;
@@ -347,39 +378,42 @@
           periodInput.focus();
         }
       });
-      // Hide on blur
+
       periodInput.addEventListener('blur', function() {
-        setTimeout(function(){ 
+        setTimeout(function() {
           suggestionBox.style.display = 'none';
           suggestionBox.innerHTML = '';
         }, 200);
       });
     }
-  // Populate type select from table values
-  function extractType(type) {
-    return type || '';
-  }
-  populateSelect(typeSel, data.map(r=>extractType(r.type)));
 
-    function matches(rec){
-      var idQ = (idInput?.value || '').trim().toLowerCase()
-      var orgQ = (orgSel?.value || '')
-      var byQ = (bySel?.value || '')
-      var typeQ = (typeSel?.value || '')
-      var statusQ = (statusSel?.value || '')
-      var periodQ = (periodInput?.value || '').trim().toLowerCase()
-      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
-      if (orgQ && rec.org !== orgQ) return false
-      if (byQ && rec.by !== byQ) return false
-      if (typeQ && rec.type !== typeQ) return false
-      if (statusQ && rec.status !== statusQ) return false
-      if (periodQ && !rec.period.toLowerCase().startsWith(periodQ)) return false
-      return true
+    function extractType(type) {
+      return type || '';
+    }
+
+    populateSelect(typeSel, data.map(function(r) { return extractType(r.type); }));
+
+    function matches(rec) {
+      var idQ = (idInput && idInput.value ? idInput.value : '').trim().toLowerCase();
+      var orgQ = (orgSel && orgSel.value) || '';
+      var byQ = (bySel && bySel.value) || '';
+      var typeQ = (typeSel && typeSel.value) || '';
+      var statusQ = (statusSel && statusSel.value) || '';
+      var periodQ = (periodInput && periodInput.value ? periodInput.value : '').trim().toLowerCase();
+
+      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false;
+      if (orgQ && rec.org !== orgQ) return false;
+      if (byQ && rec.by !== byQ) return false;
+      if (typeQ && rec.type !== typeQ) return false;
+      if (statusQ && rec.status !== statusQ) return false;
+      if (periodQ && !rec.period.toLowerCase().startsWith(periodQ)) return false;
+      return true;
     }
 
     function renderChips() {
       if (!chipsEl) return;
       var chips = [];
+
       if (idInput && idInput.value.trim()) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="id" title="Clear ID filter">ID: ' + idInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
@@ -398,9 +432,9 @@
       if (periodInput && periodInput.value.trim()) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
+
       chipsEl.innerHTML = chips.join(' ');
 
-      // Show 'No filters applied' if no chips, else show 'Clear filters' link
       var clearLink = document.querySelector('[data-clear-filters]');
       if (clearLink) {
         if (chips.length === 0) {
@@ -422,9 +456,8 @@
         }
       }
 
-      // Add click handlers to clear individual filters
-      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag){
-        tag.addEventListener('click', function(){
+      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag) {
+        tag.addEventListener('click', function() {
           var filter = tag.getAttribute('data-filter');
           if (filter === 'id' && idInput) idInput.value = '';
           if (filter === 'organisation' && orgSel) orgSel.value = '';
@@ -432,131 +465,158 @@
           if (filter === 'type' && typeSel) typeSel.value = '';
           if (filter === 'status' && statusSel) statusSel.value = '';
           if (filter === 'period' && periodInput) periodInput.value = '';
-          // Re-render after clearing
           render();
         });
       });
     }
 
-    function render(){
-      var shown = 0
-      data.forEach(function(rec){
+    function render() {
+      var shown = 0;
+      data.forEach(function(rec) {
         if (matches(rec)) {
-          rec.row.style.display = ''
-          shown++
+          rec.row.style.display = '';
+          shown++;
         } else {
-          rec.row.style.display = 'none'
+          rec.row.style.display = 'none';
         }
-      })
-      if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's')
+      });
+      if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's');
       renderChips();
     }
 
-    // Only apply filters on button click
     if (applyBtn) {
-      applyBtn.addEventListener('click', function(e){
+      applyBtn.addEventListener('click', function(e) {
         e.preventDefault();
         render();
       });
     }
-  // Remove live filtering for period; only filter on Apply
 
-    // Clear filters
-    if (clearBtn) clearBtn.addEventListener('click', function(e){
-      e.preventDefault()
-      if (idInput) idInput.value = ''
-      if (orgSel) orgSel.value = ''
-      if (bySel) bySel.value = ''
-      if (typeSel) typeSel.value = ''
-      if (statusSel) statusSel.value = ''
-      if (periodInput) periodInput.value = ''
-      render()
-    })
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (idInput) idInput.value = '';
+        if (orgSel) orgSel.value = '';
+        if (bySel) bySel.value = '';
+        if (typeSel) typeSel.value = '';
+        if (statusSel) statusSel.value = '';
+        if (periodInput) periodInput.value = '';
+        render();
+      });
+    }
 
-    // Initial render to show all
-    render()
+    render();
   }
 
-  // Call the filter function for the main table
-  document.addEventListener('DOMContentLoaded', function(){
-      initTableFilters({
-        tableId: 'submissions-table',
-        formId: 'table-filters2'
-      })
-  })
-})()
+  document.addEventListener('DOMContentLoaded', function() {
+    initTableFilters({
+      tableId: 'submissions-table',
+      formId: 'table-filters2'
+    });
+  });
+})();
 </script>
+
 <script>
 // Click column headers to sort rows
-(function () {
-function parseValue(text, type) {
-var t = (text || '').trim()
-if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
-if (type === 'date') {
-var d = Date.parse(t)
-return isNaN(d) ? t.toLowerCase() : d
-}
-return t.toLowerCase()
-}
+(function() {
+  function parseValue(text, type) {
+    var t = (text || '').trim();
+    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'date') {
+      var d = Date.parse(t);
+      return isNaN(d) ? t.toLowerCase() : d;
+    }
+    return t.toLowerCase();
+  }
 
+  function indexOfCell(th) {
+    var cells = Array.prototype.slice.call(th.parentElement.children);
+    var idx = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === th) return idx;
+      idx += cells[i].colSpan || 1;
+    }
+    return -1;
+  }
 
-function indexOfCell(th) {
-var cells = Array.prototype.slice.call(th.parentElement.children)
-var idx = 0
-for (var i = 0; i < cells.length; i++) {
-if (cells[i] === th) return idx
-idx += cells[i].colSpan || 1
-}
-return -1
-}
+  function sortTable(table, colIndex, type, direction) {
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.rows);
 
+    rows.sort(function(a, b) {
+      var av = parseValue(a.cells[colIndex] && a.cells[colIndex].innerText, type);
+      var bv = parseValue(b.cells[colIndex] && b.cells[colIndex].innerText, type);
+      if (av < bv) return direction === 'ascending' ? -1 : 1;
+      if (av > bv) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
 
-function sortTable(table, colIndex, type, direction) {
-var tbody = table.tBodies[0]
-if (!tbody) return
-var rows = Array.prototype.slice.call(tbody.rows)
+    var frag = document.createDocumentFragment();
+    rows.forEach(function(r) { frag.appendChild(r); });
+    tbody.appendChild(frag);
+  }
 
+  document.querySelectorAll('table.nhsuk-table--sortable').forEach(function(table) {
+    var ths = table.tHead ? table.tHead.querySelectorAll('th') : [];
+    ths.forEach(function(th) {
+      var type = th.getAttribute('data-sort') || 'string';
+      if (type === 'none') return;
+      th.setAttribute('aria-sort', 'none');
+      var label = th.textContent.trim();
+      if (!th.querySelector('button')) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nhsuk-table-sort__button';
+        btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>';
+        th.textContent = '';
+        th.appendChild(btn);
+      }
+      th.querySelector('button').addEventListener('click', function() {
+        var current = th.getAttribute('aria-sort');
+        var next = current === 'ascending' ? 'descending' : 'ascending';
+        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function(t) { t.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', next);
+        var colIndex = indexOfCell(th);
+        sortTable(table, colIndex, type, next);
+      });
+    });
+  });
+})();
+</script>
 
-rows.sort(function (a, b) {
-var av = parseValue(a.cells[colIndex]?.innerText, type)
-var bv = parseValue(b.cells[colIndex]?.innerText, type)
-if (av < bv) return direction === 'ascending' ? -1 : 1
-if (av > bv) return direction === 'ascending' ? 1 : -1
-return 0
-})
+<script>
+(function() {
+  // Toggle visibility for columns 4-7
+  document.addEventListener('DOMContentLoaded', function() {
+    var table = document.getElementById('submissions-table');
+    var btn = document.getElementById('toggle-metrics-columns');
+    if (!table || !btn || !table.tBodies.length) return;
 
+    var colIndexes = [3, 4, 5, 6];
+    var hidden = false;
 
-var frag = document.createDocumentFragment()
-rows.forEach(function (r) { frag.appendChild(r) })
-tbody.appendChild(frag)
-}
+    function setVisibility(hide) {
+      var display = hide ? 'none' : '';
+      var heads = table.tHead ? Array.prototype.slice.call(table.tHead.rows) : [];
+      var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+      heads.concat(rows).forEach(function(row) {
+        colIndexes.forEach(function(idx) {
+          if (row.cells[idx]) row.cells[idx].style.display = display;
+        });
+      });
+      btn.textContent = hide ? 'Show metrics columns' : 'Hide metrics columns';
+      btn.setAttribute('aria-pressed', hide ? 'true' : 'false');
+    }
 
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      hidden = !hidden;
+      setVisibility(hidden);
+    });
 
-document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
-var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
-ths.forEach(function (th) {
-var type = th.getAttribute('data-sort') || 'string'
-if (type === 'none') return
-th.setAttribute('aria-sort', 'none')
-var label = th.textContent.trim()
-if (!th.querySelector('button')) {
-var btn = document.createElement('button')
-btn.type = 'button'
-btn.className = 'nhsuk-table-sort__button'
-btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
-th.textContent = ''
-th.appendChild(btn)
-}
-th.querySelector('button').addEventListener('click', function () {
-var current = th.getAttribute('aria-sort')
-var next = current === 'ascending' ? 'descending' : 'ascending'
-th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
-th.setAttribute('aria-sort', next)
-var colIndex = indexOfCell(th)
-sortTable(table, colIndex, type, next)
-})
-})
-})
-})()
+    setVisibility(hidden);
+  });
+})();
 </script>
 {% endblock %}

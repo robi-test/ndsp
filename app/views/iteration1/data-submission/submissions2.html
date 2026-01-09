@@ -37,23 +37,31 @@
       <!-- <p class="nhsuk-body">See your submissions and their current status below. After validation, select a submission to view feedback.</p> -->
       
 <div>
-<!-- <h2 class="nhsuk-heading-m">Past submissions for Diagnostic Imaging Data Set (DIDS v2.0)</h2> -->
+
+
+</div>
+
+<div class="nhsuk-tabs" data-module="nhsuk-tabs">
+  <h2 class="nhsuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="nhsuk-tabs__list">
+    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+      <a class="nhsuk-tabs__tab" href="#org1">
+        <h3 class="nhsuk-heading-xs">Sheffield Teaching Hospital</h3>
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#org2">
+        <h3 class="nhsuk-heading-xs">The Rotherham NHS Foundation Trust</h3>
+      </a>
+    </li>
+  </ul>
+<div class="nhsuk-tabs__panel" id="org1">
 <!-- Table filters -->
-
-
 <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
 <div class="nhsuk-table-filters__grid">
-<!-- <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
-<input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
-<div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
-<select class="nhsuk-select" id="filter-organisation" name="organisation">
-<option value="">All organisations</option>
-<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
-</select>
-</div> 
-</div>-->
+
 <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
 <select class="nhsuk-select" id="filter-submitted-by" name="submittedBy">
@@ -116,20 +124,6 @@
 <div class="nhsuk-selected__row" id="selected-chips"></div>
 </div>
 </form>
-</div>
-
-<div class="nhsuk-tabs" data-module="nhsuk-tabs">
-  <h2 class="nhsuk-tabs__title">
-    Contents
-  </h2>
-  <ul class="nhsuk-tabs__list">
-    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
-      <a class="nhsuk-tabs__tab" href="#org1">
-        <h4>Sheffield Teaching Hospital</h4>
-      </a>
-    </li>
-  </ul>
-<div class="nhsuk-tabs__panel" id="org1">
 
       <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
@@ -154,7 +148,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>October 2025</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1p">View</a></td>   
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_OctProv2025_1.xml</td>           
@@ -164,7 +158,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>October 2025</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1r">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2025_4.xml</td>    
@@ -184,7 +178,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2025</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2025_2.xml</td>            
@@ -194,7 +188,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2025</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2025_1.xml</td>         
@@ -273,6 +267,156 @@
 </div>
 </div>
 
+  <div class="nhsuk-tabs__panel" id="org2">
+  <!-- Table filters -->
+<form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+<div class="nhsuk-table-filters__grid">
+
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
+<select class="nhsuk-select" id="filter-submitted-by" name="submittedBy">
+<option value="">Anyone</option>
+<option value="James Jackson">James Jackson</option>
+<option value="Anne Williams">Anne Williams</option>
+</select>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
+  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+  <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
+  <select class="nhsuk-select" id="filter-type" name="type">
+    <option value="">All types</option>
+    <option value="First submission">Submission</option>
+    <option value="No data">No data</option>
+    <option value="Test">Test</option>
+  </select>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+  <div class="status-multiselect" style="position: relative;">
+    <button type="button" class="nhsuk-select status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+      <span data-status-summary>All statuses</span>
+    </button>
+    <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
+      <div class="nhsuk-checkboxes nhsuk-checkboxes--small" id="filter-status-list">
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-pending" name="status" type="checkbox" value="Pending validation">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-pending">Pending validation</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful" name="status" type="checkbox" value="Successful">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful">Successful</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful-warnings" name="status" type="checkbox" value="Successful with warnings">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-warnings">Successful with warnings</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-rejected" name="status" type="checkbox" value="Rejected">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-rejected">Rejected</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nhsuk-table-filters__actions">
+<button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
+</div>
+</div>
+<div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+<div class="nhsuk-selected__header">
+<h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+<a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+</div>
+<div class="nhsuk-selected__row" id="selected-chips"></div>
+</div>
+</form>
+      <table id="submissions-table-rotherham" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset – Rotherham</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr role="row" class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">File name</th> 
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Submitted on</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Period</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">      
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_OctProv2025_Roth1.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>16 Nov 2025, 10:15</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>October 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>   
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_OctProv2025_Roth2.xml</td>           
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>13 Nov 2025, 08:40</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>October 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2025_Roth1.xml</td>    
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>28 Oct 2025, 12:05</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2025_Roth2.xml</td>        
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Oct 2025, 15:50</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JulyFinal2025_Roth.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>15 Oct 2025, 09:20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>July 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_MayFinal2025_Roth.xml</td>          
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>8 Oct 2025, 11:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JunFinal2025_Roth.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>4 Aug 2025, 16:30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>June 2025</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+        </tbody>
+      </table>
+      <!-- Optional pagination for the Rotherham tab -->
+      <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+      </div>
+  </div>
 </div>
 </div>
 <p><a href="submissions" id="back-warning-link">One collection</a></p>

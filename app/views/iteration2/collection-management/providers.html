@@ -1,4 +1,4 @@
-{% extends "iteration1/data-submission/layout.html" %}
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
 
 {% set pageName = "DIDS Providers" %}
 
@@ -21,9 +21,15 @@
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
-        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">DIDS V2.0 Providers</h1>
-
-        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">DIDS V2.0 Providers</h1>
+<div class=" nhsuk-u-margin-top-6 ">
+              <!-- Download reports -->      
+            {{ actionLink({
+              text: "Add a new provider",
+              href: "#"
+            }) }} 
+</div>
+        <form id="table-filters2" class="nhsuk-table-filters nhsuk-u-margin-top-3" method="get" action="#" role="search" aria-label="Filter submissions">
           <div class="nhsuk-table-filters__grid">
             <div class="nhsuk-form-group">
               <label class="nhsuk-label" for="filter-search"><strong>Search by organisation</strong></label>

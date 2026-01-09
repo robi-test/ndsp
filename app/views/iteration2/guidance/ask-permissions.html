@@ -1,6 +1,6 @@
 {% extends "iteration2/guidance/layout-guidance.html" %}
 
-{% set pageName = "Getting started" %}
+{% set pageName = "How to ask for permissions" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 <hr>
@@ -22,7 +22,7 @@
   href: "home",
   text: "User guidance"
 }) }}
-<div class="grey-header nhsuk-u-margin-top-4 "><h1 class="nhsuk-heading-l" id="top">Getting started with NDSP</h1></div>
+<div class="grey-header nhsuk-u-margin-top-4 "><h1 class="nhsuk-heading-l" id="top">How to ask for permissions</h1></div>
 {% endblock %}
 {% block content %}
 
@@ -40,56 +40,62 @@
           {{ contentsList({
             items: [
               { href: "#top", text: "Top of page" },
-              { href: "#ods-code", text: "Organisational Data Service (ODS) code" },
-              { href: "#ig-leads", text: "Information Governance (IG) management leads" },
-              { href: "#roles-and-permissions", text: "Roles and permissions: what you need to know" },
-              { href: "#grant-permissions", text: "Granting permissions " }
+              { href: "#new-to-ndsp", text: "You are new to NDSP and currently have no permissions" },
+              { href: "#approval-route-1", text: "Approval route 1: Local administrator approves the request " },
+              { href: "#approval-route-2", text: "Approval Route 2: IG Lead Approval required " },
+              { href: "#what-happens-next", text: "What happens next" },
+              { href: "#additional-permissions", text: "Requesting additional permissions" }
             ]
           }) }}
         </div>
 
         <div class="nhsuk-grid-column-two-thirds nhsuk-u-padding-top-6">
-          <p class="nhsuk-body-m">This guide is for organisations submitting data to NHS England via the National Data Submission Portal (NDSP) for the first time, whether your organisation is new to submitting a collection or is moving from a legacy submission system to NDSP. </p>
-         <p>There are several things that should be in place before your organisation starts using NDSP: 
-         <ul class="nhsuk-list nhsuk-list--bullet">
-            <li>Ensure you have an Organisational Data Service (ODS) code, and that it is appropriate to be used for your data submission. </li>
-            <li>Ensure you have IG Management leads listed on the ODS Data Search and Export (DSE) service. </li>
-            <li>Review and understand the roles and permissions available in NDSP and agree within your team which role is appropriate for each person who needs access before submitting permission requests.</li>
+          <p class="nhsuk-body-m">This section explains how the permission request process works, what information you will need to provide, and what happens after you submit a request.</p>
+          
+          <p><strong>Note:</strong> It is important that you agree the role you need with your team before starting the request.</p>
+
+          <h2 class="nhsuk-heading-m" id="new-to-ndsp">You are new to NDSP and currently have no permissions</h2>
+          
+          <p>If you sign into NDSP and do not yet have any permissions, you will land on a simplified home page.</p>
+          
+          <p>Select 'Start a permission request' to begin.</p>
+
+          <h3 class="nhsuk-heading-s">What you need to provide</h3>
+          <p>The first screen explains what you will be asked to provide:</p>
+          <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>The organisation (and its ODS code) you will be submitting data for</li>
+            <li>The role you are requesting</li>
+            <li>If required, details for your organisation's Information Governance (IG) Lead</li>
           </ul>
-         </p>
+          <p>This page includes a link to the ODS portal, where you can check your organisation's ODS code and confirm the details of its registered IG Lead.</p>
+          <p>Click 'Continue' to proceed.</p>
 
-          <h2 class="nhsuk-heading-m" id="ods-code">Organisational Data Service (ODS) code</h2>
-          <p>Your organisation will need an ODS code to submit data via NDSP. </p>
+          <h3 class="nhsuk-heading-s">Choose a collection</h3>
+          <p>Next, you select the data collection you need permissions for.</p>
+          <p>The screen shows only collections available through NDSP at the time.</p>
+          <p>Once you have selected the collection, click 'Continue'.</p>
 
-           <p>An ODS is a unique identifier, also called 'organisation code', that holds key information such as organisation name, type, address, contact details and other reference data related to the healthcare organisation. You can read more information on the <a href="https://digital.nhs.uk/services/organisation-data-service">Organisation Data Service web page</a>. 
-            </p>
-           <p> It is very possible that you already have an ODS code for your organisation. We recommend speaking to a senior person involved in data or in finance to find out what your ODS code is. 
+          <h3 class="nhsuk-heading-s">Select an organisation</h3>
+          <p>You must now choose the organisation you want permissions for:</p>
+          <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>Start typing your organisation's name into the search box. Results will appear once you enter at least three characters.</li>
+            <li>Select your organisation from the list. The list only includes organisations authorised to submit data for the collection you selected.</li>
+            <li>Check that the correct ODS code appears automatically beneath the organisation name. Make sure it matches the organisation you intend to request access for.</li>
+            <li>Once you are confident that the organisation and ODS code are correct, select 'Continue' to move to next step.</li>
+          </ul>
+          <p>If the organisation you expect is not listed, you may need to talk to your line manager or contact the national service desk.</p>
 
-           If your organisation does not yet have an ODS code, your organisation needs to <a href="https://digital.nhs.uk/services/organisation-data-service/get-an-ods-code">generate a new ODS code for the organisation</a>. 
-         </p>
-         <div class="nhsuk-inset-text">
-            <span class="nhsuk-u-visually-hidden">Information: </span>
-            <p>When requesting access, make sure you select the ODS code of the organisation that is acting as the data provider for the collection.</p><p> Not necessarily this is your organisation especially if your organisation is an Independent Sector Healthcare Providers (ISHPs) that deliver services for other NHS organisations. </p>
-         </div>
+          <h3 class="nhsuk-heading-s">Select a role</h3>
+          <p>You now choose the role you are applying for:</p>
+          <p>At this stage:</p>
+          <ul class="nhsuk-list nhsuk-list--bullet">
+            <li>Review the list of available roles shown as radio buttons. The roles displayed depend on the organisation and collection you selected.</li>
+            <li>Select the role you need by choosing the appropriate radio button.</li>
+            <li>If only one role is available, you will still need to select it.</li>
+            <li>Select 'Continue' to move to next step.</li>
+          </ul>
 
-          <h2 class="nhsuk-heading-m" id="ig-leads">Information Governance (IG) management leads information </h2>
-          <p>
-            Your organisation needs to identify senior Information Governance (IG) management Leads, listed against your ODS code. IG Management Leads include Caldicott Guardians, Senior Information Risk Owners (SIRO), and Information Asset Owners (IAO). 
-            </p>
-            <p>
-            To obtain permissions as local administrator, the user must be authorised by an IG Management Lead. NHS England will verify that this authorisation has been provided by one of the IG Management Leads listed for that organisation. 
-            </p>
-            <p>
-            Once the first Local Administrator is approved, they in turn can approve future submitters and view-only requests for their organisation and collection. If no Local Administrator is in place, all permission requests (including submitter access) must be approved by an IG management lead. 
-            </p>
-            <p>
-            To check if you have your IG management leads listed on the ODS Data Search and Export (DSE) service, and who they are, you can search the <a href="https://digital.nhs.uk/services/organisation-data-service/data-search-and-export"> ODS Data Search and Export (DSE)</a>  service with your ODS code. You will find their names and contact details in the IG Management tab. Or alternatively, you can search the <a href="https://digital.nhs.uk/services/organisation-data-service/view-or-update-registers">public registers</a>. 
-          </p>
-            <img src="/images/iteration2/guidance/ods-ig-leads.png" style="max-width: 100%;" alt="Screenshot of ODS Data Search and Export (DSE) service showing IG Management Leads tab" class="nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4">
-          <p>If your organisation does not have IG management leads listed, or the list is out of date, your organisation must <a href="https://digital.nhs.uk/services/organisation-data-service/update-contacts">update the list</a>. 
-          </P>
-
-          <h2 class="nhsuk-heading-m" id="roles-and-permissions">Roles and permissions: what you need to know</h2>
+          <h2 class="nhsuk-heading-m" id="approval-route-1">Approval route 1: Local administrator approves the request</h2>
 
 
           <p>The National Data Submission Portal (NDSP) uses a partially devolved permissions model. This means some access is managed centrally by NHS England, while other access can be delegated to local administrators within provider organisations. 
@@ -126,9 +132,9 @@ A single user account can hold multiple permissions, and each permission is defi
             <thead role="rowgroup" class="nhsuk-table__head">
               <tr role="row">
                 <th role="columnheader" class="">Scope of the role</th>
-                <th role="columnheader" class="">Local administrator</th>
-                <th role="columnheader" class="">Submitter</th>
-                <th role="columnheader" class="">View-only</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
+                <th role="columnheader" class="">Specific to org + collection</th>
               </tr>
             </thead>
             <tbody class="nhsuk-table__body">
