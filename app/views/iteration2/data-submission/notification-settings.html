@@ -1,0 +1,149 @@
+{% extends "iteration1/data-submission/layout.html" %}
+{% set pageName = "Email notification settings" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+          <p>Choose which email notifications you want to receive from the National Data Submission Portal.
+You can turn notifications on or off at any time. Some essential service emails will always be sent.
+          </p>
+
+          
+
+          <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Submission window opened</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Get an email when a submission window opens for one of your collections.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Submission deadline approaching</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Get a reminder email when a submission deadline is approaching.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+            <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Submission deadline changed</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Get an email when a submission deadline changes. This may be a change that applies to all submitting organisations or a change that affects your organisation only.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Validation completed</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Get an email when validation has finished, including a summary of errors and warnings and the final status of the submission.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+        
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+/* Toggle Switch Styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #768692;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #007f3b;
+  border: 1px solid #434749ff;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 0 4px #ffeb3b;
+  border: 1px solid #434749ff;
+}
+</style>
+
+<script>
+// Toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('validation-toggle');
+  
+  toggle.addEventListener('change', function() {
+    console.log('Validation notifications:', this.checked ? 'ON' : 'OFF');
+    // Add your save functionality here
+  });
+});
+</script>
+{% endblock %}

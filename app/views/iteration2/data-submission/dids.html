@@ -1,0 +1,237 @@
+{% extends "iteration1/data-submission/layout.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (DIDS)" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "guidance-permissions",
+  text: "Guidance and permissions"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row ">
+   <div class="nhsuk-u-margin-top-7">
+    
+<div class="nhsuk-grid-row">
+  <div class=" app-component-reading-width">
+
+    <div class="app-pane">
+
+<div class="app-pane__side-bar">
+
+<!--
+<nav class="app-side-nav">    <h2 class="app-side-nav__heading">Form elements</h2>
+    <ul class="nhsuk-list app-side-nav__list">
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/buttons">Diagnostic Imaging Dataset (DIDS)</a></li>
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/character-count">Collection 2</a></li>
+    </ul>
+
+</nav>-->
+</div>
+
+<div class=" app-pane__main-content nhsuk-grid-column-two-thirds">
+
+
+<h1>   
+  Diagnostic Imaging Data Set (DIDS)
+</h1>
+<h3>   
+  Resources
+</h3>
+<p>
+Quick access to guidance and tools to help you manage your data submissions.
+</p>
+<ul>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/tools-and-guidance" >DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources).
+</li>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/submit-data">DIDS timetable</a>: Full list of current submission periods and deadlines.
+</li>
+<li><a href="https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/36/items/248/releases">DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file).
+</li>
+<li><a  href="">Roles model: </a>Guidance about roles and permissions.
+</li>
+<li><a href="">Submission guidance</a>: Step-by-step guidance for preparing and submitting your data.
+</li>
+</ul>
+
+<div class="nhsuk-u-margin-top-7">
+  <h3>   
+    Your permissions
+  </h3>
+
+  {% from "summary-list/macro.njk" import summaryList %}
+
+  {{ summaryList({
+    rows: [
+      {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+          text: "Milton Keynes Hospital"
+        }
+      },
+      {
+        key: {
+          text: "Your role"
+        },
+        value: {
+          text: "Submitter"
+        }
+      }
+    ]
+  }) }}
+<!--<p><br></p>
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        text: "Bedford Hospital"
+      }
+    },
+    {
+      key: {
+        text: "Your role"
+      },
+      value: {
+        text: "Submitter"
+      }
+    
+    }
+  ]
+}) }}
+-->
+{% from "action-link/macro.njk" import actionLink %}
+
+{{ actionLink({
+  text: "Ask for an API token",
+  openInNewWindow: true,
+  href: "https://nationaldataintegration.federateddataplatform.nhs.uk/"
+}) }}
+
+<details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      How to start setting up an API submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+    <p>Selecting the following link will take you to a separate system on Foundry for API setup.</p>
+<ul>
+<li>From there, you'll be able to:
+
+<li>Generate a secure API token linked to your organisation and collection</li>
+<ul>
+  </div>
+</details>
+
+
+ </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+<!-- Sortable table -->
+(function () {
+function parseValue(text, type, cell) {
+  var t = (text || '').trim()
+  
+  // Check for data-sort-value attribute first
+  if (cell && cell.hasAttribute('data-sort-value')) {
+    var sortValue = cell.getAttribute('data-sort-value')
+    if (type === 'date') {
+      return new Date(sortValue).getTime()
+    }
+    return sortValue
+  }
+  
+  if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+  if (type === 'date') {
+    var d = Date.parse(t)
+    return isNaN(d) ? t.toLowerCase() : d
+  }
+  return t.toLowerCase()
+}
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type, a.cells[colIndex])
+var bv = parseValue(b.cells[colIndex]?.innerText, type, b.cells[colIndex])
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+</script>
+{% endblock %}

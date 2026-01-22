@@ -1,0 +1,66 @@
+{% extends "iteration1/data-submission/layout.html" %}
+{% set pageName = "Support" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+          
+<p>If you can’t find what you need in the guidance or you’re experiencing an issue with the portal, you can contact the NDSP Service Desk.
+<br><br>Service Desk email address: <a>ssd.nationalservicedesk@nhs.net</a>
+</p>
+<p>
+When contacting support, please include:
+<ul>
+
+<li>Your organisation</li>
+
+<li>The data collection you’re working with</li>
+
+<li>A brief description of the issue</li>
+</ul>
+</p>
+<p>
+This will help us respond to your request as quickly as possible.
+</p>
+
+{% from "inset-text/macro.njk" import insetText %}
+
+{% set insetTextHtml %}
+  <p>Please do not include any personal, confidential, or patient-identifiable information in your message.</p>
+{% endset %}
+
+{{ insetText({
+  html: insetTextHtml
+}) }}
+
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

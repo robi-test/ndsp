@@ -1,0 +1,144 @@
+{% extends "iteration1/data-submission/layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Submission details" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "submissions",
+  text: "Submissions"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            {% from "summary-list/macro.njk" import summaryList %}
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Collection" },
+                  value: { text: "Diagnostic Imaging Data Set  (DIDS v2.0)" }
+                },
+                {
+                  key: { text: "Organisation" },
+                  value: { text: "Sheffield Teaching Hospital" }
+                },
+                {
+                  key: { text: "Reporting period" },
+                  value: { text: "October 2025" }
+                },
+                {
+                  key: { text: "File submitted" },
+                  value: { text: "DID_OctProv2025_1.xml" },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: "",
+                        visuallyHiddenText: ""
+                      }
+                    ]
+                  }
+                },{
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Rejected", classes: "nhsuk-tag--red"}) }
+                }
+              ]
+            }) }}
+
+ 
+ <details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      More details about the submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+           {{ summaryList({
+              rows: [
+                
+                {
+                  key: { text: "Template version" },
+                  value: { text: "DID V2.0" }
+                },
+                {
+                  key: { text: "Submission ID" },
+                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
+                },
+                {
+                  key: { text: "Submission route" },
+                  value: { text: "File submission" }
+                },
+                
+                {
+                  key: { text: "Submitted on" },
+                  value: { text: "12 Nov 2025, 14:10" }
+                },
+                {
+                  key: { text: "Submitted by" },
+                  value: { text: "James Jackson" }
+                },
+                {
+                  key: { text: "Type" },
+                  value: { text: "Submission" }
+                }
+              ]
+            }) }}
+  </div>
+</details>
+
+<div style="margin-top:100px; margin-bottom:200px">
+    <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+    <p>Your validation feedback details:</p>
+    {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Number of records" },
+                  value: { text: "1,234" }
+                  
+                },
+                
+                {
+                  key: { text: "Errors" },
+                  value: { text: "10 Error(s)" },
+                  actions: {
+                    items: [
+                      {
+                        href: "submission-errors-new",
+                        text: "",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                 },
+                {
+                  key: { text: "Warnings" },
+                  value: { text: "12 Warning(s)" }
+                }
+              ]
+            }) }}
+      
+         {% from 'action-link/macro.njk' import actionLink %}
+
+{{ actionLink({
+  text: "Download validation report",
+  href: "#"
+}) }}     
+    </div>
+  </div>
+{% endblock %}
