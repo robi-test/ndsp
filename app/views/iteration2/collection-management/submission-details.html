@@ -1,21 +1,13 @@
-{% extends "iteration2/data-submission/layout.html" %}
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 {% set pageName = "Submission details" %}
 
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    }
-  ],
-  href: "submissions",
-  text: "Submissions"
-}) }}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -100,7 +92,7 @@
   </div>
 </details>
 
-<div style="margin-top:100px; margin-bottom:200px">
+<div style="margin-top:10px; margin-bottom:20px">
     <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
     <p>Your validation feedback details:</p>
     {% from "summary-list/macro.njk" import summaryList %}
@@ -134,6 +126,42 @@
             }) }}
       
            
+    </div>
+    <div style="margin-top: 10px;">
+      <h2 class="nhsuk-heading-m">Error details by category</h2>
+      <table class="nhsuk-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Error</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)</td>
+            <td class="nhsuk-table__cell">Not a current GP code</td>
+            <td class="nhsuk-table__cell">4</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIAGNOSTIC TEST REQUEST DATE</td>
+            <td class="nhsuk-table__cell">Incorrect data format</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (CODE OF PROVIDER)</td>
+            <td class="nhsuk-table__cell">Not a current ODS code</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">CODED PROCEDURE END TIMESTAMP</td>
+            <td class="nhsuk-table__cell">Before coded procedure start timestamp</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          
+        </tbody>
+      </table>
     </div>
   </div>
 {% endblock %}
