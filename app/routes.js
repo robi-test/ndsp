@@ -54,6 +54,17 @@ router.post('/iteration1/data-submission/choose-period', (req, res) => {
     res.redirect('/iteration1/data-submission/upload-file1');
 });
 
+router.post('/iteration2/data-submission/choose-period', (req, res) => {
+  // Store the period data in session
+  req.session.data['period'] = req.session.data['period'];
+
+
+  // Redirect back to the details page
+  res.redirect("/iteration2/data-submission/upload-file1");
+});
+
+
+
 router.post("/iteration1/permission-management/existing-local-admin/select-role", (req, res) => {
   const role = req.session.data.role;
 
