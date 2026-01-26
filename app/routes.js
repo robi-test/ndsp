@@ -224,12 +224,4 @@ router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-co
   res.redirect("/iteration1/permission-management/no-existing-local-admin/submitter2-terms");
 });
  
-router.post('/iteration2/data-submission/choose-period', (req, res) => {
-  // Store the period data in session
-  req.session.data['period'] = req.session.data['period'];
-
-router.post('/iteration2/data-submission/choose-period', (req, res) => {
-    res.redirect('/iteration2/data-submission/upload-file1');
-}); 
-
 module.exports = router;
