@@ -1,6 +1,6 @@
 {% extends "iteration2/collection-management/layout-collection-management.html" %}
 
-{% set pageName = "DIDS Providers" %}
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) Providers" %}
 
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -11,8 +11,8 @@
       text: "Home"
     }
   ],
-  href: "dids-dashboard",
-  text: "DIDS Dashboard"
+  href: "setup",
+  text: "Set up"
 }) }}
 {% endblock %}
 
@@ -21,13 +21,12 @@
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
-        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">DIDS V2.0 Providers</h1>
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Diagnostic Imaging Data Set (V2.0) Providers</h1>
 <div class=" nhsuk-u-margin-top-6 ">
-              <!-- Download reports -->      
             {{ actionLink({
-              text: "Add a new provider",
+              text: "Add provider(s)",
               href: "#"
-            }) }} 
+            }) }}
 </div>
         <form id="table-filters2" class="nhsuk-table-filters nhsuk-u-margin-top-3" method="get" action="#" role="search" aria-label="Filter submissions">
           <div class="nhsuk-table-filters__grid">
@@ -70,6 +69,9 @@
           </div>
         </form>
 
+        <div style="display: flex; justify-content: flex-end;">
+          <a class="nhsuk-button nhsuk-button--secondary" href="#">Download CSV</a>
+        </div>
         <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
           <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Diagnostic Imaging Data Set Providers</caption>
           <thead class="nhsuk-table__head" role="rowgroup">
@@ -91,7 +93,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Dec 2025, 14:23</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
             </tr>
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>

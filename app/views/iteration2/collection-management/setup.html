@@ -17,7 +17,7 @@
 <div class="nhsuk-grid-row">
    <div class="nhsuk-u-margin-top-2">
       <h1 class="nhsuk-heading-l">
-        DIDS V2.0 Dashboard
+        Diagnostic Imaging Data Set (V2.0) Set Up
       </h1>
 
       <p>
@@ -25,16 +25,7 @@
       </p>
   {% from "card/macro.njk" import card %}
 
-    <ul class="nhsuk-grid-row nhsuk-card-group">
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "submissions",
-        primary: "true",
-        clickable: "true",
-        heading: "Submissions",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
@@ -77,15 +68,6 @@
       }) }}
       </li>
 
-    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "setup",
-        primary: "true",
-        clickable: "true",
-        heading: "Test submission",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
 
 
     </ul>
