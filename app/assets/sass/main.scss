@@ -63,6 +63,12 @@ $nhsuk-fonts-path: "https://assets.nhs.uk/fonts/" !default;
     max-width: 1200px;
 }
 
+/* Contents list link color to match NHS blue. */
+.nhsuk-contents-list__list .nhsuk-tabs__tab,
+.nhsuk-contents-list__list .nhsuk-tabs__tab:visited {
+    color: #005eb8;
+}
+
 @media (min-width: 40.0625em) {
     .nhsuk-main-wrapper {
         padding-top: 18px; 
@@ -187,6 +193,15 @@ span#no-filters-msg {margin-right: auto;}
 
 /* Scrollable table container (optional) */
 .nhsuk-scrollable { border: 1px solid #d8dde0; border-radius: 4px; max-height: 480px; overflow: auto; }
+
+/* Hide non-selected tabs for single-visible tab groups. */
+.nhsuk-tabs--single-visible .nhsuk-tabs__list-item {
+    display: none;
+}
+
+.nhsuk-tabs--single-visible .nhsuk-tabs__list-item--selected {
+    display: list-item;
+}
 
 /* NHS-styled upload progress card – matches the screenshot (green progress, cancel link). */
 

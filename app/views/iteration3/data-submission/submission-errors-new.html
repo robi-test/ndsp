@@ -1,0 +1,354 @@
+{% extends "iteration2/data-submission/layout.html" %}
+
+{% set pageName = "Submission Errors" %}
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+        
+        <h1 class="nhsuk-heading-l">Validation errors</h1>
+
+        <p>Open <a href="https://www.datadictionary.nhs.uk/data_sets/clinical_data_sets/diagnostic_imaging_data_set.html?hl=diagnostic">Data dictionary</a> (new window).</p>
+
+<div class="nhsuk-tabs nhsuk-u-margin-top-8" data-module="nhsuk-tabs">
+  <h2 class="nhsuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="nhsuk-tabs__list">
+    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+      <a class="nhsuk-tabs__tab" href="#did">
+        <strong>Errors</strong>
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#dwta">
+        <strong>Warnings</strong>
+      </a>
+    </li>
+  </ul>
+  
+  <!-- First Tab Panel - Diagnostic Imaging Dataset -->
+  <div class="nhsuk-tabs__panel" id="did">
+
+    <!-- Table filters -->
+    <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+    <div class="nhsuk-table-filters__grid2">
+
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label" for="filter-accession-number"><strong>Search by Accession number</strong></label>
+      <input class="nhsuk-input" id="filter-accession-number" name="accession-number" type="text" placeholder="" autocomplete="off">
+    </div>
+
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label" for="filter-category"><strong>Validation type:</strong></label>
+      <select class="nhsuk-select" id="filter-category" name="category">
+        <option value="">All categories</option>
+        <option value="Invalid format">Format</option>
+        <option value="Invalid date">National code</option>
+        <option value="Check digit failed">AV</option>
+        <option value="Invalid value">Blank</option>
+      </select>
+    </div>
+
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label" for="filter-data-element"><strong>Data item name:</strong></label>
+      <select class="nhsuk-select" id="filter-data-element" name="data-element">
+        <option value="">All data elements</option>
+        <option value="GENERAL MEDICAL PRACTICE CODE (PATIENT REGISTRATION)">GENERAL MEDICAL PRACTICE CODE (PATIENT REGISTRATION)</option>
+        <option value="PERSON BIRTH DATE">PERSON BIRTH DATE</option>
+        <option value="NHS NUMBER">NHS NUMBER</option>
+        <option value="PERSON GENDER CODE CURRENT">PERSON GENDER CODE CURRENT</option>
+        <option value="DIAGNOSTIC TEST DATE">DIAGNOSTIC TEST DATE</option>
+        <option value="ETHNIC CATEGORY">ETHNIC CATEGORY</option>
+        <option value="REFERRER CODE">REFERRER CODE</option>
+        <option value="POSTCODE OF USUAL ADDRESS">POSTCODE OF USUAL ADDRESS</option>
+        <option value="WAITING TIME">WAITING TIME</option>
+        <option value="ACTIVITY COUNT">ACTIVITY COUNT</option>
+      </select>
+    </div>
+
+    <div class="nhsuk-table-filters__actions">
+      <button class="nhsuk-button" style="top: 15px;" type="button" id="apply-filters">Apply</button>
+    </div>
+    </div>
+    <div id="selected-filters" class="nhsuk-selected" aria-live="polite" style="display: none;">
+    <div class="nhsuk-selected__header">
+    <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+    <a href="#" class="nhsuk-link" style="margin-right: auto;" id="clear-all-filters">Clear filters</a>
+    </div>
+    <div class="nhsuk-selected__row" id="selected-chips"></div>
+    </div>
+
+    </form>
+    
+    <!-- Merged Error Details Table -->
+    <div class="nhsuk-card" style="margin-top: 30px;">
+        <div class="nhsuk-card__content">
+            <table class="nhsuk-table" id="errors-table">
+                <caption class="nhsuk-table__caption">Detailed validation errors for file DID_May2025_V2.csv submitted on 15 Sep 2025, 09:30</caption>
+                <thead class="nhsuk-table__head">
+                    <tr class="nhsuk-table__row">
+                        <th class="nhsuk-table__header" scope="col">Accession Number</th>
+                        <th class="nhsuk-table__header" scope="col">Data Item name</th>
+                        <th class="nhsuk-table__header" scope="col">Validation message</th>
+                        <th class="nhsuk-table__header" scope="col">Validation type</th>
+                        <th class="nhsuk-table__header" scope="col">Error code</th>
+                    </tr>
+                </thead>
+                <tbody class="nhsuk-table__body">
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725012448</td>
+                        <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE CODE (PATIENT REGISTRATION)</td>
+                        <td class="nhsuk-table__cell">has an incorrect data format.</td>
+                        <td class="nhsuk-table__cell">Format</td>
+                        <td class="nhsuk-table__cell">DIDS00101001</td>
+                        
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725021248</td>
+                        <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE CODE (PATIENT REGISTRATION)</td>
+                        <td class="nhsuk-table__cell">has an incorrect data format.</td>
+                        <td class="nhsuk-table__cell">Format</td>
+                        <td class="nhsuk-table__cell">DIDS00101001</td>
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725034567</td>
+                         <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE CODE (PATIENT REGISTRATION)</td>
+                        <td class="nhsuk-table__cell">is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and Dictionary).  </td>
+                        <td class="nhsuk-table__cell">AV</td>
+                        <td class="nhsuk-table__cell">DIDS00101002</td>
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725045678</td>
+                        <td class="nhsuk-table__cell">PERSON BIRTH DATE</td>
+                        <td class="nhsuk-table__cell"> is before 01/01/1904.</td>
+                        <td class="nhsuk-table__cell">AV</td>
+                        <td class="nhsuk-table__cell">DIDS00100502</td>
+
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725056789</td>
+                        <td class="nhsuk-table__cell">NHS NUMBER</td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                       
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725067890</td>
+                        <td class="nhsuk-table__cell">PERSON GENDER CODE CURRENT</td>   
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725078901</td>
+                        <td class="nhsuk-table__cell">DIAGNOSTIC TEST DATE</td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell">  </td>
+
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725089012</td>
+                        <td class="nhsuk-table__cell">ETHNIC CATEGORY</td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725090123</td>
+                        <td class="nhsuk-table__cell">REFERRER CODE</td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">RA725101234</td>
+                        <td class="nhsuk-table__cell">POSTCODE OF USUAL ADDRESS</td>
+                        <td class="nhsuk-table__cell">  </td>
+                        <td class="nhsuk-table__cell"> </td>
+                        <td class="nhsuk-table__cell"> </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  </div>
+
+  <!-- Second Tab Panel - Warnings -->
+  <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="dwta">
+    
+    <h3 class="nhsuk-heading-m">Warnings</h3>
+    
+    <p>Content for warnings would appear here.</p>
+    
+    <div class="nhsuk-card">
+        <div class="nhsuk-card__content">
+            <table class="nhsuk-table" id="warnings-table">
+                <caption class="nhsuk-table__caption">Validation warnings for file DID_May2025_V2.csv</caption>
+                <thead class="nhsuk-table__head">
+                    <tr class="nhsuk-table__row">
+                        <th class="nhsuk-table__header" scope="col">Data Element</th>
+                        <th class="nhsuk-table__header" scope="col">Category</th>
+                        <th class="nhsuk-table__header" scope="col">Row Number</th>
+                        <th class="nhsuk-table__header" scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody class="nhsuk-table__body">
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">WAITING TIME</td>
+                        <td class="nhsuk-table__cell">Data quality</td>
+                        <td class="nhsuk-table__cell">125</td>
+                        <td class="nhsuk-table__cell">Unusually high waiting time detected. Please verify this value is correct.</td>
+                    </tr>
+                    <tr class="nhsuk-table__row">
+                        <td class="nhsuk-table__cell">ACTIVITY COUNT</td>
+                        <td class="nhsuk-table__cell">Missing data</td>
+                        <td class="nhsuk-table__cell">267</td>
+                        <td class="nhsuk-table__cell">Activity count is blank but expected based on other data in this row.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  </div>
+
+</div>
+       
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const table = document.getElementById('errors-table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // Store original rows
+    const originalRows = [...rows];
+    
+    // Filter functions
+    function applyFilters() {
+        const rowNumberFilter = document.getElementById('filter-row-number').value.toLowerCase().trim();
+        const accessionNumberFilter = document.getElementById('filter-accession-number').value.toLowerCase().trim();
+        const categoryFilter = document.getElementById('filter-category').value;
+        const dataElementFilter = document.getElementById('filter-data-element').value;
+        
+        let visibleCount = 0;
+        
+        originalRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length === 0) return; // Skip if no cells
+            
+            const dataElement = cells[0].textContent.trim();
+            const category = cells[1].textContent.trim();
+            const rowNumber = cells[2].textContent.trim();
+            const accessionNumber = cells[3].textContent.trim();
+            
+            let shouldShow = true;
+            
+            // Apply row number filter
+            if (rowNumberFilter && !rowNumber.toLowerCase().includes(rowNumberFilter)) {
+                shouldShow = false;
+            }
+            
+            // Apply accession number filter
+            if (accessionNumberFilter && !accessionNumber.toLowerCase().includes(accessionNumberFilter)) {
+                shouldShow = false;
+            }
+            
+            // Apply category filter
+            if (categoryFilter && category !== categoryFilter) {
+                shouldShow = false;
+            }
+            
+            // Apply data element filter
+            if (dataElementFilter && dataElement !== dataElementFilter) {
+                shouldShow = false;
+            }
+            
+            if (shouldShow) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        
+        updateSelectedFilters();
+        updateTableCaption(visibleCount);
+    }
+    
+    function clearFilters() {
+        document.getElementById('filter-row-number').value = '';
+        document.getElementById('filter-accession-number').value = '';
+        document.getElementById('filter-category').value = '';
+        document.getElementById('filter-data-element').value = '';
+        
+        originalRows.forEach(row => {
+            row.style.display = '';
+        });
+        
+        updateSelectedFilters();
+        updateTableCaption(originalRows.length);
+    }
+    
+    function updateSelectedFilters() {
+        const selectedFiltersDiv = document.getElementById('selected-filters');
+        const selectedChips = document.getElementById('selected-chips');
+        
+        const filters = [];
+        
+        const rowNumber = document.getElementById('filter-row-number').value;
+        const accessionNumber = document.getElementById('filter-accession-number').value;
+        const category = document.getElementById('filter-category').value;
+        const dataElement = document.getElementById('filter-data-element').value;
+        
+        if (rowNumber) filters.push(`Row number: ${rowNumber}`);
+        if (accessionNumber) filters.push(`Accession number: ${accessionNumber}`);
+        if (category) filters.push(`Category: ${category}`);
+        if (dataElement) filters.push(`Data element: ${dataElement}`);
+        
+        if (filters.length > 0) {
+            selectedFiltersDiv.style.display = 'block';
+            selectedChips.innerHTML = filters.map(filter => 
+                `<span class="nhsuk-tag nhsuk-tag--grey">${filter}</span>`
+            ).join('');
+        } else {
+            selectedFiltersDiv.style.display = 'none';
+        }
+    }
+    
+    function updateTableCaption(visibleCount) {
+        const caption = table.querySelector('caption');
+        const originalText = 'Detailed validation errors for file DID_May2025_V2.csv submitted on 15 Sep 2025, 09:30';
+        
+        if (visibleCount !== originalRows.length) {
+            caption.textContent = `${originalText} (Showing ${visibleCount} of ${originalRows.length} errors)`;
+        } else {
+            caption.textContent = originalText;
+        }
+    }
+    
+    // Event listeners - Only when user clicks Apply button
+    document.getElementById('apply-filters').addEventListener('click', applyFilters);
+    document.getElementById('clear-all-filters').addEventListener('click', function(e) {
+        e.preventDefault();
+        clearFilters();
+    });
+});
+</script>
+
+{% endblock %}

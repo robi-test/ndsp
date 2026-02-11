@@ -144,13 +144,14 @@
             </table>
             <h3>What changed in these sprints</h3>
             <p>Text</p>-->
+
             <h3>Journeys:</h3>
             <ul>
  
               <li><a href='iteration2/permission-management/existing-local-admin/home-no-permission'>Request permissions - with active local admin - Iteration 1</a></li>
               <li><a href='iteration2/permission-management/no-existing-local-admin/home-no-permission'>Request permissions - no local admin - Iteration 1</a></li>
               <li><a href='iteration2/permission-management/no-local-admin/home-no-permission'>Request permissions - no local admin role feature - Iteration 1</a></li>
-              <li><a href='iteration2/data-submission/home'>Data submission - Iteration 2</a></li>
+              <li><a href='iteration2/data-submission/home'>File submission - Iteration 2</a></li>
               <li><a href='iteration2/grant-permissions/home'>Local administrator - Grant permissions</a></li>
               <li><a href='iteration2/collection-management/home'>Collection management</a></li>
               <li><a href='iteration2/data-quality/home'>Monitoring</a></li>
@@ -163,26 +164,20 @@
 
         {{ details({
           classes: "nhsuk-expander",
-          text: "Iteration no.3",
+          open: true,
+          text: "Sprint 8-9",
           html: "
-             
+            <h3>Journeys:</h3>
+            <ul>
+              <li><a href='iteration3/data-submission/home'>Guidance and permissions + Static pages + File submission (Iteration 3)</a></li>
+              <li><a href='iteration3/collection-management/home'>Collection management: monitoring + collection set up</a></li>             
+            </ul>
           "
         }) }}
-        {{ details({
-          classes: "nhsuk-expander",
-          text: "Unuxpected journeys",
-          html: "
-            
-          "
-        }) }}
+
       </div>
 
-      <hr>
 
-     
-      <p>
-        There is a selection of <a href="/example-templates">example page templates</a> in <strong>/lib/example-templates/</strong>. To use these, copy and paste them into <strong>/app/views/</strong>.
-      </p>
     </div>
   </div>
 {% endblock %}

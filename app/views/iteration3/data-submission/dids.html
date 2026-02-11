@@ -1,0 +1,227 @@
+{% extends "iteration3/data-submission/layout.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (DIDS)" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "guidance-permissions",
+  text: "Guidance and permissions"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row ">
+   <div class="nhsuk-u-margin-top-7">
+    
+<div class="nhsuk-grid-row">
+  <div class=" app-component-reading-width">
+
+    <div class="app-pane">
+
+<div class="app-pane__side-bar">
+
+<!--
+<nav class="app-side-nav">    <h2 class="app-side-nav__heading">Form elements</h2>
+    <ul class="nhsuk-list app-side-nav__list">
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/buttons">Diagnostic Imaging Dataset (DIDS)</a></li>
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/character-count">Collection 2</a></li>
+    </ul>
+
+</nav>-->
+</div>
+
+<div class=" app-pane__main-content nhsuk-grid-column-two-thirds">
+
+
+<h1>   
+  Diagnostic Imaging Data Set (DIDS)
+</h1>
+<h3>   
+  Resources
+</h3>
+<p>
+Quick access to guidance and tools to help you manage your data submissions.
+</p>
+<ul>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/tools-and-guidance" >DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources).
+</li>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/submit-data">DIDS timetable</a>: Full list of current submission periods and deadlines.
+</li>
+<li><a href="https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/36/items/248/releases">DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file).
+</li>
+</ul>
+
+<div class="nhsuk-u-margin-top-7">
+  <h3>   
+    Your permissions
+  </h3>
+<p>Here are the organisation you’re submitting on behalf of and your assigned role.<br>
+    You can also generate an API token for the organisation, which is usually a one-off setup.
+    </p>
+ <div class="nhsuk-u-margin-top-7">
+  {% from "summary-list/macro.njk" import summaryList %}
+
+  {{ summaryList({
+    rows: [
+      {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+          text: "Milton Keynes University Hospital"
+        }
+      },
+      {
+        key: {
+          text: "Your role"
+        },
+        value: {
+          text: "Submitter"
+        }
+      }
+    ]
+  }) }}
+  {% from "button/macro.njk" import button %}
+
+{{ button({
+  text: "Get an API token",
+  classes: "nhsuk-button--secondary js-api-token-button",
+  attributes: {
+    "data-modal-target": "api-token-modal"
+  }
+}) }}
+<hr>
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        text: "Luton and Dunstable University Hospital"
+      }
+    },
+    {
+      key: {
+        text: "Your role"
+      },
+      value: {
+        text: "Submitter"
+      }
+    
+    }
+  ]
+}) }}
+
+
+
+{{ button({
+  text: "Get an API token",
+  classes: "nhsuk-button--secondary js-api-token-button",
+  attributes: {
+    "data-modal-target": "api-token-modal"
+  }
+}) }}
+</div>
+<details class="nhsuk-details nhsuk-u-margin-top-7">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      Automating submissions with the API
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+    <p>Your organisation can use the API to automate submissions instead of uploading files manually.
+This requires a one-off setup using an API token and is only needed if submissions are made programmatically. See the <a href="https://future.nhs.uk/NDSP/view?objectID=69234512">API submission guidance</a>
+ for full setup instructions and examples.</p>
+    <p>To get an API token, click the 'Get an API token' button above. This will take you to the application used to manage API access. From there, go to the 'OAuth & permissions' tab and select 'Rotate secret' to generate a new client secret. This client secret is your API token.</p>
+    <p>Keep your API token secure and do not share it, as it provides access to submit data on behalf of your organisation.</p> 
+  </div>
+</details>
+
+
+ </div>
+
+   <!-- Custom Modal Popup -->
+                <div id="api-token-modal" class="nhsuk-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+                  <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;margin:auto;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
+                    <h2 id="api-token-title" style="margin-top:0;font-size:1.3rem;">Get an API token</h2>
+                    <p id="api-token-description" style="margin-bottom:2rem;">Clicking Continue will take you to the application used to manage API access.<br>
+From there, go to the 'OAuth & permissions' tab and select 'Rotate secret' to generate a new client secret. This client secret is your API token.</p>
+                    <div style="display:flex;gap:1rem;align-items:center;justify-content:flex-end;">
+                      <button id="cancel-api-token" class="nhsuk-button nhsuk-button--secondary" type="button" style="margin-bottom:0;">Cancel</button>
+                      <button id="continue-api-token" class="nhsuk-button" type="button" style="margin-bottom:0;">Continue</button>
+                </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var modal = document.getElementById("api-token-modal");
+    if (!modal) {
+      return;
+    }
+
+    var triggerButtons = document.querySelectorAll(".js-api-token-button");
+    var cancelButton = document.getElementById("cancel-api-token");
+    var continueButton = document.getElementById("continue-api-token");
+
+    function openModal() {
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    triggerButtons.forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    if (cancelButton) {
+      cancelButton.addEventListener("click", function () {
+        closeModal();
+      });
+    }
+
+    if (continueButton) {
+      continueButton.addEventListener("click", function () {
+        closeModal();
+      });
+    }
+
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  })();
+
+</script>
+{% endblock %}

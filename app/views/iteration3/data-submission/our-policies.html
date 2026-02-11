@@ -1,0 +1,51 @@
+{% extends "iteration2/data-submission/layout.html" %}
+{% set pageName = "Our policies" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>
+         {{ pageName }}
+    </h1>
+    {% from "contents-list/macro.njk" import contentsList %}
+
+{{ contentsList({
+  items: [
+   
+    {
+      href: "submitter-terms",
+      text: "Terms and conditions - Submitter role"
+    },
+    {
+      href: "local-admin-terms",
+      text: "Terms and conditions - Local administrator role"
+    },
+    {
+      href: "#",
+      text: "Terms and conditions - Collection manager role"
+    }
+    
+  ]
+}) }}
+<p>
+This page provides links to the terms and conditions associated with each user role in the National Data Submission Portal (NDSP).
+
+</p><p>Each role in the portal comes with different levels of responsibility and access.
+< </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
