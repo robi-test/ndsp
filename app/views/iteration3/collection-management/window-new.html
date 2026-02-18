@@ -1,0 +1,356 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "setup",
+  text: "Set up"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+       
+<fieldset class="nhsuk-fieldset">
+  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+    <h1 class="nhsuk-fieldset__heading">
+      Create a submission window
+    </h1>
+  </legend>
+
+<div class="nhsuk-form-group">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
+      Submission window name
+    </label>
+  </h1>
+  <input class="nhsuk-input" id="submission-window-name" name="submissionWindowName" type="text">
+</div>
+
+
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Reporting period start
+        </h1>
+      </legend>
+      <div id="reporting-period-start" class="nhsuk-date-input">
+      <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-time">
+              Time
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-start-time" name="reportingPeriodStart[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-day" name="reportingPeriodStart[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-month" name="reportingPeriodStart[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-start-year" name="reportingPeriodStart[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Reporting period end
+        </h1>
+      </legend>
+      <div id="reporting-period-end" class="nhsuk-date-input">
+      <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-time">
+              Time
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-end-time" name="reportingPeriodEnd[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-day" name="reportingPeriodEnd[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-month" name="reportingPeriodEnd[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-end-year" name="reportingPeriodEnd[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window start
+        </h1>
+      </legend>
+      <div id="submission-window-start" class="nhsuk-date-input">
+      <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-time">
+              Time
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-time" name="submissionWindowStart[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-year" name="submissionWindowStart[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window end
+        </h1>
+      </legend>
+      <div id="submission-window-end" class="nhsuk-date-input">
+      <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-time">
+              Time
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-time" name="submissionWindowEnd[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-day" name="submissionWindowEnd[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-month" name="submissionWindowEnd[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-year" name="submissionWindowEnd[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+</div>
+
+    <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+{% from "date-input/macro.njk" import dateInput %}
+
+{{ dateInput({
+  id: "reporting-period-end",
+  namePrefix: "reportingPeriodEnd",
+  fieldset: {
+    legend: {
+      text: "Reporting period end",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  hint: {
+    text: "For example, 30 4 2026"
+  },
+  items: [
+    {
+      name: "day",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "month",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "year",
+      classes: "nhsuk-input--width-4"
+    }
+  ]
+}) }}
+  </div>
+
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+{% from "date-input/macro.njk" import dateInput %}
+
+{{ dateInput({
+  id: "submission-window-start",
+  namePrefix: "submissionWindowStart",
+  fieldset: {
+    legend: {
+      text: "Submission window start",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      name: "day",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "month",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "year",
+      classes: "nhsuk-input--width-4"
+    }
+  ]
+}) }}
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+{% from "date-input/macro.njk" import dateInput %}
+
+{{ dateInput({
+  id: "submission-window-end",
+  namePrefix: "submissionWindowEnd",
+  fieldset: {
+    legend: {
+      text: "Submission window end",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      name: "day",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "month",
+      classes: "nhsuk-input--width-2"
+    },
+    {
+      name: "year",
+      classes: "nhsuk-input--width-4"
+    }
+  ]
+}) }}
+  </div>
+
+   <div class="nhsuk-form-group">
+    <label class="nhsuk-label" for="submission-window-end">
+      Submission window end
+    </label>
+    <input class="nhsuk-input nhsuk-input--width-10" id="submission-window-end" name="submissionWindowEnd" type="text" spellcheck="false" autocomplete="off">
+  </div>
+
+   <label class="nhsuk-label" for="sort-by">
+    Organisation
+  </label>
+  <select class="nhsuk-select" id="sort-by" name="sortBy">
+    <option value="recently-published" selected>All</option>
+    <option value="recently-updated">Org1</option>
+    <option value="most-views">Org2</option>
+    <option value="most-comments">Org3</option>
+  </select>
+
+  {% from "button/macro.njk" import button %}
+
+
+
+</fieldset>
+<div class="nhsuk-u-margin-top-8">
+{{ button({
+  text: "Create"
+}) }}
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

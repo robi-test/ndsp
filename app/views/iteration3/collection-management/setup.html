@@ -1,0 +1,83 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+        Diagnostic Imaging Data Set (V2.0) - Set Up
+      </h1>
+
+      <p>
+         
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "providers",
+        primary: "true",
+        clickable: "true",
+        heading: "Data providers",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "windows",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage submission windows",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "dids",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage notifications",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "setup",
+        primary: "true",
+        clickable: "true",
+        heading: "General setup",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+
+    </ul>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

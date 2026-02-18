@@ -144,6 +144,22 @@ background: #f5f8f9; /* subtle grey tint */
 .nhsuk-filter-layout { grid-template-columns: 320px 1fr; align-items: start; }
 }
 .nhsuk-select {min-width: 250px;}
+.nhsuk-select_small {
+    min-width: 180px;
+    max-width: 100%;
+    height: 40px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    font-size: 1.1875rem;
+}
+
+.nhsuk-table-filters__grid_small .nhsuk-input {
+    font-size: 1.1875rem;
+}
+
+.nhsuk-table-filters__grid_small .status-toggle-btn {
+    background: #fff;
+}
 
 
 .nhsuk-filter-panel { background: #fff; border: 1px solid #d8dde0; border-radius: 8px; }
@@ -201,6 +217,44 @@ span#no-filters-msg {margin-right: auto;}
 
 .nhsuk-tabs--single-visible .nhsuk-tabs__list-item--selected {
     display: list-item;
+}
+
+.app-subnav {
+    background: #ffffff;
+    width: 100vw;
+    margin: -16px calc(50% - 50vw) 16px;
+    padding: 0;
+}
+
+@media (min-width: 40.0625em) {
+    .app-subnav {
+        margin-top: -18px;
+    }
+}
+
+.app-subnav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 32px;
+}
+
+.app-subnav__link,
+.app-subnav__item--current span {
+    display: inline-block;
+    padding: 14px 0 12px;
+    color: #005eb8;
+    text-decoration: none;
+}
+
+.app-subnav__link:hover {
+    text-decoration: underline;
+}
+
+.app-subnav__item--current span {
+    border-bottom: 4px solid #005eb8;
+    font-weight: 600;
 }
 
 /* NHS-styled upload progress card – matches the screenshot (green progress, cancel link). */
@@ -395,6 +449,8 @@ a.nhsuk-pagination__link {
 .nhsuk-table-filters { padding:16px; margin-bottom:16px; }
 .nhsuk-table-filters__grid { display:grid; grid-template-columns: 1fr; gap:12px; }
 @media (min-width: 38em) { .nhsuk-table-filters__grid { grid-template-columns: 250px 250px 250px 250px auto; align-items:end; } }
+.nhsuk-table-filters__grid_small { display:grid; grid-template-columns: 1fr; gap:10px; }
+@media (min-width: 38em) { .nhsuk-table-filters__grid_small { grid-template-columns: 180px 180px 220px 180px 200px auto; align-items:end; } }
 .nhsuk-table-filters__actions { display:flex; gap:8px; }
 #results-count { font-size: 16px; color:#4c6272; }
 

@@ -1,0 +1,373 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) Providers" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "setup",
+  text: "Set up"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-full">
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Diagnostic Imaging Data Set (V2.0) Providers</h1>
+<div class=" nhsuk-u-margin-top-6 ">
+            {{ actionLink({
+              text: "Add provider(s)",
+              href: "#"
+            }) }}
+</div>
+        <form id="table-filters2" class="nhsuk-table-filters nhsuk-u-margin-top-3" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-search"><strong>Search by organisation</strong></label>
+              <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete="off" list="org-options">
+              <datalist id="org-options"></datalist>
+            </div>
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-region"><strong>Region:</strong></label>
+              <select class="nhsuk-select" id="filter-region" name="region">
+                <option value="">All regions</option>
+                <option value="Y56">Y56</option>
+                <option value="Y58">Y58</option>
+                <option value="Y59">Y59</option>
+                <option value="Y60">Y60</option>
+                <option value="Y61">Y61</option>
+                <option value="Y62">Y62</option>
+                <option value="Y63">Y63</option>
+              </select>
+            </div>
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+              <select class="nhsuk-select" id="filter-status" name="status">
+                <option value="">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
+            </div>
+          </div>
+          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+            <div class="nhsuk-selected__header">
+              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+            </div>
+            <div class="nhsuk-selected__row" id="selected-chips"></div>
+          </div>
+        </form>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <a class="nhsuk-button nhsuk-button--secondary" href="#">Download CSV</a>
+        </div>
+        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Diagnostic Imaging Data Set Providers</caption>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Organisation name</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">ODS Code</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Region</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">No. of users</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Last submission</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NT9</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Dec 2025, 14:23</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RF4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>5</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>22 Dec 2025, 10:15</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Barts Health NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>R1H</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>2</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>19 Dec 2025, 16:45</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Chelsea and Westminster Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RQM</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>26 Dec 2025, 11:30</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Circle Health Group Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NT4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>1</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--red">Inactive</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>23 Oct 2025, 09:00</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Croydon Health Services NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ6</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>20 Dec 2025, 13:22</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Epsom and St Helier University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RVR</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>5</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>27 Nov 2025, 15:10</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Great Ormond Street Hospital For Children NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RP4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>2</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>24 Dec 2025, 08:45</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ1</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>18 Dec 2025, 12:05</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NYR</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>25 Dec 2025, 10:20</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Healthshare Ltd</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NMK</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>1</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>21 Dec 2025, 14:55</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Homerton Healthcare NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RQX</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>5</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>29 Nov 2025, 09:30</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Imperial College Healthcare NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RYJ</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>2</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>17 Dec 2025, 11:40</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Inhealth Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NV1</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>23 Dec 2025, 16:12</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>King's College Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJZ</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>30 Dec 2025, 15:25</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Kingston and Richmond NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RAX</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>16 Dec 2025, 14:18</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Lewisham and Greenwich NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ2</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>2</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>31 Dec 2025, 10:45</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>London North West University Healthcare NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>R1K</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>5</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Nov 2025, 13:50</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Moorfields Eye Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RP6</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>1</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>15 Dec 2025, 17:30</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>North Middlesex University Hospital NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RAP</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Region</span>Y56</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">No. of users</span>3</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>21 Nov 2025, 09:12</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+</script>
+{% endblock %}

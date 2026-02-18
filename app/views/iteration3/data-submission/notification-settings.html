@@ -1,4 +1,4 @@
-{% extends "iteration2/data-submission/layout.html" %}
+{% extends "iteration1/data-submission/layout.html" %}
 {% set pageName = "Email notification settings" %}
 
 {% block content %}
@@ -8,6 +8,7 @@
          {{ pageName }}
       </h1>
         <div class="nhsuk-u-margin-bottom-6"> 
+           <div class="nhsuk-u-margin-bottom-6"> 
           <p>Choose which email notifications you want to receive from the National Data Submission Portal.
 You can turn notifications on or off at any time. Some essential service emails will always be sent.
           </p>
@@ -66,7 +67,6 @@ You can turn notifications on or off at any time. Some essential service emails 
             </div>
           </div>
 
-        
 
         </div>
 
@@ -122,7 +122,6 @@ You can turn notifications on or off at any time. Some essential service emails 
 
 .toggle-switch input:checked + .toggle-slider {
   background-color: #007f3b;
-  border: 1px solid #434749ff;
 }
 
 .toggle-switch input:checked + .toggle-slider:before {
@@ -131,18 +130,65 @@ You can turn notifications on or off at any time. Some essential service emails 
 
 .toggle-switch input:focus + .toggle-slider {
   box-shadow: 0 0 0 4px #ffeb3b;
-  border: 1px solid #434749ff;
+}
+
+/* Spinner animation for refresh effect */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
 
 <script>
-// Toggle functionality
+// Toggle functionality with page refresh simulation
 document.addEventListener('DOMContentLoaded', function() {
   const toggle = document.getElementById('validation-toggle');
   
   toggle.addEventListener('change', function() {
-    console.log('Validation notifications:', this.checked ? 'ON' : 'OFF');
-    // Add your save functionality here
+    const isChecked = this.checked;
+    console.log('Validation notifications:', isChecked ? 'ON' : 'OFF');
+    
+    // Create overlay for refresh effect
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.2s;
+    `;
+    
+    const spinner = document.createElement('div');
+    spinner.style.cssText = `
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #005eb8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    `;
+    
+    overlay.appendChild(spinner);
+    document.body.appendChild(overlay);
+    
+    // Fade in overlay
+    setTimeout(() => overlay.style.opacity = '1', 10);
+    
+    // Show spinner for 0.5 seconds
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.remove();
+        // Settings saved successfully
+      }, 200);
+    }, 500);
   });
 });
 </script>
