@@ -1,7 +1,7 @@
 {% extends "iteration2/collection-management/layout-collection-management.html" %}
 
 {% set pageName = "Diagnostic Imaging Data Set (V2.0) Submissions" %}
-{% block beforeContent %}
+<!-- {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
 {{ breadcrumb({
@@ -10,9 +10,11 @@
       href: "home",
       text: "Home"
     }
-  ]
+  ],
+  href: "dids-dashboard",
+  text: "DIDS Dashboard"
 }) }}
-{% endblock %}
+{% endblock %}-->
 
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
@@ -72,7 +74,7 @@
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Number of resubmissions***</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection (%)</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="record-rejection">Record rejection</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Organisation breakdown</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
       </tr>
     </thead>
     <tbody class="nhsuk-table__body">
@@ -86,7 +88,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>11</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="submission-period">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-period">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Nov 2025</td>
@@ -98,7 +100,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>104</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Oct 2025</td>
@@ -110,7 +112,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>94</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Sep 2025</td>
@@ -122,7 +124,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>74</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Aug 2025</td>
@@ -134,7 +136,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>44</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>20%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Jul 2025</td>
@@ -146,7 +148,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>73</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Jun 2025</td>
@@ -158,7 +160,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>91</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2025</td>
@@ -170,7 +172,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>50</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Apr 2025</td>
@@ -182,7 +184,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>85</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>23%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Mar 2025</td>
@@ -194,7 +196,7 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>62</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
       </tr>
     </tbody>
   </table>
@@ -227,7 +229,7 @@
         </div>
 
         <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-          <button class="nhsuk-button nhsuk-button--secondary" type="button" id="toggle-metrics-columns" aria-pressed="false" onclick="window.location.href='submissions2'">No reporting period</button>
+          <button class="nhsuk-button nhsuk-button--secondary" type="button" id="toggle-metrics-columns" aria-pressed="false">Hide metrics columns</button>
         </div>
       </div>
 
@@ -1022,7 +1024,7 @@
           if (row.cells[idx]) row.cells[idx].style.display = display;
         });
       });
-      btn.textContent = hide ? 'No reporting period' : 'Only submission windows';
+      btn.textContent = hide ? 'Show metrics columns' : 'Hide metrics columns';
       btn.setAttribute('aria-pressed', hide ? 'true' : 'false');
     }
 
