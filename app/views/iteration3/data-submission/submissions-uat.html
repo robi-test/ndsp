@@ -1,5 +1,4 @@
-{% extends "iteration3/collection-management/layout-collection-management.html" %}
- <!--This page shows a submissions table that includes org column and related filter-->
+{% extends "iteration3/data-submission/layout.html" %}
 
 {% set pageName = serviceName %}
  <!-- {% block beforeContent %}
@@ -19,7 +18,7 @@
 
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-6">All submissions - Diagnostic Imaging Data Set (DIDS v2.0)</h1>
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-6">Submissions - Diagnostic Imaging Data Set (DIDS v2.0)</h1>
  <!--  <nav class="nhsuk-contents-list" role="navigation" aria-label="List of submissions by Collections">
   <h2 class="nhsuk-u-visually-hidden">List of collections</h2>
   <ol class="nhsuk-contents-list__list">
@@ -40,12 +39,18 @@
   <h2 class="nhsuk-tabs__title">
     Contents
   </h2>
-
+  <ul class="nhsuk-tabs__list">
+    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+      <a class="nhsuk-tabs__tab" href="#org1">
+        <h3>Sheffield Teaching Hospital</h3>
+      </a>
+    </li>
+  </ul>
 <div class="nhsuk-tabs__panel" id="org1">
 <!-- Table filters -->      
 <div>
 <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
-<div class="nhsuk-table-filters__grid_small">
+<div class="nhsuk-table-filters__grid">
 <!-- <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
 <input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
@@ -57,15 +62,13 @@
 </select>
 </div> 
 </div>-->
-<div class="nhsuk-form-group" style="position: relative; width: 200px;">
+<div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
-<input class="nhsuk-input" id="filter-submitted-by" name="submittedBy" type="text" placeholder="Start typing to search..." autocomplete="off">
-<div id="submitted-by-suggestions" style="display:none;position:absolute;z-index:10;"></div>
-</div>
-<div class="nhsuk-form-group" style="position: relative; width: 200px;">
-<label class="nhsuk-label" for="filter-organisation"><strong>Organisation / ODS:</strong></label>
-<input class="nhsuk-input" id="filter-organisation" name="organisation" type="text" placeholder="Start typing to search..." autocomplete="off">
-<div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+<select class="nhsuk-select" id="filter-submitted-by" name="submittedBy">
+<option value="">Anyone</option>
+<option value="James Jackson">James Jackson</option>
+<option value="Anne Williams">Anne Williams</option>
+</select>
 </div>
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
@@ -74,10 +77,10 @@
 </div>
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
-  <select class="nhsuk-select_small" id="filter-type" name="type">
+  <select class="nhsuk-select" id="filter-type" name="type">
     <option value="">All types</option>
-    <option value="Submission">Submission</option>
-    <option value="Re-submission">Re-submission</option>
+    <option value="First submission">Submission</option>
+    <option value="First submission">Re-submission</option>
     <option value="No data">No data</option>
     <option value="Test">Test</option>
   </select>
@@ -85,7 +88,7 @@
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
   <div class="status-multiselect" style="position: relative;">
-    <button type="button" class="nhsuk-select_small status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+    <button type="button" class="nhsuk-select status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
       <span data-status-summary>All statuses</span>
     </button>
     <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
@@ -111,7 +114,7 @@
   </div>
 </div>
 <div class="nhsuk-table-filters__actions">
-<button class="nhsuk-button" type="submit" onclick="return false">Apply</button>
+<button class="nhsuk-button" style="top: 15px;" type="submit" onclick="return false">Apply</button>
 </div>
 </div>
 <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
@@ -130,8 +133,8 @@
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">File name</th> 
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Submitted on</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation">Organisation</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Submission period</th>
+            <!--<th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="organisation">Organisation</th>-->
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Period</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
@@ -139,101 +142,101 @@
         </thead>
         <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row" role="row">      
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanProv4_2026_2.xml</span></td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Feb 2026, 09:30</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Olivia Patel</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SepProv4_2026_2.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>15 Oct 2026, 09:30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield TeachSing Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details">View</a></td>   
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1p">View</a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_1.xml</span></td>           
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Feb 2026, 14:10</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_AugFinal2026_1.xml</td>           
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>12 Oct 2026, 14:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>August 2026 (window closes)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Error", classes: "nhsuk-tag--red"}) }}</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1r">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanProv3_2026_4.xml</span></td>    
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Feb 2026, 11:05</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Amelia Khan</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RQM)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptProv3_2026_4.xml</td>    
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>27 Oct 2026, 11:05</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanProv2_2026_3.xml</span></td>        
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Feb 2026, 16:20</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_Prov2_2026_3.xml</td>        
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Oct 2026, 16:20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanProv1_2026_2.xml</span></td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Feb 2026, 10:55</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptProv1_2026_2.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Oct 2026, 10:55</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_1.xml</span></td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Feb 2026, 13.45</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2026_1.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>24 Oct 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_3.xml</span></td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Feb 2026, 13.42</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
-             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_AprilFinal2026_3.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>14 Oct 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>April 2026 (window closes)</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_2.xml</span></td>          
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 12.35</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
-             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_MayFinal2026_2.xml</td>          
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>7 Oct 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026 (window closes)</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_1.xml</span></td>            
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 11.13</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_MayFinal2026_1.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Oct 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
+           <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026 (window closes)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JanFinal2026_2.xml</span></td>         
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 10.45</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Lucas Reed</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited (NMT01)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JunFinal2026_2.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Aug 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
+           <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>June 2026 (window closes)</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -269,11 +272,21 @@
 </div>
 </div>
  <div class="nhsuk-u-margin-top-7">
-  <p><a href="submissionsV2">Table including ODS code</a></p>
+  <p><a href="email-validation-results">File validated > Email notifications</a></p>
  
-
  </div>
-
+ <div class="nhsuk-u-margin-top-4">
+        <h2 class="nhsuk-heading-s">Submission pages</h2>
+        <ul class="nhsuk-list nhsuk-list--bullet">
+          <li><a href="submissions">Organisations in horizontal tabs - 1 org</a></li>
+          <li><a href="submissions1">Organisations in horizontal tabs - 2 orgs</a></li>
+          <li><a href="submissions2">Organisations in vertical tabs - 2 orgs</a></li>
+          <li><a href="submissions2a">Organisations in vertical tabs/ Collections in sub-menu - 2 orgs + 2 collections</a></li>
+          <li><a href="submissions3">Organisations in table column - 2 orgs</a></li>
+          <li><a href="submissions4">Organisations in table column - 2 orgs</a></li>
+          <li><a href="submissions5">Organisations in table column/ collection in vertical menu - 2 collections</a></li>
+        </ul>
+      </div>
 {% endblock %}
 
 {% block scripts %}
@@ -323,8 +336,8 @@
 
     // Locate inputs
   var idInput = form.querySelector('#filter-id')
-  var orgInput = form.querySelector('#filter-organisation')
-  var byInput = form.querySelector('#filter-submitted-by')
+  var orgSel = form.querySelector('#filter-organisation')
+  var bySel = form.querySelector('#filter-submitted-by')
   var monthSel = form.querySelector('#filter-month')
   var yearSel = form.querySelector('#filter-year')
   var typeSel = form.querySelector('#filter-type')
@@ -364,89 +377,8 @@
 
   // Populate selects if blank
   function populateSelect(sel, values){ if (!sel || sel.options.length>1) return; uniqueSorted(values).forEach(v=>{ var o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o) }) }
-
-    // --- Submitted by autocomplete dropdown ---
-    var submittedBySuggestionBox = document.getElementById('submitted-by-suggestions');
-    if (byInput && submittedBySuggestionBox) {
-      byInput.addEventListener('input', function() {
-        var val = byInput.value.trim().toLowerCase();
-        if (val.length < 3) {
-          submittedBySuggestionBox.style.display = 'none';
-          submittedBySuggestionBox.innerHTML = '';
-          return;
-        }
-        var submittedByValues = uniqueSorted(data.map(r => r.by).filter(Boolean));
-        var matches = submittedByValues.filter(function(name){ return name.toLowerCase().includes(val) });
-        if (matches.length === 0) {
-          submittedBySuggestionBox.style.display = 'none';
-          submittedBySuggestionBox.innerHTML = '';
-          return;
-        }
-        submittedBySuggestionBox.style.display = 'block';
-        submittedBySuggestionBox.style.background = '#fff';
-        submittedBySuggestionBox.style.color = '#000';
-        submittedBySuggestionBox.style.fontSize = '1.1875rem';
-        submittedBySuggestionBox.style.minWidth = byInput.offsetWidth + 'px';
-        submittedBySuggestionBox.style.width = 'max-content';
-        submittedBySuggestionBox.style.maxWidth = '90vw';
-        submittedBySuggestionBox.style.border = '1px solid #b1b4b6';
-        submittedBySuggestionBox.style.borderTop = 'none';
-        submittedBySuggestionBox.style.maxHeight = '200px';
-        submittedBySuggestionBox.style.overflowY = 'auto';
-        submittedBySuggestionBox.innerHTML = matches.map(function(m){ return '<div class="submitted-by-suggestion" style="padding:8px 12px;cursor:pointer;white-space:nowrap;">' + m + '</div>' }).join('');
-      });
-      submittedBySuggestionBox.addEventListener('mousedown', function(e) {
-        if (e.target.classList.contains('submitted-by-suggestion')) {
-          byInput.value = e.target.textContent;
-          submittedBySuggestionBox.style.display = 'none';
-          submittedBySuggestionBox.innerHTML = '';
-        }
-      });
-      byInput.addEventListener('blur', function() {
-        setTimeout(function(){ submittedBySuggestionBox.style.display = 'none'; }, 150);
-      });
-    }
-    // --- Organisation autocomplete dropdown ---
-    var orgSuggestionBox = document.getElementById('organisation-suggestions');
-    if (orgInput && orgSuggestionBox) {
-      orgInput.addEventListener('input', function() {
-        var val = orgInput.value.trim().toLowerCase();
-        if (val.length < 3) {
-          orgSuggestionBox.style.display = 'none';
-          orgSuggestionBox.innerHTML = '';
-          return;
-        }
-        var orgValues = uniqueSorted(data.map(r => r.org).filter(Boolean));
-        var matches = orgValues.filter(function(o){ return o.toLowerCase().includes(val) });
-        if (matches.length === 0) {
-          orgSuggestionBox.style.display = 'none';
-          orgSuggestionBox.innerHTML = '';
-          return;
-        }
-        orgSuggestionBox.style.display = 'block';
-        orgSuggestionBox.style.background = '#fff';
-        orgSuggestionBox.style.color = '#000';
-        orgSuggestionBox.style.fontSize = '1.1875rem';
-        orgSuggestionBox.style.minWidth = orgInput.offsetWidth + 'px';
-        orgSuggestionBox.style.width = 'max-content';
-        orgSuggestionBox.style.maxWidth = '90vw';
-        orgSuggestionBox.style.border = '1px solid #b1b4b6';
-        orgSuggestionBox.style.borderTop = 'none';
-        orgSuggestionBox.style.maxHeight = '200px';
-        orgSuggestionBox.style.overflowY = 'auto';
-        orgSuggestionBox.innerHTML = matches.map(function(m){ return '<div class="organisation-suggestion" style="padding:8px 12px;cursor:pointer;white-space:nowrap;">' + m + '</div>' }).join('');
-      });
-      orgSuggestionBox.addEventListener('mousedown', function(e) {
-        if (e.target.classList.contains('organisation-suggestion')) {
-          orgInput.value = e.target.textContent;
-          orgSuggestionBox.style.display = 'none';
-          orgSuggestionBox.innerHTML = '';
-        }
-      });
-      orgInput.addEventListener('blur', function() {
-        setTimeout(function(){ orgSuggestionBox.style.display = 'none'; }, 150);
-      });
-    }
+  populateSelect(orgSel, data.map(r=>r.org))
+  populateSelect(bySel, data.map(r=>r.by))
     // --- Period autocomplete dropdown ---
     var suggestionBox = document.getElementById('period-suggestions');
     if (periodInput && suggestionBox) {
@@ -498,16 +430,16 @@
 
     function matches(rec){
       var idQ = (idInput?.value || '').trim().toLowerCase()
-      var orgQ = (orgInput?.value || '').trim().toLowerCase()
-      var byQ = (byInput?.value || '').trim().toLowerCase()
+      var orgQ = (orgSel?.value || '')
+      var byQ = (bySel?.value || '')
       var typeQ = (typeSel?.value || '')
       var monthQ = (monthSel?.value || '')
       var yearQ = (yearSel?.value || '')
       var periodQ = (periodInput?.value || '').trim().toLowerCase()
       var statusQ = statusChecks.filter(function(cb){ return cb.checked }).map(function(cb){ return cb.value })
       if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
-      if (orgQ && !rec.org.toLowerCase().includes(orgQ)) return false
-      if (byQ && !rec.by.toLowerCase().includes(byQ)) return false
+      if (orgQ && rec.org !== orgQ) return false
+      if (byQ && rec.by !== byQ) return false
       if (typeQ && rec.type !== typeQ) return false
       if (statusQ.length && statusQ.indexOf(rec.status) === -1) return false
       if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
@@ -520,11 +452,11 @@
       if (idInput && idInput.value.trim()) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="id" title="Clear ID filter">ID: ' + idInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
-      if (orgInput && orgInput.value.trim()) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="organisation" title="Clear Organisation or ODS filter">Organisation / ODS: ' + orgInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      if (orgSel && orgSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="organisation" title="Clear Organisation filter">Organisation: ' + orgSel.options[orgSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
-      if (byInput && byInput.value.trim()) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + byInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      if (bySel && bySel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + bySel.options[bySel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
       if (typeSel && typeSel.value) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
@@ -566,8 +498,8 @@
         tag.addEventListener('click', function(){
           var filter = tag.getAttribute('data-filter');
           if (filter === 'id' && idInput) idInput.value = '';
-          if (filter === 'organisation' && orgInput) orgInput.value = '';
-          if (filter === 'submittedBy' && byInput) byInput.value = '';
+          if (filter === 'organisation' && orgSel) orgSel.value = '';
+          if (filter === 'submittedBy' && bySel) bySel.value = '';
           if (filter === 'type' && typeSel) typeSel.value = '';
           if (filter === 'status' && statusChecks) {
             var val = tag.getAttribute('data-value')
@@ -608,8 +540,8 @@
     if (clearBtn) clearBtn.addEventListener('click', function(e){
       e.preventDefault()
       if (idInput) idInput.value = ''
-      if (orgInput) orgInput.value = ''
-      if (byInput) byInput.value = ''
+      if (orgSel) orgSel.value = ''
+      if (bySel) bySel.value = ''
       if (typeSel) typeSel.value = ''
       if (periodInput) periodInput.value = ''
       if (statusChecks && statusChecks.length) statusChecks.forEach(function(cb){ cb.checked = false })
@@ -660,45 +592,6 @@
     // Style tweaks for status dropdown arrow and checkbox sizing
     var style = document.createElement('style')
     style.textContent = `
-      #table-filters2 .nhsuk-table-filters__grid_small {
-        display: grid;
-        grid-template-columns: repeat(6, max-content);
-        column-gap: 16px;
-        row-gap: 16px;
-        justify-content: start;
-        align-items: end;
-        width: 100%;
-      }
-      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-form-group {
-        margin-bottom: 0;
-      }
-      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-input,
-      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-select_small,
-      #table-filters2 .nhsuk-table-filters__grid_small .status-toggle-btn {
-        width: 100%;
-        border-width: 2px;
-      }
-      #table-filters2 .nhsuk-table-filters__actions {
-        margin: 0;
-      }
-      #table-filters2 .nhsuk-table-filters__actions .nhsuk-button {
-        width: auto;
-        margin: 0;
-      }
-      #submissions-table th[data-key="name"],
-      #submissions-table td:nth-child(1) {
-        width: 220px;
-        max-width: 220px;
-      }
-      #submissions-table td:nth-child(1) .file-name-cell__text {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: normal;
-        overflow-wrap: anywhere;
-      }
       .status-toggle-btn {
         position: relative;
         padding-right: 2.5rem;
@@ -750,7 +643,7 @@
         margin-bottom: 0px;
         touch-action: manipulation;
         padding: 0px;
-      }
+    }
     `
     document.head.appendChild(style)
 
