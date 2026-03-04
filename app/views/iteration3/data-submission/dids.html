@@ -132,15 +132,151 @@ Quick access to guidance and tools to help you manage your data submissions.
 <details class="nhsuk-details nhsuk-u-margin-top-7">
   <summary class="nhsuk-details__summary">
     <span class="nhsuk-details__summary-text">
-      Automating submissions with the API
+      How to start setting up an API submission
     </span>
   </summary>
   <div class="nhsuk-details__text">
-    <p>Your organisation can use the API to automate submissions instead of uploading files manually.
-This requires a one-off setup using an API token and is only needed if submissions are made programmatically. See the <a href="https://future.nhs.uk/NDSP/view?objectID=69234512">API submission guidance</a>
- for full setup instructions and examples.</p>
-    <p>To get an API token, click the 'Get an API token' button above. This will take you to the application used to manage API access. From there, go to the 'OAuth & permissions' tab and select 'Rotate secret' to generate a new client secret. This client secret is your API token.</p>
-    <p>Keep your API token secure and do not share it, as it provides access to submit data on behalf of your organisation.</p> 
+    <p>Your organisation can use the API to automate submissions. This is a one-off setup and is only needed if submissions are made programmatically. See the <a href="https://future.nhs.uk/NDSP/view?objectID=69234512">API submission guidance</a> for full instructions.
+    </p>
+    <h3>How to get an API token</h3>
+    <p>Click Get an API token above to open the API management application.<br>
+        Go to OAuth & permissions and select Rotate secret to generate a new client secret. This client secret is your API token.<br>
+
+        Keep your API token secure, as it allows submissions on behalf of your organisation.
+    </p> 
+    <h3>Other settings</h3>
+    <p>When submitting via the API, you must also provide a submission type and a submission window ID.</p>
+
+    <h3>Submission types</h3>
+    <table class="nhsuk-table-responsive" role="table">
+      <caption class="nhsuk-table__caption nhs-visually-hidden">Submission types and IDs</caption>
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr role="row" class="nhsuk-table__row">
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Submission type</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">ID</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission type</span>Submission</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>3535</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission type</span>Test</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>3362</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Submission window IDs</h3>
+    <table class="nhsuk-table-responsive" role="table">
+      <caption class="nhsuk-table__caption nhs-visually-hidden">Submission windows and IDs</caption>
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr role="row" class="nhsuk-table__row">
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Submission window</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">ID</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>January 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1001</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>January 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1002</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>February 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1003</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>February 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1004</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>March 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1005</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>March 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1006</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>April 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1007</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>April 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1008</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>May 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1009</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>May 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1010</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>June 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1011</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>June 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1012</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>July 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1013</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>July 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1014</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>August 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1015</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>August 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1016</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1017</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>September 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1018</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>October 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1019</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>October 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1020</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>November 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1021</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>November 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1022</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>December 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1023</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>December 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>1024</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </details>
 
