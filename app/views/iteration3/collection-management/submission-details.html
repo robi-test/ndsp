@@ -132,10 +132,33 @@
       
            
     </div>
+    <style>
+      .validation-details-table {
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      .validation-details-table .validation-col-code { width: 18%; }
+      .validation-details-table .validation-col-field { width: 28%; }
+      .validation-details-table .validation-col-message { width: 44%; }
+      .validation-details-table .validation-col-count { width: 10%; }
+
+      .validation-details-table th:last-child,
+      .validation-details-table td:last-child {
+        text-align: right;
+      }
+    </style>
+
     <div style="margin-top: 10px;">
       <h2 class="nhsuk-heading-m">Error details</h2>
-      <table class="nhsuk-table">
+      <table class="nhsuk-table validation-details-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <colgroup>
+          <col class="validation-col-code">
+          <col class="validation-col-field">
+          <col class="validation-col-message">
+          <col class="validation-col-count">
+        </colgroup>
         <thead class="nhsuk-table__head">
           <tr class="nhsuk-table__row">
             <th scope="col" class="nhsuk-table__header">Error code</th>
@@ -176,8 +199,14 @@
 
      <div style="margin-top: 10px;">
       <h2 class="nhsuk-heading-m">Warning details</h2>
-      <table class="nhsuk-table">
+      <table class="nhsuk-table validation-details-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
+        <colgroup>
+          <col class="validation-col-code">
+          <col class="validation-col-field">
+          <col class="validation-col-message">
+          <col class="validation-col-count">
+        </colgroup>
         <thead class="nhsuk-table__head">
           <tr class="nhsuk-table__row">
             <th scope="col" class="nhsuk-table__header">Warning code</th>

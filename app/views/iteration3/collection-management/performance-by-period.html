@@ -20,11 +20,31 @@
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-full">
     <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Performance by period - Diagnostic Imaging Data Set (V2.0)</h1>
-      <!-- Download reports -->      
-            {{ actionLink({
-              text: "Download reports",
-              href: "#"
-            }) }} 
+    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text">More information about this table</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p><strong>Reporting period</strong><br>The reporting period that the submissions relate to.</p>
+        <p><strong>Submission window end date</strong><br>The date when the submission window closes for that period.</p>
+        <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
+        <p><strong>Total submissions</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
+        <p><strong>Providers submitted</strong><br>The number of providers that submitted at least one file during the submission window (excluding test files).</p>
+        <p><strong>Providers with successful submission</strong><br>The number of providers that had at least one file successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
+        <p><strong>File rejection (%)</strong><br>The percentage of submitted files that were rejected during validation checks (excluding test files).</p>
+        <p><strong>Test submissions</strong><br>The number of submissions identified as test file type.</p>
+      </div>
+    </details>
+
+  <!--   <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8" style="max-width: 560px;">
+      <label class="nhsuk-label" for="performance-year"><strong>Reporting period year</strong></label>
+      <div class="nhsuk-hint" id="performance-year-hint">Choose a reporting period year to view performance data.</div>
+      <select class="nhsuk-select" id="performance-year" name="year" aria-describedby="performance-year-hint">
+        <option value="2025" selected>2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div> -->  
 
     <!-- Tabs navigation -->
     <div class="nhsuk-tabs" data-module="nhsuk-tabs">
@@ -47,7 +67,7 @@
 
             <div class="nhsuk-form-group">
               <label class="nhsuk-label" for="filter-period"><strong>Search by period</strong></label>
-              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Type to start search" autocomplete="on">
+              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
               <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
             </div>
 
@@ -62,8 +82,15 @@
 
             <div class="nhsuk-table-filters__actions">
               <button class="nhsuk-button nhsuk-button--small" style="top: 8px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
-              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 8px;" type="button" data-clear-filters>Clear</button>
             </div>
+          </div>
+
+          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+            <div class="nhsuk-selected__header">
+              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+            </div>
+            <div class="nhsuk-selected__row" id="selected-chips"></div>
           </div>
 
         </form>
@@ -75,10 +102,10 @@
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="deadline">Submission window end-date</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission window status</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions**</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-count">Providers submitted</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Providers with successful submission*</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Number of resubmissions***</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Providers with successful submission**</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Number of resubmissions</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection (%)</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="test-submissions">Test submissions</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Organisation breakdown</th>
@@ -205,36 +232,44 @@
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>2/195</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
       </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>121/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>120/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>38</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>1/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>120/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>119/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>34</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>1/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
     </tbody>
   </table>
 
-        <p>*Number of providers with at least one successful submission in this period.<br>
-          **All submissions in this period, including successful, rejected, and resubmitted data.<br>
-          ***Number of resubmissions in this period based only on valid file submissions.</p>
-
-        <!-- Pagination -->
-        <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
-          <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
-            <ul class="nhsuk-list nhsuk-pagination__list">
-              <li class="nhsuk-pagination__item--current">
-                <a class="nhsuk-pagination__link" href="?page=1">1</a>
-              </li>
-              <li class="nhsuk-pagination__item nhsuk-pagination__item">
-                <a class="nhsuk-pagination__link" href="?page=2">2</a>
-              </li>
-              <li class="nhsuk-pagination__item">
-                <a class="nhsuk-pagination__link" href="?page=3">3</a>
-              </li>
-              <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
-                <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
-                  <span class="nhsuk-pagination__title">Next →</span>
-                </a>
-              </li>
-            </ul>
+        <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; margin-bottom: 24px; gap: 12px; flex-wrap: wrap;">
+          <nav id="submissions-pagination" class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+            <ul id="pagination-list" class="nhsuk-list nhsuk-pagination__list"></ul>
           </nav>
-          <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+          <p id="results-count" class="results-count-align-right" style="margin: 0;">Showing 1 to 10 of 12 results</p>
         </div>
 
+        <!-- Second tab: Organisations -->
+ <!-- <p>*All submissions in this period, including successful, rejected, and resubmitted data. Test files are not included.<br>
+          **Number of providers with at least one successful submission in this period.<br>
+          ***Number of resubmissions in this period based only on valid submissions.</p> -->
 
       </div>
 
@@ -246,6 +281,8 @@
         <div id="organisations-line-legend" class="org-line-legend" aria-label="Chart legend"></div>
       </div>
     </div>
+
+
   </div>
 </div>
 
@@ -316,17 +353,25 @@
   document.addEventListener('DOMContentLoaded', function() {
     var chartHost = document.getElementById('organisations-line-chart');
     var legendHost = document.getElementById('organisations-line-legend');
+    var yearSel = document.getElementById('performance-year');
     if (!chartHost || !legendHost) return;
 
-    var labels = ['Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025', 'Sep 2025', 'Oct 2025', 'Nov 2025', 'Dec 2025', 'Jan 2026'];
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var chartDataByYear = {
+      '2025': [
+        { name: 'Providers submitted', color: '#005eb8', values: [120, 121, 124, 126, 127, 129, 130, 131, 132, 133, 133, 134] },
+        { name: 'Total submissions', color: '#007f3b', values: [176, 184, 192, 205, 214, 221, 229, 236, 244, 258, 266, 278] },
+        { name: 'Number of resubmissions', color: '#fa9200', values: [34, 38, 41, 48, 52, 57, 61, 67, 73, 86, 94, 104] },
+        { name: 'File rejected', color: '#d5281b', values: [16, 18, 22, 25, 31, 26, 28, 39, 34, 22, 24, 42] },
+        { name: 'Test submissions', color: '#4c6272', values: [1, 1, 1, 2, 3, 4, 5, 0, 6, 2, 7, 4] }
+      ]
+    };
+    var availableYears = Object.keys(chartDataByYear).sort();
 
-    var series = [
-      { name: 'Providers submitted', color: '#005eb8', values: [121, 124, 126, 127, 129, 130, 131, 132, 133, 133, 134, 117] },
-      { name: 'Total submissions', color: '#007f3b', values: [184, 192, 205, 214, 221, 229, 236, 244, 258, 266, 278, 235] },
-      { name: 'Number of resubmissions', color: '#fa9200', values: [38, 41, 48, 52, 57, 61, 67, 73, 86, 94, 104, 11] },
-      { name: 'File rejected', color: '#d5281b', values: [18, 22, 25, 31, 26, 28, 39, 34, 22, 24, 42, 18] },
-      { name: 'Test submissions', color: '#4c6272', values: [1, 1, 2, 3, 4, 5, 0, 6, 2, 7, 4, 0] }
-    ];
+    function getSelectedYear() {
+      if (yearSel && yearSel.value) return yearSel.value;
+      return availableYears.length ? availableYears[availableYears.length - 1] : '';
+    }
 
     var width = 1100;
     var height = 420;
@@ -334,55 +379,72 @@
     var plotW = width - margin.left - margin.right;
     var plotH = height - margin.top - margin.bottom;
 
-    var allValues = [];
-    series.forEach(function(s) { allValues = allValues.concat(s.values); });
-    var maxY = Math.max.apply(null, allValues);
-    var roundedMaxY = Math.ceil(maxY / 20) * 20;
+    function renderChart() {
+      var selectedYear = getSelectedYear();
+      var labels = months.map(function(m) { return m + ' ' + selectedYear; });
+      var series = chartDataByYear[selectedYear] || [];
 
-    function xAt(index) {
-      return margin.left + (index * (plotW / (labels.length - 1)));
-    }
+      if (!series.length) {
+        chartHost.innerHTML = '<div class="nhsuk-inset-text" style="margin: 0;"><span class="nhsuk-u-visually-hidden">Information: </span>No graph data available for ' + selectedYear + '.</div>';
+        legendHost.innerHTML = '';
+        return;
+      }
 
-    function yAt(value) {
-      return margin.top + plotH - ((value / roundedMaxY) * plotH);
-    }
+      var allValues = [];
+      series.forEach(function(s) { allValues = allValues.concat(s.values); });
+      var maxY = Math.max.apply(null, allValues);
+      var roundedMaxY = Math.ceil(maxY / 20) * 20;
 
-    var svg = [];
-    svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics line chart">');
+      function xAt(index) {
+        return margin.left + (index * (plotW / (labels.length - 1)));
+      }
 
-    for (var t = 0; t <= 5; t++) {
-      var yVal = Math.round((roundedMaxY / 5) * t);
-      var y = yAt(yVal);
-      svg.push('<line x1="' + margin.left + '" y1="' + y + '" x2="' + (margin.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" />');
-      svg.push('<text x="' + (margin.left - 8) + '" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="#4c6272">' + yVal + '</text>');
-    }
+      function yAt(value) {
+        return margin.top + plotH - ((value / roundedMaxY) * plotH);
+      }
 
-    svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
-    svg.push('<line x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      var svg = [];
+      svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics line chart">');
 
-    labels.forEach(function(label, i) {
-      var x = xAt(i);
-      svg.push('<line x1="' + x + '" y1="' + (margin.top + plotH) + '" x2="' + x + '" y2="' + (margin.top + plotH + 6) + '" stroke="#212b32" stroke-width="1" />');
-      svg.push('<text x="' + x + '" y="' + (margin.top + plotH + 22) + '" text-anchor="middle" font-size="12" fill="#212b32">' + label + '</text>');
-    });
+      for (var t = 0; t <= 5; t++) {
+        var yVal = Math.round((roundedMaxY / 5) * t);
+        var y = yAt(yVal);
+        svg.push('<line x1="' + margin.left + '" y1="' + y + '" x2="' + (margin.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" />');
+        svg.push('<text x="' + (margin.left - 8) + '" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="#4c6272">' + yVal + '</text>');
+      }
 
-    series.forEach(function(s) {
-      var pts = s.values.map(function(v, i) { return xAt(i) + ',' + yAt(v); }).join(' ');
-      svg.push('<polyline fill="none" stroke="' + s.color + '" stroke-width="3" points="' + pts + '" />');
-      s.values.forEach(function(v, i) {
-        svg.push('<circle cx="' + xAt(i) + '" cy="' + yAt(v) + '" r="3" fill="' + s.color + '" />');
+      svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      svg.push('<line x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+
+      labels.forEach(function(label, i) {
+        var x = xAt(i);
+        svg.push('<line x1="' + x + '" y1="' + (margin.top + plotH) + '" x2="' + x + '" y2="' + (margin.top + plotH + 6) + '" stroke="#212b32" stroke-width="1" />');
+        svg.push('<text x="' + x + '" y="' + (margin.top + plotH + 22) + '" text-anchor="middle" font-size="12" fill="#212b32">' + label + '</text>');
       });
-    });
 
-    svg.push('<text x="' + (margin.left + (plotW / 2)) + '" y="' + (height - 20) + '" text-anchor="middle" font-size="13" fill="#212b32">Month</text>');
-    svg.push('<text x="20" y="' + (margin.top + (plotH / 2)) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 20 ' + (margin.top + (plotH / 2)) + ')">Count</text>');
-    svg.push('</svg>');
+      series.forEach(function(s) {
+        var pts = s.values.map(function(v, i) { return xAt(i) + ',' + yAt(v); }).join(' ');
+        svg.push('<polyline fill="none" stroke="' + s.color + '" stroke-width="3" points="' + pts + '" />');
+        s.values.forEach(function(v, i) {
+          svg.push('<circle cx="' + xAt(i) + '" cy="' + yAt(v) + '" r="3" fill="' + s.color + '" />');
+        });
+      });
 
-    chartHost.innerHTML = svg.join('');
+      svg.push('<text x="' + (margin.left + (plotW / 2)) + '" y="' + (height - 20) + '" text-anchor="middle" font-size="13" fill="#212b32">Month</text>');
+      svg.push('<text x="20" y="' + (margin.top + (plotH / 2)) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 20 ' + (margin.top + (plotH / 2)) + ')">Count</text>');
+      svg.push('</svg>');
 
-    legendHost.innerHTML = series.map(function(s) {
-      return '<span class="org-line-legend__item"><span class="org-line-legend__swatch" style="background:' + s.color + ';"></span>' + s.name + '</span>';
-    }).join('');
+      chartHost.innerHTML = svg.join('');
+
+      legendHost.innerHTML = series.map(function(s) {
+        return '<span class="org-line-legend__item"><span class="org-line-legend__swatch" style="background:' + s.color + ';"></span>' + s.name + '</span>';
+      }).join('');
+    }
+
+    if (yearSel) {
+      yearSel.addEventListener('change', renderChart);
+    }
+    renderChart();
   });
 })();
 </script>
@@ -416,21 +478,20 @@
   function initTableFilters(opts) {
     var table = document.getElementById(opts.tableId);
     var form = document.getElementById(opts.formId);
+    var yearSel = document.getElementById('performance-year');
     if (!table || !form || !table.tBodies.length) return;
 
     // Locate inputs
-    var idInput = form.querySelector('#filter-id');
-    var orgSel = form.querySelector('#filter-organisation');
-    var bySel = form.querySelector('#filter-submitted-by');
-    var monthSel = form.querySelector('#filter-month');
-    var yearSel = form.querySelector('#filter-year');
-    var typeSel = form.querySelector('#filter-type');
     var statusSel = form.querySelector('#filter-status');
     var periodInput = form.querySelector('#filter-period');
     var clearBtn = form.querySelector('[data-clear-filters]');
     var countEl = document.getElementById('results-count');
     var applyBtn = form.querySelector('button[type="submit"]');
     var chipsEl = document.getElementById('selected-chips');
+    var paginationNav = document.getElementById('submissions-pagination');
+    var paginationList = document.getElementById('pagination-list');
+    var pageSize = 10;
+    var currentPage = 1;
 
     // Map headers by data-key to column index
     var keyIndex = {};
@@ -449,28 +510,10 @@
       var c = row.cells;
       return {
         row: row,
-        id: cellValue(c[keyIndex.id]),
-        org: cellValue(c[keyIndex.organisation]),
-        by: cellValue(c[keyIndex.submittedBy]),
-        type: cellValue(c[keyIndex.type]),
         period: cellValue(c[keyIndex.period]),
         status: cellValue(c[keyIndex.status])
       };
     });
-
-    // Populate selects if blank
-    function populateSelect(sel, values) {
-      if (!sel || sel.options.length > 1) return;
-      uniqueSorted(values).forEach(function(v) {
-        var o = document.createElement('option');
-        o.value = v;
-        o.textContent = v;
-        sel.appendChild(o);
-      });
-    }
-
-    populateSelect(orgSel, data.map(function(r) { return r.org; }));
-    populateSelect(bySel, data.map(function(r) { return r.by; }));
 
     // --- Period autocomplete dropdown ---
     var suggestionBox = document.getElementById('period-suggestions');
@@ -483,7 +526,11 @@
           return;
         }
 
-        var periods = uniqueSorted(data.map(function(r) { return r.period; }).filter(Boolean));
+        var selectedYear = yearSel ? yearSel.value : '';
+        var periods = uniqueSorted(data.filter(function(r) {
+          var periodYear = (r.period.match(/(\d{4})$/) || [])[1] || '';
+          return !selectedYear || periodYear === selectedYear;
+        }).map(function(r) { return r.period; }).filter(Boolean));
         var matches = periods.filter(function(p) { return p.toLowerCase().startsWith(val); });
         if (matches.length === 0) {
           suggestionBox.style.display = 'none';
@@ -522,45 +569,71 @@
       });
     }
 
-    function extractType(type) {
-      return type || '';
-    }
-
-    populateSelect(typeSel, data.map(function(r) { return extractType(r.type); }));
-
     function matches(rec) {
-      var idQ = (idInput && idInput.value ? idInput.value : '').trim().toLowerCase();
-      var orgQ = (orgSel && orgSel.value) || '';
-      var byQ = (bySel && bySel.value) || '';
-      var typeQ = (typeSel && typeSel.value) || '';
+      var selectedYear = yearSel ? yearSel.value : '';
       var statusQ = (statusSel && statusSel.value) || '';
       var periodQ = (periodInput && periodInput.value ? periodInput.value : '').trim().toLowerCase();
+      var periodYear = (rec.period.match(/(\d{4})$/) || [])[1] || '';
 
-      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false;
-      if (orgQ && rec.org !== orgQ) return false;
-      if (byQ && rec.by !== byQ) return false;
-      if (typeQ && rec.type !== typeQ) return false;
+      if (selectedYear && periodYear !== selectedYear) return false;
       if (statusQ && rec.status !== statusQ) return false;
-      if (periodQ && !rec.period.toLowerCase().startsWith(periodQ)) return false;
+      if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false;
       return true;
+    }
+
+    function renderPagination(total, totalPages) {
+      if (!paginationNav || !paginationList) return;
+      paginationList.innerHTML = '';
+
+      if (totalPages <= 1) {
+        paginationNav.style.display = 'none';
+        return;
+      }
+
+      paginationNav.style.display = '';
+
+      function pageItem(label, targetPage, isCurrent, isNext, isPrev) {
+        var li = document.createElement('li');
+        li.className = isCurrent
+          ? 'nhsuk-pagination__item--current'
+          : 'nhsuk-pagination__item' + (isNext ? ' nhsuk-pagination__item--next' : '') + (isPrev ? ' nhsuk-pagination__item--prev' : '');
+
+        var link = document.createElement('a');
+        link.className = 'nhsuk-pagination__link';
+        link.href = '#';
+        link.textContent = label;
+
+        if (isCurrent) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentPage = targetPage;
+            render();
+          });
+        }
+
+        li.appendChild(link);
+        return li;
+      }
+
+      if (currentPage > 1) {
+        paginationList.appendChild(pageItem('Previous', currentPage - 1, false, false, true));
+      }
+
+      for (var p = 1; p <= totalPages; p++) {
+        paginationList.appendChild(pageItem(String(p), p, p === currentPage, false, false));
+      }
+
+      if (currentPage < totalPages) {
+        paginationList.appendChild(pageItem('Next', currentPage + 1, false, true, false));
+      }
     }
 
     function renderChips() {
       if (!chipsEl) return;
       var chips = [];
 
-      if (idInput && idInput.value.trim()) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="id" title="Clear ID filter">ID: ' + idInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
-      }
-      if (orgSel && orgSel.value) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="organisation" title="Clear Organisation filter">Organisation: ' + orgSel.options[orgSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
-      }
-      if (bySel && bySel.value) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + bySel.options[bySel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
-      }
-      if (typeSel && typeSel.value) {
-        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
-      }
       if (statusSel && statusSel.value) {
         chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" title="Clear Status filter">Status: ' + statusSel.options[statusSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
       }
@@ -570,7 +643,7 @@
 
       chipsEl.innerHTML = chips.join(' ');
 
-      var clearLink = document.querySelector('[data-clear-filters]');
+      var clearLink = form.querySelector('[data-clear-filters]');
       if (clearLink) {
         if (chips.length === 0) {
           clearLink.style.display = 'none';
@@ -594,34 +667,43 @@
       Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag) {
         tag.addEventListener('click', function() {
           var filter = tag.getAttribute('data-filter');
-          if (filter === 'id' && idInput) idInput.value = '';
-          if (filter === 'organisation' && orgSel) orgSel.value = '';
-          if (filter === 'submittedBy' && bySel) bySel.value = '';
-          if (filter === 'type' && typeSel) typeSel.value = '';
           if (filter === 'status' && statusSel) statusSel.value = '';
           if (filter === 'period' && periodInput) periodInput.value = '';
+          currentPage = 1;
           render();
         });
       });
     }
 
     function render() {
-      var shown = 0;
+      var filtered = data.filter(matches);
+      var total = filtered.length;
+      var totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
       data.forEach(function(rec) {
-        if (matches(rec)) {
-          rec.row.style.display = '';
-          shown++;
-        } else {
-          rec.row.style.display = 'none';
-        }
+        rec.row.style.display = 'none';
       });
-      if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's');
+
+      var start = total === 0 ? 0 : ((currentPage - 1) * pageSize);
+      var end = Math.min(start + pageSize, total);
+      for (var i = start; i < end; i++) {
+        filtered[i].row.style.display = '';
+      }
+
+      if (countEl) {
+        var from = total === 0 ? 0 : start + 1;
+        countEl.textContent = 'Showing ' + from + ' to ' + end + ' of ' + total + ' results';
+      }
+
+      renderPagination(total, totalPages);
       renderChips();
     }
 
     if (applyBtn) {
       applyBtn.addEventListener('click', function(e) {
         e.preventDefault();
+        currentPage = 1;
         render();
       });
     }
@@ -629,12 +711,17 @@
     if (clearBtn) {
       clearBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        if (idInput) idInput.value = '';
-        if (orgSel) orgSel.value = '';
-        if (bySel) bySel.value = '';
-        if (typeSel) typeSel.value = '';
         if (statusSel) statusSel.value = '';
         if (periodInput) periodInput.value = '';
+        currentPage = 1;
+        render();
+      });
+    }
+
+    if (yearSel) {
+      yearSel.addEventListener('change', function() {
+        if (periodInput) periodInput.value = '';
+        currentPage = 1;
         render();
       });
     }
