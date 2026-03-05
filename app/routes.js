@@ -1,6 +1,42 @@
 const express = require('express');
 const router = express.Router();
 
+const ODS_BASE_URL = 'https://www.odsdatasearchandexport.nhs.uk';
+
+router.get(/^\/api\/.*/, async (req, res) => {
+  const targetUrl = `${ODS_BASE_URL}${req.originalUrl}`;
+
+  try {
+    const upstream = await fetch(targetUrl, {
+      method: 'GET',
+      headers: {
+        Accept: req.get('accept') || '*/*'
+      }
+    });
+
+    res.status(upstream.status);
+
+    const contentType = upstream.headers.get('content-type');
+    if (contentType) {
+      res.set('content-type', contentType);
+    }
+
+    const cacheControl = upstream.headers.get('cache-control');
+    if (cacheControl) {
+      res.set('cache-control', cacheControl);
+    }
+
+    const body = Buffer.from(await upstream.arrayBuffer());
+    res.send(body);
+  } catch (error) {
+    res.status(502).json({ error: 'ODS proxy request failed', details: error.message });
+  }
+});
+
+router.get('/tools/ig-search', (req, res) => {
+  res.render('tools/ig-search');
+});
+
 router.post('/iteration0/choose-collection2', (req, res) => {
   const collection = req.session.data['collection'];
   const organisation = req.session.data['organisation'];

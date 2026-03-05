@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  IG contact search
+{% endblock %}
+
+{% block content %}
+  <div class="nhsuk-width-container">
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+        <h1 class="nhsuk-heading-l">Find IG contacts for hospitals</h1>
+        <p class="nhsuk-body">Search ODS for active NHS foundation trust hospitals and extract Information Governance contacts.</p>
+
+        <form id="ig-search-form" class="nhsuk-form-group">
+          <label class="nhsuk-label" for="hospital-query">Hospital/trust name or ODS code</label>
+          <input class="nhsuk-input" id="hospital-query" name="hospital-query" type="text" autocomplete="off">
+          <button class="nhsuk-button nhsuk-u-margin-top-3" type="submit">Search</button>
+        </form>
+
+        <p id="ig-status" class="nhsuk-body"></p>
+        <div id="ig-results"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="/js/odsHospitalSearchService.js"></script>
+  <script src="/js/ig-search-page.js"></script>
+{% endblock %}
