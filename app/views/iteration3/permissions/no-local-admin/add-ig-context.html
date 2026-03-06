@@ -1,0 +1,108 @@
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% set pageName = "Provide additional context" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To help your organisation's Information Governance (IG) lead review your request, please provide any additional information that can help them identify you and understand your role.
+<br>This is especially useful in large organisations or when multiple requests are being made. You do not need to complete every field — just include what's relevant and helpful.
+      </p>
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+
+<!-- Add form wrapper -->
+<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-context" method="post">
+
+{% from 'input/macro.njk' import input %}
+
+{{ input({
+  label: {
+    text: "Your team or department",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  id: "team",
+  name: "team",
+  value: data['team'],
+  classes: "nhsuk-input--width-30",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "Job title",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  id: "job-title",
+  name: "job-title",
+  value: data['job-title'],
+  classes: "nhsuk-input--width-10",
+  inputmode: "string"
+}) }}
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'textarea/macro.njk' import textarea %}
+
+{{ textarea({
+  name: "reason",
+  id: "reason",
+  value: data['reason'],
+  label: {
+    text: "Reason for requesting permissions (optional)",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "Enter a brief description of why you need access."
+  }
+}) }}
+
+
+
+</form>
+<button id="continue-to-terms" onclick="location='submitter-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+
+
+    </div>
+ <div  class="nhsuk-u-margin-top-4" >
+      <a href="add-ig-context-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const continueButton = document.getElementById('continue-to-terms');
+  if (!continueButton) {
+    return;
+  }
+
+  continueButton.addEventListener('click', function () {
+    const team = document.getElementById('team');
+    const jobTitle = document.getElementById('job-title');
+    const reason = document.getElementById('reason');
+
+    sessionStorage.setItem('summary.team', team ? team.value.trim() : '');
+    sessionStorage.setItem('summary.jobTitle', jobTitle ? jobTitle.value.trim() : '');
+    sessionStorage.setItem('summary.reason', reason ? reason.value.trim() : '');
+  });
+});
+</script>
+{% endblock %}
+
+

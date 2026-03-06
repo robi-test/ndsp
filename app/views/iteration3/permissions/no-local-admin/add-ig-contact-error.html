@@ -1,4 +1,4 @@
-{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
 {% set pageName = "IG lead contact details" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,109 +7,109 @@
   }) }}
 {% endblock %}
 {% block content %}
+
+{% from 'error-summary/macro.njk' import errorSummary %}
+
+{{ errorSummary({
+  titleText: "There is a problem",
+  descriptionText: "You must complete the mandatory fields to continue.",
+  errorList: [
+    {
+      text: "Enter the full name of the IG lead",
+      href: "#ig-name"
+    },
+    {
+      text: "Enter a valid email address",
+      href: "#email-address-field"
+    }
+  ]
+}) }}
+
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-       <h1>
-         {{ pageName }}
-      </h1>
-      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>
+      {{ pageName }}
+    </h1>
+    <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.<br>
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
-      </p>
+    </p>
 
-<p class="nhsuk-u-margin-bottom-8"> </p>
+    <p class="nhsuk-u-margin-bottom-8"> </p>
 
+    <form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
 
+      <div id="selected-organisation-summary" class="nhsuk-inset-text" style="display:none;"></div>
 
-<!-- Add form wrapper with proper action and method -->
-<form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
+      <div id="ig-contact-list-group" class="nhsuk-form-group" style="display:none;">
+        <label class="nhsuk-label nhsuk-label--m">Available IG contacts</label>
+        <p class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
+          NDSP searched the ODS portal and found the following IG management contact(s). Select the one you find relevant, or use the contact you already have if needed. Please note that the contact must be listed on the ODS portal for your request to be accepted by our team.
+        </p>
+        <div id="ig-contact-list"></div>
+      </div>
 
-<div id="selected-organisation-summary" class="nhsuk-inset-text" style="display:none;"></div>
+      <div id="trust-search-section" class="nhsuk-form-group">
+        <label class="nhsuk-label nhsuk-label--m" for="trust-search-query">Search hospital trust or ODS code</label>
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+          <input
+            class="nhsuk-input nhsuk-input--width-20"
+            id="trust-search-query"
+            name="trust-search-query"
+            type="text"
+            autocomplete="off"
+          >
+          <button id="trust-search-button" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">
+            Search ODS
+          </button>
+        </div>
+        <p class="nhsuk-hint">Search by organisation name (for example, Oxford) or ODS code (for example, RTH).</p>
+        <p id="trust-search-status" class="nhsuk-body-s"></p>
+        <div id="trust-search-results" class="nhsuk-u-margin-top-2"></div>
+      </div>
 
-<div id="ig-contact-list-group" class="nhsuk-form-group" style="display:none;">
-  <label class="nhsuk-label nhsuk-label--m">Available IG contacts</label>
-  <p class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
-    NDSP searched the ODS portal and found the following IG management contact(s). Select the one you find relevant, or use the contact you already have if needed. Please note that the contact must be listed on the ODS portal for your request to be accepted by our team.
-  </p>
-  <div id="ig-contact-list"></div>
-</div>
+      {% from 'input/macro.njk' import input %}
 
-<div id="trust-search-section" class="nhsuk-form-group">
-  <label class="nhsuk-label nhsuk-label--m" for="trust-search-query">Search hospital trust or ODS code</label>
-  <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
-    <input
-      class="nhsuk-input nhsuk-input--width-20"
-      id="trust-search-query"
-      name="trust-search-query"
-      type="text"
-      autocomplete="off"
-    >
-    <button id="trust-search-button" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">
-      Search ODS
+      <button id="clear-selected-contact" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4" style="display:none;">Clear the selection</button>
+
+      {{ input({
+        label: {
+          text: "IG lead full name",
+          classes: "nhsuk-label--m",
+          isPageHeading: "true"
+        },
+        errorMessage: {
+          text: "Enter the full name of the IG lead"
+        },
+        id: "ig-name",
+        name: "ig-name",
+        value: data['ig-name'],
+        classes: "nhsuk-input--width-30",
+        inputmode: "string"
+      }) }}
+      <p class="nhsuk-u-margin-bottom-8"> </p>
+      {{ input({
+        label: {
+          text: "IG lead email address",
+          classes: "nhsuk-label--m",
+          isPageHeading: "true"
+        },
+        hint: {
+          text: "Use the email address for the IG lead, as shown on the ODS portal."
+        },
+        errorMessage: {
+          text: "Enter a valid email address"
+        },
+        id: "email-address-field",
+        name: "email-address-field",
+        value: data['email-address-field'],
+        classes: "nhsuk-input--width-10",
+        inputmode: "string"
+      }) }}
+    </form>
+
+    <button id="continue-to-context" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
+      Continue
     </button>
-  </div>
-  <p class="nhsuk-hint">Search by organisation name (for example, Oxford) or ODS code (for example, RTH).</p>
-  <p id="trust-search-status" class="nhsuk-body-s"></p>
-  <div id="trust-search-results" class="nhsuk-u-margin-top-2"></div>
-</div>
-
-{% from 'input/macro.njk' import input %}
-
-<button id="clear-selected-contact" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4" style="display:none;">Clear the selection</button>
-
-{{ input({
-  label: {
-    text: "IG lead full name",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  id: "ig-name",
-  name: "ig-name",
-  value: data['ig-name'],
-  classes: "nhsuk-input--width-30",
-  inputmode: "string"
-}) }}
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{{ input({
-  label: {
-    text: "IG lead email address",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  hint: {
-    text: "Use the email address for the IG lead, as shown on the ODS portal."
-  },
-  id: "email-address-field",
-  name: "email-address-field",
-  value: data['email-address-field'],
-  classes: "nhsuk-input--width-10",
-  inputmode: "string"
-}) }}
-<!-- <p class="nhsuk-u-margin-bottom-8"> </p>
-{{ input({
-  label: {
-    text: "Telephone number (optional)",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  hint: {
-    text: "Enter a direct contact number in case of queries."
-  }
-}) }} -->
-
-
-</form>
- <button id="continue-to-context" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
-</div>
-
-
-    </div>
-    <div  class="nhsuk-u-margin-top-4" >
-      <a href="add-ig-contact-error" class="nhsuk-u-margin-top-8">Error</a>
-    </div>
-    </div>
-    
   </div>
 </div>
 {% endblock %}

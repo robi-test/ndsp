@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    status.textContent = 'Searching ODS data...';
+    status.textContent = '';
     results.innerHTML = '';
 
     try {

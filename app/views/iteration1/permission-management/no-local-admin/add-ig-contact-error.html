@@ -8,12 +8,11 @@
 {% endblock %}
 {% block content %}
 
-<!-- Error Summary -->
 {% from 'error-summary/macro.njk' import errorSummary %}
 
 {{ errorSummary({
   titleText: "There is a problem",
-  descriptionText: "You must  complete the mandatory fields to continue.",
+  descriptionText: "You must complete the mandatory fields to continue.",
   errorList: [
     {
       text: "Enter the full name of the IG lead",
@@ -27,76 +26,271 @@
 }) }}
 
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-       <h1>
-         {{ pageName }}
-      </h1>
-      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead. They will be asked to review and approve your request directly on this portal.
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>
+      {{ pageName }}
+    </h1>
+    <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead.They will be asked to review and approve your request directly on this portal.<br>
 Please ensure your IG lead is registered with ODS. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.
-      </p>
+    </p>
 
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{% from 'input/macro.njk' import input %}
+    <p class="nhsuk-u-margin-bottom-8"> </p>
 
-{{ input({
-  label: {
-    text: "Full name",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  errorMessage: {
-    text: "Enter the full name of the IG lead"
-  },
-  id: "ig-name",
-  name: "ig-name",
-  classes: "nhsuk-input--width-30",
-  inputmode: "string"
-}) }}
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{{ input({
-  label: {
-    text: "Email address",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  hint: {
-    text: "Use the official NHS or organisational email address for the IG lead."
-  },
-  errorMessage: {
-    text: "Enter a valid email address"
-  },
-  id: "email-address-field",
-  name: "email-address-field",
-  classes: "nhsuk-input--width-30",
-  inputmode: "email"
-}) }}
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{{ input({
-  label: {
-    text: "Telephone number (optional)",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  hint: {
-    text: "Enter a direct contact number in case of queries."
-  },
-  id: "telephone-number-field",
-  name: "telephone-number-field",
-  classes: "nhsuk-input--width-20",
-  inputmode: "tel"
-}) }}
- <button onclick="location='#'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
-</div>
+    <form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
 
+      <div id="selected-organisation-summary" class="nhsuk-inset-text" style="display:none;"></div>
 
-    </div>
-   
-    </div>
-    
+      <div id="ig-contact-list-group" class="nhsuk-form-group" style="display:none;">
+        <label class="nhsuk-label nhsuk-label--m">Available IG contacts</label>
+        <p class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
+          NDSP searched the ODS portal and found the following IG management contact(s). Select the one you find relevant, or use the contact you already have if needed. Please note that the contact must be listed on the ODS portal for your request to be accepted by our team.
+        </p>
+        <div id="ig-contact-list"></div>
+      </div>
+
+      <div id="trust-search-section" class="nhsuk-form-group">
+        <label class="nhsuk-label nhsuk-label--m" for="trust-search-query">Search hospital trust or ODS code</label>
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+          <input
+            class="nhsuk-input nhsuk-input--width-20"
+            id="trust-search-query"
+            name="trust-search-query"
+            type="text"
+            autocomplete="off"
+          >
+          <button id="trust-search-button" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">
+            Search ODS
+          </button>
+        </div>
+        <p class="nhsuk-hint">Search by organisation name (for example, Oxford) or ODS code (for example, RTH).</p>
+        <p id="trust-search-status" class="nhsuk-body-s"></p>
+        <div id="trust-search-results" class="nhsuk-u-margin-top-2"></div>
+      </div>
+
+      {% from 'input/macro.njk' import input %}
+
+      <button id="clear-selected-contact" type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4" style="display:none;">Clear the selection</button>
+
+      {{ input({
+        label: {
+          text: "IG lead full name",
+          classes: "nhsuk-label--m",
+          isPageHeading: "true"
+        },
+        errorMessage: {
+          text: "Enter the full name of the IG lead"
+        },
+        id: "ig-name",
+        name: "ig-name",
+        value: data['ig-name'],
+        classes: "nhsuk-input--width-30",
+        inputmode: "string"
+      }) }}
+      <p class="nhsuk-u-margin-bottom-8"> </p>
+      {{ input({
+        label: {
+          text: "IG lead email address",
+          classes: "nhsuk-label--m",
+          isPageHeading: "true"
+        },
+        hint: {
+          text: "Use the email address for the IG lead, as shown on the ODS portal."
+        },
+        errorMessage: {
+          text: "Enter a valid email address"
+        },
+        id: "email-address-field",
+        name: "email-address-field",
+        value: data['email-address-field'],
+        classes: "nhsuk-input--width-10",
+        inputmode: "string"
+      }) }}
+    </form>
+
+    <button id="continue-to-context" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
+      Continue
+    </button>
   </div>
 </div>
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="/js/odsHospitalSearchService.js"></script>
+  <script>
+    (function () {
+      const queryInput = document.getElementById('trust-search-query')
+      const searchButton = document.getElementById('trust-search-button')
+      const status = document.getElementById('trust-search-status')
+      const results = document.getElementById('trust-search-results')
+      const igNameInput = document.getElementById('ig-name')
+      const igEmailInput = document.getElementById('email-address-field')
+      const searchSection = document.getElementById('trust-search-section')
+      const selectedSummary = document.getElementById('selected-organisation-summary')
+      const contactListGroup = document.getElementById('ig-contact-list-group')
+      const contactList = document.getElementById('ig-contact-list')
+      const clearSelectedContactButton = document.getElementById('clear-selected-contact')
+      const continueButton = document.getElementById('continue-to-context')
+
+      if (!queryInput || !searchButton || !status || !results || !window.OdsHospitalSearchService) {
+        return
+      }
+
+      const service = new window.OdsHospitalSearchService()
+
+      if (clearSelectedContactButton) {
+        clearSelectedContactButton.addEventListener('click', function () {
+          if (igNameInput) {
+            igNameInput.value = ''
+          }
+          if (igEmailInput) {
+            igEmailInput.value = ''
+          }
+        })
+      }
+
+      const params = new URLSearchParams(window.location.search)
+      const orgCodeParam = (params.get('orgCode') || '').trim()
+      const orgNameParam = (params.get('orgName') || '').trim()
+
+      if (orgCodeParam) {
+        queryInput.value = orgCodeParam
+        if (searchSection) {
+          searchSection.style.display = 'none'
+        }
+        if (selectedSummary) {
+          selectedSummary.style.display = 'block'
+          selectedSummary.innerHTML = `<strong>Selected organisation:</strong> ${escapeHtml(orgNameParam || orgCodeParam)} (${escapeHtml(orgCodeParam)})`
+        }
+        runSearch(orgCodeParam, orgNameParam)
+      }
+
+      searchButton.addEventListener('click', async function () {
+        const query = queryInput.value.trim()
+        runSearch(query)
+      })
+
+      if (continueButton) {
+        continueButton.addEventListener('click', function () {
+          const igName = igNameInput ? igNameInput.value.trim() : ''
+          const igEmail = igEmailInput ? igEmailInput.value.trim() : ''
+
+          if (!igName || !igEmail) {
+            window.location.href = 'add-ig-contact-error'
+            return
+          }
+
+          window.location.href = 'add-ig-context'
+        })
+      }
+
+      async function runSearch(query, selectedName) {
+        if (!query) {
+          status.textContent = 'Enter a hospital trust name or ODS code.'
+          results.innerHTML = ''
+          return
+        }
+
+        status.textContent = ''
+        results.innerHTML = ''
+
+        try {
+          const matches = await service.searchHospitals(query)
+          status.textContent = `Found ${matches.length} result(s).`
+
+          if (!matches.length) {
+            results.innerHTML = '<p class="nhsuk-body-s">No active NHS foundation trust hospitals found.</p>'
+            return
+          }
+
+          const selectedMatch = selectedName
+            ? matches.find((item) => item.name.toLowerCase() === selectedName.toLowerCase()) || matches[0]
+            : matches[0]
+
+          if (selectedMatch && selectedMatch.igContacts && selectedMatch.igContacts.length > 0) {
+            if (contactListGroup && contactList) {
+              contactListGroup.style.display = 'block'
+              contactList.innerHTML = selectedMatch.igContacts
+                .map((contact, index) => {
+                  const role = contact.igManagementRole ? `<p class="nhsuk-body-s nhsuk-u-margin-bottom-1"><strong>Role:</strong> ${escapeHtml(contact.igManagementRole)}</p>` : ''
+                  const email = contact.email
+                    ? `<p class="nhsuk-body-s nhsuk-u-margin-bottom-2"><strong>Email:</strong> ${escapeHtml(contact.email)}</p>`
+                    : `<p class="nhsuk-body-s nhsuk-u-margin-bottom-2"><strong>Email:</strong> <span style="color:#d5281b; font-weight:700;">no email</span></p>`
+                  return `
+                    <article class="nhsuk-card nhsuk-u-margin-bottom-2">
+                      <div class="nhsuk-card__content">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+                          <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">${escapeHtml(contact.name || 'Unknown')}</h3>
+                          <button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" data-contact-index="${index}" style="white-space:nowrap;">Use this contact</button>
+                        </div>
+                        ${role}
+                        ${email}
+                      </div>
+                    </article>
+                  `
+                })
+                .join('')
+
+              if (clearSelectedContactButton) {
+                clearSelectedContactButton.style.display = 'inline-block'
+              }
+
+              contactList.querySelectorAll('button[data-contact-index]').forEach((button) => {
+                button.addEventListener('click', function () {
+                  const chosen = selectedMatch.igContacts[Number(this.getAttribute('data-contact-index'))]
+                  if (!chosen) {
+                    return
+                  }
+                  if (igNameInput) {
+                    igNameInput.value = chosen.name || ''
+                  }
+                  if (igEmailInput) {
+                    igEmailInput.value = chosen.email || ''
+                  }
+                })
+              })
+            }
+
+          } else if (contactListGroup && contactList) {
+            contactListGroup.style.display = 'block'
+            contactList.innerHTML = '<p class="nhsuk-body-s">No available IG contacts were found for this organisation.</p>'
+            if (clearSelectedContactButton) {
+              clearSelectedContactButton.style.display = 'none'
+            }
+          }
+
+          results.innerHTML = matches
+            .map((hospital) => {
+              const contacts = hospital.igContacts.length
+                ? `<ul class="nhsuk-list nhsuk-list--bullet">${hospital.igContacts
+                    .map((c) => `<li><strong>${escapeHtml(c.igManagementRole || 'IG Contact')}</strong>: ${escapeHtml(c.name || 'Unknown')} ${c.email ? `(${escapeHtml(c.email)})` : ''}</li>`)
+                    .join('')}</ul>`
+                : '<p class="nhsuk-body-s">No IG contacts were returned for this organisation.</p>'
+
+              return `
+                <article class="nhsuk-card nhsuk-u-margin-bottom-3">
+                  <div class="nhsuk-card__content">
+                    <h2 class="nhsuk-heading-s">${escapeHtml(hospital.name)} (${escapeHtml(hospital.code)})</h2>
+                    ${contacts}
+                  </div>
+                </article>
+              `
+            })
+            .join('')
+        } catch (error) {
+          status.textContent = `Search failed: ${error.message || error}`
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\"/g, '&quot;')
+          .replace(/'/g, '&#39;')
+      }
+    })()
+  </script>
 {% endblock %}
 
 

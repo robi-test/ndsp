@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
 {% set pageName = "Which organisation do you want permissions for?" %}
 {% block beforeContent %}
   {{ backLink({
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const orgName = searchInput.value.trim();
       const orgCode = odsCodeField.value.trim();
 
-      if (!selectedOrganisation || !orgName || !orgCode) {
+      if (!orgName || !orgCode) {
         window.location.href = 'select-organisation-error';
         return;
       }

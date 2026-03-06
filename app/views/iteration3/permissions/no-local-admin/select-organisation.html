@@ -1,4 +1,4 @@
-{% extends "iteration1/permission-management/no-local-admin/layout.html" %}
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
 {% set pageName = "Which organisation do you want permissions for?" %}
 {% block beforeContent %}
   {{ backLink({
@@ -43,12 +43,15 @@ The ODS code will be automatically shown once you select the organisation.
   <div class="nhsuk-hint" id="organisation-search-hint">
         Start typing to search the organisation.
   </div>
-  <input class="nhsuk-input nhsuk-input--width-30" id="organisation-search" name="organisation-search" type="text" aria-describedby="organisation-search-hint" autocomplete="off">
-    <p id="organisation-search-status" class="nhsuk-body-s nhsuk-u-margin-top-2"></p>
+  <div class="organisation-search-input-wrap">
+    <input class="nhsuk-input nhsuk-input--width-30" id="organisation-search" name="organisation-search" type="text" aria-describedby="organisation-search-hint" autocomplete="off" style="width: 600px; max-width: 100%;">
+    <span id="organisation-search-spinner" class="organisation-search-spinner" aria-hidden="true"></span>
+  </div>
   
   <!-- Dropdown suggestions -->
   <div id="organisation-suggestions" style="display: none; position: absolute; background: white; border: 2px solid #005eb8; border-top: none; max-width: 600px; z-index: 1000;">
   </div>
+  <p id="organisation-search-status" class="nhsuk-body-s nhsuk-u-margin-top-2"></p>
 </div>
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
@@ -92,12 +95,13 @@ The ODS code will be automatically shown once you select the organisation.
 <script>
 document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.getElementById('organisation-search');
+  const searchSpinner = document.getElementById('organisation-search-spinner');
         const searchStatus = document.getElementById('organisation-search-status');
         const suggestionsDiv = document.getElementById('organisation-suggestions');
         const odsCodeField = document.getElementById('ods-code-field');
         const continueButton = document.getElementById('continue-to-ig');
 
-        if (!searchInput || !searchStatus || !suggestionsDiv || !odsCodeField || !continueButton || !window.OdsHospitalSearchService) {
+  if (!searchInput || !searchSpinner || !searchStatus || !suggestionsDiv || !odsCodeField || !continueButton || !window.OdsHospitalSearchService) {
             return;
         }
 
@@ -115,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (searchTerm.length < 2) {
+              setLoading(false);
                 searchStatus.textContent = 'Enter at least 2 characters to search.';
                 suggestionsDiv.style.display = 'none';
                 suggestionsDiv.innerHTML = '';
@@ -125,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             debounceTimer = setTimeout(async function () {
                 try {
+              setLoading(true);
                 const allMatches = await service.searchHospitals(searchTerm, 30);
                 const nameOnlyMatches = allMatches
                   .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -136,6 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     searchStatus.textContent = `Search failed: ${error.message || error}`;
                     suggestionsDiv.style.display = 'none';
                     suggestionsDiv.innerHTML = '';
+              } finally {
+                setLoading(false);
                 }
             }, 250);
         });
@@ -144,10 +152,13 @@ document.addEventListener('DOMContentLoaded', function() {
           const orgName = searchInput.value.trim();
           const orgCode = odsCodeField.value.trim();
 
-          if (!selectedOrganisation || !orgName || !orgCode) {
+          if (!orgName || !orgCode) {
             window.location.href = 'select-organisation-error';
                 return;
             }
+
+          sessionStorage.setItem('summary.organisation', orgName);
+          sessionStorage.setItem('summary.ods', orgCode);
 
           const target = `add-ig-contact?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
             window.location.href = target;
@@ -161,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function renderSuggestions(matches) {
             suggestionsDiv.innerHTML = '';
+          searchStatus.textContent = '';
 
             if (!matches.length) {
                 suggestionsDiv.style.display = 'none';
@@ -185,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     selectedOrganisation = org;
                     searchInput.value = org.name;
                     odsCodeField.value = org.code;
+                  searchStatus.textContent = '';
                     suggestionsDiv.style.display = 'none';
                 });
 
@@ -193,6 +206,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             suggestionsDiv.style.display = 'block';
         }
+
+          function setLoading(isLoading) {
+            searchSpinner.style.display = isLoading ? 'inline-block' : 'none';
+          }
 
         function escapeHtml(value) {
             return String(value)
@@ -209,6 +226,27 @@ document.addEventListener('DOMContentLoaded', function() {
 <style>
 .suggestion-item:hover {
     background-color: #f0f4f5 !important;
+}
+
+.organisation-search-input-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.organisation-search-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #d8dde0;
+  border-top-color: #005eb8;
+  border-radius: 50%;
+  animation: organisation-search-spin 0.8s linear infinite;
+  display: none;
+}
+
+@keyframes organisation-search-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 #organisation-suggestions {
