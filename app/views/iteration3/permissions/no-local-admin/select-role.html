@@ -8,39 +8,33 @@
 {% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
- <div class="nhsuk-form-group">
-   <form action="/iteration1/permission-management/no-existing-local-admin/select-role" method="post">
-  <fieldset class="nhsuk-fieldset" aria-describedby="example-hints-hint">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
-      <h1 class="nhsuk-fieldset__heading">
-        What role do you need?
-      </h1>
-    </legend>
-    <div id="example-hints-hint" class="nhsuk-hint">
-      Choose the role you are applying for.
-    </div>
-   
-    <div class="nhsuk-radios" data-module="nhsuk-radios">
-      
-      <div class="nhsuk-radios__item">
-        <input class="nhsuk-radios__input" id="example-hints-2" name="role" type="radio" value="submitter">
-        <label class="nhsuk-label nhsuk-radios__label" for="role">
-          Submitter
-        </label>
-       
-      </div>
-    </div>
-  </fieldset>
-</div>     
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+    <div class="nhsuk-form-group">
+      <fieldset class="nhsuk-fieldset" aria-describedby="choose-role-hint">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+          <h1 class="nhsuk-fieldset__heading">{{ pageName }}</h1>
+        </legend>
+        <div id="choose-role-hint" class="nhsuk-hint">
+          To continue your request, choose the roles you are applying for, your request will go through the standard approval process.
+        </div>
 
-<p class="nhsuk-u-margin-top-4">Note: The collection you selected only supports one role.</p>
+        <div class="nhsuk-radios nhsuk-u-margin-top-5" data-module="nhsuk-radios">
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="role-submitter" name="role" type="radio" value="submitter">
+            <label class="nhsuk-label nhsuk-radios__label" for="role-submitter">
+              Submitter
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
 
-</form>
- <button id="continue-to-ig-contact" onclick="location='add-ig-contact'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
-</div>
+    <p class="nhsuk-u-margin-top-7">Note: The collection you selected only supports one role.</p>
+
+    <button id="continue-to-ig-contact" type="button" class="nhsuk-button nhsuk-u-margin-top-3">
+      Continue
+    </button>
+  </div>
 
     </div>
 
@@ -60,11 +54,22 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
+  const params = new URLSearchParams(window.location.search);
+  const orgCode = (params.get('orgCode') || '').trim();
+  const orgName = (params.get('orgName') || '').trim();
+
   continueButton.addEventListener('click', function () {
     const selected = document.querySelector('input[name="role"]:checked');
     if (selected && selected.value) {
       sessionStorage.setItem('summary.role', selected.value);
     }
+
+    let target = 'add-ig-contact';
+    if (orgCode || orgName) {
+      target += `?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+    }
+
+    window.location.href = target;
   });
 });
 </script>

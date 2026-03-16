@@ -8,44 +8,32 @@
 {% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
-   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
- <div class="nhsuk-form-group">
-   <form action="/iteration1/permission-management/no-existing-local-admin/select-role" method="post">
-  <fieldset class="nhsuk-fieldset" aria-describedby="example-hints-hint">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
-      <h1 class="nhsuk-fieldset__heading">
-        What role do you need?
-      </h1>
-    </legend>
-    <div id="example-hints-hint" class="nhsuk-hint">
-      Choose the role you are applying for.
-    </div>
-   
-    <div class="nhsuk-radios" data-module="nhsuk-radios">
-      
-      <div class="nhsuk-radios__item">
-        <input class="nhsuk-radios__input" id="example-hints-2" name="role" type="radio" value="submitter">
-        <label class="nhsuk-label nhsuk-radios__label" for="role">
-          Submitter
-        </label>
-       
-      </div>
-    </div>
-  </fieldset>
-</div>     
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+    <div class="nhsuk-form-group">
+      <fieldset class="nhsuk-fieldset" aria-describedby="choose-role-hint">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+          <h1 class="nhsuk-fieldset__heading">{{ pageName }}</h1>
+        </legend>
+        <div id="choose-role-hint" class="nhsuk-hint">
+          To continue your request, choose the roles you are applying for, your request will go through the standard approval process.
+        </div>
 
-<p class="nhsuk-u-margin-top-4">Note: The collection you selected only supports one role.</p>
-
-</form>
- <button onclick="location='add-ig-contact'" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
-</div>
-
+        <div class="nhsuk-radios nhsuk-u-margin-top-5" data-module="nhsuk-radios">
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="role-submitter" name="role" type="radio" value="submitter">
+            <label class="nhsuk-label nhsuk-radios__label" for="role-submitter">
+              Submitter
+            </label>
+          </div>
+        </div>
+      </fieldset>
     </div>
 
+    <p class="nhsuk-u-margin-top-7">Note: The collection you selected only supports one role.</p>
 
-     
+    <button onclick="location='add-ig-contact'" class="nhsuk-button nhsuk-u-margin-top-3">
+      Continue
+    </button>
   </div>
 </div>
 {% endblock %}

@@ -1,0 +1,90 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "../setup",
+      text: "Set up"
+    }
+  ],
+  href: "periods",
+  text: "Reporting periods"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "action-link/macro.njk" import actionLink %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-thirds">
+    <h1 class="nhsuk-heading-l">Reporting period: April 2026</h1>
+
+    <table class="nhsuk-table-responsive nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-6" role="table" id="reporting-period-summary-table">
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr class="nhsuk-table__row" role="row">
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Reporting period name</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Start date</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">End date</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Action</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period name</span>April 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 April 2026, 00:00</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 April 2026, 23:59</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="period-edit">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-4">Submission windows</h2>
+
+    <div class="nhsuk-u-margin-bottom-6">
+    {{ actionLink({
+      text: "Add submission window",
+      href: "window-new"
+    }) }}
+    </div>
+
+    <table class="nhsuk-table-responsive" role="table" id="submission-windows-table">
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr class="nhsuk-table__row" role="row">
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Window name/ Type of deadline</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Open on</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Close on</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Organisations</th>
+          <th class="nhsuk-table__header" scope="col" role="columnheader">Action</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name/ Type of deadline</span>Provisional processing</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 May 2026, 00:00</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 May 2026, 23:59</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="window-edit">Edit</a></td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name/ Type of deadline</span>Window closes</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jun 2026, 00:00</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Oct 2026, 23:59</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

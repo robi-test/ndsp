@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
           sessionStorage.setItem('summary.organisation', orgName);
           sessionStorage.setItem('summary.ods', orgCode);
 
-          const target = `add-ig-contact?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+          const target = `select-role?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
             window.location.href = target;
         });
 

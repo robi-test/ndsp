@@ -1,0 +1,117 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Repoorting periods" %}
+
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{% block beforeContent %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "../setup",
+      text: "Set up"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-full">
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-8">Diagnostic Imaging Data Set (V2.0) - Reporting periods</h1>
+          {% from "action-link/macro.njk" import actionLink %}
+
+{{ actionLink({
+  text: "Create a new reporting period",
+  href: "period-new"
+}) }}
+
+<table class="nhsuk-table-responsive" role="table">
+  <thead class="nhsuk-table__head" role="rowgroup">
+    <tr class="nhsuk-table__row" role="row">
+      <th class="nhsuk-table__header" scope="col" role="columnheader">Reporting period</th>
+      <th class="nhsuk-table__header" scope="col" role="columnheader">Start date</th>
+      <th class="nhsuk-table__header" scope="col" role="columnheader">End date</th>
+      <th class="nhsuk-table__header" scope="col" role="columnheader">Submission windows</th>
+      <th class="nhsuk-table__header" scope="col" role="columnheader">Change</th>
+    </tr>
+  </thead>
+  <tbody class="nhsuk-table__body">
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Apr 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Apr 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="windows">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 May 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 May 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Jun 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Jun 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Jul 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Jul 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Aug 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Aug 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Sep 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Sep 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Oct 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Oct 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Nov 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Nov 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+    <tr class="nhsuk-table__row" role="row">
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Dec 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Dec 2026</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Change</span><a href="window-new">Manage</a></td>
+    </tr>
+  </tbody>
+</table>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

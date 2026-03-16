@@ -1,0 +1,725 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "setup",
+      text: "Set up"
+    }
+  ],
+  href: "windows",
+  text: "Reporting period: April 2026"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+       
+<fieldset class="nhsuk-fieldset">
+  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+    <h1 class="nhsuk-fieldset__heading">
+      Edit submission window
+    </h1>
+  </legend>
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
+      Submission window name/ Type of deadline
+    </label>
+  </h1>
+  <input class="nhsuk-input" id="submission-window-name" name="submissionWindowName" type="text" value="Provisional processing">
+</div>
+
+
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window start
+        </h1>
+      </legend>
+      <div id="submission-window-start" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric" value="01">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric" value="05">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-year" name="submissionWindowStart[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+      </div>
+
+      <h2 class="nhsuk-heading-s nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-1">What time?</h2>
+      <div id="submission-window-start-time" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-hour">
+              Hour
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric" value="00">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-minute">
+              Minute
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-minute" name="submissionWindowStart[minute]" type="text" inputmode="numeric" value="00">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-second">
+              Seconds
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-second" name="submissionWindowStart[second]" type="text" inputmode="numeric" value="00">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window end
+        </h1>
+      </legend>
+      <div id="submission-window-end" class="nhsuk-date-input bottom">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-day" name="submissionWindowEnd[day]" type="text" inputmode="numeric" value="31">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-month" name="submissionWindowEnd[month]" type="text" inputmode="numeric" value="05">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-year" name="submissionWindowEnd[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+      </div>
+
+      <h2 class="nhsuk-heading-s nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-1">What time?</h2>
+      <div id="submission-window-end-time" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-hour">
+              Hour
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-hour" name="submissionWindowEnd[hour]" type="text" inputmode="numeric" value="23">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-minute">
+              Minute
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-minute" name="submissionWindowEnd[minute]" type="text" inputmode="numeric" value="59">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-second">
+              Seconds
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-second" name="submissionWindowEnd[second]" type="text" inputmode="numeric" value="00">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+  <div class="nhsuk-form-group">
+    <label class="nhsuk-label" for="organisation-toggle"><strong>Select organisation(s):</strong></label>
+    <div class="status-multiselect organisation-multiselect" style="position: relative; max-width: 420px;">
+      <button type="button" id="organisation-toggle" class="nhsuk-select status-toggle-btn" data-organisation-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+        <span data-organisation-summary>2 organisations selected</span>
+      </button>
+
+      <div id="organisation-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
+        <label class="nhsuk-u-visually-hidden" for="organisation-search">Search organisations</label>
+        <input class="nhsuk-input nhsuk-u-margin-bottom-3" id="organisation-search" type="text" placeholder="Search" autocomplete="off">
+
+        <div class="nhsuk-checkboxes nhsuk-checkboxes--small" id="organisation-list" role="group" aria-label="Organisations">
+          <div class="nhsuk-checkboxes__item organisation-multiselect__item organisation-multiselect__item--select-all">
+            <input class="nhsuk-checkboxes__input" id="organisation-all" type="checkbox">
+            <label class="nhsuk-label nhsuk-checkboxes__label" for="organisation-all">Select All</label>
+          </div>
+          <div id="organisation-options"></div>
+        </div>
+      </div>
+    </div>
+    <div id="organisation-selected-list" class="organisation-selected-list" aria-live="polite"></div>
+  </div>
+
+  {% from "button/macro.njk" import button %}
+
+
+
+</fieldset>
+<div class="nhsuk-u-margin-top-8">
+{{ button({
+  text: "Save"
+}) }}
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<style>
+  .status-toggle-btn {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+
+  .status-toggle-btn::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 10px;
+    height: 6px;
+    margin-top: -3px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('data:image/svg+xml,%3Csvg width="12" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"%3E%3Cpath fill="%23000" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/%3E%3C/svg%3E');
+  }
+
+  #organisation-list {
+    max-height: 220px;
+    overflow-y: auto;
+  }
+
+  .organisation-multiselect__item {
+    margin-bottom: 6px;
+  }
+
+  .organisation-multiselect__item--select-all {
+    border-bottom: 1px solid #b1b4b6;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+
+  .organisation-multiselect__item--hidden {
+    display: none;
+  }
+
+  #organisation-list .nhsuk-checkboxes__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #organisation-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:before {
+    display: none;
+  }
+
+  #organisation-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:after {
+    display: none;
+  }
+
+  #organisation-list .nhsuk-checkboxes__label {
+    padding-left: 0;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .organisation-selected-list {
+    margin-bottom: 12px;
+  }
+
+  .organisation-selected-list:empty {
+    display: none;
+  }
+
+  .organisation-selected-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #d8dde0;
+  }
+
+  .organisation-selected-item--all {
+    align-items: flex-start;
+  }
+
+  .organisation-selected-item__content {
+    flex: 1;
+  }
+
+  .organisation-selected-item__name {
+    font-weight: 600;
+    font-size: 1.1875rem;
+    color: #212b32;
+  }
+
+  .nhsuk-time-separator {
+    font-size: 1.5rem;
+    line-height: 1;
+    padding-top: 32px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const multiselectContainer = document.querySelector('.organisation-multiselect')
+  const organisationToggle = document.querySelector('[data-organisation-toggle]')
+  const organisationPanel = document.getElementById('organisation-panel')
+  const organisationSummary = document.querySelector('[data-organisation-summary]')
+  const organisationSelectedList = document.getElementById('organisation-selected-list')
+  const searchInput = document.getElementById('organisation-search')
+  const selectAllCheckbox = document.getElementById('organisation-all')
+  const organisationOptionsContainer = document.getElementById('organisation-options')
+
+  const organisationNames = [
+    "Alliance Medical",
+    "Barking, Havering and Redbridge University Hospitals NHS Trust",
+    "Barts Health NHS Trust",
+    "Chelsea and Westminster Hospital NHS Foundation Trust",
+    "Circle Health Group Limited",
+    "Cora Health Diagnostics (Formerly Healthshare Diagnostics)",
+    "Cora Health Ltd (Formerly Healthshare Limited)",
+    "Croydon Health Services NHS Trust",
+    "Epsom and St Helier University Hospitals NHS Trust",
+    "Great Ormond Street Hospital For Children NHS Foundation Trust",
+    "Guy's and St Thomas' NHS Foundation Trust",
+    "Homerton Healthcare NHS Foundation Trust",
+    "Imperial College Healthcare NHS Trust",
+    "Inhealth Limited",
+    "King's College Hospital NHS Foundation Trust",
+    "Kingston and Richmond NHS Foundation Trust",
+    "Lewisham and Greenwich NHS Trust",
+    "London North West University Healthcare NHS Trust",
+    "Moorfields Eye Hospital NHS Foundation Trust",
+    "Nuffield Health",
+    "Royal Free London NHS Foundation Trust",
+    "Royal National Orthopaedic Hospital NHS Trust",
+    "South London and Maudsley NHS Foundation Trust",
+    "Spire Healthcare",
+    "St George's University Hospitals NHS Foundation Trust",
+    "The Hillingdon Hospitals NHS Foundation Trust",
+    "The Royal Marsden NHS Foundation Trust",
+    "Trinity Medical Imaging",
+    "University College London Hospitals NHS Foundation Trust",
+    "Whittington Health NHS Trust",
+    "Cobalt Health",
+    "Dorset County Hospital NHS Foundation Trust",
+    "Dorset Healthcare University NHS Foundation Trust",
+    "Gloucestershire Hospitals NHS Foundation Trust",
+    "Great Western Hospitals NHS Foundation Trust",
+    "North Bristol NHS Trust",
+    "Practice Plus Group Holdings",
+    "Ramsay Health Care UK Operations Limited",
+    "Royal Cornwall Hospitals NHS Trust",
+    "Royal Devon University Healthcare NHS Foundation Trust",
+    "Royal United Hospitals Bath NHS Foundation Trust",
+    "Salisbury NHS Foundation Trust",
+    "Somerset NHS Foundation Trust",
+    "Torbay and South Devon NHS Foundation Trust",
+    "University Hospitals Bristol and Weston NHS Foundation Trust",
+    "University Hospitals Dorset NHS Foundation Trust",
+    "University Hospitals Plymouth NHS Trust",
+    "Ashford and St Peter's Hospitals NHS Foundation Trust",
+    "Buckinghamshire Healthcare NHS Trust",
+    "CSH Surrey",
+    "Dartford and Gravesham NHS Trust",
+    "East Kent Hospitals University NHS Foundation Trust",
+    "East Sussex Healthcare NHS Trust",
+    "Epsomedical Group",
+    "Frimley Health NHS Foundation Trust",
+    "Hampshire and Isle of Wight Healthcare NHS Foundation Trust",
+    "Hampshire Hospitals NHS Foundation Trust",
+    "Isle of Wight NHS Trust",
+    "Kent Community Health NHS Foundation Trust",
+    "Maidstone and Tunbridge Wells NHS Trust",
+    "Medical Imaging Partnership Ltd",
+    "Medway NHS Foundation Trust",
+    "Oxford University Hospitals NHS Foundation Trust",
+    "Portsmouth Hospitals University NHS Trust",
+    "Queen Victoria Hospital NHS Foundation Trust",
+    "Royal Berkshire NHS Foundation Trust",
+    "Royal Surrey NHS Foundation Trust",
+    "Surrey and Sussex Healthcare NHS Trust",
+    "Sussex Community NHS Foundation Trust",
+    "University Hospital Southampton NHS Foundation Trust",
+    "University Hospitals Sussex NHS Foundation Trust",
+    "Birmingham Women's and Children's NHS Foundation Trust",
+    "Chesterfield Royal Hospital NHS Foundation Trust",
+    "George Eliot Hospital NHS Trust",
+    "Kettering General Hospital NHS Foundation Trust",
+    "Midlands Partnership University NHS Foundation Trust",
+    "Northampton General Hospital NHS Trust",
+    "Nottingham University Hospitals NHS Trust",
+    "Sandwell and West Birmingham Hospitals NHS Trust",
+    "Sherwood Forest Hospitals NHS Foundation Trust",
+    "Shropshire Community Health NHS Trust",
+    "South Warwickshire University NHS Foundation Trust",
+    "The Dudley Group NHS Foundation Trust",
+    "The Robert Jones and Agnes Hunt Orthopaedic Hospital NHS Foundation Trust",
+    "The Royal Orthopaedic Hospital NHS Foundation Trust",
+    "The Royal Wolverhampton NHS Trust",
+    "The Shrewsbury and Telford Hospital NHS Trust",
+    "United Lincolnshire Teaching Hospitals NHS Trust",
+    "University Hospitals Birmingham NHS Foundation Trust",
+    "University Hospitals Coventry and Warwickshire NHS Trust",
+    "University Hospitals of Derby and Burton NHS Foundation Trust",
+    "University Hospitals of Leicester NHS Trust",
+    "University Hospitals of North Midlands NHS Trust",
+    "Walsall Healthcare NHS Trust",
+    "Worcestershire Acute Hospitals NHS Trust",
+    "Wye Valley NHS Trust",
+    "Bedfordshire Hospitals NHS Foundation Trust",
+    "Cambridge University Hospitals NHS Foundation Trust",
+    "East and North Hertfordshire Teaching NHS Trust",
+    "East Suffolk and North Essex NHS Foundation Trust",
+    "James Paget University Hospitals NHS Foundation Trust",
+    "Mid and South Essex NHS Foundation Trust",
+    "Milton Keynes University Hospital NHS Foundation Trust",
+    "Norfolk and Norwich University Hospitals NHS Foundation Trust",
+    "North West Anglia NHS Foundation Trust",
+    "Royal Papworth Hospital NHS Foundation Trust",
+    "The Princess Alexandra Hospital NHS Trust",
+    "The Queen Elizabeth Hospital, King's Lynn, NHS Foundation Trust",
+    "West Hertfordshire Teaching Hospitals NHS Trust",
+    "West Suffolk NHS Foundation Trust",
+    "Alder Hey Children's NHS Foundation Trust",
+    "Blackpool Teaching Hospitals NHS Foundation Trust",
+    "Bolton NHS Foundation Trust",
+    "Countess of Chester Hospital NHS Foundation Trust",
+    "East Cheshire NHS Trust",
+    "East Lancashire Hospitals NHS Trust",
+    "Kleyn Healthcare",
+    "Lancashire Teaching Hospitals NHS Foundation Trust",
+    "Liverpool Heart and Chest Hospital NHS Foundation Trust",
+    "Liverpool University Hospitals NHS Foundation Trust",
+    "Liverpool Women's NHS Foundation Trust",
+    "Manchester University NHS Foundation Trust",
+    "Mersey and West Lancashire Teaching Hospitals NHS Trust",
+    "Mid Cheshire Hospitals NHS Foundation Trust",
+    "Northern Care Alliance NHS Foundation Trust",
+    "Stockport NHS Foundation Trust",
+    "Tameside and Glossop Integrated Care NHS Foundation Trust",
+    "The Christie NHS Foundation Trust",
+    "The Clatterbridge Cancer Centre NHS Foundation Trust",
+    "The Walton Centre NHS Foundation Trust",
+    "University Hospitals of Morecambe Bay NHS Foundation Trust",
+    "Warrington and Halton Teaching Hospitals NHS Foundation Trust",
+    "Wirral Community Health and Care NHS Foundation Trust",
+    "Wirral University Teaching Hospital NHS Foundation Trust",
+    "Wrightington, Wigan and Leigh NHS Foundation Trust",
+    "Airedale NHS Foundation Trust",
+    "Barnsley Hospital NHS Foundation Trust",
+    "Bradford Teaching Hospitals NHS Foundation Trust",
+    "Calderdale and Huddersfield NHS Foundation Trust",
+    "County Durham and Darlington NHS Foundation Trust",
+    "Doncaster and Bassetlaw Teaching Hospitals NHS Foundation Trust",
+    "Gateshead Health NHS Foundation Trust",
+    "Harrogate and District NHS Foundation Trust",
+    "Hull University Teaching Hospitals NHS Trust",
+    "Leeds Teaching Hospitals NHS Trust",
+    "Mid Yorkshire Teaching NHS Trust",
+    "North Tees and Hartlepool NHS Foundation Trust",
+    "Northern Lincolnshire and Goole NHS Foundation Trust",
+    "Northumbria Healthcare NHS Foundation Trust",
+    "Sheffield Children's NHS Foundation Trust"
+  ]
+
+  const uniqueOrganisationNames = Array.from(new Set(organisationNames.map((name) => name.trim()).filter(Boolean)))
+
+  let organisationItems = []
+  let organisationCheckboxes = []
+
+  if (!multiselectContainer || !organisationToggle || !organisationPanel || !organisationSummary || !organisationSelectedList || !searchInput || !selectAllCheckbox || !organisationOptionsContainer || !uniqueOrganisationNames.length) {
+    return
+  }
+
+  organisationOptionsContainer.innerHTML = uniqueOrganisationNames
+    .map((name, index) => {
+      const checkboxId = 'organisation-option-' + (index + 1)
+      return '<div class="nhsuk-checkboxes__item organisation-multiselect__item" data-name="' + escapeHtml(name) + '">'
+        + '<input class="nhsuk-checkboxes__input organisation-option" id="' + checkboxId + '" name="organisations" type="checkbox" value="' + escapeHtml(name) + '">'
+        + '<label class="nhsuk-label nhsuk-checkboxes__label" for="' + checkboxId + '">' + escapeHtml(name) + '</label>'
+        + '</div>'
+    })
+    .join('')
+
+  organisationItems = Array.from(document.querySelectorAll('.organisation-multiselect__item[data-name]'))
+  organisationCheckboxes = Array.from(document.querySelectorAll('.organisation-option'))
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+  }
+
+  function openPanel() {
+    organisationPanel.style.display = 'block'
+  }
+
+  function closePanel() {
+    organisationPanel.style.display = 'none'
+  }
+
+  function getVisibleOrganisationCheckboxes() {
+    return organisationItems
+      .filter((item) => !item.classList.contains('organisation-multiselect__item--hidden'))
+      .map((item) => item.querySelector('.organisation-option'))
+      .filter(Boolean)
+  }
+
+  function applyListVisibility() {
+    const searchTerm = searchInput.value.trim().toLowerCase()
+
+    organisationItems.forEach((item) => {
+      const organisationName = item.getAttribute('data-name').toLowerCase()
+      const checkbox = item.querySelector('.organisation-option')
+      const matchesSearch = !searchTerm || organisationName.includes(searchTerm)
+      const isSelected = checkbox ? checkbox.checked : false
+
+      item.classList.toggle('organisation-multiselect__item--hidden', !matchesSearch || isSelected)
+    })
+  }
+
+  function updateSelectAllState() {
+    const visibleCheckboxes = getVisibleOrganisationCheckboxes()
+    const checkedCount = visibleCheckboxes.filter((checkbox) => checkbox.checked).length
+
+    if (!visibleCheckboxes.length) {
+      selectAllCheckbox.checked = false
+      selectAllCheckbox.indeterminate = false
+      return
+    }
+
+    if (checkedCount === 0) {
+      selectAllCheckbox.checked = false
+      selectAllCheckbox.indeterminate = false
+      return
+    }
+
+    if (checkedCount === visibleCheckboxes.length) {
+      selectAllCheckbox.checked = true
+      selectAllCheckbox.indeterminate = false
+      return
+    }
+
+    selectAllCheckbox.checked = false
+    selectAllCheckbox.indeterminate = true
+  }
+
+  function updateSummary() {
+    const selected = organisationCheckboxes.filter((checkbox) => checkbox.checked)
+    const selectedCount = selected.length
+
+    if (selectedCount === 0) {
+      organisationSummary.textContent = 'No organisation selected'
+      return
+    }
+
+    if (searchInput.value === 'All organisations') {
+      searchInput.value = ''
+    }
+
+    if (selectedCount === 1) {
+      organisationSummary.textContent = '1 organisation selected'
+      return
+    }
+
+    organisationSummary.textContent = selectedCount + ' organisations selected'
+  }
+
+  function updateSelectedList() {
+    const selected = organisationCheckboxes.filter((checkbox) => checkbox.checked)
+
+    if (selected.length === organisationCheckboxes.length && organisationCheckboxes.length) {
+      const allOrganisationsList = uniqueOrganisationNames
+        .map((name) => '<li>' + escapeHtml(name) + '</li>')
+        .join('')
+
+      organisationSelectedList.innerHTML = '<div class="organisation-selected-item organisation-selected-item--all">'
+        + '<div class="organisation-selected-item__content">'
+        + '<span class="organisation-selected-item__name">All organisations</span>'
+        + '<details class="nhsuk-details nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-0">'
+        + '<summary class="nhsuk-details__summary">'
+        + '<span class="nhsuk-details__summary-text">View all organisations list</span>'
+        + '</summary>'
+        + '<div class="nhsuk-details__text">'
+        + '<ul class="nhsuk-list nhsuk-list--bullet nhsuk-u-margin-bottom-0">'
+        + allOrganisationsList
+        + '</ul>'
+        + '</div>'
+        + '</details>'
+        + '</div>'
+        + '<button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" data-remove-all-organisations="true">Remove</button>'
+        + '</div>'
+      return
+    }
+
+    organisationSelectedList.innerHTML = selected
+      .map((checkbox) => {
+        const value = checkbox.value
+        return '<div class="organisation-selected-item">'
+          + '<span class="organisation-selected-item__name">' + escapeHtml(value) + '</span>'
+          + '<button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" data-remove-organisation="' + escapeHtml(value) + '">Remove</button>'
+          + '</div>'
+      })
+      .join('')
+  }
+
+  searchInput.addEventListener('input', function () {
+    openPanel()
+    applyListVisibility()
+    updateSelectAllState()
+  })
+
+  organisationToggle.addEventListener('click', function () {
+    const isOpen = organisationPanel.style.display === 'block'
+    organisationPanel.style.display = isOpen ? 'none' : 'block'
+
+    if (!isOpen) {
+      searchInput.focus()
+    }
+  })
+
+  selectAllCheckbox.addEventListener('change', function () {
+    const visibleCheckboxes = getVisibleOrganisationCheckboxes()
+
+    visibleCheckboxes.forEach((checkbox) => {
+      checkbox.checked = this.checked
+    })
+
+    applyListVisibility()
+    updateSelectAllState()
+    updateSummary()
+    updateSelectedList()
+  })
+
+  organisationCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function () {
+      applyListVisibility()
+      updateSelectAllState()
+      updateSummary()
+      updateSelectedList()
+    })
+  })
+
+  organisationSelectedList.addEventListener('click', function (event) {
+    const removeAllLink = event.target.closest('[data-remove-all-organisations]')
+    if (removeAllLink) {
+      event.preventDefault()
+      organisationCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false
+      })
+      updateSelectAllState()
+      updateSummary()
+      updateSelectedList()
+      return
+    }
+
+    const removeLink = event.target.closest('[data-remove-organisation]')
+    if (!removeLink) {
+      return
+    }
+
+    event.preventDefault()
+    const nameToRemove = removeLink.getAttribute('data-remove-organisation')
+    const checkboxToRemove = organisationCheckboxes.find((checkbox) => checkbox.value === nameToRemove)
+
+    if (!checkboxToRemove) {
+      return
+    }
+
+    checkboxToRemove.checked = false
+    applyListVisibility()
+    updateSelectAllState()
+    updateSummary()
+    updateSelectedList()
+  })
+
+  document.addEventListener('click', function (event) {
+    if (!organisationPanel.contains(event.target) && !organisationToggle.contains(event.target)) {
+      closePanel()
+    }
+  })
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closePanel()
+    }
+  })
+
+  applyListVisibility()
+  updateSelectAllState()
+  updateSummary()
+  updateSelectedList()
+})
+
+</script>
+{% endblock %}
