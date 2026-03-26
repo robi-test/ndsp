@@ -59,27 +59,27 @@
 </div>-->
 <div class="nhsuk-form-group">
 <label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
-<select class="nhsuk-select_small" id="filter-submitted-by" name="submittedBy">
+<select class="nhsuk-select_small" id="filter-submitted-by" name="submittedBy" style="border: 2px solid #4c6272;">
 <option value="">Anyone</option>
 <option value="James Jackson">James Jackson</option>
 <option value="Anne Williams">Anne Williams</option>
 </select>
 </div>
 <div class="nhsuk-form-group">
-<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
-<select class="nhsuk-select_small" id="filter-organisation" name="organisation">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation</strong></label>
+<select class="nhsuk-select_small" id="filter-organisation" name="organisation" style="border: 2px solid #4c6272;">
 <option value="">All organisations</option>
-<option value="Milton Keynes University Hospital">Milton Keynes University Hospital</option>
+<option value="Milton Keynes University Hospital">Milton Keynes University Hospital (RD8)</option>
 </select>
 </div>
 <div class="nhsuk-form-group">
-  <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
-  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+  <label class="nhsuk-label" for="filter-period"><strong>Reporting period:</strong></label>
+  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off" style="border: 2px solid #4c6272;">
   <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
 </div>
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
-  <select class="nhsuk-select_small" id="filter-type" name="type">
+  <select class="nhsuk-select_small" id="filter-type" name="type" style="border: 2px solid #4c6272;">
     <option value="">All types</option>
     <option value="First submission">Submission</option>
     <option value="First submission">Re-submission</option>
@@ -90,7 +90,7 @@
 <div class="nhsuk-form-group">
   <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
   <div class="status-multiselect" style="position: relative;">
-    <button type="button" class="nhsuk-select_small status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+    <button type="button" class="nhsuk-select_small status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; border: 2px solid #4c6272;">
       <span data-status-summary>All statuses</span>
     </button>
     <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
@@ -136,7 +136,7 @@
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Submitted on</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation">Organisation</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Period</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Reporting period</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
@@ -147,8 +147,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SepProv4_2026_2.xml</td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>15 Oct 2026, 09:30</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1p">View</a></td>   
@@ -157,8 +157,8 @@
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_AugFinal2026_1.xml</td>           
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>12 Oct 2026, 14:10</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>August 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>August 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1r">View</a></td> 
@@ -167,8 +167,8 @@
           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptProv3_2026_4.xml</td>    
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>27 Oct 2026, 11:05</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -177,8 +177,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_Prov2_2026_3.xml</td>        
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Oct 2026, 16:20</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
@@ -187,8 +187,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptProv1_2026_2.xml</td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Oct 2026, 10:55</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
@@ -197,8 +197,8 @@
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_SeptFinal2026_1.xml</td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>24 Oct 2026, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -207,8 +207,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_AprilFinal2026_3.xml</td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>14 Oct 2026, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>April 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>April 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -217,8 +217,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_MayFinal2026_2.xml</td>          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>7 Oct 2026, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -227,8 +227,8 @@
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_MayFinal2026_1.xml</td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Oct 2026, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026 (window closes)</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
@@ -237,8 +237,8 @@
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JunFinal2026_2.xml</td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>3 Aug 2026, 13.45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>June 2026 (window closes)</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>June 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 

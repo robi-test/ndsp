@@ -99,6 +99,11 @@ router.post('/iteration2/data-submission/choose-period', (req, res) => {
   res.redirect("/iteration2/data-submission/upload-file1");
 });
 
+router.post('/iteration3/data-submission/choose-period', (req, res) => {
+  req.session.data['period'] = req.session.data['period'];
+  res.redirect('/iteration3/data-submission/upload-file1');
+});
+
 
 
 router.post("/iteration1/permission-management/existing-local-admin/select-role", (req, res) => {
