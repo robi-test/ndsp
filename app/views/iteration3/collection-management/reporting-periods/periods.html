@@ -5,6 +5,7 @@
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 {% block beforeContent %}
 {{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
   items: [
     {
       href: "home",
@@ -22,7 +23,7 @@
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
         <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Diagnostic Imaging Data Set (V2.0) - Reporting periods</h1>
-        <p class="nhsuk-u-margin-bottom-8">Only reporting periods that do not have a submission window that is currently active or has occurred in the past can be deleted.</p>
+        <p class="nhsuk-u-margin-bottom-8">Create a reporting period first, then add one or more submission windows to manage when data can be submitted.<br>Only reporting periods with no active or past submission windows can be deleted.</p>
           {% from "action-link/macro.njk" import actionLink %}
 
 {{ actionLink({
@@ -52,57 +53,50 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 May 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 May 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>-</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="windows-may">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Jun 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Jun 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Jul 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Jul 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Aug 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Aug 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Sep 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Sep 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Oct 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Oct 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Nov 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>30 Nov 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 window</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Start date</span>1 Dec 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">End date</span>31 Dec 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission windows</span>2 windows</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="window-new">Manage</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm">Delete</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Actions</span><a href="#">Manage</a></td>
     </tr>
   </tbody>
 </table>
