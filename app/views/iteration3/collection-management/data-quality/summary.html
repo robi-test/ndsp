@@ -1,14 +1,21 @@
 {% extends "iteration3/collection-management/layout-collection-management.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
-{% set pageName = "Error Summary" %}
+{% set pageName = "Data quality issues" %}
 
 {% block beforeContent %}
-  {{ backLink({
-    href:  "javascript:history.back()",
-    text: "Back"
-  }) }}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "../home",
+      text: "Home"
+    }
+  ]
+}) }}
 {% endblock %}
+
 
 {% block content %}
 
@@ -16,6 +23,7 @@
     <div class="nhsuk-grid-column-full">
       <div class="nhsuk-width-container">
         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+          <span class="nhsuk-caption-l nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4">Diagnostic Imaging Data Set (V2.0)</span>
             <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Data quality issues</h1>
             <!-- <h2 class="nhsuk-heading-m"><span class="nhsuk-caption-m"></span>Diagnostic Imaging Data Set (V2.0)</h2> -->
             <p>This page shows the count of errors and warnings identified during validation of submitted data across all submissions, excluding test file submissions, helping you identify the most common issues.</p>
@@ -912,6 +920,43 @@ document.addEventListener('DOMContentLoaded', function() {
     const rows = table.querySelectorAll('tbody tr');
     let csvContent = 'Type,Error Code,Table,Data Item,Category,Count\n';
     
+    // Generate dynamic filename based on current filters
+    let filename = 'data-quality';
+    
+    // Organisation filter
+    const orgAllRadio = document.getElementById('org-all');
+    const orgSpecificRadio = document.getElementById('org-specific');
+    if (orgSpecificRadio.checked && selectedOrganisations.length > 0) {
+      const orgName = selectedOrganisations[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + orgName;
+    } else {
+      filename += '-all-organisations';
+    }
+    
+    // Period filter
+    const periodAllRadio = document.getElementById('period-all');
+    const periodSpecificRadio = document.getElementById('period-specific');
+    if (periodSpecificRadio.checked && selectedPeriods.length > 0) {
+      const periodName = selectedPeriods[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + periodName;
+    } else {
+      filename += '-all-periods';
+    }
+    
+    // Type filter
+    const typeAllRadio = document.getElementById('type-all');
+    const typeWarningsRadio = document.getElementById('type-warnings');
+    const typeFailuresRadio = document.getElementById('type-failures');
+    if (typeWarningsRadio.checked) {
+      filename += '-warnings-only';
+    } else if (typeFailuresRadio.checked) {
+      filename += '-failures-only';
+    } else {
+      filename += '-all-errors';
+    }
+    
+    filename += '.csv';
+    
     // Extract data from visible rows only
     rows.forEach(function(row) {
       if (row.style.display !== 'none') {
@@ -941,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-    link.setAttribute('download', 'data-quality-errors.csv');
+    link.setAttribute('download', filename);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
