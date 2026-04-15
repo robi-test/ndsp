@@ -13,16 +13,8 @@
       text: "Home"
     },
     {
-      href: "performance-by-period",
-      text: "Performance by period"
-    },
-   {
-      href: "organisation-breakdown",
-      text: "December 2025"
-    },
-    {
-      href: "submissions-org",
-      text: "Circle Health Group Limited"
+      href: "submissions",
+      text: "All submissions"
     }
   ]
 }) }}
@@ -44,15 +36,15 @@
                 },
                 {
                   key: { text: "Organisation" },
-                  value: { text: "Circle Health Group Limited(RD8)" }
+                  value: { text: "Milton Keynes University Hospital (RD8)" }
                 },
                 {
                   key: { text: "Reporting period" },
-                  value: { text: "December 2025" }
+                  value: { text: "January 2026" }
                 },
                 {
                   key: { text: "File submitted" },
-                  value: { text: "DID_DecProv4_2025_2.xml" },
+                  value: { text: "DID_JanProv4_2026_2.xml" },
                   actions: {
                     items: [
                       {
@@ -120,7 +112,7 @@
                 
                 {
                   key: { text: "Errors" },
-                  value: { text: "10 Error(s)" },
+                  value: { text: "12 Error(s)" },
                   actions: {
                     items: [
                       {
@@ -133,7 +125,7 @@
                  },
                 {
                   key: { text: "Warnings" },
-                  value: { text: "4 Warning(s)" }
+                  value: { text: "5 Warning(s)" }
                 }
               ]
             }) }}
@@ -141,41 +133,53 @@
            
     </div>
     <div style="margin-top: 10px;">
-      <h2 class="nhsuk-heading-m">Error details</h2>
+      <h2 class="nhsuk-heading-m">Error summary</h2>
       <table class="nhsuk-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation errors for the period</caption>
         <thead class="nhsuk-table__head">
           <tr class="nhsuk-table__row">
             <th scope="col" class="nhsuk-table__header">Error code</th>
+            <th scope="col" class="nhsuk-table__header">Group</th>
             <th scope="col" class="nhsuk-table__header">Field name</th>
-            <th scope="col" class="nhsuk-table__header">Error</th>
+            <th scope="col" class="nhsuk-table__header">Category</th>
             <th scope="col" class="nhsuk-table__header">Count</th>
           </tr>
         </thead>
         <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">DIDS00101002</td>
-            <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)</td>
-            <td class="nhsuk-table__cell">is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and Dictionary). </td>
+            <td class="nhsuk-table__cell">DIDS001_MPI</td>
+            <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE PATIENT REGISTRATION</td>
+            <td class="nhsuk-table__cell">Bad value</td>
             <td class="nhsuk-table__cell">4</td>
           </tr>
           <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00101008</td>
+            <td class="nhsuk-table__cell">DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell">CODED PROCEDURE SNOMED CT</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">3</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00100501</td>
+            <td class="nhsuk-table__cell">DIDS001_MPI</td>
+            <td class="nhsuk-table__cell">PERSON BIRTH DATE</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">DIDS00200603</td>
+            <td class="nhsuk-table__cell">DIDS003_ACTIVITY</td>
             <td class="nhsuk-table__cell">DIAGNOSTIC TEST REQUEST DATE</td>
-            <td class="nhsuk-table__cell">is after reporting_period_end_date.</td>
+            <td class="nhsuk-table__cell">Blank</td>
             <td class="nhsuk-table__cell">2</td>
           </tr>
           <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell">DIDS00000202</td>
-            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (CODE OF PROVIDER)</td>
-            <td class="nhsuk-table__cell"> has an incorrect data format</td>
-            <td class="nhsuk-table__cell">2</td>
-          </tr>
-          <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell">DIDS00300502</td>
-            <td class="nhsuk-table__cell">CODED PROCEDURE END TIMESTAMP</td>
-            <td class="nhsuk-table__cell"> has an incorrect data format.</td>
-            <td class="nhsuk-table__cell">2</td>
+            <td class="nhsuk-table__cell">DIDS00000201</td>
+            <td class="nhsuk-table__cell">DIDS000_HEADER</td>
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER CODE OF PROVIDER</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">1</td>
           </tr>
           
         </tbody>
@@ -183,23 +187,32 @@
     </div>
 
      <div style="margin-top: 10px;">
-      <h2 class="nhsuk-heading-m">Warning details</h2>
+      <h2 class="nhsuk-heading-m">Warning summary</h2>
       <table class="nhsuk-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
         <thead class="nhsuk-table__head">
           <tr class="nhsuk-table__row">
-            <th scope="col" class="nhsuk-table__header">Warning code</th>
+            <th scope="col" class="nhsuk-table__header">Error code</th>
+            <th scope="col" class="nhsuk-table__header">Group</th>
             <th scope="col" class="nhsuk-table__header">Field name</th>
-            <th scope="col" class="nhsuk-table__header">Warning</th>
+            <th scope="col" class="nhsuk-table__header">Category</th>
             <th scope="col" class="nhsuk-table__header">Count</th>
           </tr>
         </thead>
         <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell">DIDS003001</td>
-            <td class="nhsuk-table__cell">RADIOLOGICAL ACCESSION NUMBER</td>
-            <td class="nhsuk-table__cell">contains an invalid value. </td>
-            <td class="nhsuk-table__cell">4</td>
+            <td class="nhsuk-table__cell">DIDS00200103</td>
+            <td class="nhsuk-table__cell">DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell">CODED PROCEDURE START TIMESTAMP</td>
+            <td class="nhsuk-table__cell">Blank</td>
+            <td class="nhsuk-table__cell">3</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00301002</td>
+            <td class="nhsuk-table__cell">DIDS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell">REFERRER RADIOLOGY PROCEDURE EVALUATION INDICATOR</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">2</td>
           </tr>
         
           
