@@ -45,7 +45,7 @@
   <ul class="nhsuk-tabs__list">
     <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
       <a class="nhsuk-tabs__tab" href="#all">
-        All
+        Overview
       </a>
     </li>
     <li class="nhsuk-tabs__list-item">
@@ -60,7 +60,7 @@
       <div class="nhsuk-tabs__panel" id="all" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
         <!-- Table filters -->      
         <div>
-          <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
+          <form id="table-filters-all" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
             <div class="nhsuk-table-filters__grid_medium">
 
               
@@ -159,7 +159,7 @@
                 </fieldset>
               </div>
               <div class="nhsuk-table-filters__actions">
-              <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 100px;" type="submit" onclick="handleShowResults(); return false">Show results</button>
+              <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 100px;" type="submit" onclick="handleShowResults(this); return false">Show results</button>
             </div>
             </div>
             
@@ -474,7 +474,7 @@
 <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="by-organisation" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
   <!-- Table filters -->      
   <div>
-    <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
+    <form id="table-filters-org" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
       <div class="nhsuk-table-filters__grid_medium">
         
         <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
@@ -494,7 +494,7 @@
               <div class="nhsuk-radios__item">
                 <input class="nhsuk-radios__input" id="org-specific" name="organisation-filter" type="radio" value="specific">
                 <label class="nhsuk-label nhsuk-radios__label" for="org-specific">
-                  Select a specific organisation
+                  Select an organisation
                 </label>
                 <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="org-specific-conditional">
                   <div class="nhsuk-form-group" style="margin-top: 16px;">
@@ -630,14 +630,14 @@
         </div>
         
         <div class="nhsuk-table-filters__actions">
-          <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 10px;" type="submit" onclick="handleShowResults(); return false">Show results</button>
+          <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 10px;" type="submit" onclick="handleShowResultsOrg(this); return false">Show results</button>
         </div>
       </div>
     </form>
   </div>
 
 
-<table id="error-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
+<table id="organisation-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhsuk-u-visually-hidden">Top validation errors for the period</caption>
         <thead class="nhsuk-table__head" role="rowgroup">
           <tr class="nhsuk-table__row" role="row">
@@ -1307,9 +1307,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const filteredCounts = [450, 340, 235, 210, 180, 155, 132, 118, 103, 91, 74, 67, 58, 50, 43, 36, 29, 22, 17, 12];
   
   // Handle Show Results button - make it globally available
-  window.handleShowResults = function() {
+  window.handleShowResults = function(buttonElement) {
     const loadingIndicator = document.getElementById('loading-indicator');
-    const showResultsButton = document.querySelector('.nhsuk-button[onclick*="handleShowResults"]');
+    const showResultsButton = buttonElement || document.querySelector('#table-filters-all .nhsuk-button');
     const errorTable = document.getElementById('error-summary-table');
     const resultsTitle = document.getElementById('results-title');
     
@@ -1391,6 +1391,47 @@ document.addEventListener('DOMContentLoaded', function() {
       loadingIndicator.style.display = 'none';
       errorTable.style.display = 'table';
       resultsTitle.style.display = 'block';
+      showResultsButton.disabled = false;
+      showResultsButton.textContent = 'Show results';
+    }, loadingTime);
+  };
+  
+  // Handle Show Results button for Organisation tab - make it globally available
+  window.handleShowResultsOrg = function(buttonElement) {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const showResultsButton = buttonElement || document.querySelector('#table-filters-org .nhsuk-button');
+    const orgTable = document.getElementById('organisation-summary-table');
+    
+    // Show loading indicator, hide table and disable button
+    loadingIndicator.style.display = 'flex';
+    orgTable.style.display = 'none';
+    showResultsButton.disabled = true;
+    showResultsButton.textContent = 'Loading...';
+    
+    // Simulate request time (1.5-2.5 seconds)
+    const loadingTime = Math.random() * 1000 + 1500;
+    
+    setTimeout(function() {
+      // Execute the actual filtering logic for organisation table
+      const countCells = document.querySelectorAll('#organisation-summary-table tbody tr td:last-child');
+      const tableRows = document.querySelectorAll('#organisation-summary-table tbody tr');
+      
+      // Simple example - just update some counts (in real implementation this would filter based on form inputs)
+      const sampleCounts = [89, 76, 65, 54, 43, 38, 29, 21, 18, 15];
+      
+      // Update each count in the organisation table
+      countCells.forEach(function(cell, index) {
+        if (index < sampleCounts.length) {
+          // Find the count number at the end of the cell text and replace it
+          const innerHTML = cell.innerHTML;
+          const updatedHTML = innerHTML.replace(/(\d+)(?=[^>]*$)/, sampleCounts[index]);
+          cell.innerHTML = updatedHTML;
+        }
+      });
+      
+      // Hide loading indicator, show table and restore button
+      loadingIndicator.style.display = 'none';
+      orgTable.style.display = 'table';
       showResultsButton.disabled = false;
       showResultsButton.textContent = 'Show results';
     }, loadingTime);
@@ -1557,6 +1598,11 @@ document.addEventListener('DOMContentLoaded', function() {
             { name: 'Moorfields Eye Hospital', count: Math.floor(Math.random() * 15) + 2 },
             { name: 'Great Ormond Street Hospital', count: Math.floor(Math.random() * 12) + 1 }
           ];
+          
+          // Sort organizations by count in descending order
+          organizations.sort(function(a, b) {
+            return b.count - a.count;
+          });
           
           // Create expanded rows
           organizations.forEach(function(org, orgIndex) {
