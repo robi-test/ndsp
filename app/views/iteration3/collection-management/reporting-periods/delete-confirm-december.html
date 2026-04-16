@@ -20,8 +20,8 @@
       text: "Reporting period"
     }
   ],
-  href: "windows-april",
-  text: "April 2026"
+  href: "windows-december",
+  text: "December 2026"
 }) }}
 {% endblock %}
 
@@ -30,27 +30,24 @@
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
 
-        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Are you sure you want to delete this submission window?</h1>
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Are you sure you want to delete this reporting periood?</h1>
 
-        <p>You are about to delete the following submission window:</p>
+        <p>You are about to delete the following reporting period:</p>
 
         <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
           <div class="nhsuk-summary-list__row">
-            <dt class="nhsuk-summary-list__key">Submission window</dt>
-            <dd class="nhsuk-summary-list__value">Deadline extension </dd>
+            <dt class="nhsuk-summary-list__key">Reporting period</dt>
+            <dd class="nhsuk-summary-list__value">December 2026 </dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Start date</dt>
-            <dd class="nhsuk-summary-list__value">1 Nov 2026, 00:00</dd>
+            <dd class="nhsuk-summary-list__value">1 Dec 2026, 00:00</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">End date</dt>
-            <dd class="nhsuk-summary-list__value">30 Nov 2026, 23:59</dd>
+            <dd class="nhsuk-summary-list__value">31 Dec 2026, 23:59</dd>
           </div>
-          <div class="nhsuk-summary-list__row">
-            <dt class="nhsuk-summary-list__key">Organisations</dt>
-            <dd class="nhsuk-summary-list__value">2 organisations</dd>
-          </div>
+        
         </dl>
 
         <div class="nhsuk-inset-text">
@@ -58,11 +55,11 @@
           <p>This action cannot be undone.</p>
         </div>
 
-        <form method="post" action="windows-april-delete-message">
+        <form method="post" action="periods-period-delete">
           <input type="hidden" name="action" value="delete">
-          <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="windows-april">Cancel</a>
+          <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="periods">Cancel</a>
           <button class="nhsuk-button nhsuk-button--warning" type="submit">
-            Delete submission window
+            Delete reporting period
           </button>
         </form>
 
