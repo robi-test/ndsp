@@ -28,6 +28,7 @@
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-three-thirds">
     <h1 class="nhsuk-heading-l">May 2026</h1>
+    <p class="nhsuk-body-m">You can only delete reporting periods and submission windows that are not open and have not already occurred.</p>
 
     {{ table({
       responsive: true,
@@ -61,7 +62,7 @@
             text: "31 May 2026"
           },
           {
-            html: '<a href="period-edit-may">Edit</a>'
+            html: '<a href="period-edit-may">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm2">Delete</a>'
           }
         ]
       ]
@@ -69,12 +70,11 @@
 
     <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-4">Submission windows</h2>
 
-    <p class="nhsuk-body-m">You can only delete submission windows that are not open and have not already occurred.</p>
-
+    
     <div class="nhsuk-u-margin-bottom-6">
     {{ actionLink({
       text: "Add submission window",
-      href: "window-new"
+      href: "window-new-may"
     }) }}
     </div>
 

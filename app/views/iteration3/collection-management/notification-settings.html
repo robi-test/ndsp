@@ -1,19 +1,25 @@
-{% extends "iteration1/data-submission/layout.html" %}
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
 {% set pageName = "Email notification settings" %}
 {% block beforeContent %}
-  {{ backLink({
-    href:  "javascript:history.back()",
-    text: "Back"
-  }) }}
+{{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "setup",
+      text: "Set up"
+}) }}
 
 {% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        {% from "button/macro.njk" import button %}
-       <h1>
-         {{ pageName }}
-      </h1>
+      <span class="nhsuk-caption-l">Diagnostic Imaging Data Set (DIDS v2.0)</span>
+      <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
         <div class="nhsuk-u-margin-bottom-6"> 
            <div class="nhsuk-u-margin-bottom-6"> 
           <p>Choose which email notifications you want to receive from the National Data Submission Portal.
@@ -21,6 +27,7 @@ You can turn notifications on or off at any time. Some essential service emails 
           </p>
 
           {% from "summary-list/macro.njk" import summaryList %}
+          {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
             <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0">Notification summary</h2>
             <a href="notification-settings-edit" class="nhsuk-link">Change notification setting</a>
@@ -33,7 +40,7 @@ You can turn notifications on or off at any time. Some essential service emails 
                   text: "Submission window opened"
                 },
                 value: {
-                  text: "Active"
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
                 }
               },
               {
@@ -41,7 +48,7 @@ You can turn notifications on or off at any time. Some essential service emails 
                   text: "Submission deadline approaching"
                 },
                 value: {
-                  text: "Active"
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
                 }
               },
               {
@@ -49,7 +56,7 @@ You can turn notifications on or off at any time. Some essential service emails 
                   text: "Submission deadline changed"
                 },
                 value: {
-                  text: "Active"
+                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
                 }
               },
               {
@@ -57,7 +64,7 @@ You can turn notifications on or off at any time. Some essential service emails 
                   text: "Validation completed"
                 },
                 value: {
-                  text: "Not active"
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
                 }
               }
             ]
