@@ -27,6 +27,7 @@
 
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
+{% from "checkboxes/macro.njk" import checkboxes %}
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
@@ -752,6 +753,61 @@
     }
   ]
 }) }}
+
+<div class="nhsuk-u-margin-top-8">
+{{ checkboxes({
+  idPrefix: "submission-type",
+  name: "submission-type",
+  fieldset: {
+    legend: {
+      text: "Submission type",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "test-only",
+      hint: {
+        text: "If selected, this submission window will only accept test data and will not be included in live reporting."
+      },
+      text: "Allow only test submissions"
+    }
+  ]
+}) }}
+</div>
+
+<div class="nhsuk-u-margin-top-6">
+{{ checkboxes({
+  idPrefix: "notifications",
+  name: "notifications",
+  fieldset: {
+    legend: {
+      text: "Notifications",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "notify-opened",
+      text: "Send a notification when this submission window opened",
+      checked: true,
+      hint: {
+        text: "Users will receive an email notification when the submission window becomes available."
+      }
+    },
+    {
+      value: "notify-deadline",
+      text: "Submission deadline approaching",
+      checked: true,
+      hint: {
+        text: "Users will receive reminder notifications as the submission deadline approaches."
+      }
+    }
+  ]
+}) }}
+</div>
 
 
 

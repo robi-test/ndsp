@@ -25,7 +25,7 @@
 <div class="nhsuk-form-group nhsuk-u-margin-top-8">
   <h1 class="nhsuk-label-wrapper">
     <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
-      Submission window name/ Type of deadline
+      Submission window name
     </label>
   </h1>
   <input class="nhsuk-input" id="submission-window-name" name="submissionWindowName" type="text">
@@ -733,14 +733,66 @@
     }
   ]
 }) }}
+<div class="nhsuk-u-margin-top-8">
+{{ checkboxes({
+  idPrefix: "submission-type",
+  name: "submission-type",
+  fieldset: {
+    legend: {
+      text: "Submission type",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "test-only",
+      hint: {
+        text: "If selected, this submission window will only accept test data and will not be included in live reporting."
+      },
+      text: "Allow only test submissions"
+    }
+  ]
+}) }}
+</div>
 
+<div class="nhsuk-u-margin-top-6">
+{{ checkboxes({
+  idPrefix: "notifications",
+  name: "notifications",
+  fieldset: {
+    legend: {
+      text: "Notifications",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "notify-opened",
+      text: "Send a notification when this submission window opened",
+      hint: {
+        text: "Users will receive an email notification when the submission window becomes available."
+      }
+    },
+    {
+      value: "notify-deadline",
+      text: "Submission deadline approaching",
+      hint: {
+        text: "Users will receive reminder notifications as the submission deadline approaches."
+      }
+    }
+  ]
+}) }}
+</div>
 
 
 </fieldset>
   {% from "button/macro.njk" import button %}
 <div class="nhsuk-u-margin-top-8">
 {{ button({
-  text: "Save"
+  text: "Save",
+  href: "javascript:history.back()"
 }) }}
 </div>
       </div>
