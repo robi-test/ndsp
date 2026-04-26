@@ -1,0 +1,359 @@
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "December 2025 Submission details" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "performance-by-period",
+      text: "Performance by period"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-lm nhsuk-u-margin-bottom-8">December 2025</h1>
+
+            {% from "summary-list/macro.njk" import summaryList %}
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Collection" },
+                  value: { text: "Diagnostic Imaging Data Set  (DIDS v2.0)" }
+                },
+                {
+                  key: { text: "Reporting period" },
+                  value: { text: "December 2025" }
+                }
+              ]
+            }) }}
+
+            {{ actionLink({
+              text: "Send reminder",
+              href: "#"
+            }) }}
+
+    <div class="nhsuk-tabs" data-module="nhsuk-tabs">
+      <h2 class="nhsuk-tabs__title">Contents</h2>
+      <ul class="nhsuk-tabs__list">
+        <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+          <a class="nhsuk-tabs__tab" href="#organisation-breakdown">Organisation breakdown</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#performance">Performance chart</a>
+        </li>
+      </ul>
+
+      <div class="nhsuk-tabs__panel" id="organisation-breakdown">
+<table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr role="row" class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">Organisation</th> 
+           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission status</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Submitted</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submittedBy">Rejected</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="Period">Accepted</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="testSubmission">Test submissions</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Last submission</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Submissions</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">      
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited (NT4)</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "No valid submission", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>0</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>1</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>17 Dec 2025, 09:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="submissions-org">View</a></td>   
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NYR)</td>           
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <!--<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Sheffield Teaching Hospital</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>3</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>29 Dec 2025, 11:45 </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="submission-details1r">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical (NT9)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Dec 2025, 14:23</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RF4)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>22 Dec 2025, 10:15</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>19 Dec 2025, 16:45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "No valid submission", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>-</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>1</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>20 Dec 2025, 13:22</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>27 Dec 2025, 15:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>1</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>2</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>24 Dec 2025, 08:45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust (RJ1)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Submitted", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>18 Dec 2025, 12:05</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+<!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div>
+
+      </div>
+
+      <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="performance">
+        <h2 class="nhsuk-heading-m">Performance</h2>
+        <p class="nhsuk-body">Counts by organisation for accepted, rejected and test submissions.</p>
+        <div id="performance-chart" aria-label="Organisation performance bar chart"></div>
+        <div id="performance-legend" class="nhsuk-u-margin-top-3" aria-label="Chart legend"></div>
+      </div>
+
+    </div>
+
+    <script>
+      (function () {
+        var table = document.getElementById('submissions-table');
+        var chartHost = document.getElementById('performance-chart');
+        var legendHost = document.getElementById('performance-legend');
+        var performanceTab = document.querySelector('a.nhsuk-tabs__tab[href="#performance"]');
+        var rendered = false;
+
+        if (!table || !chartHost || !legendHost) return;
+
+        function cellValue(cell) {
+          if (!cell) return '';
+          var clone = cell.cloneNode(true);
+          var headings = clone.querySelectorAll('.nhsuk-table-responsive__heading');
+          for (var index = 0; index < headings.length; index++) {
+            headings[index].remove();
+          }
+          return clone.textContent.trim();
+        }
+
+        function toNumber(value) {
+          var match = String(value).match(/\d+/);
+          return match ? Number(match[0]) : 0;
+        }
+
+        function chartData() {
+          var rows = table.querySelectorAll('tbody tr');
+          var data = [];
+
+          for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+            var cells = rows[rowIndex].querySelectorAll('td');
+            if (cells.length < 6) continue;
+            data.push({
+              organisation: cellValue(cells[0]),
+              rejected: toNumber(cellValue(cells[3])),
+              accepted: toNumber(cellValue(cells[4])),
+              test: toNumber(cellValue(cells[5]))
+            });
+          }
+
+          return data;
+        }
+
+        function render() {
+          var data = chartData();
+          if (!data.length) {
+            chartHost.innerHTML = '<p class="nhsuk-body">No data available for the chart.</p>';
+            return;
+          }
+
+          var width = Math.max(900, chartHost.clientWidth || 900);
+          var marginTop = 24;
+          var marginRight = 40;
+          var marginBottom = 40;
+          var marginLeft = 420;
+          var barHeight = 10;
+          var barGap = 2;
+          var groupGap = 26;
+          var groupHeight = (barHeight * 3) + (barGap * 2);
+          var height = marginTop + marginBottom + data.length * (groupHeight + groupGap);
+          var plotWidth = width - marginLeft - marginRight;
+          var maxValue = 0;
+
+          for (var valueIndex = 0; valueIndex < data.length; valueIndex++) {
+            maxValue = Math.max(maxValue, data[valueIndex].accepted, data[valueIndex].rejected, data[valueIndex].test);
+          }
+
+          maxValue = Math.max(maxValue, 1);
+
+          var ticks = [];
+          for (var tick = 0; tick <= maxValue; tick++) {
+            ticks.push(tick);
+          }
+
+          function xScale(value) {
+            return marginLeft + (value / maxValue) * plotWidth;
+          }
+
+          var svg = [];
+          svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Performance by organisation">');
+
+          for (var tickIndex = 0; tickIndex < ticks.length; tickIndex++) {
+            var tickValue = ticks[tickIndex];
+            var x = xScale(tickValue);
+            svg.push('<line x1="' + x + '" y1="' + marginTop + '" x2="' + x + '" y2="' + (height - marginBottom) + '" stroke="#d8dde0" stroke-width="1" />');
+            svg.push('<text x="' + x + '" y="' + (height - marginBottom + 18) + '" text-anchor="middle" font-size="12" fill="#4c6272">' + tickValue + '</text>');
+          }
+
+          for (var groupIndex = 0; groupIndex < data.length; groupIndex++) {
+            var groupTop = marginTop + groupIndex * (groupHeight + groupGap);
+            var labelY = groupTop + (groupHeight / 2) + 4;
+            var org = data[groupIndex];
+
+            svg.push('<text x="' + (marginLeft - 10) + '" y="' + labelY + '" text-anchor="end" font-size="13" fill="#212b32">' + org.organisation.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</text>');
+
+            var bars = [
+              { value: org.accepted, color: '#00A499' },
+              { value: org.rejected, color: '#DA291C' },
+              { value: org.test, color: '#005EB8' }
+            ];
+
+            for (var barIndex = 0; barIndex < bars.length; barIndex++) {
+              var bar = bars[barIndex];
+              var barY = groupTop + (barIndex * (barHeight + barGap));
+              var barWidth = (bar.value / maxValue) * plotWidth;
+              svg.push('<rect x="' + marginLeft + '" y="' + barY + '" width="' + barWidth + '" height="' + barHeight + '" fill="' + bar.color + '" />');
+              svg.push('<text x="' + (marginLeft + barWidth + 6) + '" y="' + (barY + barHeight - 1) + '" text-anchor="start" font-size="11" fill="#212b32">' + bar.value + '</text>');
+            }
+          }
+
+          svg.push('<text x="' + (marginLeft + plotWidth / 2) + '" y="' + (height - 6) + '" text-anchor="middle" font-size="13" fill="#212b32">Count</text>');
+          svg.push('<text transform="translate(24 ' + (marginTop + (height - marginTop - marginBottom) / 2) + ') rotate(-90)" text-anchor="middle" font-size="13" fill="#212b32">Organisations</text>');
+          svg.push('</svg>');
+
+          chartHost.innerHTML = svg.join('');
+          legendHost.innerHTML = [
+            '<span style="display:inline-flex;align-items:center;margin-right:16px;"><span style="width:12px;height:12px;background:#00A499;display:inline-block;margin-right:6px;"></span>Accepted</span>',
+            '<span style="display:inline-flex;align-items:center;margin-right:16px;"><span style="width:12px;height:12px;background:#DA291C;display:inline-block;margin-right:6px;"></span>Rejected</span>',
+            '<span style="display:inline-flex;align-items:center;"><span style="width:12px;height:12px;background:#005EB8;display:inline-block;margin-right:6px;"></span>Test</span>'
+          ].join('');
+        }
+
+        function renderIfNeeded() {
+          if (rendered) return;
+          render();
+          rendered = true;
+        }
+
+        if (performanceTab) {
+          performanceTab.addEventListener('click', function () {
+            setTimeout(renderIfNeeded, 0);
+          });
+        }
+
+        if (window.location.hash === '#performance') {
+          renderIfNeeded();
+        }
+
+      })();
+    </script>
+
+
+    </div>
+  </div>
+{% endblock %}

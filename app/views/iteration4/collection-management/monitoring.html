@@ -1,0 +1,83 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+         Monitoring
+      </h1>
+
+      <p>
+         
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
+
+<!--       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "submissions",
+        primary: "true",
+        clickable: "true",
+        heading: "Submissions",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li> -->
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "performance-by-period",
+        primary: "true",
+        clickable: "true",
+        heading: "Performance by period",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "data-quality/summary",
+        primary: "true",
+        clickable: "true",
+        heading: "Data quality",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "-",
+        primary: "true",
+        clickable: "true",
+        heading: "Submitting organisations",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+
+    </ul>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

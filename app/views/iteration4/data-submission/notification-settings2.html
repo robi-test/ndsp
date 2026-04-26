@@ -1,0 +1,161 @@
+{% extends "iteration3/data-submission/layout.html" %}
+{% set pageName = "Email notification settings" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+          <p>Turn email notifications on or off for the National Data Submission Portal.
+You can change this setting at any time. <br>Important service emails, such as account and security messages, will still be sent.
+          </p>
+
+          <div id="settings-change-message" class="nhsuk-inset-text" style="display: none;">
+            <p>A change has been made in your setting.</p>
+          </div>
+
+          <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Email notifications</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Switch on to receive all notifications about submissions and activity. Switch off to stop non-essential notifications. Important service emails will still be sent.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+/* Toggle Switch Styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #768692;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #007f3b;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 0 4px #ffeb3b;
+}
+
+/* Spinner animation for refresh effect */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Toggle functionality with page refresh simulation
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('validation-toggle');
+  const message = document.getElementById('settings-change-message');
+  
+  toggle.addEventListener('change', function() {
+    const isChecked = this.checked;
+    console.log('Validation notifications:', isChecked ? 'ON' : 'OFF');
+
+    if (message) {
+      message.style.display = 'block';
+    }
+    
+    // Create overlay for refresh effect
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.2s;
+    `;
+    
+    const spinner = document.createElement('div');
+    spinner.style.cssText = `
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #005eb8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    `;
+    
+    overlay.appendChild(spinner);
+    document.body.appendChild(overlay);
+    
+    // Fade in overlay
+    setTimeout(() => overlay.style.opacity = '1', 10);
+    
+    // Show spinner for 0.5 seconds
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.remove();
+        // Settings saved successfully
+      }, 200);
+    }, 500);
+  });
+});
+</script>
+{% endblock %}

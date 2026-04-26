@@ -1,0 +1,93 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "setup",
+  text: "Set up"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-full">
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-8">Diagnostic Imaging Data Set (V2.0) - Submission windows</h1>
+
+<dl class="nhsuk-summary-list">
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">Submission window</dt>
+    <dd class="nhsuk-summary-list__value"><strong>Start date</strong></dd>
+    <dd class="nhsuk-summary-list__value"><strong>End date</strong></dd>
+    <dd class="nhsuk-summary-list__actions"><strong>Change</strong></dd>
+  </div>
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">April 2026 (provisional processing deadline)</dt>
+    <dd class="nhsuk-summary-list__value">1 May 2026</dd>
+    <dd class="nhsuk-summary-list__value">31 May 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="window-new">Change</a></dd>
+  </div>
+
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">April 2026 (window closes)</dt>
+    <dd class="nhsuk-summary-list__value">1 June 2026</dd>
+    <dd class="nhsuk-summary-list__value">31 Oct 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">May 2026 (provisional processing deadline)</dt>
+    <dd class="nhsuk-summary-list__value">1 June 2026</dd>
+    <dd class="nhsuk-summary-list__value">30 June 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">May 2026 (window closes)</dt>
+    <dd class="nhsuk-summary-list__value">1 July 2026</dd>
+    <dd class="nhsuk-summary-list__value">31 Nov 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+    <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">July 2026 (provisional processing deadline)</dt>
+    <dd class="nhsuk-summary-list__value">1 Aug 2026</dd>
+    <dd class="nhsuk-summary-list__value">31 Aug 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">June 2026 (window closes)</dt>
+    <dd class="nhsuk-summary-list__value">1 Sept 2026</dd>
+    <dd class="nhsuk-summary-list__value">30 Dec 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">August 2026 (provisional processing deadline)</dt>
+    <dd class="nhsuk-summary-list__value">1 Aug 2026</dd>
+    <dd class="nhsuk-summary-list__value">30 Sep 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+  <div class="nhsuk-summary-list__row">
+    <dt class="nhsuk-summary-list__key">September 2026 (provisional processing deadline)</dt>
+    <dd class="nhsuk-summary-list__value">1 Sep 2026</dd>
+    <dd class="nhsuk-summary-list__value">31 Oct 2026</dd>
+    <dd class="nhsuk-summary-list__actions"><a href="#">Change</a></dd>
+  </div>
+</dl>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

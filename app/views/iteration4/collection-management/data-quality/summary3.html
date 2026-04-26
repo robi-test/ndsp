@@ -1,0 +1,1148 @@
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Data quality issues" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "../home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+          <span class="nhsuk-caption-l nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4">Diagnostic Imaging Data Set (V2.0)</span>
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Data quality issues</h1>
+            <!-- <h2 class="nhsuk-heading-m"><span class="nhsuk-caption-m"></span>Diagnostic Imaging Data Set (V2.0)</h2> -->
+            <p>This page shows the count of errors and warnings identified during validation of submitted data across all submissions, excluding test file submissions, helping you identify the most common issues.</p>
+            
+      
+  </div>
+
+    <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+          <button class="nhsuk-button nhsuk-button--secondary" onclick="downloadCSV(); return false" style="margin-right: 0;">
+            Download as CSV
+          </button>
+        </div>
+      
+      <div class="table-panel" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+        <!-- Table filters -->      
+        <div>
+          <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
+            <div class="nhsuk-table-filters__grid_medium">
+
+              <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+                    <h2 class="nhsuk-fieldset__heading">
+                      Organisations
+                    </h2>
+                  </legend>
+                  <div class="nhsuk-radios nhsuk-radios--small">
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="org-all" name="organisation-filter" type="radio" value="all" checked>
+                      <label class="nhsuk-label nhsuk-radios__label" for="org-all">
+                        All organisations
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="org-specific" name="organisation-filter" type="radio" value="specific">
+                      <label class="nhsuk-label nhsuk-radios__label" for="org-specific">
+                        Select a specific organisation
+                      </label>
+                      <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="org-specific-conditional">
+                        <div class="nhsuk-form-group" style="margin-top: 16px;">
+                          <label class="nhsuk-label" for="organisation-dropdown">
+                            Select organisation:
+                          </label>
+                          <div class="organisation-dropdown-container" style="position: relative;">
+                            <button type="button" id="organisation-dropdown" class="nhsuk-select" style="width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                              <span id="org-dropdown-label">No organisation selected</span>
+                              <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
+                                <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
+                              </svg>
+                            </button>
+                            
+                            <div id="organisation-dropdown-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
+                              <div class="nhsuk-form-group" style="margin-bottom: 16px;">
+                                <input class="nhsuk-input" id="organisation-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #ffeb3b;">
+                              </div>
+                              
+                              <div class="organisation-list" style="max-height: 200px; overflow-y: auto;">
+                                <div class="organisation-option" data-value="Alliance Medical">Alliance Medical</div>
+                                <div class="organisation-option" data-value="Barking, Havering and Redbridge University Hospitals NHS Trust">Barking, Havering and Redbridge University Hospitals NHS Trust</div>
+                                <div class="organisation-option" data-value="Barts Health NHS Trust">Barts Health NHS Trust</div>
+                                <div class="organisation-option" data-value="Chelsea and Westminster Hospital NHS Foundation Trust">Chelsea and Westminster Hospital NHS Foundation Trust</div>
+                                <div class="organisation-option" data-value="Circle Health Group Limited">Circle Health Group Limited</div>
+                                <div class="organisation-option" data-value="Croydon Health Services NHS Trust">Croydon Health Services NHS Trust</div>
+                                <div class="organisation-option" data-value="Guy's and St Thomas' NHS Foundation Trust">Guy's and St Thomas' NHS Foundation Trust</div>
+                                <div class="organisation-option" data-value="Imperial College Healthcare NHS Trust">Imperial College Healthcare NHS Trust</div>
+                                <div class="organisation-option" data-value="King's College Hospital NHS Foundation Trust">King's College Hospital NHS Foundation Trust</div>
+                                <div class="organisation-option" data-value="Royal Free London NHS Foundation Trust">Royal Free London NHS Foundation Trust</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              
+              <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+                    <h2 class="nhsuk-fieldset__heading">
+                      Reporting periods
+                    </h2>
+                  </legend>
+                  <div class="nhsuk-radios nhsuk-radios--small">
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="period-all" name="period-filter" type="radio" value="all" checked>
+                      <label class="nhsuk-label nhsuk-radios__label" for="period-all">
+                        Last 6 reporting periods
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="period-specific" name="period-filter" type="radio" value="specific">
+                      <label class="nhsuk-label nhsuk-radios__label" for="period-specific">
+                        Select a specific reporting period
+                      </label>
+                      <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="period-specific-conditional">
+                        <div class="nhsuk-form-group" style="margin-top: 16px;">
+                          <label class="nhsuk-label" for="period-dropdown">
+                            Select reporting period:
+                          </label>
+                          <div class="period-dropdown-container" style="position: relative;">
+                            <button type="button" id="period-dropdown" class="nhsuk-select" style="width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                              <span id="period-dropdown-label">No reporting period selected</span>
+                              <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
+                                <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
+                              </svg>
+                            </button>
+                            
+                            <div id="period-dropdown-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
+                              <div class="nhsuk-form-group" style="margin-bottom: 16px;">
+                                <input class="nhsuk-input" id="period-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #ffeb3b;">
+                              </div>
+                              
+                              <div class="period-list" style="max-height: 200px; overflow-y: auto;">
+                                <div class="period-option" data-value="April 2026">April 2026</div>
+                                <div class="period-option" data-value="March 2026">March 2026</div>
+                                <div class="period-option" data-value="February 2026">February 2026</div>
+                                <div class="period-option" data-value="January 2026">January 2026</div>
+                                <div class="period-option" data-value="December 2025">December 2025</div>
+                                <div class="period-option" data-value="November 2025">November 2025</div>
+                                <div class="period-option" data-value="October 2025">October 2025</div>
+                                <div class="period-option" data-value="September 2025">September 2025</div>
+                                <div class="period-option" data-value="August 2025">August 2025</div>
+                                <div class="period-option" data-value="July 2025">July 2025</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+    
+              <div class="nhsuk-form-group" style="position: relative; width: 250px; margin-right: 24px;">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+                    <h2 class="nhsuk-fieldset__heading">
+                      Type
+                    </h2>
+                  </legend>
+                  <div class="nhsuk-radios nhsuk-radios--small">
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-all" name="type-filter" type="radio" value="all" checked>
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-all">
+                        All error types
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-warnings" name="type-filter" type="radio" value="warnings">
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-warnings">
+                        Warnings only
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-failures" name="type-filter" type="radio" value="failures">
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-failures">
+                        Failures only
+                      </label>
+                    </div>
+
+                  </div>
+                </fieldset>
+              </div>
+              
+            </div>
+            
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button" style="margin-bottom: 24px;" type="submit" onclick="handleShowResults(); return false">Show results</button>
+            </div>
+           <!--  <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+              <div class="nhsuk-selected__header">
+                <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+                <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+              </div>
+              <div class="nhsuk-selected__row" id="selected-chips"></div>
+            </div> -->
+          </form>
+        </div>
+        
+        <div id="loading-indicator" class="loading-container" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading results...</div>
+        </div>
+
+        
+        <table id="error-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr class="nhsuk-table__row" role="row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="type">Type</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="errorcode">Error code</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="group">Group</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="dataitem">Data Item</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="category">Category</th>
+            <!-- <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="description">Validation message</th> -->
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="april2026">April</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="may2026">May</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="june2026">June</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="july2026">July</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="august2026">Augus</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="september2026">September</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="totalcount">Total count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>general_medical_practice_patient_registration</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001010] general_medical_practice_patient_registration is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and Dictionary).  </td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>142</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>189</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>97</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>156</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>73</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>87</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>744</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001005] person_birth_date is after [DIDS000006] reporting_period_end_date.</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>124</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>98</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>76</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>113</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>89</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>68</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>568</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00100501</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>person_birth_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001005] person_birth_date is after [DIDS000006] reporting_period_end_date.</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>85</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>67</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>52</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>78</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>61</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>49</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>392</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200603</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Date format does not match expected pattern</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>72</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>59</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>46</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>68</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>55</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>48</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>348</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00000201</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS000_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_code_of_provider</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Organisation code is not a current ODS code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>63</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>51</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>42</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>58</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>47</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>43</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>304</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200103</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_start_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>End timestamp is before start timestamp</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>52</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>41</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>38</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>46</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>39</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>40</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>256</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00301002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_radiology_procedure_evaluation_indicator</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NHS Number field is blank or empty</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>44</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>37</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>31</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>42</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>35</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>31</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>220</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_site_identifier_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Site code is not current or valid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>39</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>33</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>28</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>37</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>31</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>28</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>196</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN003</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_nicip</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NICIP code is not current or recognised</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>34</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>29</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>25</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>32</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>27</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>25</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>172</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR007</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_REFERRAL</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_code_diagnostic_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Referrer code is invalid or has been retired</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>25</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>22</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>28</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>24</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>23</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>152</td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN004</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_received_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Received date is before request date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>26</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>21</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>18</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>24</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>19</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>16</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>124</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>SNOMED CT code is not current or recognised</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>23</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>19</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>16</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>21</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>17</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>16</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>112</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN005</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>service_report_issue_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Report timestamp is before person birth date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>16</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>13</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>18</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>15</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>14</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>96</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR009</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_referring</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Referring organisation code is not current or valid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>17</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>14</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>12</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>16</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>13</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>12</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>84</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>ethnic_category</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Ethnic category format is incorrect or invalid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>15</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>12</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>14</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>11</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>72</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN007</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_imaging_waiting_list_clock_start_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Start date is after reporting period end date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>12</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>8</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>11</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>9</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>60</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR010</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>postcode_of_usual_address</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Postcode field is blank or empty</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>8</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>7</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>9</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>7</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>7</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>48</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>PERSON_STATED_GENDER_CODE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Gender code is not a valid national code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>8</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>6</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>7</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>36</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN009</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>PLANNED_DIAGNOSTIC_DUE_DATE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Planned due date is before test request received date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>6</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>5</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>28</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR011</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>NHS_NUMBER_STATUS_INDICATOR_CODE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NHS Number status indicator is not a valid national code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">April 2026</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">May 2026</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">June 2026</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">July 2026</span>4</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">August 2026</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">September 2026</span>3</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total count</span>20</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+/* Align filter divs to top */
+.nhsuk-table-filters__grid_medium {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.nhsuk-table-filters__grid_medium .nhsuk-form-group {
+  vertical-align: top;
+}
+
+#error-summary-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#error-summary-table th:nth-child(1) { /* Type */
+  width: 8%;
+}
+
+#error-summary-table th:nth-child(2) { /* Error code */
+  width: 10%;
+}
+
+#error-summary-table th:nth-child(3) { /* Group */
+  width: 12%;
+}
+
+#error-summary-table th:nth-child(4) { /* Data Item */
+  width: 20%;
+}
+
+#error-summary-table th:nth-child(5) { /* Category */
+  width: 8%;
+}
+
+#error-summary-table th:nth-child(6) { /* April 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(7) { /* May 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(8) { /* June 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(9) { /* July 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(10) { /* August 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(11) { /* September 2026 */
+  width: 7%;
+}
+
+#error-summary-table th:nth-child(12) { /* Total count */
+  width: 8%;
+}
+
+#error-summary-table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Organisation filter styles */
+.organisation-dropdown-container {
+  margin-bottom: 16px;
+}
+
+#org-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 30px); /* Account for dropdown arrow */
+  display: inline-block;
+}
+
+#period-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 30px); /* Account for dropdown arrow */
+  display: inline-block;
+}
+
+.organisation-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f4f5;
+}
+
+.organisation-option:hover {
+  background-color: #f0f4f5;
+}
+
+.organisation-option:last-child {
+  border-bottom: none;
+}
+
+.organisation-option.selected {
+  background-color: #005eb8;
+  color: white;
+}
+
+/* Reporting period filter styles */
+.period-dropdown-container {
+  margin-bottom: 16px;
+}
+
+.period-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f4f5;
+}
+
+.period-option:hover {
+  background-color: #f0f4f5;
+}
+
+.period-option:last-child {
+  border-bottom: none;
+}
+
+.period-option.selected {
+  background-color: #005eb8;
+  color: white;
+}
+
+/* Loading indicator styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f0f4f5;
+  border-radius: 4px;
+  margin: 24px 0;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d8dde0;
+  border-top: 4px solid #005eb8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 16px;
+  color: #212b32;
+  font-weight: 600;
+}
+
+</style>
+<script>
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+
+// Organisation filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const orgAllRadio = document.getElementById('org-all');
+  const orgSpecificRadio = document.getElementById('org-specific');
+  const orgSpecificConditional = document.getElementById('org-specific-conditional');
+  const organizationDropdown = document.getElementById('organisation-dropdown');
+  const organizationPanel = document.getElementById('organisation-dropdown-panel');
+  const organizationSearch = document.getElementById('organisation-search');
+  const orgDropdownLabel = document.getElementById('org-dropdown-label');
+  const organisationOptions = document.querySelectorAll('.organisation-option');
+  
+  let selectedOrganisations = [];
+  
+  // Handle radio button changes
+  function handleRadioChange() {
+    if (orgSpecificRadio.checked) {
+      orgSpecificConditional.classList.remove('nhsuk-radios__conditional--hidden');
+    } else {
+      orgSpecificConditional.classList.add('nhsuk-radios__conditional--hidden');
+      organizationPanel.style.display = 'none';
+      
+      // Clear selected organisation when "All organisations" is selected
+      if (orgAllRadio.checked && selectedOrganisations.length > 0) {
+        selectedOrganisations = [];
+        organisationOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        updateDropdownLabel();
+      }
+    }
+  }
+  
+  orgAllRadio.addEventListener('change', handleRadioChange);
+  orgSpecificRadio.addEventListener('change', handleRadioChange);
+  
+  // Handle dropdown toggle
+  organizationDropdown.addEventListener('click', function() {
+    const isVisible = organizationPanel.style.display === 'block';
+    organizationPanel.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible) {
+      organizationSearch.focus();
+    }
+  });
+  
+  // Handle search functionality
+  organizationSearch.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    
+    organisationOptions.forEach(function(option) {
+      const text = option.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        option.style.display = 'block';
+      } else {
+        option.style.display = 'none';
+      }
+    });
+  });
+  
+  // Handle organisation selection (single select only)
+  organisationOptions.forEach(function(option) {
+    option.addEventListener('click', function() {
+      const value = this.getAttribute('data-value');
+      
+      if (this.classList.contains('selected')) {
+        // Deselect current option
+        this.classList.remove('selected');
+        selectedOrganisations = [];
+      } else {
+        // Deselect all other options first
+        organisationOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        selectedOrganisations = [];
+        
+        // Select this option
+        this.classList.add('selected');
+        selectedOrganisations.push(value);
+        
+        // Close dropdown after selection
+        organizationPanel.style.display = 'none';
+      }
+      
+      updateDropdownLabel();
+    });
+  });
+  
+  // Update dropdown label based on selection
+  function updateDropdownLabel() {
+    if (selectedOrganisations.length === 0) {
+      orgDropdownLabel.textContent = 'No organisation selected';
+    } else {
+      orgDropdownLabel.textContent = selectedOrganisations[0];
+    }
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!organizationDropdown.contains(event.target) && !organizationPanel.contains(event.target)) {
+      organizationPanel.style.display = 'none';
+    }
+  });
+  
+  // Reporting period filter functionality
+  const periodAllRadio = document.getElementById('period-all');
+  const periodSpecificRadio = document.getElementById('period-specific');
+  const periodSpecificConditional = document.getElementById('period-specific-conditional');
+  const periodDropdown = document.getElementById('period-dropdown');
+  const periodPanel = document.getElementById('period-dropdown-panel');
+  const periodSearch = document.getElementById('period-search');
+  const periodDropdownLabel = document.getElementById('period-dropdown-label');
+  const periodOptions = document.querySelectorAll('.period-option');
+  
+  let selectedPeriods = [];
+  
+  // Handle period radio button changes
+  function handlePeriodRadioChange() {
+    if (periodSpecificRadio.checked) {
+      periodSpecificConditional.classList.remove('nhsuk-radios__conditional--hidden');
+    } else {
+      periodSpecificConditional.classList.add('nhsuk-radios__conditional--hidden');
+      periodPanel.style.display = 'none';
+      
+      // Clear selected period when "All reporting periods" is selected
+      if (periodAllRadio.checked && selectedPeriods.length > 0) {
+        selectedPeriods = [];
+        periodOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        updatePeriodDropdownLabel();
+      }
+    }
+  }
+  
+  periodAllRadio.addEventListener('change', handlePeriodRadioChange);
+  periodSpecificRadio.addEventListener('change', handlePeriodRadioChange);
+  
+  // Handle period dropdown toggle
+  periodDropdown.addEventListener('click', function() {
+    const isVisible = periodPanel.style.display === 'block';
+    periodPanel.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible) {
+      periodSearch.focus();
+    }
+  });
+  
+  // Handle period search functionality
+  periodSearch.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    
+    periodOptions.forEach(function(option) {
+      const text = option.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        option.style.display = 'block';
+      } else {
+        option.style.display = 'none';
+      }
+    });
+  });
+  
+  // Handle period selection (single select only)
+  periodOptions.forEach(function(option) {
+    option.addEventListener('click', function() {
+      const value = this.getAttribute('data-value');
+      
+      if (this.classList.contains('selected')) {
+        // Deselect current option
+        this.classList.remove('selected');
+        selectedPeriods = [];
+      } else {
+        // Deselect all other options first
+        periodOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        selectedPeriods = [];
+        
+        // Select this option
+        this.classList.add('selected');
+        selectedPeriods.push(value);
+        
+        // Close dropdown after selection
+        periodPanel.style.display = 'none';
+      }
+      
+      updatePeriodDropdownLabel();
+    });
+  });
+  
+  // Update period dropdown label based on selection
+  function updatePeriodDropdownLabel() {
+    if (selectedPeriods.length === 0) {
+      periodDropdownLabel.textContent = 'No reporting period selected';
+    } else {
+      periodDropdownLabel.textContent = selectedPeriods[0];
+    }
+  }
+  
+  // Close period dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!periodDropdown.contains(event.target) && !periodPanel.contains(event.target)) {
+      periodPanel.style.display = 'none';
+    }
+  });
+  
+  // Count filtering functionality
+  const originalCounts = [744, 568, 392, 348, 304, 256, 220, 196, 172, 152, 124, 112, 96, 84, 72, 60, 48, 36, 28, 20];
+  
+  // Reduced counts when specific filters are applied (approximately 60-80% of original)
+  const filteredCounts = [450, 340, 235, 210, 180, 155, 132, 118, 103, 91, 74, 67, 58, 50, 43, 36, 29, 22, 17, 12];
+  
+  // Handle Show Results button - make it globally available
+  window.handleShowResults = function() {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const showResultsButton = document.querySelector('.nhsuk-button[onclick*="handleShowResults"]');
+    const errorTable = document.getElementById('error-summary-table');
+    
+    // Show loading indicator, hide table, and disable button
+    loadingIndicator.style.display = 'flex';
+    errorTable.style.display = 'none';
+    showResultsButton.disabled = true;
+    showResultsButton.textContent = 'Loading...';
+    
+    // Simulate request time (1.5-2.5 seconds)
+    const loadingTime = Math.random() * 1000 + 1500;
+    
+    setTimeout(function() {
+      // Execute the actual filtering logic
+      const countCells = document.querySelectorAll('#error-summary-table tbody tr td:last-child');
+      const tableRows = document.querySelectorAll('#error-summary-table tbody tr');
+      
+      // Get type filter elements
+      const typeAllRadio = document.getElementById('type-all');
+      const typeWarningsRadio = document.getElementById('type-warnings');
+      const typeFailuresRadio = document.getElementById('type-failures');
+      
+      // Check if any specific filters are applied
+      const isOrgFiltered = orgSpecificRadio.checked && selectedOrganisations.length > 0;
+      const isPeriodFiltered = periodSpecificRadio.checked && selectedPeriods.length > 0;
+      const isTypeFiltered = !typeAllRadio.checked;
+      
+      // Filter table rows by type
+      tableRows.forEach(function(row) {
+        const typeCell = row.querySelector('td:first-child');
+        if (typeCell) {
+          const typeText = typeCell.textContent;
+          let showRow = true;
+          
+          if (typeWarningsRadio.checked) {
+            showRow = typeText.includes('Warning');
+          } else if (typeFailuresRadio.checked) {
+            showRow = typeText.includes('Submission failure');
+          }
+          
+          row.style.display = showRow ? '' : 'none';
+        }
+      });
+      
+      // Use filtered counts if any specific filter is applied, otherwise use original counts
+      const countsToUse = (isOrgFiltered || isPeriodFiltered || isTypeFiltered) ? filteredCounts : originalCounts;
+      
+      // Update each count in the table (only for visible rows)
+      let visibleRowIndex = 0;
+      countCells.forEach(function(cell, index) {
+        const row = cell.closest('tr');
+        if (row && row.style.display !== 'none') {
+          if (visibleRowIndex < countsToUse.length) {
+            // Find the count number at the end of the cell text and replace it
+            const innerHTML = cell.innerHTML;
+            const updatedHTML = innerHTML.replace(/(\d+)(?=[^>]*$)/, countsToUse[visibleRowIndex]);
+            cell.innerHTML = updatedHTML;
+          }
+          visibleRowIndex++;
+        }
+      });
+      
+      // Hide loading indicator, show table, and restore button
+      loadingIndicator.style.display = 'none';
+      errorTable.style.display = 'table';
+      showResultsButton.disabled = false;
+      showResultsButton.textContent = 'Show results';
+    }, loadingTime);
+  };
+  
+  // CSV Download functionality
+  window.downloadCSV = function() {
+    const table = document.getElementById('error-summary-table');
+    const rows = table.querySelectorAll('tbody tr');
+    let csvContent = 'Type,Error Code,Table,Data Item,Category,Count\n';
+    
+    // Generate dynamic filename based on current filters
+    let filename = 'data-quality';
+    
+    // Organisation filter
+    const orgAllRadio = document.getElementById('org-all');
+    const orgSpecificRadio = document.getElementById('org-specific');
+    if (orgSpecificRadio.checked && selectedOrganisations.length > 0) {
+      const orgName = selectedOrganisations[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + orgName;
+    } else {
+      filename += '-all-organisations';
+    }
+    
+    // Period filter
+    const periodAllRadio = document.getElementById('period-all');
+    const periodSpecificRadio = document.getElementById('period-specific');
+    if (periodSpecificRadio.checked && selectedPeriods.length > 0) {
+      const periodName = selectedPeriods[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + periodName;
+    } else {
+      filename += '-all-periods';
+    }
+    
+    // Type filter
+    const typeAllRadio = document.getElementById('type-all');
+    const typeWarningsRadio = document.getElementById('type-warnings');
+    const typeFailuresRadio = document.getElementById('type-failures');
+    if (typeWarningsRadio.checked) {
+      filename += '-warnings-only';
+    } else if (typeFailuresRadio.checked) {
+      filename += '-failures-only';
+    } else {
+      filename += '-all-errors';
+    }
+    
+    filename += '.csv';
+    
+    // Extract data from visible rows only
+    rows.forEach(function(row) {
+      if (row.style.display !== 'none') {
+        const cells = row.querySelectorAll('td');
+        const rowData = [];
+        
+        cells.forEach(function(cell) {
+          // Get text content, removing the responsive heading span
+          const span = cell.querySelector('span[aria-hidden="true"]');
+          let text = cell.textContent;
+          if (span) {
+            text = text.replace(span.textContent, '').trim();
+          }
+          // Escape commas and quotes for CSV format
+          if (text.includes(',') || text.includes('"')) {
+            text = '"' + text.replace(/"/g, '""') + '"';
+          }
+          rowData.push(text);
+        });
+        
+        csvContent += rowData.join(',') + '\n';
+      }
+    });
+    
+    // Create and download the CSV file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  // Initial state
+  handleRadioChange();
+  handlePeriodRadioChange();
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,805 @@
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
+ <!--This page shows a submissions table that includes org column and related filter-->
+
+{% set pageName = serviceName %}
+ <!-- {% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}-->
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-6">All submissions - Diagnostic Imaging Data Set (DIDS v2.0)</h1>
+ <!--  <nav class="nhsuk-contents-list" role="navigation" aria-label="List of submissions by Collections">
+  <h2 class="nhsuk-u-visually-hidden">List of collections</h2>
+  <ol class="nhsuk-contents-list__list">
+    <li class="nhsuk-contents-list__item" aria-current="page">
+      <span class="nhsuk-contents-list__current">Diagnostic Imaging Data Set (DIDS v2.0)</span>
+    </li>
+    <li class="nhsuk-contents-list__item">
+      <a class="nhsuk-contents-list__link" href="#">Collection 2</a>
+    </li>
+
+  </ol>
+</nav>-->
+
+
+
+
+<div class="nhsuk-tabs" data-module="nhsuk-tabs">
+  <h2 class="nhsuk-tabs__title">
+    Contents
+  </h2>
+
+<div class="nhsuk-tabs__panel" id="org1">
+<!-- Table filters -->      
+<div>
+<form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+<div class="nhsuk-form-group" style="position: relative; width: 50%; margin-bottom: 28px;">
+<label class="nhsuk-label" for="filter-organisation"><strong>Search by Organisation or ODS code:</strong></label>
+<input class="nhsuk-input" id="filter-organisation" name="organisation" type="text" placeholder="Start typing to search organisation or ODS code..." autocomplete="off">
+<div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-table-filters__grid_small">
+<!-- <div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
+<input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
+<select class="nhsuk-select" id="filter-organisation" name="organisation">
+<option value="">All organisations</option>
+<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
+</select>
+</div> 
+</div>-->
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
+<select class="nhsuk-select_small" id="filter-submitted-by" name="submittedBy">
+<option value="">Anyone</option>
+<option value="Olivia Patel">Olivia Patel</option>
+<option value="Noah Bennett">Noah Bennett</option>
+<option value="Amelia Khan">Amelia Khan</option>
+<option value="Ethan Moore">Ethan Moore</option>
+<option value="Grace Turner">Grace Turner</option>
+<option value="Lucas Reed">Lucas Reed</option>
+</select>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-period"><strong>Period:</strong></label>
+  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+  <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
+  <select class="nhsuk-select_small" id="filter-type" name="type">
+    <option value="">All types</option>
+    <option value="Submission">Submission</option>
+    <option value="Re-submission">Re-submission</option>
+    <option value="No data">No data</option>
+    <option value="Test">Test</option>
+  </select>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+  <div class="status-multiselect" style="position: relative;">
+    <button type="button" class="nhsuk-select_small status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+      <span data-status-summary>All statuses</span>
+    </button>
+    <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
+      <div class="nhsuk-checkboxes nhsuk-checkboxes--small" id="filter-status-list">
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-pending" name="status" type="checkbox" value="Pending validation">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-pending">Pending validation</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful" name="status" type="checkbox" value="Successful">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful">Successful</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful-warnings" name="status" type="checkbox" value="Successful with warnings">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-warnings">Successful with warnings</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-rejected" name="status" type="checkbox" value="Rejected">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-rejected">Rejected</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nhsuk-table-filters__actions">
+<button class="nhsuk-button" type="submit" onclick="return false">Apply</button>
+</div>
+</div>
+<div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+<div class="nhsuk-selected__header">
+<h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+<a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+</div>
+<div class="nhsuk-selected__row" id="selected-chips"></div>
+</div>
+</form>
+</div>
+      <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr role="row" class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">File name</th> 
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Submitted on</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="ods">ODS</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation">Organisation</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Period</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
+           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">      
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanProv4_2026_2.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Feb 2026, 09:30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Olivia Patel</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RD8</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1p">View</a></td>   
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_1.xml</td>           
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Feb 2026, 14:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RVR</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1r">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanProv3_2026_4.xml</td>    
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Feb 2026, 11:05</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Amelia Khan</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RQM</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanProv2_2026_3.xml</td>        
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Feb 2026, 16:20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>NVC01</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanProv1_2026_2.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Feb 2026, 10:55</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RJ6</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_1.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Feb 2026, 13.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>NVC01</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_3.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Feb 2026, 13.42</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RVR</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_2.xml</td>          
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 12.35</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RVR</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_1.xml</td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 11.13</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>RJ6</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>DID_JanFinal2026_2.xml</td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Feb 2026, 10.45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Lucas Reed</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS</span>NMT01</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+        </tbody>
+      </table>
+
+<!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div>
+
+</div>
+
+</div>
+</div>
+ <div class="nhsuk-u-margin-top-7">
+  <p><a href="submissions">Table including ODS code</a></p>
+ 
+
+ </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // Toggle expander text between 'Show filters' and 'Hide filters'
+  document.addEventListener('DOMContentLoaded', function(){
+    var details = document.querySelector('.nhsuk-details.nhsuk-expander');
+    var textSpan = document.getElementById('filters-expander-text');
+    if(details && textSpan) {
+      function updateText() {
+        textSpan.textContent = details.open ? 'Hide filters' : 'Show filters';
+      }
+      details.addEventListener('toggle', updateText);
+      updateText();
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Helper: get only the text node after the span (the cell value)
+  function cellValue(cell) {
+    if (!cell) return '';
+    // Find the first text node after the span
+    for (let node of cell.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        return node.textContent.trim();
+      }
+    }
+    // fallback: get all text and remove the heading
+    let txt = (cell.textContent || '').trim();
+    let heading = cell.querySelector('.nhsuk-table-responsive__heading');
+    if (heading) {
+      txt = txt.replace(heading.textContent, '').trim();
+    }
+    return txt;
+  }
+
+  function uniqueSorted(values){ return Array.from(new Set(values.filter(Boolean))).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})) }
+
+  function initTableFilters(opts){
+    var table = document.getElementById(opts.tableId)
+    var form = document.getElementById(opts.formId)
+    if (!table || !form || !table.tBodies.length) return
+
+    // Locate inputs
+  var idInput = form.querySelector('#filter-id')
+  var orgInput = form.querySelector('#filter-organisation')
+  var bySel = form.querySelector('#filter-submitted-by')
+  var monthSel = form.querySelector('#filter-month')
+  var yearSel = form.querySelector('#filter-year')
+  var typeSel = form.querySelector('#filter-type')
+  var statusChecks = Array.from(form.querySelectorAll('#filter-status-list input[name="status"]'))
+  var statusToggle = form.querySelector('[data-status-toggle]')
+  var statusPanel = form.querySelector('#status-panel')
+  var statusSummary = form.querySelector('[data-status-summary]')
+    var periodInput = form.querySelector('#filter-period')
+    var clearBtn= form.querySelector('[data-clear-filters]')
+    var countEl = document.getElementById('results-count')
+    var applyBtn = form.querySelector('button[type="submit"]')
+    var chipsEl = document.getElementById('selected-chips')
+
+    // Map headers by data-key to column index
+    var keyIndex = {}
+    var i = 0
+    ;[].slice.call(table.tHead.rows[0].cells).forEach(function(th){
+      var span = th.colSpan || 1
+      var key = th.getAttribute('data-key')
+      for (var k=0; k<span; k++) { if (key && k===0) keyIndex[key] = i; i++ }
+    })
+
+    var rows = [].slice.call(table.tBodies[0].rows)
+    var data = rows.map(function(row){
+      var c = row.cells
+      var rec = {
+        row: row,
+        id: cellValue(c[keyIndex.id]),
+        ods: cellValue(c[keyIndex.ods]),
+        org: cellValue(c[keyIndex.organisation]),
+        by: cellValue(c[keyIndex.submittedBy]),
+        type: cellValue(c[keyIndex.type]),
+        period: cellValue(c[keyIndex.Period]),
+        status: cellValue(c[keyIndex.status])
+      }
+      return rec
+    })
+
+  // Populate selects if blank
+  function populateSelect(sel, values){ if (!sel || sel.options.length>1) return; uniqueSorted(values).forEach(v=>{ var o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o) }) }
+  populateSelect(bySel, data.map(r=>r.by))
+    // --- Organisation autocomplete dropdown ---
+    var orgSuggestionBox = document.getElementById('organisation-suggestions');
+    if (orgInput && orgSuggestionBox) {
+      orgInput.addEventListener('input', function() {
+        var val = orgInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+          return;
+        }
+        var orgOrOdsValues = uniqueSorted(data.map(r => r.org).concat(data.map(r => r.ods)).filter(Boolean));
+        var matches = orgOrOdsValues.filter(function(o){ return o.toLowerCase().includes(val) });
+        if (matches.length === 0) {
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+          return;
+        }
+        orgSuggestionBox.style.display = 'block';
+        orgSuggestionBox.style.background = '#fff';
+        orgSuggestionBox.style.color = '#000';
+        orgSuggestionBox.style.fontSize = '1.1875rem';
+        orgSuggestionBox.style.minWidth = orgInput.offsetWidth + 'px';
+        orgSuggestionBox.style.width = 'max-content';
+        orgSuggestionBox.style.maxWidth = '90vw';
+        orgSuggestionBox.style.border = '1px solid #b1b4b6';
+        orgSuggestionBox.style.borderTop = 'none';
+        orgSuggestionBox.style.maxHeight = '200px';
+        orgSuggestionBox.style.overflowY = 'auto';
+        orgSuggestionBox.innerHTML = matches.map(function(m){ return '<div class="organisation-suggestion" style="padding:8px 12px;cursor:pointer;white-space:nowrap;">' + m + '</div>' }).join('');
+      });
+      orgSuggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('organisation-suggestion')) {
+          orgInput.value = e.target.textContent;
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+        }
+      });
+      orgInput.addEventListener('blur', function() {
+        setTimeout(function(){ orgSuggestionBox.style.display = 'none'; }, 150);
+      });
+    }
+    // --- Period autocomplete dropdown ---
+    var suggestionBox = document.getElementById('period-suggestions');
+    if (periodInput && suggestionBox) {
+      periodInput.addEventListener('input', function() {
+        var val = periodInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+        // Get unique period values from table
+        var periods = uniqueSorted(data.map(r => r.period).filter(Boolean));
+        var matches = periods.filter(p => p.toLowerCase().includes(val));
+        if (matches.length === 0) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+        // Style and position
+        suggestionBox.style.display = 'block';
+        suggestionBox.style.background = '#fff';
+        suggestionBox.style.color = '#000';
+        suggestionBox.style.fontSize = '1.1875rem';
+        suggestionBox.style.width = periodInput.offsetWidth + 'px';
+        suggestionBox.style.border = '1px solid #b1b4b6';
+        suggestionBox.style.borderTop = 'none';
+        suggestionBox.style.maxHeight = '200px';
+        suggestionBox.style.overflowY = 'auto';
+        suggestionBox.innerHTML = matches.map(m => '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>').join('');
+      });
+      // Click to select
+      suggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('period-suggestion')) {
+          periodInput.value = e.target.textContent;
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+        }
+      });
+      // Hide on blur
+      periodInput.addEventListener('blur', function() {
+        setTimeout(function(){ suggestionBox.style.display = 'none'; }, 150);
+      });
+    }
+  // Populate type select from table values
+  function extractType(type) {
+    return type || '';
+  }
+  populateSelect(typeSel, data.map(r=>extractType(r.type)));
+
+    function matches(rec){
+      var idQ = (idInput?.value || '').trim().toLowerCase()
+      var orgQ = (orgInput?.value || '').trim().toLowerCase()
+      var byQ = (bySel?.value || '')
+      var typeQ = (typeSel?.value || '')
+      var monthQ = (monthSel?.value || '')
+      var yearQ = (yearSel?.value || '')
+      var periodQ = (periodInput?.value || '').trim().toLowerCase()
+      var statusQ = statusChecks.filter(function(cb){ return cb.checked }).map(function(cb){ return cb.value })
+      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
+      if (orgQ && !rec.org.toLowerCase().includes(orgQ) && !rec.ods.toLowerCase().includes(orgQ)) return false
+      if (byQ && rec.by !== byQ) return false
+      if (typeQ && rec.type !== typeQ) return false
+      if (statusQ.length && statusQ.indexOf(rec.status) === -1) return false
+      if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
+      return true
+    }
+
+    function renderChips() {
+      if (!chipsEl) return;
+      var chips = [];
+      if (idInput && idInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="id" title="Clear ID filter">ID: ' + idInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (orgInput && orgInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="organisation" title="Clear Organisation or ODS filter">Organisation / ODS: ' + orgInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (bySel && bySel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + bySel.options[bySel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (typeSel && typeSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (statusChecks && statusChecks.length) {
+        statusChecks.filter(function(cb){ return cb.checked }).forEach(function(cb){
+          chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" data-value="' + cb.value + '" title="Clear Status filter">Status: ' + cb.value + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+        })
+      }
+      if (periodInput && periodInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      chipsEl.innerHTML = chips.join(' ');
+
+      // Show 'No filters applied' if no chips, else show 'Clear filters' link
+      var clearLink = document.querySelector('[data-clear-filters]');
+      if (clearLink) {
+        if (chips.length === 0) {
+          clearLink.style.display = 'none';
+          if (!document.getElementById('no-filters-msg')) {
+            var msg = document.createElement('span');
+            msg.id = 'no-filters-msg';
+            msg.textContent = 'No filters applied';
+            msg.style.color = '#4c6272';
+            msg.style.fontSize = '16px';
+            msg.style.display = 'block';
+            msg.style.textAlign = 'left';
+            clearLink.parentNode.appendChild(msg);
+          }
+        } else {
+          clearLink.style.display = '';
+          var msg = document.getElementById('no-filters-msg');
+          if (msg) msg.remove();
+        }
+      }
+
+      // Add click handlers to clear individual filters
+      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag){
+        tag.addEventListener('click', function(){
+          var filter = tag.getAttribute('data-filter');
+          if (filter === 'id' && idInput) idInput.value = '';
+          if (filter === 'organisation' && orgInput) orgInput.value = '';
+          if (filter === 'submittedBy' && bySel) bySel.value = '';
+          if (filter === 'type' && typeSel) typeSel.value = '';
+          if (filter === 'status' && statusChecks) {
+            var val = tag.getAttribute('data-value')
+            statusChecks.forEach(function(cb){ if (cb.value === val) cb.checked = false })
+            updateStatusSummary()
+          }
+          if (filter === 'period' && periodInput) periodInput.value = '';
+          // Re-render after clearing
+          render();
+        });
+      });
+    }
+
+    function render(){
+      var shown = 0
+      data.forEach(function(rec){
+        if (matches(rec)) {
+          rec.row.style.display = ''
+          shown++
+        } else {
+          rec.row.style.display = 'none'
+        }
+      })
+      if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's')
+      renderChips();
+    }
+
+    // Only apply filters on button click
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        render();
+      });
+    }
+  // Remove live filtering for period; only filter on Apply
+
+    // Clear filters
+    if (clearBtn) clearBtn.addEventListener('click', function(e){
+      e.preventDefault()
+      if (idInput) idInput.value = ''
+      if (orgInput) orgInput.value = ''
+      if (bySel) bySel.value = ''
+      if (typeSel) typeSel.value = ''
+      if (periodInput) periodInput.value = ''
+      if (statusChecks && statusChecks.length) statusChecks.forEach(function(cb){ cb.checked = false })
+      updateStatusSummary()
+      render()
+    })
+
+    function updateStatusSummary(){
+      if (!statusSummary) return
+      var selected = statusChecks.filter(function(cb){ return cb.checked })
+      if (selected.length === 0) {
+        statusSummary.textContent = 'All statuses'
+      } else if (selected.length === 1) {
+        statusSummary.textContent = selected[0].value
+      } else {
+        statusSummary.textContent = selected.length + ' statuses selected'
+      }
+    }
+
+    // Toggle open/close of status panel
+    function closeStatusPanel(){ if (statusPanel) statusPanel.style.display = 'none' }
+    if (statusToggle && statusPanel) {
+      statusToggle.addEventListener('click', function(){
+        var isOpen = statusPanel.style.display === 'block'
+        statusPanel.style.display = isOpen ? 'none' : 'block'
+      })
+      document.addEventListener('click', function(evt){
+        if (!statusPanel.contains(evt.target) && !statusToggle.contains(evt.target)) {
+          closeStatusPanel()
+        }
+      })
+    }
+
+    // Close panel on escape
+    document.addEventListener('keydown', function(evt){
+      if (evt.key === 'Escape') closeStatusPanel()
+    })
+
+    // Update summary when status checkboxes change
+    if (statusChecks && statusChecks.length) {
+      statusChecks.forEach(function(cb){
+        cb.addEventListener('change', function(){
+          updateStatusSummary()
+        })
+      })
+    }
+
+    // Style tweaks for status dropdown arrow and checkbox sizing
+    var style = document.createElement('style')
+    style.textContent = `
+      #table-filters2 .nhsuk-table-filters__grid_small {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 16px;
+        align-items: end;
+        width: 100%;
+      }
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-form-group {
+        margin-bottom: 0;
+      }
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-input,
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-select_small,
+      #table-filters2 .nhsuk-table-filters__grid_small .status-toggle-btn {
+        width: 100%;
+        border-width: 2px;
+      }
+      #table-filters2 .nhsuk-table-filters__actions {
+        margin: 0;
+      }
+      #table-filters2 .nhsuk-table-filters__actions .nhsuk-button {
+        width: auto;
+        margin: 0;
+      }
+      .status-toggle-btn {
+        position: relative;
+        padding-right: 2.5rem;
+      }
+      .status-toggle-btn::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        width: 10px;
+        height: 6px;
+        margin-top: -3px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('data:image/svg+xml,%3Csvg width="12" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"%3E%3Cpath fill="%23000" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/%3E%3C/svg%3E');
+      }
+      #filter-status-list .nhsuk-checkboxes__input {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:before {
+        width: 26px;
+        height: 26px;
+        border-radius: 0px;
+        top: 2px;
+        border-color:black;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:after {
+        top: 9px;
+        left: 6px;
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input:checked + .nhsuk-checkboxes__label:after {
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__label {
+        padding-left: 0px;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+      }
+      .nhsuk-checkboxes__label {
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 0px;
+        touch-action: manipulation;
+        padding: 0px;
+      }
+    `
+    document.head.appendChild(style)
+
+    // Initial render to show all
+    render()
+  }
+
+  // Call the filter function for the main table
+  document.addEventListener('DOMContentLoaded', function(){
+      initTableFilters({
+        tableId: 'submissions-table',
+        formId: 'table-filters2'
+      })
+  })
+})()
+</script>
+<script>
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+</script>
+{% endblock %}

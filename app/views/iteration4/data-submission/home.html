@@ -1,0 +1,187 @@
+{% extends "iteration3/data-submission/layout.html" %}
+
+{% set pageName = serviceName %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-7">
+      <h2>
+         {{ pageName }}
+      </h2>
+
+
+      <p class="nhsuk-u-margin-bottom-6">Welcome to the NHS National Data Submission Portal, where you can submit data and view validation results for your approved collections. 
+      </p>
+      <p >Currently you can submit for the following collection(s):
+      <li style="font-size: 18px;"><strong>Diagnostic Imaging Data Set (DIDS v2.0)</strong></li>
+      </p>
+      {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Submitting data using the Data Submission Portal",
+        html: "
+          <p>You can now use the new National Data Submission Portal on NDIT (National Data Integration Tenant) to submit your data. If you experience any issues accessing the portal or submitting your data, please contact the national service desk for support:</p>
+          <p><a href='#'>ssd.nationalservicedesk@nhs.net</a></p>
+          <p>Visit the NHS Data Submission Portal website to read more details.<br><a href='#'>NHS Data Submission Portal guidance</a></p>
+              "
+        }) }}
+      <hr>  
+      <p>Start your submission here, or use the deadline table below to proceed directly to the submission page for the relevant reporting period.</p>
+
+      {% from 'action-link/macro.njk' import actionLink %}
+      {{ actionLink({
+        text: "Start a submission",
+        href: "choose-period"
+      }) }}
+
+  </div>
+</div>
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-table__panel-with-heading-tab">    
+       <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>      
+        <table class="nhsuk-table-responsive nhsuk-table--sortable">
+        <caption class="nhsuk-table__caption--s nhsuk-u-margin-bottom-5  nhsuk-u-visually-hidden">Next deadlines</caption>
+  <thead class="nhsuk-table__head">
+    <tr  role="row" class="nhsuk-table__row">
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Collection</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Reporting period</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Deadline</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Deadline type</th>
+      <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+    </tr>
+  </thead>
+  <tbody class="nhsuk-table__body">
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-09">September 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2026-10-31">31 Oct 2026, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Provisional processing</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=September%202026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-04">April 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2026-10-31">31 Oct 2026, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Window closes</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=April%202026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-05">May 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2026-11-30">30 Nov 2026, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Window closes</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=May%202026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-06">June 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2026-12-31">31 Dec 2026, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Window closes</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=June%202026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-07">July 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2027-01-31">31 Jan 2027, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Window closes</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=July%202026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+   
+    <tr class="nhsuk-table__row">
+      <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+      <td class="nhsuk-table__cell" data-sort-value="2026-08">August 2026</td>
+      <td class="nhsuk-table__cell" data-sort-value="2027-02-28">28 Feb 2027, 11.59.59pm</td>
+      <td class="nhsuk-table__cell">Window closes</td>
+      <td class="nhsuk-table__cell"><a href="/iteration3/data-submission/upload-file1?period=August%2026&organisation=Sheffield%20Teaching%20Hospital&collection=Diagnostic%20Imaging%20Dataset">Submit</a></td>
+    </tr>
+    
+  </tbody>
+</table>
+<p class="nhsuk-u-margin-top-7">* This deadline table shows only the open submissions.</p>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+<!-- Sortable table -->
+(function () {
+function parseValue(text, type, cell) {
+  var t = (text || '').trim()
+  
+  // Check for data-sort-value attribute first
+  if (cell && cell.hasAttribute('data-sort-value')) {
+    var sortValue = cell.getAttribute('data-sort-value')
+    if (type === 'date') {
+      return new Date(sortValue).getTime()
+    }
+    return sortValue
+  }
+  
+  if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+  if (type === 'date') {
+    var d = Date.parse(t)
+    return isNaN(d) ? t.toLowerCase() : d
+  }
+  return t.toLowerCase()
+}
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type, a.cells[colIndex])
+var bv = parseValue(b.cells[colIndex]?.innerText, type, b.cells[colIndex])
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+</script>
+{% endblock %}

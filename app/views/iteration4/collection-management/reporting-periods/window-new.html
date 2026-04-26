@@ -1,0 +1,1333 @@
+{% extends "iteration4/collection-management/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+{% from "radios/macro.njk" import radios %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+{% from 'select/macro.njk' import select %}
+{% from "date-input/macro.njk" import dateInput %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+       
+<fieldset class="nhsuk-fieldset">
+  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+    <h1 class="nhsuk-fieldset__heading">
+      Create a submission window
+    </h1>
+  </legend>
+
+
+  <p class="nhsuk-body">
+    Use this form to create a new submission window. A submission window defines when organisations can submit their data for a specific reporting period.
+  </p>
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8">
+  <label class="nhsuk-label nhsuk-label--m" for="reporting-period-multiselect">
+    Reporting period
+  </label>
+  <div class="nhsuk-hint">
+    Select the reporting period(s) for this submission window
+  </div>
+  
+  <div class="organisation-multiselect">
+    <div class="organisation-multiselect__trigger" id="reporting-period-multiselect-trigger">
+      <span id="reporting-period-multiselect-label">Choose reporting period(s)</span>
+      <div class="organisation-multiselect__arrow"></div>
+    </div>
+    <div class="organisation-multiselect__dropdown" id="reporting-period-multiselect-dropdown" style="display: none;">
+      <div class="organisation-multiselect__search">
+        <input type="text" class="nhsuk-input organisation-multiselect__search-input" id="reporting-period-search" placeholder="Search">
+      </div>
+      <div class="organisation-multiselect__options" id="reporting-period-multiselect-options">
+        <div class="organisation-multiselect__option" data-value="april-2026">
+          <label class="nhsuk-checkboxes__label">April 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="may-2026">
+          <label class="nhsuk-checkboxes__label">May 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="june-2026">
+          <label class="nhsuk-checkboxes__label">June 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="july-2026">
+          <label class="nhsuk-checkboxes__label">July 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="august-2026">
+          <label class="nhsuk-checkboxes__label">August 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="september-2026">
+          <label class="nhsuk-checkboxes__label">September 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="october-2026">
+          <label class="nhsuk-checkboxes__label">October 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="november-2026">
+          <label class="nhsuk-checkboxes__label">November 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="december-2026">
+          <label class="nhsuk-checkboxes__label">December 2026</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
+      Submission window name
+    </label>
+  </h1>
+  
+  <input class="nhsuk-input nhsuk-input--width-20" id="submission-window-name" name="submissionWindowName" type="text">
+</div>
+
+
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-start-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window start
+        </h1>
+      </legend>
+       <div id="start-date-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="submission-window-start" class="nhsuk-date-input nhsuk-u-margin-bottom-6 ">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-year" name="submissionWindowStart[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+
+{% set startTimeHtml %}
+<div id="start-time-hint" class="nhsuk-hint nhsuk-u-margin-bottom-3">
+  For example, 14 30 00
+</div>
+<div id="submission-window-start-time" class="nhsuk-date-input ">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-minute" name="submissionWindowStart[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-second" name="submissionWindowStart[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "start-time-type",
+  name: "start-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s nhsuk-u-margin-top-8",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "start-of-day",
+      text: "Start of the day (00:00:00)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: startTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window end
+        </h1>
+      </legend>
+       <div id="start-date-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="submission-window-end" class="nhsuk-date-input nhsuk-u-margin-bottom-6 bottom">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-day" name="submissionWindowEnd[day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-month" name="submissionWindowEnd[month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-year" name="submissionWindowEnd[year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+
+{% set endTimeHtml %}
+<div id="end-time-hint" class="nhsuk-hint nhsuk-u-margin-bottom-3">
+  For example, 14 30 00
+</div>
+<div id="submission-window-end-time" class="nhsuk-date-input">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-hour" name="submissionWindowEnd[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-minute" name="submissionWindowEnd[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-second" name="submissionWindowEnd[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "end-time-type",
+  name: "end-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s nhsuk-u-margin-top-8",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "end-of-day",
+      text: "End of the day (23:59:59)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: endTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+  <div class="nhsuk-form-group">
+     <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-1">Organisations</h2>
+ {% from "radios/macro.njk" import radios %}
+{% from "input/macro.njk" import input %}
+
+{% set orgHtml %}
+  <div class="nhsuk-form-group">
+    <label class="nhsuk-label" for="organisation-multiselect">
+      Select organisation(s):
+    </label>
+    <div class="organisation-multiselect">
+      <div class="organisation-multiselect__trigger" id="organisation-multiselect-trigger">
+        <span id="organisation-multiselect-label">No organisation selected</span>
+        <div class="organisation-multiselect__arrow"></div>
+      </div>
+      <div class="organisation-multiselect__dropdown" id="organisation-multiselect-dropdown" style="display: none;">
+        <div class="organisation-multiselect__search">
+          <input type="text" class="nhsuk-input organisation-multiselect__search-input" id="organisation-search" placeholder="Search">
+        </div>
+        <div class="organisation-multiselect__options" id="organisation-multiselect-options">
+          <div class="organisation-multiselect__option" data-value="Alliance Medical">
+            <label class="nhsuk-checkboxes__label">Alliance Medical</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Barking, Havering and Redbridge University Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Barking, Havering and Redbridge University Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Barts Health NHS Trust">
+            <label class="nhsuk-checkboxes__label">Barts Health NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Chelsea and Westminster Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Chelsea and Westminster Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Circle Health Group Limited">
+            <label class="nhsuk-checkboxes__label">Circle Health Group Limited</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Cora Health Diagnostics (Formerly Healthshare Diagnostics)">
+            <label class="nhsuk-checkboxes__label">Cora Health Diagnostics (Formerly Healthshare Diagnostics)</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Cora Health Ltd (Formerly Healthshare Limited)">
+            <label class="nhsuk-checkboxes__label">Cora Health Ltd (Formerly Healthshare Limited)</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Croydon Health Services NHS Trust">
+            <label class="nhsuk-checkboxes__label">Croydon Health Services NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Epsom and St Helier University Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Epsom and St Helier University Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Great Ormond Street Hospital For Children NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Great Ormond Street Hospital For Children NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Guy's and St Thomas' NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Guy's and St Thomas' NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Homerton Healthcare NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Homerton Healthcare NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Imperial College Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">Imperial College Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Inhealth Limited">
+            <label class="nhsuk-checkboxes__label">Inhealth Limited</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="King's College Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">King's College Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Kingston and Richmond NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Kingston and Richmond NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Lewisham and Greenwich NHS Trust">
+            <label class="nhsuk-checkboxes__label">Lewisham and Greenwich NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="London North West University Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">London North West University Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Moorfields Eye Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Moorfields Eye Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Nuffield Health">
+            <label class="nhsuk-checkboxes__label">Nuffield Health</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Free London NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal Free London NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal National Orthopaedic Hospital NHS Trust">
+            <label class="nhsuk-checkboxes__label">Royal National Orthopaedic Hospital NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="South London and Maudsley NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">South London and Maudsley NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Spire Healthcare">
+            <label class="nhsuk-checkboxes__label">Spire Healthcare</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="St George's University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">St George's University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Hillingdon Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Hillingdon Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Royal Marsden NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Royal Marsden NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Trinity Medical Imaging">
+            <label class="nhsuk-checkboxes__label">Trinity Medical Imaging</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University College London Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University College London Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Whittington Health NHS Trust">
+            <label class="nhsuk-checkboxes__label">Whittington Health NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Cobalt Health">
+            <label class="nhsuk-checkboxes__label">Cobalt Health</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Dorset County Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Dorset County Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Dorset Healthcare University NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Dorset Healthcare University NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Gloucestershire Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Gloucestershire Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Great Western Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Great Western Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="North Bristol NHS Trust">
+            <label class="nhsuk-checkboxes__label">North Bristol NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Practice Plus Group Holdings">
+            <label class="nhsuk-checkboxes__label">Practice Plus Group Holdings</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Ramsay Health Care UK Operations Limited">
+            <label class="nhsuk-checkboxes__label">Ramsay Health Care UK Operations Limited</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Cornwall Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Royal Cornwall Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Devon University Healthcare NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal Devon University Healthcare NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal United Hospitals Bath NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal United Hospitals Bath NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Salisbury NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Salisbury NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Somerset NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Somerset NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Torbay and South Devon NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Torbay and South Devon NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Bristol and Weston NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Bristol and Weston NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Dorset NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Dorset NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Plymouth NHS Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Plymouth NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Ashford and St Peter's Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Ashford and St Peter's Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Buckinghamshire Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">Buckinghamshire Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="CSH Surrey">
+            <label class="nhsuk-checkboxes__label">CSH Surrey</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Dartford and Gravesham NHS Trust">
+            <label class="nhsuk-checkboxes__label">Dartford and Gravesham NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East Kent Hospitals University NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">East Kent Hospitals University NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East Sussex Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">East Sussex Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Epsomedical Group">
+            <label class="nhsuk-checkboxes__label">Epsomedical Group</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Frimley Health NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Frimley Health NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Hampshire and Isle of Wight Healthcare NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Hampshire and Isle of Wight Healthcare NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Hampshire Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Hampshire Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Isle of Wight NHS Trust">
+            <label class="nhsuk-checkboxes__label">Isle of Wight NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Kent Community Health NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Kent Community Health NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Maidstone and Tunbridge Wells NHS Trust">
+            <label class="nhsuk-checkboxes__label">Maidstone and Tunbridge Wells NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Medical Imaging Partnership Ltd">
+            <label class="nhsuk-checkboxes__label">Medical Imaging Partnership Ltd</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Medway NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Medway NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Oxford University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Oxford University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Portsmouth Hospitals University NHS Trust">
+            <label class="nhsuk-checkboxes__label">Portsmouth Hospitals University NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Queen Victoria Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Queen Victoria Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Berkshire NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal Berkshire NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Surrey NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal Surrey NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Surrey and Sussex Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">Surrey and Sussex Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Sussex Community NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Sussex Community NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospital Southampton NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospital Southampton NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Sussex NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Sussex NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Birmingham Women's and Children's NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Birmingham Women's and Children's NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Chesterfield Royal Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Chesterfield Royal Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="George Eliot Hospital NHS Trust">
+            <label class="nhsuk-checkboxes__label">George Eliot Hospital NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Kettering General Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Kettering General Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Midlands Partnership University NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Midlands Partnership University NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Northampton General Hospital NHS Trust">
+            <label class="nhsuk-checkboxes__label">Northampton General Hospital NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Nottingham University Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Nottingham University Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Sandwell and West Birmingham Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Sandwell and West Birmingham Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Sherwood Forest Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Sherwood Forest Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Shropshire Community Health NHS Trust">
+            <label class="nhsuk-checkboxes__label">Shropshire Community Health NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="South Warwickshire University NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">South Warwickshire University NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Dudley Group NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Dudley Group NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Robert Jones and Agnes Hunt Orthopaedic Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Robert Jones and Agnes Hunt Orthopaedic Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Royal Orthopaedic Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Royal Orthopaedic Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Royal Wolverhampton NHS Trust">
+            <label class="nhsuk-checkboxes__label">The Royal Wolverhampton NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Shrewsbury and Telford Hospital NHS Trust">
+            <label class="nhsuk-checkboxes__label">The Shrewsbury and Telford Hospital NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="United Lincolnshire Teaching Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">United Lincolnshire Teaching Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Birmingham NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Birmingham NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals Coventry and Warwickshire NHS Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals Coventry and Warwickshire NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals of Derby and Burton NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals of Derby and Burton NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals of Leicester NHS Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals of Leicester NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals of North Midlands NHS Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals of North Midlands NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Walsall Healthcare NHS Trust">
+            <label class="nhsuk-checkboxes__label">Walsall Healthcare NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Worcestershire Acute Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Worcestershire Acute Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Wye Valley NHS Trust">
+            <label class="nhsuk-checkboxes__label">Wye Valley NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Bedfordshire Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Bedfordshire Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Cambridge University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Cambridge University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East and North Hertfordshire Teaching NHS Trust">
+            <label class="nhsuk-checkboxes__label">East and North Hertfordshire Teaching NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East Suffolk and North Essex NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">East Suffolk and North Essex NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="James Paget University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">James Paget University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Mid and South Essex NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Mid and South Essex NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Milton Keynes University Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Milton Keynes University Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Norfolk and Norwich University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Norfolk and Norwich University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="North West Anglia NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">North West Anglia NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Royal Papworth Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Royal Papworth Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Princess Alexandra Hospital NHS Trust">
+            <label class="nhsuk-checkboxes__label">The Princess Alexandra Hospital NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Queen Elizabeth Hospital, King's Lynn, NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Queen Elizabeth Hospital, King's Lynn, NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="West Hertfordshire Teaching Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">West Hertfordshire Teaching Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="West Suffolk NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">West Suffolk NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Alder Hey Children's NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Alder Hey Children's NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Blackpool Teaching Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Blackpool Teaching Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Bolton NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Bolton NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Countess of Chester Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Countess of Chester Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East Cheshire NHS Trust">
+            <label class="nhsuk-checkboxes__label">East Cheshire NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="East Lancashire Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">East Lancashire Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Kleyn Healthcare">
+            <label class="nhsuk-checkboxes__label">Kleyn Healthcare</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Lancashire Teaching Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Lancashire Teaching Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Liverpool Heart and Chest Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Liverpool Heart and Chest Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Liverpool University Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Liverpool University Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Liverpool Women's NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Liverpool Women's NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Manchester University NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Manchester University NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Mersey and West Lancashire Teaching Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Mersey and West Lancashire Teaching Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Mid Cheshire Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Mid Cheshire Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Northern Care Alliance NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Northern Care Alliance NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Stockport NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Stockport NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Tameside and Glossop Integrated Care NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Tameside and Glossop Integrated Care NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Christie NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Christie NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Clatterbridge Cancer Centre NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Clatterbridge Cancer Centre NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="The Walton Centre NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">The Walton Centre NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="University Hospitals of Morecambe Bay NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">University Hospitals of Morecambe Bay NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Warrington and Halton Teaching Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Warrington and Halton Teaching Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Wirral Community Health and Care NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Wirral Community Health and Care NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Wirral University Teaching Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Wirral University Teaching Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Wrightington, Wigan and Leigh NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Wrightington, Wigan and Leigh NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Airedale NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Airedale NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Barnsley Hospital NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Barnsley Hospital NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Bradford Teaching Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Bradford Teaching Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Calderdale and Huddersfield NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Calderdale and Huddersfield NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="County Durham and Darlington NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">County Durham and Darlington NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Doncaster and Bassetlaw Teaching Hospitals NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Doncaster and Bassetlaw Teaching Hospitals NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Gateshead Health NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Gateshead Health NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Harrogate and District NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Harrogate and District NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Hull University Teaching Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Hull University Teaching Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Leeds Teaching Hospitals NHS Trust">
+            <label class="nhsuk-checkboxes__label">Leeds Teaching Hospitals NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Mid Yorkshire Teaching NHS Trust">
+            <label class="nhsuk-checkboxes__label">Mid Yorkshire Teaching NHS Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="North Tees and Hartlepool NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">North Tees and Hartlepool NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Northern Lincolnshire and Goole NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Northern Lincolnshire and Goole NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Northumbria Healthcare NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Northumbria Healthcare NHS Foundation Trust</label>
+          </div>
+          <div class="organisation-multiselect__option" data-value="Sheffield Children's NHS Foundation Trust">
+            <label class="nhsuk-checkboxes__label">Sheffield Children's NHS Foundation Trust</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="selected-organisations" class="nhsuk-u-margin-top-4" style="display: none;">
+    <div id="organisation-list"></div>
+  </div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "organisation-scope",
+  name: "organisation-scope",
+  fieldset: {
+    legend: {
+      text: "Select the organisations that this submission window applies to.",
+      size: "l",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "all",
+      text: "All organisations"
+    },
+    {
+      value: "specific",
+      text: "Select specific organisation(s)",
+      conditional: {
+        html: orgHtml
+      }
+    }
+  ]
+}) }}
+<!-- <div class="nhsuk-u-margin-top-8">
+{{ checkboxes({
+  idPrefix: "submission-type",
+  name: "submission-type",
+  fieldset: {
+    legend: {
+      text: "Submission type",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: false
+    }
+  },
+  items: [
+    {
+      value: "test-only",
+      hint: {
+        text: "If selected, this submission window will only accept test data and will not be included in live reporting."
+      },
+      text: "Allow only test submissions"
+    }
+  ]
+}) }}
+</div>
+ -->
+
+ <div class="nhsuk-form-group">
+  <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+      <h1 class="nhsuk-fieldset__heading">
+       Submission type
+      </h1>
+    </legend>
+    <div class="nhsuk-checkboxes" data-module="nhsuk-checkboxes">
+      <div class="nhsuk-checkboxes__item">
+        <input class="nhsuk-checkboxes__input" id="example" name="example" type="checkbox" value="email">
+        <label class="nhsuk-label nhsuk-checkboxes__label" for="example">
+         Allow only test submissions
+        </label>
+        
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div class="nhsuk-u-margin-top-6">
+<h2 class="nhsuk-heading-m">Notifications</h2>
+
+{{ radios({
+  idPrefix: "notification-window-opened",
+  name: "notification-window-opened",
+  fieldset: {
+    legend: {
+      text: "Send a notification when this submission window opened",
+      classes: "nhsuk-fieldset__legend--s",
+      isPageHeading: false
+    }
+  },
+  hint: {
+    text: "Users will receive an email notification when the submission window becomes available."
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no",
+      text: "No"
+    }
+  ]
+}) }}
+
+{{ radios({
+  idPrefix: "notification-deadline-approaching",
+  name: "notification-deadline-approaching",
+  fieldset: {
+    legend: {
+      text: "Submission deadline approaching",
+      classes: "nhsuk-fieldset__legend--s nhsuk-u-margin-top-6",
+      isPageHeading: false
+    }
+  },
+  hint: {
+    text: "Users will receive reminder notifications as the submission deadline approaches."
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes"
+    },
+    {
+      value: "no", 
+      text: "No"
+    }
+  ]
+}) }}
+</div>
+
+
+</fieldset>
+  {% from "button/macro.njk" import button %}
+<div class="nhsuk-u-margin-top-8">
+{{ button({
+  text: "Save",
+  href: "javascript:history.back()"
+}) }}
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+    <style>
+      .nhsuk-select {
+      min-width: 400px;
+      }
+      
+      .organisation-multiselect {
+        position: relative;
+        width: 100%;
+        max-width: 66.66%;
+      }
+
+      .organisation-multiselect__trigger {
+        background: #ffffff;
+        border: 2px solid #4c2c92;
+        border-radius: 4px;
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 44px;
+      }
+
+      .organisation-multiselect__arrow {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #212b32;
+      }
+
+      .organisation-multiselect__dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #b1b4b6;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-height: 300px;
+        overflow: hidden;
+      }
+
+      .organisation-multiselect__search {
+        padding: 8px;
+        border-bottom: 1px solid #f0f4f5;
+      }
+
+      .organisation-multiselect__search-input {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #b1b4b6;
+        border-radius: 4px;
+        font-size: 16px;
+        margin: 0;
+      }
+
+      .organisation-multiselect__options {
+        max-height: 250px;
+        overflow-y: auto;
+      }
+
+      .organisation-multiselect__option {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f4f5;
+      }
+
+      .organisation-multiselect__option:hover {
+        background-color: #f0f4f5;
+      }
+
+      .organisation-multiselect__option--selected {
+        background-color: #005eb8;
+        color: white;
+      }
+
+      .organisation-multiselect__option--hidden {
+        display: none;
+      }
+
+      .organisation-selected-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid #d8dde0;
+      }
+
+      .organisation-selected-item__name {
+        font-weight: 400;
+        font-size: 1rem;
+        color: #212b32;
+      }
+
+      .nhsuk-time-separator {
+        font-size: 1.5rem;
+        line-height: 1;
+        padding-top: 32px;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const organisationRadios = document.querySelectorAll('input[name="organisation-scope"]')
+      let selectedOrganisations = []
+      let isAllSelected = false
+      let multiselectInitialized = false
+
+      function waitForElement(selector, callback, maxAttempts = 50) {
+        let attempts = 0
+        const checkElement = () => {
+          const element = document.querySelector(selector)
+          if (element) {
+            callback()
+          } else {
+            attempts++
+            if (attempts < maxAttempts) {
+              setTimeout(checkElement, 50)
+            }
+          }
+        }
+        checkElement()
+      }
+
+      function initializeMultiselect() {
+        if (multiselectInitialized) return
+        
+        const multiselectTrigger = document.getElementById('organisation-multiselect-trigger')
+        const multiselectDropdown = document.getElementById('organisation-multiselect-dropdown')
+        const multiselectLabel = document.getElementById('organisation-multiselect-label')
+        const searchInput = document.getElementById('organisation-search')
+        const organisationOptions = document.querySelectorAll('.organisation-multiselect__option')
+        const selectedOrganisationsContainer = document.getElementById('selected-organisations')
+        const organisationList = document.getElementById('organisation-list')
+
+        if (!multiselectTrigger || !multiselectDropdown || !multiselectLabel || organisationOptions.length === 0) {
+          return
+        }
+
+        multiselectInitialized = true
+
+        // Toggle dropdown
+        multiselectTrigger.addEventListener('click', function(e) {
+          e.stopPropagation()
+          const isVisible = multiselectDropdown.style.display === 'block'
+          multiselectDropdown.style.display = isVisible ? 'none' : 'block'
+          if (!isVisible && searchInput) {
+            searchInput.focus()
+          }
+        })
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.organisation-multiselect')) {
+            multiselectDropdown.style.display = 'none'
+          }
+        })
+
+        // Search functionality
+        if (searchInput) {
+          searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase()
+            organisationOptions.forEach(option => {
+              // Only apply search filter to non-selected items
+              if (!selectedOrganisations.includes(option.dataset.value)) {
+                const text = option.textContent.toLowerCase()
+                if (text.includes(searchTerm)) {
+                  option.classList.remove('organisation-multiselect__option--hidden')
+                  option.style.display = 'block'
+                } else {
+                  option.classList.add('organisation-multiselect__option--hidden')
+                  option.style.display = 'none'
+                }
+              }
+            })
+          })
+        }
+
+        // Handle option clicks
+        organisationOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.stopPropagation()
+            const value = this.dataset.value
+            
+            // Toggle individual selection
+            if (selectedOrganisations.includes(value)) {
+              selectedOrganisations = selectedOrganisations.filter(org => org !== value)
+              this.classList.remove('organisation-multiselect__option--selected')
+            } else {
+              selectedOrganisations.push(value)
+              this.classList.add('organisation-multiselect__option--selected')
+            }
+            
+            updateDropdownVisibility()
+            updateSelectedOrganisationsList()
+            updateMultiselectLabel()
+          })
+        })
+
+        function updateDropdownVisibility() {
+          // Hide selected options from dropdown
+          organisationOptions.forEach(option => {
+            if (selectedOrganisations.includes(option.dataset.value)) {
+              option.style.display = 'none'
+            } else {
+              option.style.display = 'block'
+            }
+          })
+        }
+
+        function updateMultiselectLabel() {
+          if (!multiselectLabel) return
+          if (selectedOrganisations.length === 0) {
+            multiselectLabel.textContent = 'No organisation selected'
+          } else if (selectedOrganisations.length === 1) {
+            multiselectLabel.textContent = '1 organisation selected'
+          } else {
+            multiselectLabel.textContent = selectedOrganisations.length + ' organisations selected'
+          }
+        }
+
+        function updateSelectedOrganisationsList() {
+          if (!selectedOrganisationsContainer || !organisationList) return
+          
+          if (selectedOrganisations.length === 0) {
+            selectedOrganisationsContainer.style.display = 'none'
+            return
+          }
+
+          selectedOrganisationsContainer.style.display = 'block'
+          organisationList.innerHTML = selectedOrganisations
+            .map((organisation) => {
+              return '<div class="organisation-selected-item">'
+                + '<span class="organisation-selected-item__name">' + escapeHtml(organisation) + '</span>'
+                + '<button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" data-remove-organisation="' + escapeHtml(organisation) + '">Remove</button>'
+                + '</div>'
+            })
+            .join('')
+        }
+
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+        }
+
+        // Handle remove button clicks
+        if (organisationList) {
+          organisationList.addEventListener('click', function (event) {
+            const removeButton = event.target.closest('[data-remove-organisation]')
+            if (!removeButton) return
+
+            event.preventDefault()
+            const nameToRemove = removeButton.getAttribute('data-remove-organisation')
+            selectedOrganisations = selectedOrganisations.filter(org => org !== nameToRemove)
+            
+            // Update option styling and make it visible again in dropdown
+            const optionToDeselect = document.querySelector(`[data-value="${CSS.escape(nameToRemove)}"]`)
+            if (optionToDeselect) {
+              optionToDeselect.classList.remove('organisation-multiselect__option--selected')
+              // Show the item back in the dropdown
+              optionToDeselect.style.display = 'block'
+              // Check if it should be hidden due to search
+              const searchTerm = searchInput ? searchInput.value.toLowerCase() : ''
+              if (searchTerm && !optionToDeselect.textContent.toLowerCase().includes(searchTerm)) {
+                optionToDeselect.style.display = 'none'
+                optionToDeselect.classList.add('organisation-multiselect__option--hidden')
+              } else {
+                optionToDeselect.classList.remove('organisation-multiselect__option--hidden')
+              }
+            }
+            
+            updateSelectedOrganisationsList()
+            updateMultiselectLabel()
+          })
+        }
+      }
+
+      // Reporting Period Multiselect
+      let selectedReportingPeriods = []
+      let reportingPeriodMultiselectInitialized = false
+
+      function initializeReportingPeriodMultiselect() {
+        if (reportingPeriodMultiselectInitialized) return
+        
+        const multiselectTrigger = document.getElementById('reporting-period-multiselect-trigger')
+        const multiselectDropdown = document.getElementById('reporting-period-multiselect-dropdown')
+        const multiselectLabel = document.getElementById('reporting-period-multiselect-label')
+        const searchInput = document.getElementById('reporting-period-search')
+        const reportingPeriodOptions = document.querySelectorAll('#reporting-period-multiselect-options .organisation-multiselect__option')
+
+        if (!multiselectTrigger || !multiselectDropdown || !multiselectLabel || reportingPeriodOptions.length === 0) {
+          return
+        }
+
+        reportingPeriodMultiselectInitialized = true
+
+        // Toggle dropdown
+        multiselectTrigger.addEventListener('click', function(e) {
+          e.stopPropagation()
+          const isVisible = multiselectDropdown.style.display === 'block'
+          multiselectDropdown.style.display = isVisible ? 'none' : 'block'
+          if (!isVisible && searchInput) {
+            searchInput.focus()
+          }
+        })
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('#reporting-period-multiselect-trigger') && !e.target.closest('#reporting-period-multiselect-dropdown')) {
+            multiselectDropdown.style.display = 'none'
+          }
+        })
+
+        // Search functionality
+        if (searchInput) {
+          searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase()
+            reportingPeriodOptions.forEach(option => {
+              const text = option.textContent.toLowerCase()
+              if (text.includes(searchTerm)) {
+                option.style.display = 'block'
+              } else {
+                option.style.display = 'none'
+              }
+            })
+          })
+        }
+
+        // Handle option clicks
+        reportingPeriodOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.stopPropagation()
+            const value = this.dataset.value
+            
+            // Toggle selection
+            if (selectedReportingPeriods.includes(value)) {
+              selectedReportingPeriods = selectedReportingPeriods.filter(period => period !== value)
+              this.classList.remove('organisation-multiselect__option--selected')
+            } else {
+              selectedReportingPeriods.push(value)
+              this.classList.add('organisation-multiselect__option--selected')
+            }
+            
+            updateReportingPeriodLabel()
+          })
+        })
+
+        function updateReportingPeriodLabel() {
+          if (!multiselectLabel) return
+          if (selectedReportingPeriods.length === 0) {
+            multiselectLabel.textContent = 'Choose reporting period(s)'
+          } else if (selectedReportingPeriods.length === 1) {
+            multiselectLabel.textContent = '1 reporting period selected'
+          } else {
+            multiselectLabel.textContent = selectedReportingPeriods.length + ' reporting periods selected'
+          }
+        }
+      }
+
+      // Initialize reporting period multiselect immediately
+      waitForElement('#reporting-period-multiselect-trigger', () => {
+        initializeReportingPeriodMultiselect()
+      })
+
+      // Handle organisation scope radio changes
+      organisationRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'specific') {
+            // Wait for the conditional HTML to be rendered using a more robust approach
+            waitForElement('#organisation-multiselect-trigger', () => {
+              multiselectInitialized = false // Reset so we can reinitialize
+              initializeMultiselect()
+            })
+          } else {
+            selectedOrganisations = []
+            isAllSelected = false
+            multiselectInitialized = false
+            const selectedOrganisationsContainer = document.getElementById('selected-organisations')
+            if (selectedOrganisationsContainer) {
+              selectedOrganisationsContainer.style.display = 'none'
+            }
+          }
+        })
+      })
+
+      // Initialize if specific radio is already selected
+      const specificRadio = document.querySelector('input[name="organisation-scope"][value="specific"]')
+      if (specificRadio && specificRadio.checked) {
+        waitForElement('#organisation-multiselect-trigger', () => {
+          initializeMultiselect()
+        })
+      }
+    })
+
+    // Prevent NHS frontend checkbox initialization errors
+    if (typeof window.nhsuk !== 'undefined') {
+      // Override the problematic checkboxes initialization
+      const originalCheckboxes = window.nhsuk.Checkboxes;
+      window.nhsuk.Checkboxes = function(element) {
+        // Only initialize if checkboxes actually exist
+        if (element && element.querySelectorAll && element.querySelectorAll('.nhsuk-checkboxes__input').length > 0) {
+          return originalCheckboxes.call(this, element);
+        }
+      };
+    }
+    </script>
+{% endblock %}

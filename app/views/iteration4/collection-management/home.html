@@ -1,0 +1,101 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = serviceName %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-full nhsuk-u-margin-top-7 ">
+      <h1>
+         {{ pageName }}
+      </h1>
+      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the new National Data Submission Portal. 
+      </p>
+       <ul class="nhsuk-grid-row nhsuk-card-group ">
+        <li class="nhsuk-grid-column-two-third nhsuk-card-group__item">
+        {{ card({
+          primary: "true",
+          descriptionHtml: '
+            <div class="nhsuk-u-margin-bottom-3">
+              <div class="nhsuk-heading-xl nhsuk-u-margin-bottom-1" style="font-size: 3rem; font-weight: bold; color: #005eb8;">22</div>
+              <div class="nhsuk-body-l nhsuk-u-margin-bottom-4">submissions today</div>
+              <p class="nhsuk-u-margin-bottom-2"><a href="submissions" class="nhsuk-card__link nhsuk-heading-s">All submissions</a></p>
+            </div>
+            <p class="nhsuk-body-m nhsuk-u-margin-bottom-0">View all data submissions across collections and reporting periods.</p>
+          '
+        }) }}
+        </li>
+        
+       </ul>
+      <hr>  
+      <h2>
+        Diagnostic Imaging Data Set (V2.0)
+      </h2>
+
+<div class="nhsuk-grid-column-full nhsuk-u-margin-top-6 ">
+
+   <ul class="nhsuk-grid-row nhsuk-card-group ">
+
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "performance-by-period",
+        primary: "true",
+        clickable: "true",
+        heading: "Performance by period",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "data-quality/summary",
+        primary: "true",
+        clickable: "true",
+        heading: "Data quality",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li> 
+
+      <!-- <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "performance-by-organisation",
+        primary: "true",
+        clickable: "true",
+        heading: "Performance by organisation",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li> -->
+
+    <!-- <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+    {{ card({
+      clickable: true,
+      href: "setup",
+      primary: "true",
+      heading: "Collection configuration",
+      headingClasses: "nhsuk-heading-s"
+    }) }} -->
+  </li>
+
+    </ul>
+
+
+
+      <hr>  
+ </div>    
+    
+
+
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

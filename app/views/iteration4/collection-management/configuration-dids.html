@@ -1,0 +1,95 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configurations"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+         Diagnostic Imaging Data Set (V2.0)
+      </h1>
+
+      <p>
+         
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "collection-setup",
+        primary: "true",
+        clickable: "true",
+        heading: "General configuration",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "providers",
+        primary: "true",
+        clickable: "true",
+        heading: "Submitting organisations",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "reporting-periods/periods",
+        primary: "true",
+        clickable: "true",
+        heading: "Reporting periods",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "reporting-periods/submission-windows",
+        primary: "true",
+        clickable: "true",
+        heading: "Submission windows",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+           {{ card({
+        href: "notification-settings",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage notifications",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+
+    </ul>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

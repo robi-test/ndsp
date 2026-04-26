@@ -1,0 +1,272 @@
+{% extends "iteration4/collection-management/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "../setup",
+      text: "Set up"
+    }
+  ],
+  href: "periods",
+  text: "Reporting periods"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "action-link/macro.njk" import actionLink %}
+{% from "tables/macro.njk" import table %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-thirds">
+    <h1 class="nhsuk-heading-l">April 2026</h1>
+
+    {{ table({
+      responsive: true,
+      classes: "nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-6",
+      caption: "Reporting period summary",
+      captionClasses: "nhsuk-u-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: "Reporting period name"
+        },
+        {
+          text: "Start date"
+        },
+        {
+          text: "End date"
+        },
+        {
+          text: "Action"
+        }
+      ],
+      rows: [
+        [
+          {
+            text: "April 2026"
+          },
+          {
+            text: "1 April 2026"
+          },
+          {
+            text: "30 April 2026"
+          },
+          {
+            
+          }
+        ]
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-4">Submission windows</h2>
+
+    <p class="nhsuk-body-m">You can only delete submission windows that are not open and have not already occurred.</p>
+
+    <div class="nhsuk-u-margin-bottom-6">
+    {{ actionLink({
+      text: "Add submission window",
+      href: "window-new"
+    }) }}
+    </div>
+
+    {{ table({
+      responsive: true,
+      caption: "Submission windows",
+      captionClasses: "nhsuk-u-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: "Window name/ Type of deadline"
+        },
+        {
+          text: "Open on"
+        },
+        {
+          text: "Close on"
+        },
+        {
+          text: "Organisations"
+        },
+        {
+          text: "Action"
+        }
+      ],
+      rows: [
+        [
+          {
+            text: "Provisional processing"
+          },
+          {
+            text: "1 May 2026, 00:00"
+          },
+          {
+            text: "31 May 2026, 23:59"
+          },
+          {
+            text: "All"
+          },
+          {
+            text: ""
+          }
+        ],
+        [
+          {
+            text: "Window closes"
+          },
+          {
+            text: "1 Jun 2026, 00:00"
+          },
+          {
+            text: "31 Oct 2026, 23:59"
+          },
+          {
+            text: "All"
+          },
+          {
+            html: '<a href="window-edit">Edit</a>'
+          }
+        ],
+        [
+          {
+            text: "Extension deadline"
+          },
+          {
+            text: "1 Nov 2026, 00:00"
+          },
+          {
+            text: "30 Nov 2026, 23:59"
+          },
+          {
+            html: '<a href="#" id="show-organisations-link" onclick="showOrganisationsModal(); return false;">2 organisations</a>'
+          },
+          {
+            html: '<a href="window-edit-extension">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm2">Delete</a>'
+          }
+        ]
+      ]
+    }) }}
+  </div>
+</div>
+
+<!-- Organisations Modal -->
+<div id="organisations-modal" class="nhsuk-modal" style="display: none;">
+  <div class="nhsuk-modal__overlay" onclick="hideOrganisationsModal()"></div>
+  <div class="nhsuk-modal__content">
+    <div class="nhsuk-modal__header">
+      <h2 class="nhsuk-modal__title">Selected organisations</h2>
+      <button type="button" class="nhsuk-modal__close" onclick="hideOrganisationsModal()" aria-label="Close modal">
+        <span class="nhsuk-u-visually-hidden">Close</span>
+        <svg class="nhsuk-icon nhsuk-icon__close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m13.41 12 4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 1.42 1.42l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42-1.42L13.41 12z"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="nhsuk-modal__body">
+      <ul class="nhsuk-list">
+        <li>Barts Health NHS Trust</li>
+        <li>Chelsea and Westminster Hospital NHS Foundation Trust</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+.nhsuk-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.nhsuk-modal__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nhsuk-modal__content {
+  position: relative;
+  background-color: white;
+  margin: 5% auto;
+  padding: 0;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nhsuk-modal__header {
+  padding: 24px 24px 0 24px;
+  border-bottom: 1px solid #d8dde0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nhsuk-modal__title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.nhsuk-modal__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin: -8px -8px -8px 16px;
+}
+
+.nhsuk-modal__close:hover {
+  background-color: #f0f4f5;
+  border-radius: 4px;
+}
+
+.nhsuk-modal__body {
+  padding: 24px;
+}
+
+.nhsuk-icon__close {
+  width: 24px;
+  height: 24px;
+  fill: #425563;
+}
+</style>
+
+<script>
+function showOrganisationsModal() {
+  document.getElementById('organisations-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function hideOrganisationsModal() {
+  document.getElementById('organisations-modal').style.display = 'none';
+  document.body.style.overflow = 'auto';
+}
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    hideOrganisationsModal();
+  }
+});
+</script>
+{% endblock %}

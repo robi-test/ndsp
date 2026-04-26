@@ -1,0 +1,363 @@
+{% extends "iteration3/data-submission/layout.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (DIDS)" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "guidance-permissions",
+  text: "Guidance and permissions"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row ">
+   <div class="nhsuk-u-margin-top-7">
+    
+<div class="nhsuk-grid-row">
+  <div class=" app-component-reading-width">
+
+    <div class="app-pane">
+
+<div class="app-pane__side-bar">
+
+<!--
+<nav class="app-side-nav">    <h2 class="app-side-nav__heading">Form elements</h2>
+    <ul class="nhsuk-list app-side-nav__list">
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/buttons">Diagnostic Imaging Dataset (DIDS)</a></li>
+      <li class="app-side-nav__item"><a class="app-side-nav__link" href="/design-system/components/character-count">Collection 2</a></li>
+    </ul>
+
+</nav>-->
+</div>
+
+<div class=" app-pane__main-content nhsuk-grid-column-two-thirds">
+
+
+<h1>   
+  Diagnostic Imaging Data Set (DIDS)
+</h1>
+<h3>   
+  Resources
+</h3>
+<p>
+Quick access to guidance and tools to help you manage your data submissions.
+</p>
+<ul>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/tools-and-guidance" >DIDS implemention tools</a>: Implementation tools (this includes ETOS and other resources).
+</li>
+<li><a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/diagnostic-imaging-data-set/submit-data">DIDS timetable</a>: Full list of current submission periods and deadlines.
+</li>
+<li><a href="https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/36/items/248/releases">DIDS schemas</a>: Access the latest schema files (this includes XML schema and CSV file).
+</li>
+</ul>
+
+<div class="nhsuk-u-margin-top-7">
+  <h3>   
+    Your permissions
+  </h3>
+<p>Here are the organisation you’re submitting on behalf of and your assigned role.<br>
+    You can also generate an API token for the organisation, which is usually a one-off setup.
+    </p>
+ <div class="nhsuk-u-margin-top-7">
+  {% from "summary-list/macro.njk" import summaryList %}
+
+  {{ summaryList({
+    rows: [
+      {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+          text: "Milton Keynes University Hospital"
+        }
+      },
+      {
+        key: {
+          text: "Your role"
+        },
+        value: {
+          text: "Submitter"
+        }
+      }
+    ]
+  }) }}
+  {% from "button/macro.njk" import button %}
+
+{{ button({
+  text: "Get an API token",
+  classes: "nhsuk-button--secondary js-api-token-button",
+  attributes: {
+    "data-modal-target": "api-token-modal"
+  }
+}) }}
+<hr>
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        text: "Luton and Dunstable University Hospital"
+      }
+    },
+    {
+      key: {
+        text: "Your role"
+      },
+      value: {
+        text: "Submitter"
+      }
+    
+    }
+  ]
+}) }}
+
+
+
+{{ button({
+  text: "Get an API token",
+  classes: "nhsuk-button--secondary js-api-token-button",
+  attributes: {
+    "data-modal-target": "api-token-modal"
+  }
+}) }}
+</div>
+<details class="nhsuk-details nhsuk-u-margin-top-7">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      How to start setting up an API submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+    <p>Your organisation can use the API to automate submissions. This is a one-off setup and is only needed if submissions are made programmatically. See the <a href="https://future.nhs.uk/NDSP/view?objectID=69234512">API submission guidance</a> for full instructions.
+    </p>
+    <h3>How to get an API token</h3>
+    <p>Click Get an API token above to open the API management application.<br>
+        Go to OAuth & permissions and select Rotate secret to generate a new client secret. This client secret is your API token.<br>
+
+        Keep your API token secure, as it allows submissions on behalf of your organisation.
+    </p> 
+    <h3>Other settings</h3>
+    <p>When submitting via the API, you must also provide a submission type and a submission window ID.</p>
+
+    <h3>Submission types</h3>
+    <table class="nhsuk-table-responsive" role="table">
+      <caption class="nhsuk-table__caption nhs-visually-hidden">Submission types and IDs</caption>
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr role="row" class="nhsuk-table__row">
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Submission type</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">ID</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission type</span>Submission</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>3535</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission type</span>Test</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>3362</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Submission window IDs</h3>
+    <table class="nhsuk-table-responsive" role="table">
+      <caption class="nhsuk-table__caption nhs-visually-hidden">Submission windows and IDs</caption>
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr role="row" class="nhsuk-table__row">
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Submission window</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">ID</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>January 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_64eb9ab2-227d-4d6a-a696-27c788ee76c3</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>January 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_eb2adf7e-8618-49e3-8f11-e2c0b671e6bf</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>February 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_ba9b122b-916c-4f75-b587-b3532a62bc58</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>February 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_c8035b6f-b7f4-4de2-8185-d46d540bf865</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>March 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_5f76a8f2-2b61-4519-b02c-2efb5aa0d66a</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>March 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_f13d120e-4f9e-47bc-ae36-06c11f1f5deb</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>April 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_1f0e1bd3-f66e-4e50-90e9-cc4f4f266f70</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>April 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_6f336c27-4a80-4732-8aef-18d26fca95a5</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>May 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_bf3d4baf-9d6e-4f08-a62c-e3f6ec5f5266</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>May 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_77e81eed-7ee8-4a16-a7a7-e764fd5dd7da</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>June 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_2ee750a4-f4f8-47e5-ad91-80f0ac5e72b5</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>June 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_f261eba7-a589-4b17-b130-4a7802f7e684</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>July 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_49e6a8d0-d80b-4468-95c3-a3cbc8f75bb7</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>July 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_b45ea577-0d1f-4377-bf33-e53df1846f76</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>August 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_8b1ac4e1-b8c2-45b6-8b8e-a145c073f040</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>August 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_398f41f4-474e-456f-b0e2-bbe188f2011d</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>September 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_3b0df706-e4fe-43f9-adab-dc454f9f7d7e</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>September 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_5fbda8dc-d166-4735-ad4e-c5fafffd8c0b</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>October 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_16eb061e-0fd3-4f44-b983-1e3a30340f28</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>October 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_9d50d0e9-f130-4922-93f6-b65f28f9f898</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>November 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_2f8129d0-fbf1-41f0-a1cb-7fdb7f4713f4</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>November 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_ee96f65c-10ff-4f2a-9133-946ffb4abef4</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>December 2026 (provisional processing deadline)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_0b4295f4-df52-4b83-ae5e-c90ba4ff278b</td>
+        </tr>
+        <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission window</span>December 2026 (window closes)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ID</span>submissionWindow_5f8b064f-17f8-4414-a65b-7f8fd8dbc8e0</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</details>
+
+
+ </div>
+
+   <!-- Custom Modal Popup -->
+                <div id="api-token-modal" class="nhsuk-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+                  <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;margin:auto;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
+                    <h2 id="api-token-title" style="margin-top:0;font-size:1.3rem;">Get an API token</h2>
+                    <p id="api-token-description" style="margin-bottom:2rem;">Clicking Continue will take you to the application used to manage API access.<br>
+From there, go to the 'OAuth & permissions' tab and select 'Rotate secret' to generate a new client secret. This client secret is your API token.</p>
+                    <div style="display:flex;gap:1rem;align-items:center;justify-content:flex-end;">
+                      <button id="cancel-api-token" class="nhsuk-button nhsuk-button--secondary" type="button" style="margin-bottom:0;">Cancel</button>
+                      <button id="continue-api-token" class="nhsuk-button" type="button" style="margin-bottom:0;">Continue</button>
+                </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var modal = document.getElementById("api-token-modal");
+    if (!modal) {
+      return;
+    }
+
+    var triggerButtons = document.querySelectorAll(".js-api-token-button");
+    var cancelButton = document.getElementById("cancel-api-token");
+    var continueButton = document.getElementById("continue-api-token");
+
+    function openModal() {
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    triggerButtons.forEach(function (button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    if (cancelButton) {
+      cancelButton.addEventListener("click", function () {
+        closeModal();
+      });
+    }
+
+    if (continueButton) {
+      continueButton.addEventListener("click", function () {
+        closeModal();
+      });
+    }
+
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+  })();
+
+</script>
+{% endblock %}

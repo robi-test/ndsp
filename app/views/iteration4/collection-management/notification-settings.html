@@ -1,0 +1,105 @@
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
+{% set pageName = "Email notification settings" %}
+{% block beforeContent %}
+{{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "setup",
+      text: "Set up"
+}) }}
+
+{% endblock %}
+{% block content %}
+{% from "button/macro.njk" import button %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       
+      <span class="nhsuk-caption-l">Diagnostic Imaging Data Set (DIDS v2.0)</span>
+      <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+           <div class="nhsuk-u-margin-bottom-6"> 
+          <p>Choose which email notifications you want to receive from the National Data Submission Portal.
+You can turn notifications on or off at any time. Some essential service emails will always be sent.
+          </p>
+
+          {% from "summary-list/macro.njk" import summaryList %}
+          {% from "tag/macro.njk" import tag %}
+          <div class="notification-summary-header">
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0">Notification summary</h2>
+            <a href="notification-settings-edit" class="nhsuk-link">Change notification setting</a>
+          </div>
+          {{ summaryList({
+            classes: "notification-summary-list",
+            rows: [
+              {
+                key: {
+                  text: "Submission window opened"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline approaching"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline changed"
+                },
+                value: {
+                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
+                }
+              },
+              {
+                key: {
+                  text: "Validation completed"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              }
+            ]
+          }) }}
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .notification-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__key {
+    width: 72%;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__value {
+    width: 28%;
+    text-align: right;
+    white-space: nowrap;
+  }
+</style>
+{% endblock %}

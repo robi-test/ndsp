@@ -1,0 +1,231 @@
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Submission details" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "submissions",
+      text: "All submissions"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            {% from "summary-list/macro.njk" import summaryList %}
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Collection" },
+                  value: { text: "Diagnostic Imaging Data Set  (DIDS v2.0)" }
+                },
+                {
+                  key: { text: "Organisation" },
+                  value: { text: "Milton Keynes University Hospital (RD8)" }
+                },
+                {
+                  key: { text: "Reporting period" },
+                  value: { text: "January 2026" }
+                },
+                {
+                  key: { text: "File submitted" },
+                  value: { text: "DID_JanProv4_2026_2.xml" },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: "",
+                        visuallyHiddenText: ""
+                      }
+                    ]
+                  }
+                },{
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Rejected", classes: "nhsuk-tag--red"}) }
+                }
+              ]
+            }) }}
+
+ 
+ <details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      More details about the submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+           {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Submission ID" },
+                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
+                },
+                {
+                  key: { text: "Submission route" },
+                  value: { text: "File submission" }
+                },
+                
+                {
+                  key: { text: "Submitted on" },
+                  value: { text: "25 Feb 2026, 09:30" }
+                },
+                {
+                  key: { text: "Submitted by" },
+                  value: { text: "Olivia Patel" }
+                },
+                {
+                  key: { text: "Type" },
+                  value: { text: "Re-submission" }
+                }
+              ]
+            }) }}
+  </div>
+</details>
+
+<div style="margin-top:10px; margin-bottom:20px">
+    <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+    <p>Your validation feedback details:</p>
+    {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Number of records" },
+                  value: { text: "1,234" }
+                  
+                },
+                
+                {
+                  key: { text: "Errors" },
+                  value: { text: "10 Error(s)" },
+                  actions: {
+                    items: [
+                      {
+                        href: "submission-errors-new",
+                        text: "",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                 },
+                {
+                  key: { text: "Warnings" },
+                  value: { text: "4 Warning(s)" }
+                }
+              ]
+            }) }}
+      
+           
+    </div>
+    <style>
+      .validation-details-table {
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      .validation-details-table .validation-col-code { width: 18%; }
+      .validation-details-table .validation-col-field { width: 28%; }
+      .validation-details-table .validation-col-message { width: 44%; }
+      .validation-details-table .validation-col-count { width: 10%; }
+
+      .validation-details-table th:last-child,
+      .validation-details-table td:last-child {
+        text-align: right;
+      }
+    </style>
+
+    <div style="margin-top: 10px;">
+      <h2 class="nhsuk-heading-m">Error details</h2>
+      <table class="nhsuk-table validation-details-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <colgroup>
+          <col class="validation-col-code">
+          <col class="validation-col-field">
+          <col class="validation-col-message">
+          <col class="validation-col-count">
+        </colgroup>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Error code</th>
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Error</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00101002</td>
+            <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)</td>
+            <td class="nhsuk-table__cell">is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and Dictionary). </td>
+            <td class="nhsuk-table__cell">4</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00200603</td>
+            <td class="nhsuk-table__cell">DIAGNOSTIC TEST REQUEST DATE</td>
+            <td class="nhsuk-table__cell">is after reporting_period_end_date.</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00000202</td>
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (CODE OF PROVIDER)</td>
+            <td class="nhsuk-table__cell"> has an incorrect data format</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS00300502</td>
+            <td class="nhsuk-table__cell">CODED PROCEDURE END TIMESTAMP</td>
+            <td class="nhsuk-table__cell"> has an incorrect data format.</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+     <div style="margin-top: 10px;">
+      <h2 class="nhsuk-heading-m">Warning details</h2>
+      <table class="nhsuk-table validation-details-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
+        <colgroup>
+          <col class="validation-col-code">
+          <col class="validation-col-field">
+          <col class="validation-col-message">
+          <col class="validation-col-count">
+        </colgroup>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Warning code</th>
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Warning</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">DIDS003001</td>
+            <td class="nhsuk-table__cell">RADIOLOGICAL ACCESSION NUMBER</td>
+            <td class="nhsuk-table__cell">contains an invalid value. </td>
+            <td class="nhsuk-table__cell">4</td>
+          </tr>
+        
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

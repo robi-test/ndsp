@@ -1,0 +1,145 @@
+{% extends "iteration4/collection-management/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "../setup",
+      text: "Set up"
+    }
+  ],
+  href: "periods",
+  text: "Reporting periods"
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from "action-link/macro.njk" import actionLink %}
+{% from "tables/macro.njk" import table %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-thirds">
+    <h1 class="nhsuk-heading-l">May 2026</h1>
+
+    {{ table({
+      responsive: true,
+      classes: "nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-6",
+      caption: "Reporting period summary",
+      captionClasses: "nhsuk-u-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: "Reporting period name"
+        },
+        {
+          text: "Start date"
+        },
+        {
+          text: "End date"
+        },
+        {
+          text: "Action"
+        }
+      ],
+      rows: [
+        [
+          {
+            text: "May 2026"
+          },
+          {
+            text: "1 May 2026"
+          },
+          {
+            text: "31 May 2026"
+          },
+          {
+            html: '<a href="period-edit-may">Edit</a>'
+          }
+        ]
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-4">Submission windows</h2>
+
+    <p class="nhsuk-body-m">You can only delete submission windows that are not open and have not already occurred.</p>
+
+    <div class="nhsuk-u-margin-bottom-6">
+    {{ actionLink({
+      text: "Add submission window",
+      href: "window-new"
+    }) }}
+    </div>
+
+    {{ table({
+      responsive: true,
+      caption: "Submission windows",
+      captionClasses: "nhsuk-u-visually-hidden",
+      firstCellIsHeader: false,
+      head: [
+        {
+          text: "Window name/ Type of deadline"
+        },
+        {
+          text: "Open on"
+        },
+        {
+          text: "Close on"
+        },
+        {
+          text: "Organisations"
+        },
+        {
+          text: "Action"
+        }
+      ],
+      rows: [
+        [
+          {
+            text: "Provisional processing"
+          },
+          {
+            text: "1 June 2026, 00:00"
+          },
+          {
+            text: "30 June 2026, 23:59"
+          },
+          {
+            text: "All"
+          },
+          {
+            html: '<a href="window-edit">Edit</a>'
+          }
+        ],
+        [
+          {
+            text: "Window closes"
+          },
+          {
+            text: "1 Jul 2026, 00:00"
+          },
+          {
+            text: "30 Nov 2026, 23:59"
+          },
+          {
+            text: "All"
+          },
+          {
+            html: '<a href="window-edit">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm2">Delete</a>'
+          }
+        ]
+      ]
+    }) }}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

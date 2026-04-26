@@ -1,0 +1,1282 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+ <!--This page shows a submissions table that includes org column and related filter-->
+
+{% set pageName = serviceName %}
+ <!-- {% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}-->
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l">All submissions</h1>
+      
+      <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+        <div class="nhsuk-grid-column-one-half">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="collection-select">
+              <strong>Collection</strong>
+            </label>
+            <div class="nhsuk-hint" id="collection-select-hint">
+              Select a collection to view its submissions.
+            </div>
+            <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
+              <option value="" selected>All</option>
+              <option value="Diagnostic Imaging Data Set (V2.0)">Diagnostic Imaging Data Set (V2.0)</option>
+              <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="nhsuk-grid-column-one-half">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="time-period-select">
+              <strong>Time period</strong>
+            </label>
+            <div class="nhsuk-hint" id="time-period-select-hint">
+              Select a time range.
+            </div>
+            <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+              <option value="last-2-weeks" selected>Last 2 weeks</option>
+              <option value="last-month">Last month</option>
+              <option value="last-2-months">Last 2 months</option>
+              <option value="">All</option>
+            </select>
+          </div>
+        </div>
+      </div>
+ <!--  <nav class="nhsuk-contents-list" role="navigation" aria-label="List of submissions by Collections">
+  <h2 class="nhsuk-u-visually-hidden">List of collections</h2>
+  <ol class="nhsuk-contents-list__list">
+    <li class="nhsuk-contents-list__item" aria-current="page">
+      <span class="nhsuk-contents-list__current">Diagnostic Imaging Data Set (DIDS v2.0)</span>
+    </li>
+    <li class="nhsuk-contents-list__item">
+      <a class="nhsuk-contents-list__link" href="#">Collection 2</a>
+    </li>
+
+  </ol>
+</nav>-->
+
+
+
+
+<!--<div class="nhsuk-form-group nhsuk-u-margin-bottom-4" style="max-width: 5S20px;">
+  <label class="nhsuk-label" for="top-submitted-month"><strong>Show results by month of submission</strong></label>
+  <select class="nhsuk-select" id="top-submitted-month" name="submittedMonth"></select>
+</div>-->
+
+<div class="nhsuk-tabs" data-module="nhsuk-tabs">
+  <h2 class="nhsuk-tabs__title">
+    Contents
+  </h2>
+
+  <ul class="nhsuk-tabs__list">
+    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+      <a class="nhsuk-tabs__tab" href="#filters">
+        Tabular data
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#graph">
+        Chart
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#download">
+        Download
+      </a>
+    </li>
+  </ul>
+
+<div class="nhsuk-tabs__panel" id="filters">
+
+<p class="nhsuk-body">Use the filters below to narrow down the submissions shown in the table. Make your selections and click 'Apply filters' to update the results.</p>
+
+<!-- Table filters -->      
+<div>
+<form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+<div class="nhsuk-table-filters__grid_small">
+<!-- <div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
+<input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
+<select class="nhsuk-select" id="filter-organisation" name="organisation">
+<option value="">All organisations</option>
+<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
+</select>
+</div> 
+</div>-->
+<div class="nhsuk-form-group" style="position: relative; width: 200px;">
+<label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
+<input class="nhsuk-input" id="filter-submitted-by" name="submittedBy" type="text" placeholder="Start typing to search..." autocomplete="off">
+<div id="submitted-by-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-form-group" style="position: relative; width: 200px;">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation / ODS:</strong></label>
+<input class="nhsuk-input" id="filter-organisation" name="organisation" type="text" placeholder="Start typing to search..." autocomplete="off">
+<div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-period"><strong>Reporting period:</strong></label>
+  <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+  <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-type"><strong>Type:</strong></label>
+  <select class="nhsuk-select_small" id="filter-type" name="type">
+    <option value="">All types</option>
+    <option value="Submission">Submission</option>
+    <option value="Re-submission">Re-submission</option>
+    <option value="No data">No data</option>
+    <option value="Test">Test</option>
+  </select>
+</div>
+<div class="nhsuk-form-group">
+  <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+  <div class="status-multiselect" style="position: relative;">
+    <button type="button" class="nhsuk-select_small status-toggle-btn" data-status-toggle style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+      <span data-status-summary>All statuses</span>
+    </button>
+    <div id="status-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; margin-top: 4px; display: none; padding: 12px; border: 1px solid #b1b4b6;">
+      <div class="nhsuk-checkboxes nhsuk-checkboxes--small" id="filter-status-list">
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-pending" name="status" type="checkbox" value="Pending validation">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-pending">Pending validation</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful" name="status" type="checkbox" value="Successful">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful">Successful</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful-warnings" name="status" type="checkbox" value="Successful with warnings">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-warnings">Successful with warnings</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-rejected" name="status" type="checkbox" value="Rejected">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-rejected">Rejected</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nhsuk-table-filters__actions">
+<button class="nhsuk-button" type="submit" onclick="return false">Apply</button>
+</div>
+</div>
+<div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+<div class="nhsuk-selected__header">
+<h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+<a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+</div>
+<div class="nhsuk-selected__row" id="selected-chips"></div>
+</div>
+</form>
+</div>
+      <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr role="row" class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">Collection</th> 
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="desc" data-key="submittedOn">Submitted on</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation">Organisation</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date" data-key="Period">Reporting period</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
+           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">      
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 09:30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Olivia Patel</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details2">View</a></td>   
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>           
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Apr 2026, 14:10</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Error", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>    
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>24 Apr 2026, 11:05</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Amelia Khan</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RQM)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>23 Apr 2026, 09:15</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Emma Wilson</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>        
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Apr 2026, 16:20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Apr 2026, 11:30</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Michael Davies</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Royal Free London NHS Foundation Trust (RFW)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Apr 2026, 10:55</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Apr 2026, 15:20</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Thompson</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>18 Apr 2026, 13:45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>17 Apr 2026, 13:42</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>          
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>12 Apr 2026, 12:35</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>5 Apr 2026, 11:13</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>2 Apr 2026, 10:45</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Lucas Reed</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited (NMT01)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+          </tr>
+        </tbody>
+      </table>
+
+<!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div> 
+
+</div>
+<!-- End of tab panel -->
+
+<div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="graph">
+  <h3 class="nhsuk-heading-m">Submission trends by collection</h3>
+  <div class="nhsuk-u-margin-bottom-4">
+    <canvas id="submissions-chart" width="800" height="400"></canvas>
+  </div>
+  <div class="chart-legend">
+    <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="width: 20px; height: 3px; background-color: #0072CE;"></div>
+        <span style="font-size: 16px; font-weight: 500;">Diagnostic Imaging Data Set (V2.0)</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="width: 20px; height: 3px; background-color: #78BE20;"></div>
+        <span style="font-size: 16px; font-weight: 500;">Lung Cancer Screening (LCS)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="download">
+  <h3 class="nhsuk-heading-m">Download data</h3>
+  
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <p>
+          Select format
+        </p>
+      </legend>
+      <div class="nhsuk-radios">
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="format-csv" name="download-format" type="radio" value="csv" checked>
+          <label class="nhsuk-label nhsuk-radios__label" for="format-csv">
+            CSV
+          </label>
+        </div>
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="format-json" name="download-format" type="radio" value="json">
+          <label class="nhsuk-label nhsuk-radios__label" for="format-json">
+            JSON
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  
+  <button class="nhsuk-button" type="button" id="download-btn" style="background-color: #00703c; border-color: #00703c;">
+    Download
+  </button>
+</div>
+
+</div>
+<!-- End of tabs -->
+</div>
+
+</div>
+ <!--<div class="nhsuk-u-margin-top-7">
+  <p><a href="submissionsV2">Table including ODS code</a></p>
+ 
+
+ </div>-->
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Chart initialization
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('submissions-chart');
+    if (!ctx) return;
+
+    // Generate last 12 months labels
+    const months = [];
+    const now = new Date();
+    for (let i = 11; i >= 0; i--) {
+      const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      months.push(date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }));
+    }
+
+    // Sample data for demonstration - in real scenario this would come from backend
+    const didsData = [150, 220, 180, 250, 300, 280, 350, 400, 380, 420, 450, 480]; // Diagnostic Imaging Data Set
+    const lcsData = [80, 120, 100, 150, 180, 160, 200, 250, 220, 280, 300, 320];   // Lung Cancer Screening
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Diagnostic Imaging Data Set (V2.0)',
+          data: didsData,
+          borderColor: '#0072CE', // Custom Blue
+          backgroundColor: 'rgba(0, 114, 206, 0.1)',
+          borderWidth: 3,
+          fill: false,
+          tension: 0
+        }, {
+          label: 'Lung Cancer Screening (LCS)',  
+          data: lcsData,
+          borderColor: '#78BE20', // Custom Green
+          backgroundColor: 'rgba(120, 190, 32, 0.1)',
+          borderWidth: 3,
+          borderDash: [5, 5],
+          fill: false,
+          tension: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false // We're using custom legend
+          },
+          title: {
+            display: true,
+            text: 'Number of submissions per month by collection',
+            font: {
+              size: 18
+            }
+          },
+          subtitle: {
+            display: true,
+            text: 'This includes only successful submissions',
+            font: {
+              size: 14
+            },
+            color: '#666'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of submissions',
+              font: {
+                size: 16
+              }
+            },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
+            grid: {
+              color: '#f0f4f5'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month',
+              font: {
+                size: 16
+              }
+            },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
+            grid: {
+              color: '#f0f4f5'
+            }
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        }
+      }
+    });
+  });
+})();
+</script>
+
+<script>
+// Tab functionality
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabLinks = document.querySelectorAll('.nhsuk-tabs__tab');
+    const tabPanels = document.querySelectorAll('.nhsuk-tabs__panel');
+    const tabItems = document.querySelectorAll('.nhsuk-tabs__list-item');
+    
+    tabLinks.forEach(function(tabLink) {
+      tabLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href').substring(1);
+        const targetPanel = document.getElementById(targetId);
+        
+        if (targetPanel) {
+          // Remove selected state from all tab items
+          tabItems.forEach(function(item) {
+            item.classList.remove('nhsuk-tabs__list-item--selected');
+          });
+          
+          // Hide all panels
+          tabPanels.forEach(function(panel) {
+            panel.classList.add('nhsuk-tabs__panel--hidden');
+          });
+          
+          // Show target panel
+          targetPanel.classList.remove('nhsuk-tabs__panel--hidden');
+          
+          // Add selected state to current tab
+          this.parentElement.classList.add('nhsuk-tabs__list-item--selected');
+        }
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Toggle expander text between 'Show filters' and 'Hide filters'
+  document.addEventListener('DOMContentLoaded', function(){
+    var details = document.querySelector('.nhsuk-details.nhsuk-expander');
+    var textSpan = document.getElementById('filters-expander-text');
+    if(details && textSpan) {
+      function updateText() {
+        textSpan.textContent = details.open ? 'Hide filters' : 'Show filters';
+      }
+      details.addEventListener('toggle', updateText);
+      updateText();
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Helper: get only the text node after the span (the cell value)
+  function cellValue(cell) {
+    if (!cell) return '';
+    // Find the first text node after the span
+    for (let node of cell.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        return node.textContent.trim();
+      }
+    }
+    // fallback: get all text and remove the heading
+    let txt = (cell.textContent || '').trim();
+    let heading = cell.querySelector('.nhsuk-table-responsive__heading');
+    if (heading) {
+      txt = txt.replace(heading.textContent, '').trim();
+    }
+    return txt;
+  }
+
+  function uniqueSorted(values){ return Array.from(new Set(values.filter(Boolean))).sort((a,b)=>a.localeCompare(b, undefined, {sensitivity:'base'})) }
+
+  function parseSubmittedDate(value) {
+    var datePart = (value || '').split(',')[0].trim()
+    var parsed = Date.parse(datePart)
+    return isNaN(parsed) ? null : new Date(parsed)
+  }
+
+  function formatSubmittedMonth(dateObj) {
+    if (!dateObj) return ''
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    return months[dateObj.getMonth()] + ' ' + dateObj.getFullYear()
+  }
+
+  function sortSubmittedMonthsDescending(values) {
+    return Array.from(new Set(values.filter(Boolean))).sort(function(a, b) {
+      var ad = Date.parse('1 ' + a)
+      var bd = Date.parse('1 ' + b)
+      if (!isNaN(ad) && !isNaN(bd)) return bd - ad
+      return b.localeCompare(a, undefined, { sensitivity: 'base' })
+    })
+  }
+
+  function initTableFilters(opts){
+    var table = document.getElementById(opts.tableId)
+    var form = document.getElementById(opts.formId)
+    var submittedMonthSel = document.getElementById('top-submitted-month')
+    if (!table || !form || !table.tBodies.length) return
+
+    // Locate inputs
+  var idInput = form.querySelector('#filter-id')
+  var orgInput = form.querySelector('#filter-organisation')
+  var byInput = form.querySelector('#filter-submitted-by')
+  var monthSel = form.querySelector('#filter-month')
+  var yearSel = form.querySelector('#filter-year')
+  var typeSel = form.querySelector('#filter-type')
+  var statusChecks = Array.from(form.querySelectorAll('#filter-status-list input[name="status"]'))
+  var statusToggle = form.querySelector('[data-status-toggle]')
+  var statusPanel = form.querySelector('#status-panel')
+  var statusSummary = form.querySelector('[data-status-summary]')
+    var periodInput = form.querySelector('#filter-period')
+    var clearBtn= form.querySelector('[data-clear-filters]')
+    var countEl = document.getElementById('results-count')
+    var applyBtn = form.querySelector('button[type="submit"]')
+    var chipsEl = document.getElementById('selected-chips')
+
+    // Map headers by data-key to column index
+    var keyIndex = {}
+    var i = 0
+    ;[].slice.call(table.tHead.rows[0].cells).forEach(function(th){
+      var span = th.colSpan || 1
+      var key = th.getAttribute('data-key')
+      for (var k=0; k<span; k++) { if (key && k===0) keyIndex[key] = i; i++ }
+    })
+
+    var rows = [].slice.call(table.tBodies[0].rows)
+    var data = rows.map(function(row){
+      var c = row.cells
+      var rec = {
+        row: row,
+        id: cellValue(c[keyIndex.id]),
+        submittedOn: cellValue(c[keyIndex.submittedOn]),
+        submittedMonth: formatSubmittedMonth(parseSubmittedDate(cellValue(c[keyIndex.submittedOn]))),
+        org: cellValue(c[keyIndex.organisation]),
+        by: cellValue(c[keyIndex.submittedBy]),
+        type: cellValue(c[keyIndex.type]),
+        period: cellValue(c[keyIndex.Period]),
+        status: cellValue(c[keyIndex.status])
+      }
+      return rec
+    })
+
+    var defaultSubmittedMonth = ''
+    if (submittedMonthSel && submittedMonthSel.options.length === 0) {
+      var submittedMonths = sortSubmittedMonthsDescending(data.map(function(r){ return r.submittedMonth; }))
+      if (submittedMonths.indexOf('Jan 2026') === -1) {
+        submittedMonths.push('Jan 2026')
+        submittedMonths = sortSubmittedMonthsDescending(submittedMonths)
+      }
+      submittedMonths.forEach(function(month) {
+        var option = document.createElement('option')
+        option.value = month
+        option.textContent = month
+        submittedMonthSel.appendChild(option)
+      })
+    }
+
+    if (submittedMonthSel && submittedMonthSel.options.length > 0) {
+      defaultSubmittedMonth = submittedMonthSel.options[0].value
+      if (!submittedMonthSel.value) {
+        submittedMonthSel.value = defaultSubmittedMonth
+      }
+    }
+
+  // Populate selects if blank
+  function populateSelect(sel, values){ if (!sel || sel.options.length>1) return; uniqueSorted(values).forEach(v=>{ var o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o) }) }
+
+    // --- Submitted by autocomplete dropdown ---
+    var submittedBySuggestionBox = document.getElementById('submitted-by-suggestions');
+    if (byInput && submittedBySuggestionBox) {
+      byInput.addEventListener('input', function() {
+        var val = byInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          submittedBySuggestionBox.style.display = 'none';
+          submittedBySuggestionBox.innerHTML = '';
+          return;
+        }
+        var submittedByValues = uniqueSorted(data.map(r => r.by).filter(Boolean));
+        var matches = submittedByValues.filter(function(name){ return name.toLowerCase().includes(val) });
+        if (matches.length === 0) {
+          submittedBySuggestionBox.style.display = 'none';
+          submittedBySuggestionBox.innerHTML = '';
+          return;
+        }
+        submittedBySuggestionBox.style.display = 'block';
+        submittedBySuggestionBox.style.background = '#fff';
+        submittedBySuggestionBox.style.color = '#000';
+        submittedBySuggestionBox.style.fontSize = '1.1875rem';
+        submittedBySuggestionBox.style.minWidth = byInput.offsetWidth + 'px';
+        submittedBySuggestionBox.style.width = 'max-content';
+        submittedBySuggestionBox.style.maxWidth = '90vw';
+        submittedBySuggestionBox.style.border = '1px solid #b1b4b6';
+        submittedBySuggestionBox.style.borderTop = 'none';
+        submittedBySuggestionBox.style.maxHeight = '200px';
+        submittedBySuggestionBox.style.overflowY = 'auto';
+        submittedBySuggestionBox.innerHTML = matches.map(function(m){ return '<div class="submitted-by-suggestion" style="padding:8px 12px;cursor:pointer;white-space:nowrap;">' + m + '</div>' }).join('');
+      });
+      submittedBySuggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('submitted-by-suggestion')) {
+          byInput.value = e.target.textContent;
+          submittedBySuggestionBox.style.display = 'none';
+          submittedBySuggestionBox.innerHTML = '';
+        }
+      });
+      byInput.addEventListener('blur', function() {
+        setTimeout(function(){ submittedBySuggestionBox.style.display = 'none'; }, 150);
+      });
+    }
+    // --- Organisation autocomplete dropdown ---
+    var orgSuggestionBox = document.getElementById('organisation-suggestions');
+    if (orgInput && orgSuggestionBox) {
+      orgInput.addEventListener('input', function() {
+        var val = orgInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+          return;
+        }
+        var orgValues = uniqueSorted(data.map(r => r.org).filter(Boolean));
+        var matches = orgValues.filter(function(o){ return o.toLowerCase().includes(val) });
+        if (matches.length === 0) {
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+          return;
+        }
+        orgSuggestionBox.style.display = 'block';
+        orgSuggestionBox.style.background = '#fff';
+        orgSuggestionBox.style.color = '#000';
+        orgSuggestionBox.style.fontSize = '1.1875rem';
+        orgSuggestionBox.style.minWidth = orgInput.offsetWidth + 'px';
+        orgSuggestionBox.style.width = 'max-content';
+        orgSuggestionBox.style.maxWidth = '90vw';
+        orgSuggestionBox.style.border = '1px solid #b1b4b6';
+        orgSuggestionBox.style.borderTop = 'none';
+        orgSuggestionBox.style.maxHeight = '200px';
+        orgSuggestionBox.style.overflowY = 'auto';
+        orgSuggestionBox.innerHTML = matches.map(function(m){ return '<div class="organisation-suggestion" style="padding:8px 12px;cursor:pointer;white-space:nowrap;">' + m + '</div>' }).join('');
+      });
+      orgSuggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('organisation-suggestion')) {
+          orgInput.value = e.target.textContent;
+          orgSuggestionBox.style.display = 'none';
+          orgSuggestionBox.innerHTML = '';
+        }
+      });
+      orgInput.addEventListener('blur', function() {
+        setTimeout(function(){ orgSuggestionBox.style.display = 'none'; }, 150);
+      });
+    }
+    // --- Period autocomplete dropdown ---
+    var suggestionBox = document.getElementById('period-suggestions');
+    if (periodInput && suggestionBox) {
+      periodInput.addEventListener('input', function() {
+        var val = periodInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+        // Get unique period values from table
+        var periods = uniqueSorted(data.map(r => r.period).filter(Boolean));
+        var matches = periods.filter(p => p.toLowerCase().includes(val));
+        if (matches.length === 0) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+        // Style and position
+        suggestionBox.style.display = 'block';
+        suggestionBox.style.background = '#fff';
+        suggestionBox.style.color = '#000';
+        suggestionBox.style.fontSize = '1.1875rem';
+        suggestionBox.style.width = periodInput.offsetWidth + 'px';
+        suggestionBox.style.border = '1px solid #b1b4b6';
+        suggestionBox.style.borderTop = 'none';
+        suggestionBox.style.maxHeight = '200px';
+        suggestionBox.style.overflowY = 'auto';
+        suggestionBox.innerHTML = matches.map(m => '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>').join('');
+      });
+      // Click to select
+      suggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('period-suggestion')) {
+          periodInput.value = e.target.textContent;
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+        }
+      });
+      // Hide on blur
+      periodInput.addEventListener('blur', function() {
+        setTimeout(function(){ suggestionBox.style.display = 'none'; }, 150);
+      });
+    }
+  // Populate type select from table values
+  function extractType(type) {
+    return type || '';
+  }
+  populateSelect(typeSel, data.map(r=>extractType(r.type)));
+
+    function matches(rec){
+      var submittedMonthQ = (submittedMonthSel && submittedMonthSel.value ? submittedMonthSel.value : '')
+      var idQ = (idInput?.value || '').trim().toLowerCase()
+      var orgQ = (orgInput?.value || '').trim().toLowerCase()
+      var byQ = (byInput?.value || '').trim().toLowerCase()
+      var typeQ = (typeSel?.value || '')
+      var monthQ = (monthSel?.value || '')
+      var yearQ = (yearSel?.value || '')
+      var periodQ = (periodInput?.value || '').trim().toLowerCase()
+      var statusQ = statusChecks.filter(function(cb){ return cb.checked }).map(function(cb){ return cb.value })
+      if (submittedMonthQ && rec.submittedMonth !== submittedMonthQ) return false
+      if (idQ && !rec.id.toLowerCase().includes(idQ)) return false
+      if (orgQ && !rec.org.toLowerCase().includes(orgQ)) return false
+      if (byQ && !rec.by.toLowerCase().includes(byQ)) return false
+      if (typeQ && rec.type !== typeQ) return false
+      if (statusQ.length && statusQ.indexOf(rec.status) === -1) return false
+      if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false
+      return true
+    }
+
+    function renderChips() {
+      if (!chipsEl) return;
+      var chips = [];
+      if (idInput && idInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="id" title="Clear ID filter">ID: ' + idInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (orgInput && orgInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="organisation" title="Clear Organisation or ODS filter">Organisation / ODS: ' + orgInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (byInput && byInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="submittedBy" title="Clear Submitted by filter">Submitted by: ' + byInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (typeSel && typeSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="type" title="Clear Type filter">Type: ' + typeSel.options[typeSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (statusChecks && statusChecks.length) {
+        statusChecks.filter(function(cb){ return cb.checked }).forEach(function(cb){
+          chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" data-value="' + cb.value + '" title="Clear Status filter">Status: ' + cb.value + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+        })
+      }
+      if (periodInput && periodInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear reporting period filter">Reporting period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      chipsEl.innerHTML = chips.join(' ');
+
+      // Show 'No filters applied' if no chips, else show 'Clear filters' link
+      var clearLink = document.querySelector('[data-clear-filters]');
+      if (clearLink) {
+        if (chips.length === 0) {
+          clearLink.style.display = 'none';
+          if (!document.getElementById('no-filters-msg')) {
+            var msg = document.createElement('span');
+            msg.id = 'no-filters-msg';
+            msg.textContent = 'No filters applied';
+            msg.style.color = '#4c6272';
+            msg.style.fontSize = '16px';
+            msg.style.display = 'block';
+            msg.style.textAlign = 'left';
+            clearLink.parentNode.appendChild(msg);
+          }
+        } else {
+          clearLink.style.display = '';
+          var msg = document.getElementById('no-filters-msg');
+          if (msg) msg.remove();
+        }
+      }
+
+      // Add click handlers to clear individual filters
+      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag){
+        tag.addEventListener('click', function(){
+          var filter = tag.getAttribute('data-filter');
+          if (filter === 'id' && idInput) idInput.value = '';
+          if (filter === 'organisation' && orgInput) orgInput.value = '';
+          if (filter === 'submittedBy' && byInput) byInput.value = '';
+          if (filter === 'type' && typeSel) typeSel.value = '';
+          if (filter === 'status' && statusChecks) {
+            var val = tag.getAttribute('data-value')
+            statusChecks.forEach(function(cb){ if (cb.value === val) cb.checked = false })
+            updateStatusSummary()
+          }
+          if (filter === 'period' && periodInput) periodInput.value = '';
+          // Re-render after clearing
+          render();
+        });
+      });
+    }
+
+    function render(){
+      var shown = 0
+      data.forEach(function(rec){
+        if (matches(rec)) {
+          rec.row.style.display = ''
+          shown++
+        } else {
+          rec.row.style.display = 'none'
+        }
+      })
+      if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's')
+      renderChips();
+    }
+
+    // Only apply filters on button click
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        render();
+      });
+    }
+  // Remove live filtering for period; only filter on Apply
+
+    // Clear filters
+    if (clearBtn) clearBtn.addEventListener('click', function(e){
+      e.preventDefault()
+      if (idInput) idInput.value = ''
+      if (orgInput) orgInput.value = ''
+      if (byInput) byInput.value = ''
+      if (typeSel) typeSel.value = ''
+      if (periodInput) periodInput.value = ''
+      if (submittedMonthSel) submittedMonthSel.value = defaultSubmittedMonth || submittedMonthSel.value
+      if (statusChecks && statusChecks.length) statusChecks.forEach(function(cb){ cb.checked = false })
+      updateStatusSummary()
+      render()
+    })
+
+    if (submittedMonthSel) submittedMonthSel.addEventListener('change', render)
+
+    function updateStatusSummary(){
+      if (!statusSummary) return
+      var selected = statusChecks.filter(function(cb){ return cb.checked })
+      if (selected.length === 0) {
+        statusSummary.textContent = 'All statuses'
+      } else if (selected.length === 1) {
+        statusSummary.textContent = selected[0].value
+      } else {
+        statusSummary.textContent = selected.length + ' statuses selected'
+      }
+    }
+
+    // Toggle open/close of status panel
+    function closeStatusPanel(){ if (statusPanel) statusPanel.style.display = 'none' }
+    if (statusToggle && statusPanel) {
+      statusToggle.addEventListener('click', function(){
+        var isOpen = statusPanel.style.display === 'block'
+        statusPanel.style.display = isOpen ? 'none' : 'block'
+      })
+      document.addEventListener('click', function(evt){
+        if (!statusPanel.contains(evt.target) && !statusToggle.contains(evt.target)) {
+          closeStatusPanel()
+        }
+      })
+    }
+
+    // Close panel on escape
+    document.addEventListener('keydown', function(evt){
+      if (evt.key === 'Escape') closeStatusPanel()
+    })
+
+    // Update summary when status checkboxes change
+    if (statusChecks && statusChecks.length) {
+      statusChecks.forEach(function(cb){
+        cb.addEventListener('change', function(){
+          updateStatusSummary()
+        })
+      })
+    }
+
+    // Style tweaks for status dropdown arrow and checkbox sizing
+    var style = document.createElement('style')
+    style.textContent = `
+      #table-filters2 .nhsuk-table-filters__grid_small {
+        display: grid;
+        grid-template-columns: repeat(6, max-content);
+        column-gap: 16px;
+        row-gap: 16px;
+        justify-content: start;
+        align-items: end;
+        width: 100%;
+      }
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-form-group {
+        margin-bottom: 0;
+      }
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-input,
+      #table-filters2 .nhsuk-table-filters__grid_small .nhsuk-select_small,
+      #table-filters2 .nhsuk-table-filters__grid_small .status-toggle-btn {
+        width: 100%;
+        border-width: 2px;
+      }
+      #table-filters2 .nhsuk-table-filters__actions {
+        margin: 0;
+      }
+      #table-filters2 .nhsuk-table-filters__actions .nhsuk-button {
+        width: auto;
+        margin: 0;
+      }
+      #submissions-table th[data-key="name"],
+      #submissions-table td:nth-child(1) {
+        width: 220px;
+        max-width: 220px;
+      }
+      #submissions-table td:nth-child(1) .file-name-cell__text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        overflow-wrap: anywhere;
+      }
+      .status-toggle-btn {
+        position: relative;
+        padding-right: 2.5rem;
+      }
+      .status-toggle-btn::after {
+        content: '';
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        width: 10px;
+        height: 6px;
+        margin-top: -3px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('data:image/svg+xml,%3Csvg width="12" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"%3E%3Cpath fill="%23000" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/%3E%3C/svg%3E');
+      }
+      #filter-status-list .nhsuk-checkboxes__input {
+        width: 26px;
+        height: 26px;
+        min-width: 26px;
+        min-height: 26px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:before {
+        width: 26px;
+        height: 26px;
+        border-radius: 0px;
+        top: 2px;
+        border-color:black;
+      }
+      #filter-status-list .nhsuk-checkboxes__input + .nhsuk-checkboxes__label:after {
+        top: 9px;
+        left: 6px;
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__input:checked + .nhsuk-checkboxes__label:after {
+        width: 14px;
+        height: 10px;
+      }
+      #filter-status-list .nhsuk-checkboxes__label {
+        padding-left: 0px;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+      }
+      .nhsuk-checkboxes__label {
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 0px;
+        touch-action: manipulation;
+        padding: 0px;
+      }
+    `
+    document.head.appendChild(style)
+
+    // Initial render to show all
+    render()
+  }
+
+  // Call the filter function for the main table
+  document.addEventListener('DOMContentLoaded', function(){
+      initTableFilters({
+        tableId: 'submissions-table',
+        formId: 'table-filters2'
+      })
+  })
+})()
+</script>
+<script>
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+</script>
+
+<script>
+// Collection and time period filter functionality
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const collectionSelect = document.getElementById('collection-select');
+    const timePeriodSelect = document.getElementById('time-period-select');
+    const submissionsTable = document.getElementById('submissions-table');
+    
+    if (!collectionSelect || !timePeriodSelect || !submissionsTable) return;
+    
+    function parseSubmissionDate(dateStr) {
+      // Parse date format like "25 Feb 2026, 09:30"
+      const parts = dateStr.split(', ')[0]; // Get "25 Feb 2026" part
+      return new Date(parts);
+    }
+    
+    function getDateRange(timePeriod) {
+      const today = new Date();
+      let startDate = null;
+      
+      switch(timePeriod) {
+        case 'last-2-weeks':
+          startDate = new Date();
+          startDate.setDate(today.getDate() - 14);
+          break;
+        case 'last-month':
+          startDate = new Date();
+          startDate.setMonth(today.getMonth() - 1);
+          break;
+        case 'last-2-months':
+          startDate = new Date();
+          startDate.setMonth(today.getMonth() - 2);
+          break;
+        default:
+          return null; // No date filtering for 'All'
+      }
+      
+      return startDate;
+    }
+    
+    function filterTable() {
+      const selectedCollection = collectionSelect.value;
+      const selectedTimePeriod = timePeriodSelect.value;
+      const tbody = submissionsTable.querySelector('tbody');
+      if (!tbody) return;
+      
+      const rows = tbody.querySelectorAll('tr');
+      const dateRange = getDateRange(selectedTimePeriod);
+      
+      rows.forEach(function(row) {
+        let showRow = true;
+        
+        // Filter by collection
+        if (selectedCollection && selectedCollection !== 'All') {
+          const collectionCell = row.querySelector('.file-name-cell__text');
+          if (collectionCell) {
+            const cellValue = collectionCell.textContent.trim();
+            if (cellValue !== selectedCollection) {
+              showRow = false;
+            }
+          }
+        }
+        
+        // Filter by time period
+        if (showRow && dateRange) {
+          const submittedCells = row.querySelectorAll('td');
+          let submissionDate = null;
+          
+          submittedCells.forEach(function(cell) {
+            const heading = cell.querySelector('.nhsuk-table-responsive__heading');
+            if (heading && heading.textContent.trim() === 'Submitted on') {
+              const dateText = cell.textContent.replace('Submitted on', '').trim();
+              submissionDate = parseSubmissionDate(dateText);
+            }
+          });
+          
+          if (submissionDate && submissionDate < dateRange) {
+            showRow = false;
+          }
+        }
+        
+        row.style.display = showRow ? '' : 'none';
+      });
+    }
+    
+    collectionSelect.addEventListener('change', filterTable);
+    timePeriodSelect.addEventListener('change', filterTable);
+  });
+})();
+</script>
+{% endblock %}

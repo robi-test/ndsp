@@ -1,0 +1,1782 @@
+{% extends "iteration4/collection-management/data-quality/layout-collection-management.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Data quality issues" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "../home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Data quality issues</h1>
+            <!-- <h2 class="nhsuk-heading-m"><span class="nhsuk-caption-m"></span>Diagnostic Imaging Data Set (V2.0)</h2> -->
+            <p>This page shows the count of errors and warnings identified during validation of submitted data across all submissions, excluding test file submissions, helping you identify the most common issues.</p>
+            
+      
+  </div>
+
+  <!--   <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 16px;">
+          <button class="nhsuk-button nhsuk-button--secondary" onclick="downloadCSV(); return false" style="margin-right: 0;">
+            Download as CSV
+          </button>
+        </div> -->
+
+      <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+        <div class="nhsuk-grid-column-one-half">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="collection-select">
+              <strong>Collection</strong>
+            </label>
+            <div class="nhsuk-hint" id="collection-select-hint">
+              Select a collection to view its data quality summary.
+            </div>
+            <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
+              <option value="Diagnostic Imaging Data Set (V2.0)" selected>Diagnostic Imaging Data Set (V2.0)</option>
+              <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="nhsuk-grid-column-one-half">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label" for="time-period-select">
+              <strong>Time period</strong>
+            </label>
+            <div class="nhsuk-hint" id="time-period-select-hint">
+              Select a time range.
+            </div>
+            <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+              <option value="last-1-period" selected>Last reporting period</option>
+              <option value="last-3-periods">Last 3 reporting periods</option>
+              <option value="last-6-periods">Last 6 reporting periods</option>
+              <option value="last-12-periods">Last 12 reporting periods</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+<div class="nhsuk-tabs" data-module="nhsuk-tabs">
+  <h2 class="nhsuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="nhsuk-tabs__list">
+    <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+      <a class="nhsuk-tabs__tab" href="#all">
+        By error
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#by-organisation">
+        By organisation
+      </a>
+    </li>
+    <li class="nhsuk-tabs__list-item">
+      <a class="nhsuk-tabs__tab" href="#download">
+        Download
+      </a>
+    </li>
+</ul>
+
+
+      
+      <div class="nhsuk-tabs__panel" id="all" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+        <!-- Table filters -->      
+        <div>
+          <form id="table-filters-all" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
+            <div class="nhsuk-table-filters__grid_medium">
+
+              
+              
+              <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+                    <h2 class="nhsuk-fieldset__heading">
+                      Reporting periods
+                    </h2>
+                  </legend>
+                  <div class="nhsuk-radios nhsuk-radios--small">
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="period-all" name="period-filter" type="radio" value="all" checked>
+                      <label class="nhsuk-label nhsuk-radios__label" for="period-all">
+                        Last 6 reporting periods
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="period-12" name="period-filter" type="radio" value="12-periods">
+                      <label class="nhsuk-label nhsuk-radios__label" for="period-12">
+                        Last 12 reporting periods
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="period-specific" name="period-filter" type="radio" value="specific">
+                      <label class="nhsuk-label nhsuk-radios__label" for="period-specific">
+                        Select a specific reporting period
+                      </label>
+                      <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="period-specific-conditional">
+                        <div class="nhsuk-form-group" style="margin-top: 16px;">
+                          <label class="nhsuk-label" for="period-dropdown">
+                            Select reporting period:
+                          </label>
+                          <div class="period-dropdown-container" style="position: relative;">
+                            <button type="button" id="period-dropdown" class="nhsuk-select" style="width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                              <span id="period-dropdown-label">No reporting period selected</span>
+                              <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
+                                <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
+                              </svg>
+                            </button>
+                            
+                            <div id="period-dropdown-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
+                              <div class="nhsuk-form-group" style="margin-bottom: 16px;">
+                                <input class="nhsuk-input" id="period-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #ffeb3b;">
+                              </div>
+                              
+                              <div class="period-list" style="max-height: 200px; overflow-y: auto;">
+                                <div class="period-option" data-value="April 2026">April 2026</div>
+                                <div class="period-option" data-value="March 2026">March 2026</div>
+                                <div class="period-option" data-value="February 2026">February 2026</div>
+                                <div class="period-option" data-value="January 2026">January 2026</div>
+                                <div class="period-option" data-value="December 2025">December 2025</div>
+                                <div class="period-option" data-value="November 2025">November 2025</div>
+                                <div class="period-option" data-value="October 2025">October 2025</div>
+                                <div class="period-option" data-value="September 2025">September 2025</div>
+                                <div class="period-option" data-value="August 2025">August 2025</div>
+                                <div class="period-option" data-value="July 2025">July 2025</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+    
+              <div class="nhsuk-form-group" style="position: relative; width: 250px; margin-right: 24px;">
+                <fieldset class="nhsuk-fieldset">
+                  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+                    <h2 class="nhsuk-fieldset__heading">
+                      Type
+                    </h2>
+                  </legend>
+                  <div class="nhsuk-radios nhsuk-radios--small">
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-all" name="type-filter" type="radio" value="all" checked>
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-all">
+                        All error types
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-warnings" name="type-filter" type="radio" value="warnings">
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-warnings">
+                        Warnings only
+                      </label>
+                    </div>
+                    <div class="nhsuk-radios__item">
+                      <input class="nhsuk-radios__input" id="type-failures" name="type-filter" type="radio" value="failures">
+                      <label class="nhsuk-label nhsuk-radios__label" for="type-failures">
+                        Failures only
+                      </label>
+                    </div>
+
+                  </div>
+                </fieldset>
+              </div>
+              <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 100px;" type="submit" onclick="handleShowResults(this); return false">Apply</button>
+            </div>
+            </div>
+            
+            
+           <!--  <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+              <div class="nhsuk-selected__header">
+                <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+                <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+              </div>
+              <div class="nhsuk-selected__row" id="selected-chips"></div>
+            </div> -->
+          </form>
+        </div>
+        
+        <div id="results-title" class="nhsuk-u-margin-bottom-4" style="display: block;">
+          <!-- <h3 class="nhsuk-heading-m" id="results-title-text">Showing error count for: All organisations, Last 6 reporting periods, All error types</h3> -->
+        </div>
+        
+        <div id="loading-indicator" class="loading-container" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading results...</div>
+        </div>
+
+        
+        <table id="error-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr class="nhsuk-table__row" role="row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" style="width: 60px;"></th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="type">Type</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="errorcode">Error code</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="group" style="width: 200px;">Group</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="dataitem">Data Item</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="category">Category</th>
+            <!-- <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="description">Validation message</th> -->
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number" data-key="count">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>general_medical_practice_patient_registration</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001010] general_medical_practice_patient_registration is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and Dictionary).  </td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>744</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001005] person_birth_date is after [DIDS000006] reporting_period_end_date.</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>568</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00100501</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>person_birth_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>  [DIDS001005] person_birth_date is after [DIDS000006] reporting_period_end_date.</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>392</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200603</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Date format does not match expected pattern</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>348</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00000201</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS000_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_code_of_provider</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Organisation code is not a current ODS code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>304</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200103</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_start_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>End timestamp is before start timestamp</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>256</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00301002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_radiology_procedure_evaluation_indicator</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NHS Number field is blank or empty</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>220</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_site_identifier_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Site code is not current or valid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>196</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN003</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_nicip</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NICIP code is not current or recognised</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>172</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR007</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_REFERRAL</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_code_diagnostic_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Referrer code is invalid or has been retired</td>-->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>152</td> 
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN004</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_received_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Received date is before request date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>124</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>SNOMED CT code is not current or recognised</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>112</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN005</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>service_report_issue_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Report timestamp is before person birth date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>96</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR009</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_referring</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Referring organisation code is not current or valid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>84</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>ethnic_category</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Ethnic category format is incorrect or invalid</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>72</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN007</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_imaging_waiting_list_clock_start_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Start date is after reporting period end date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>60</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR010</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>postcode_of_usual_address</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Postcode field is blank or empty</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>48</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>PERSON_STATED_GENDER_CODE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Gender code is not a valid national code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>36</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN009</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>PLANNED_DIAGNOSTIC_DUE_DATE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>Planned due date is before test request received date</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>28</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" style="text-align: center;">
+              <button type="button" class="nhsuk-button nhsuk-button--secondary" style="min-width: auto; padding: 8px; margin: 0; font-size: 14px; line-height: 1;">+</button>
+            </td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR011</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS_MASTER_PATIENT_INDEX</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>NHS_NUMBER_STATUS_INDICATOR_CODE</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Validation message</span>NHS Number status indicator is not a valid national code</td> -->
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>20</td>
+          </tr>
+        </tbody>
+      </table>
+      
+   <!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div> 
+      
+      </div>
+
+
+
+
+
+<div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="by-organisation" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+  <!-- Table filters -->      
+  <div>
+    <form id="table-filters-org" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
+      <div class="nhsuk-table-filters__grid_medium">
+        
+        <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+              <h2 class="nhsuk-fieldset__heading">
+                Organisations
+              </h2>
+            </legend>
+            <div class="nhsuk-radios nhsuk-radios--small">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="org-all" name="organisation-filter" type="radio" value="all" checked>
+                <label class="nhsuk-label nhsuk-radios__label" for="org-all">
+                  All organisations
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="org-specific" name="organisation-filter" type="radio" value="specific">
+                <label class="nhsuk-label nhsuk-radios__label" for="org-specific">
+                  Select an organisation
+                </label>
+                <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="org-specific-conditional">
+                  <div class="nhsuk-form-group" style="margin-top: 16px;">
+                    <label class="nhsuk-label" for="organisation-dropdown">
+                      Select organisation:
+                    </label>
+                    <div class="organisation-dropdown-container" style="position: relative;">
+                      <button type="button" id="organisation-dropdown" class="nhsuk-select" style="width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        <span id="org-dropdown-label">No organisation selected</span>
+                        <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
+                          <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
+                        </svg>
+                      </button>
+                      
+                      <div id="organisation-dropdown-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
+                        <div class="nhsuk-form-group" style="margin-bottom: 16px;">
+                          <input class="nhsuk-input" id="organisation-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #ffeb3b;">
+                        </div>
+                        
+                        <div class="organisation-list" style="max-height: 200px; overflow-y: auto;">
+                          <div class="organisation-option" data-value="Alliance Medical">Alliance Medical</div>
+                          <div class="organisation-option" data-value="Barking, Havering and Redbridge University Hospitals NHS Trust">Barking, Havering and Redbridge University Hospitals NHS Trust</div>
+                          <div class="organisation-option" data-value="Barts Health NHS Trust">Barts Health NHS Trust</div>
+                          <div class="organisation-option" data-value="Chelsea and Westminster Hospital NHS Foundation Trust">Chelsea and Westminster Hospital NHS Foundation Trust</div>
+                          <div class="organisation-option" data-value="Circle Health Group Limited">Circle Health Group Limited</div>
+                          <div class="organisation-option" data-value="Croydon Health Services NHS Trust">Croydon Health Services NHS Trust</div>
+                          <div class="organisation-option" data-value="Guy's and St Thomas' NHS Foundation Trust">Guy's and St Thomas' NHS Foundation Trust</div>
+                          <div class="organisation-option" data-value="Imperial College Healthcare NHS Trust">Imperial College Healthcare NHS Trust</div>
+                          <div class="organisation-option" data-value="King's College Hospital NHS Foundation Trust">King's College Hospital NHS Foundation Trust</div>
+                          <div class="organisation-option" data-value="Royal Free London NHS Foundation Trust">Royal Free London NHS Foundation Trust</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div> 
+       
+        <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px;">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+              <h2 class="nhsuk-fieldset__heading">
+                Reporting periods
+              </h2>
+            </legend>
+            <div class="nhsuk-radios nhsuk-radios--small">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="period-all-2" name="period-filter-2" type="radio" value="all" checked>
+                <label class="nhsuk-label nhsuk-radios__label" for="period-all-2">
+                  Last 6 reporting periods
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="period-12-2" name="period-filter-2" type="radio" value="12-periods">
+                <label class="nhsuk-label nhsuk-radios__label" for="period-12-2">
+                  Last 12 reporting periods
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="period-specific-2" name="period-filter-2" type="radio" value="specific">
+                <label class="nhsuk-label nhsuk-radios__label" for="period-specific-2">
+                  Select a specific reporting period
+                </label>
+                <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="period-specific-conditional-2">
+                  <div class="nhsuk-form-group" style="margin-top: 16px;">
+                    <label class="nhsuk-label" for="period-dropdown-2">
+                      Select reporting period:
+                    </label>
+                    <div class="period-dropdown-container" style="position: relative;">
+                      <button type="button" id="period-dropdown-2" class="nhsuk-select" style="width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                        <span id="period-dropdown-label-2">No reporting period selected</span>
+                        <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
+                          <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
+                        </svg>
+                      </button>
+                      
+                      <div id="period-dropdown-panel-2" class="nhsuk-card" style="position: absolute; z-index: 20; width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
+                        <div class="nhsuk-form-group" style="margin-bottom: 16px;">
+                          <input class="nhsuk-input" id="period-search-2" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #ffeb3b;">
+                        </div>
+                        
+                        <div class="period-list" style="max-height: 200px; overflow-y: auto;">
+                          <div class="period-option" data-value="April 2026">April 2026</div>
+                          <div class="period-option" data-value="March 2026">March 2026</div>
+                          <div class="period-option" data-value="February 2026">February 2026</div>
+                          <div class="period-option" data-value="January 2026">January 2026</div>
+                          <div class="period-option" data-value="December 2025">December 2025</div>
+                          <div class="period-option" data-value="November 2025">November 2025</div>
+                          <div class="period-option" data-value="October 2025">October 2025</div>
+                          <div class="period-option" data-value="September 2025">September 2025</div>
+                          <div class="period-option" data-value="August 2025">August 2025</div>
+                          <div class="period-option" data-value="July 2025">July 2025</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="nhsuk-form-group" style="position: relative; width: 250px; margin-right: 24px;">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+              <h2 class="nhsuk-fieldset__heading">
+                Type
+              </h2>
+            </legend>
+            <div class="nhsuk-radios nhsuk-radios--small">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="type-all-2" name="type-filter-2" type="radio" value="all" checked>
+                <label class="nhsuk-label nhsuk-radios__label" for="type-all-2">
+                  All error types
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="type-warnings-2" name="type-filter-2" type="radio" value="warnings">
+                <label class="nhsuk-label nhsuk-radios__label" for="type-warnings-2">
+                  Warnings only
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="type-failures-2" name="type-filter-2" type="radio" value="failures">
+                <label class="nhsuk-label nhsuk-radios__label" for="type-failures-2">
+                  Failures only
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        
+        <div class="nhsuk-table-filters__actions">
+          <button class="nhsuk-button" style="margin-bottom: 24px; margin-top: 10px;" type="submit" onclick="handleShowResultsOrg(this); return false">Show results</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+<table id="organisation-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
+        <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr class="nhsuk-table__row" role="row">
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation" style="width: 220px;">Organisation</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Type</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="errorcode" style="width: 100px;">Error code</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="group" style="width: 180px; white-space: nowrap;">Group</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="dataitem" style="width: 250px;">Data Item</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="category">Category</th>
+            <!-- <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="description">Validation message</th> -->
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="count">Count</th>
+          </tr>
+        </thead>
+    <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" rowspan="10" style="vertical-align: top;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Imperial College Healthcare NHS Trust</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>general_medical_practice_patient_registration</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>35</td>
+       </tr>
+       <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>27</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00100501</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>person_birth_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>24</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200603</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>18</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00000201</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS000_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_code_of_provider</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>14</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200103</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_start_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>12</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00301002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_radiology_procedure_evaluation_indicator</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>11</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_site_identifier_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>5</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN003</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_nicip</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>3</td>
+          </tr>
+
+          
+
+    </tbody>
+       <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell" rowspan="10" style="vertical-align: top;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>general_medical_practice_patient_registration</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>35</td>
+       </tr>
+       <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00101008</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_snomed_ct</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>27</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00100501</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS001_MPI</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>person_birth_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>24</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200603</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>diagnostic_test_request_date</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>18</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00000201</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS000_HEADER</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_identifier_code_of_provider</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Blank</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>14</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00200103</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_start_timestamp</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>12</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>DIDS00301002</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referrer_radiology_procedure_evaluation_indicator</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>11</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission failure</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>ERR006</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>organisation_site_identifier_imaging</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>5</td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>WARN003</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>DIDS003_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>coded_procedure_nicip</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>3</td>
+          </tr>
+
+          
+
+    </tbody>
+  </table>
+
+<!-- Pagination -->
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div> 
+
+</div>
+
+    <div class="nhsuk-tabs__panel" id="download" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+      <h2>Download data</h2>
+      
+      <div class="nhsuk-form-group">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+            Select download format:
+          </legend>
+          <div class="nhsuk-radios nhsuk-radios--inline">
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="download-format-csv" name="download-format" type="radio" value="csv" checked>
+              <label class="nhsuk-radios__label" for="download-format-csv">
+                CSV (.csv)
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="download-format-json" name="download-format" type="radio" value="json">
+              <label class="nhsuk-radios__label" for="download-format-json">
+                JSON (.json)
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button class="nhsuk-button" onclick="downloadData()">
+        Download
+      </button>
+
+      <script>
+        function downloadData() {
+          const format = document.querySelector('input[name="download-format"]:checked').value;
+          const filename = `data-quality-summary.${format}`;
+          
+          let data, mimeType;
+          
+          if (format === 'csv') {
+            // Sample CSV data for data quality summary
+            data = `Error Level,Error Code,Count,Percentage
+Critical,VAL001,15,25%
+Warning,VAL002,8,13.3%
+Critical,VAL003,22,36.7%
+Warning,VAL004,15,25%`;
+            mimeType = 'text/csv';
+          } else {
+            // Sample JSON data for data quality summary
+            data = JSON.stringify([
+              { errorLevel: 'Critical', errorCode: 'VAL001', count: 15, percentage: '25%' },
+              { errorLevel: 'Warning', errorCode: 'VAL002', count: 8, percentage: '13.3%' },
+              { errorLevel: 'Critical', errorCode: 'VAL003', count: 22, percentage: '36.7%' },
+              { errorLevel: 'Warning', errorCode: 'VAL004', count: 15, percentage: '25%' }
+            ], null, 2);
+            mimeType = 'application/json';
+          }
+          
+          const blob = new Blob([data], { type: mimeType });
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }
+      </script>
+
+      <script>
+        // Collection and time period filter functionality for data quality
+        (function() {
+          document.addEventListener('DOMContentLoaded', function() {
+            const collectionSelect = document.getElementById('collection-select');
+            const timePeriodSelect = document.getElementById('time-period-select');
+            const errorTable = document.getElementById('error-summary-table');
+            
+            if (!collectionSelect || !timePeriodSelect || !errorTable) return;
+            
+            function filterTable() {
+              const selectedCollection = collectionSelect.value;
+              const selectedTimePeriod = timePeriodSelect.value;
+              
+              // For now, just show a console message that filtering is applied
+              // In a real application, this would filter the actual data
+              console.log('Filtering by collection:', selectedCollection, 'and time period:', selectedTimePeriod);
+              
+              // You can add actual filtering logic here based on your data structure
+              // This is a placeholder for demonstration
+            }
+            
+            collectionSelect.addEventListener('change', filterTable);
+            timePeriodSelect.addEventListener('change', filterTable);
+          });
+        })();
+      </script>
+    </div>
+
+
+
+
+    </div>
+    
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+/* Align filter divs to top */
+.nhsuk-table-filters__grid_medium {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.nhsuk-table-filters__grid_medium .nhsuk-form-group {
+  vertical-align: top;
+}
+
+#error-summary-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+#error-summary-table th:nth-child(1) { /* Error level */
+  width: 35%;
+}
+
+#error-summary-table th:nth-child(2) { /* Error code */
+  width: 25%;
+}
+
+#error-summary-table th:nth-child(3) { /* Data group */
+  width: 30%;
+}
+
+#error-summary-table th:nth-child(4) { /* Data Item */
+  width: 62%;
+}
+
+#error-summary-table th:nth-child(5) { /* Category */
+  width: 25%;
+}
+
+#error-summary-table th:nth-child(6) { /* Validation message */
+  width: 15%;
+}
+
+#error-summary-table th:nth-child(7) { /* Count */
+  width: 15%;
+}
+
+#error-summary-table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Organisation filter styles */
+.organisation-dropdown-container {
+  margin-bottom: 16px;
+}
+
+#org-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 30px); /* Account for dropdown arrow */
+  display: inline-block;
+}
+
+#period-dropdown-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 30px); /* Account for dropdown arrow */
+  display: inline-block;
+}
+
+.organisation-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f4f5;
+}
+
+.organisation-option:hover {
+  background-color: #f0f4f5;
+}
+
+.organisation-option:last-child {
+  border-bottom: none;
+}
+
+.organisation-option.selected {
+  background-color: #005eb8;
+  color: white;
+}
+
+/* Reporting period filter styles */
+.period-dropdown-container {
+  margin-bottom: 16px;
+}
+
+.period-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f4f5;
+}
+
+.period-option:hover {
+  background-color: #f0f4f5;
+}
+
+.period-option:last-child {
+  border-bottom: none;
+}
+
+.period-option.selected {
+  background-color: #005eb8;
+  color: white;
+}
+
+/* Loading indicator styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f0f4f5;
+  border-radius: 4px;
+  margin: 24px 0;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d8dde0;
+  border-top: 4px solid #005eb8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 16px;
+  color: #212b32;
+  font-weight: 600;
+}
+
+/* Expanded rows styling */
+.expanded-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.expanded-content td {
+  border-top: 1px solid #d8dde0 !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.expanded-content:hover {
+  background-color: #f0f4f5 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button hover states for better UX */
+.nhsuk-button--secondary:hover {
+  background-color: #003d82;
+  color: white;
+}
+
+</style>
+<script>
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+
+// Organisation filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const orgAllRadio = document.getElementById('org-all');
+  const orgSpecificRadio = document.getElementById('org-specific');
+  const orgSpecificConditional = document.getElementById('org-specific-conditional');
+  const organizationDropdown = document.getElementById('organisation-dropdown');
+  const organizationPanel = document.getElementById('organisation-dropdown-panel');
+  const organizationSearch = document.getElementById('organisation-search');
+  const orgDropdownLabel = document.getElementById('org-dropdown-label');
+  const organisationOptions = document.querySelectorAll('.organisation-option');
+  
+  let selectedOrganisations = [];
+  
+  // Handle radio button changes
+  function handleRadioChange() {
+    if (orgSpecificRadio.checked) {
+      orgSpecificConditional.classList.remove('nhsuk-radios__conditional--hidden');
+    } else {
+      orgSpecificConditional.classList.add('nhsuk-radios__conditional--hidden');
+      organizationPanel.style.display = 'none';
+      
+      // Clear selected organisation when "All organisations" is selected
+      if (orgAllRadio.checked && selectedOrganisations.length > 0) {
+        selectedOrganisations = [];
+        organisationOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        updateDropdownLabel();
+      }
+    }
+  }
+  
+  orgAllRadio.addEventListener('change', handleRadioChange);
+  orgSpecificRadio.addEventListener('change', handleRadioChange);
+  
+  // Handle dropdown toggle
+  organizationDropdown.addEventListener('click', function() {
+    const isVisible = organizationPanel.style.display === 'block';
+    organizationPanel.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible) {
+      organizationSearch.focus();
+    }
+  });
+  
+  // Handle search functionality
+  organizationSearch.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    
+    organisationOptions.forEach(function(option) {
+      const text = option.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        option.style.display = 'block';
+      } else {
+        option.style.display = 'none';
+      }
+    });
+  });
+  
+  // Handle organisation selection (single select only)
+  organisationOptions.forEach(function(option) {
+    option.addEventListener('click', function() {
+      const value = this.getAttribute('data-value');
+      
+      if (this.classList.contains('selected')) {
+        // Deselect current option
+        this.classList.remove('selected');
+        selectedOrganisations = [];
+      } else {
+        // Deselect all other options first
+        organisationOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        selectedOrganisations = [];
+        
+        // Select this option
+        this.classList.add('selected');
+        selectedOrganisations.push(value);
+        
+        // Close dropdown after selection
+        organizationPanel.style.display = 'none';
+      }
+      
+      updateDropdownLabel();
+    });
+  });
+  
+  // Update dropdown label based on selection
+  function updateDropdownLabel() {
+    if (selectedOrganisations.length === 0) {
+      orgDropdownLabel.textContent = 'No organisation selected';
+    } else {
+      orgDropdownLabel.textContent = selectedOrganisations[0];
+    }
+  }
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!organizationDropdown.contains(event.target) && !organizationPanel.contains(event.target)) {
+      organizationPanel.style.display = 'none';
+    }
+  });
+  
+  // Reporting period filter functionality
+  const periodAllRadio = document.getElementById('period-all');
+  const period12Radio = document.getElementById('period-12');
+  const periodSpecificRadio = document.getElementById('period-specific');
+  const periodSpecificConditional = document.getElementById('period-specific-conditional');
+  const periodDropdown = document.getElementById('period-dropdown');
+  const periodPanel = document.getElementById('period-dropdown-panel');
+  const periodSearch = document.getElementById('period-search');
+  const periodDropdownLabel = document.getElementById('period-dropdown-label');
+  const periodOptions = document.querySelectorAll('.period-option');
+  
+  let selectedPeriods = [];
+  
+  // Handle period radio button changes
+  function handlePeriodRadioChange() {
+    if (periodSpecificRadio.checked) {
+      periodSpecificConditional.classList.remove('nhsuk-radios__conditional--hidden');
+    } else {
+      periodSpecificConditional.classList.add('nhsuk-radios__conditional--hidden');
+      periodPanel.style.display = 'none';
+      
+      // Clear selected period when other options are selected
+      if ((periodAllRadio.checked || period12Radio.checked) && selectedPeriods.length > 0) {
+        selectedPeriods = [];
+        periodOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        updatePeriodDropdownLabel();
+      }
+    }
+  }
+  
+  periodAllRadio.addEventListener('change', handlePeriodRadioChange);
+  period12Radio.addEventListener('change', handlePeriodRadioChange);
+  periodSpecificRadio.addEventListener('change', handlePeriodRadioChange);
+  
+  // Handle period dropdown toggle
+  periodDropdown.addEventListener('click', function() {
+    const isVisible = periodPanel.style.display === 'block';
+    periodPanel.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible) {
+      periodSearch.focus();
+    }
+  });
+  
+  // Handle period search functionality
+  periodSearch.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    
+    periodOptions.forEach(function(option) {
+      const text = option.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        option.style.display = 'block';
+      } else {
+        option.style.display = 'none';
+      }
+    });
+  });
+  
+  // Handle period selection (single select only)
+  periodOptions.forEach(function(option) {
+    option.addEventListener('click', function() {
+      const value = this.getAttribute('data-value');
+      
+      if (this.classList.contains('selected')) {
+        // Deselect current option
+        this.classList.remove('selected');
+        selectedPeriods = [];
+      } else {
+        // Deselect all other options first
+        periodOptions.forEach(function(opt) {
+          opt.classList.remove('selected');
+        });
+        selectedPeriods = [];
+        
+        // Select this option
+        this.classList.add('selected');
+        selectedPeriods.push(value);
+        
+        // Close dropdown after selection
+        periodPanel.style.display = 'none';
+      }
+      
+      updatePeriodDropdownLabel();
+    });
+  });
+  
+  // Update period dropdown label based on selection
+  function updatePeriodDropdownLabel() {
+    if (selectedPeriods.length === 0) {
+      periodDropdownLabel.textContent = 'No reporting period selected';
+    } else {
+      periodDropdownLabel.textContent = selectedPeriods[0];
+    }
+  }
+  
+  // Close period dropdown when clicking outside
+  document.addEventListener('click', function(event) {
+    if (!periodDropdown.contains(event.target) && !periodPanel.contains(event.target)) {
+      periodPanel.style.display = 'none';
+    }
+  });
+  
+  // Count filtering functionality
+  const originalCounts = [744, 568, 392, 348, 304, 256, 220, 196, 172, 152, 124, 112, 96, 84, 72, 60, 48, 36, 28, 20];
+  
+  // Nearly doubled counts for 12-period view (approximately 1.8-1.9x original)
+  const doubled12PeriodCounts = [1394, 1065, 735, 652, 569, 479, 412, 367, 322, 285, 232, 210, 180, 157, 135, 112, 90, 67, 52, 37];
+  
+  // Reduced counts when specific filters are applied (approximately 60-80% of original)
+  const filteredCounts = [450, 340, 235, 210, 180, 155, 132, 118, 103, 91, 74, 67, 58, 50, 43, 36, 29, 22, 17, 12];
+  
+  // Handle Show Results button - make it globally available
+  window.handleShowResults = function(buttonElement) {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const showResultsButton = buttonElement || document.querySelector('#table-filters-all .nhsuk-button');
+    const errorTable = document.getElementById('error-summary-table');
+    const resultsTitle = document.getElementById('results-title');
+    
+    // Show loading indicator, hide table and title, and disable button
+    loadingIndicator.style.display = 'flex';
+    errorTable.style.display = 'none';
+    resultsTitle.style.display = 'none';
+    showResultsButton.disabled = true;
+    showResultsButton.textContent = 'Loading...';
+    
+    // Simulate request time (1.5-2.5 seconds)
+    const loadingTime = Math.random() * 1000 + 1500;
+    
+    setTimeout(function() {
+      // Execute the actual filtering logic
+      const countCells = document.querySelectorAll('#error-summary-table tbody tr td:last-child');
+      const tableRows = document.querySelectorAll('#error-summary-table tbody tr');
+      
+      // Get type filter elements
+      const typeAllRadio = document.getElementById('type-all');
+      const typeWarningsRadio = document.getElementById('type-warnings');
+      const typeFailuresRadio = document.getElementById('type-failures');
+      
+      // Check if any specific filters are applied
+      const isOrgFiltered = orgSpecificRadio.checked && selectedOrganisations.length > 0;
+      const isPeriodFiltered = periodSpecificRadio.checked && selectedPeriods.length > 0;
+      const isTypeFiltered = !typeAllRadio.checked;
+      const is12PeriodSelected = period12Radio.checked;
+      
+      // Update the results title
+      updateResultsTitle();
+      
+      // Filter table rows by type
+      tableRows.forEach(function(row) {
+        const typeCell = row.querySelector('td:first-child');
+        if (typeCell) {
+          const typeText = typeCell.textContent;
+          let showRow = true;
+          
+          if (typeWarningsRadio.checked) {
+            showRow = typeText.includes('Warning');
+          } else if (typeFailuresRadio.checked) {
+            showRow = typeText.includes('Submission failure');
+          }
+          
+          row.style.display = showRow ? '' : 'none';
+        }
+      });
+      
+      // Determine which counts to use based on selections
+      let countsToUse;
+      if (is12PeriodSelected && !isOrgFiltered && !isPeriodFiltered && !isTypeFiltered) {
+        // Use doubled counts for 12-period view when no other filters applied
+        countsToUse = doubled12PeriodCounts;
+      } else if (isOrgFiltered || isPeriodFiltered || isTypeFiltered) {
+        // Use filtered counts if any specific filter is applied
+        countsToUse = filteredCounts;
+      } else {
+        // Default to original counts for 6-period view
+        countsToUse = originalCounts;
+      }
+      
+      // Update each count in the table (only for visible rows)
+      let visibleRowIndex = 0;
+      countCells.forEach(function(cell, index) {
+        const row = cell.closest('tr');
+        if (row && row.style.display !== 'none') {
+          if (visibleRowIndex < countsToUse.length) {
+            // Find the count number at the end of the cell text and replace it
+            const innerHTML = cell.innerHTML;
+            const updatedHTML = innerHTML.replace(/(\d+)(?=[^>]*$)/, countsToUse[visibleRowIndex]);
+            cell.innerHTML = updatedHTML;
+          }
+          visibleRowIndex++;
+        }
+      });
+      
+      // Hide loading indicator, show table and title, and restore button
+      loadingIndicator.style.display = 'none';
+      errorTable.style.display = 'table';
+      resultsTitle.style.display = 'block';
+      showResultsButton.disabled = false;
+      showResultsButton.textContent = 'Show results';
+    }, loadingTime);
+  };
+  
+  // Handle Show Results button for Organisation tab - make it globally available
+  window.handleShowResultsOrg = function(buttonElement) {
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const showResultsButton = buttonElement || document.querySelector('#table-filters-org .nhsuk-button');
+    const orgTable = document.getElementById('organisation-summary-table');
+    
+    // Show loading indicator, hide table and disable button
+    loadingIndicator.style.display = 'flex';
+    orgTable.style.display = 'none';
+    showResultsButton.disabled = true;
+    showResultsButton.textContent = 'Loading...';
+    
+    // Simulate request time (1.5-2.5 seconds)
+    const loadingTime = Math.random() * 1000 + 1500;
+    
+    setTimeout(function() {
+      // Execute the actual filtering logic for organisation table
+      const countCells = document.querySelectorAll('#organisation-summary-table tbody tr td:last-child');
+      const tableRows = document.querySelectorAll('#organisation-summary-table tbody tr');
+      
+      // Simple example - just update some counts (in real implementation this would filter based on form inputs)
+      const sampleCounts = [89, 76, 65, 54, 43, 38, 29, 21, 18, 15];
+      
+      // Update each count in the organisation table
+      countCells.forEach(function(cell, index) {
+        if (index < sampleCounts.length) {
+          // Find the count number at the end of the cell text and replace it
+          const innerHTML = cell.innerHTML;
+          const updatedHTML = innerHTML.replace(/(\d+)(?=[^>]*$)/, sampleCounts[index]);
+          cell.innerHTML = updatedHTML;
+        }
+      });
+      
+      // Hide loading indicator, show table and restore button
+      loadingIndicator.style.display = 'none';
+      orgTable.style.display = 'table';
+      showResultsButton.disabled = false;
+      showResultsButton.textContent = 'Show results';
+    }, loadingTime);
+  };
+  
+  // CSV Download functionality
+  window.downloadCSV = function() {
+    const table = document.getElementById('error-summary-table');
+    const rows = table.querySelectorAll('tbody tr');
+    let csvContent = 'Type,Error Code,Table,Data Item,Category,Count\n';
+    
+    // Generate dynamic filename based on current filters
+    let filename = 'data-quality';
+    
+    // Organisation filter
+    const orgAllRadio = document.getElementById('org-all');
+    const orgSpecificRadio = document.getElementById('org-specific');
+    if (orgSpecificRadio.checked && selectedOrganisations.length > 0) {
+      const orgName = selectedOrganisations[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + orgName;
+    } else {
+      filename += '-all-organisations';
+    }
+    
+    // Period filter
+    const periodAllRadio = document.getElementById('period-all');
+    const periodSpecificRadio = document.getElementById('period-specific');
+    if (periodSpecificRadio.checked && selectedPeriods.length > 0) {
+      const periodName = selectedPeriods[0].replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      filename += '-' + periodName;
+    } else {
+      filename += '-all-periods';
+    }
+    
+    // Type filter
+    const typeAllRadio = document.getElementById('type-all');
+    const typeWarningsRadio = document.getElementById('type-warnings');
+    const typeFailuresRadio = document.getElementById('type-failures');
+    if (typeWarningsRadio.checked) {
+      filename += '-warnings-only';
+    } else if (typeFailuresRadio.checked) {
+      filename += '-failures-only';
+    } else {
+      filename += '-all-errors';
+    }
+    
+    filename += '.csv';
+    
+    // Extract data from visible rows only
+    rows.forEach(function(row) {
+      if (row.style.display !== 'none') {
+        const cells = row.querySelectorAll('td');
+        const rowData = [];
+        
+        cells.forEach(function(cell) {
+          // Get text content, removing the responsive heading span
+          const span = cell.querySelector('span[aria-hidden="true"]');
+          let text = cell.textContent;
+          if (span) {
+            text = text.replace(span.textContent, '').trim();
+          }
+          // Escape commas and quotes for CSV format
+          if (text.includes(',') || text.includes('"')) {
+            text = '"' + text.replace(/"/g, '""') + '"';
+          }
+          rowData.push(text);
+        });
+        
+        csvContent += rowData.join(',') + '\n';
+      }
+    });
+    
+    // Create and download the CSV file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  // Function to update the results title based on current selections
+  function updateResultsTitle() {
+    const resultsTitleText = document.getElementById('results-title-text');
+    
+    // Helper function to capitalize first letter
+    function capitalizeFirst(text) {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+    
+    // Determine organisation filter text
+    let orgText;
+    if (orgSpecificRadio.checked && selectedOrganisations.length > 0) {
+      orgText = selectedOrganisations[0];
+    } else {
+      orgText = 'All organisations';
+    }
+    
+    // Determine period filter text
+    let periodText;
+    if (periodSpecificRadio.checked && selectedPeriods.length > 0) {
+      periodText = capitalizeFirst(selectedPeriods[0].toLowerCase());
+    } else if (period12Radio.checked) {
+      periodText = capitalizeFirst('last 12 reporting periods');
+    } else {
+      periodText = capitalizeFirst('last 6 reporting periods');
+    }
+    
+    // Determine type filter text
+    let typeText;
+    const typeWarningsRadio = document.getElementById('type-warnings');
+    const typeFailuresRadio = document.getElementById('type-failures');
+    if (typeWarningsRadio.checked) {
+      typeText = capitalizeFirst('warnings only');
+    } else if (typeFailuresRadio.checked) {
+      typeText = capitalizeFirst('failures only');
+    } else {
+      typeText = capitalizeFirst('all error types');
+    }
+    
+    // Construct the title
+    const titleText = `Showing error count for: ${orgText}, ${periodText}, ${typeText}`;
+    resultsTitleText.textContent = titleText;
+  }
+  
+  // Expandable rows functionality for plus buttons
+  function initializeExpandableRows() {
+    // Use event delegation to handle dynamically added buttons
+    document.addEventListener('click', function(event) {
+      // Check if clicked element is a plus/minus button (not the CSV download button)
+      if (event.target.classList.contains('nhsuk-button--secondary') && 
+          (event.target.textContent.trim() === '+' || event.target.textContent.trim() === '−')) {
+        
+        const button = event.target;
+        const row = button.closest('tr');
+        const isExpanded = button.textContent.trim() === '−';
+        
+        if (isExpanded) {
+          // Collapse - remove expanded rows and change button back to +
+          button.textContent = '+';
+          let nextRow = row.nextElementSibling;
+          while (nextRow && nextRow.classList.contains('expanded-content')) {
+            const toRemove = nextRow;
+            nextRow = nextRow.nextElementSibling;
+            toRemove.remove();
+          }
+        } else {
+          // Expand - add expanded rows and change button to −
+          button.textContent = '−';
+          
+          // Sample organization data for expansion
+          const organizations = [
+            { name: 'Royal London Hospital', count: Math.floor(Math.random() * 50) + 10 },
+            { name: 'Guy\'s Hospital', count: Math.floor(Math.random() * 45) + 8 },
+            { name: 'St Thomas\' Hospital', count: Math.floor(Math.random() * 40) + 7 },
+            { name: 'King\'s College Hospital', count: Math.floor(Math.random() * 35) + 6 },
+            { name: 'University College Hospital', count: Math.floor(Math.random() * 30) + 5 },
+            { name: 'Charing Cross Hospital', count: Math.floor(Math.random() * 25) + 4 },
+            { name: 'Hammersmith Hospital', count: Math.floor(Math.random() * 20) + 3 },
+            { name: 'Royal Brompton Hospital', count: Math.floor(Math.random() * 18) + 2 },
+            { name: 'Moorfields Eye Hospital', count: Math.floor(Math.random() * 15) + 2 },
+            { name: 'Great Ormond Street Hospital', count: Math.floor(Math.random() * 12) + 1 }
+          ];
+          
+          // Sort organizations by count in descending order
+          organizations.sort(function(a, b) {
+            return b.count - a.count;
+          });
+          
+          // Create expanded rows
+          organizations.forEach(function(org, orgIndex) {
+            const expandedRow = document.createElement('tr');
+            expandedRow.classList.add('expanded-content');
+            expandedRow.style.backgroundColor = '#ffffff';
+            
+            // Add cells to match the table structure
+            expandedRow.innerHTML = `
+              <td class="nhsuk-table__cell" style="border-left: 4px solid #005eb8; width: 60px;"></td>
+              <td class="nhsuk-table__cell" style="padding-left: 24px; font-size: 14px; width: 300px; white-space: nowrap;">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>${org.name}
+              </td>
+              <td class="nhsuk-table__cell" style="font-size: 14px;" colspan="4"></td>
+              <td class="nhsuk-table__cell" style="font-size: 14px;">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>${org.count}
+              </td>
+            `;
+            
+            // Insert after the main row (and any previously inserted rows)
+            let insertAfter = row;
+            for (let i = 0; i < orgIndex; i++) {
+              if (insertAfter.nextElementSibling && insertAfter.nextElementSibling.classList.contains('expanded-content')) {
+                insertAfter = insertAfter.nextElementSibling;
+              }
+            }
+            insertAfter.insertAdjacentElement('afterend', expandedRow);
+          });
+        }
+      }
+    });
+  }
+  
+  // Initialize expandable rows
+  initializeExpandableRows();
+  
+  // Initial state
+  handleRadioChange();
+  handlePeriodRadioChange();
+});
+
+</script>
+{% endblock %}

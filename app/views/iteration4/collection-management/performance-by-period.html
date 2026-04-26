@@ -1,0 +1,934 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Performance by period" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "monitoring",
+      text: "Monitoring"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l">Performance by period</h1>
+    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text">More about the data on this page</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p><strong>Reporting period</strong><br>The reporting period that the submissions relate to.</p>
+        <p><strong>Submission window end date</strong><br>The date when the submission window closes for that period.</p>
+        <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
+        <p><strong>Total submissions</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
+        <p><strong>Providers submitted</strong><br>The number of providers that submitted at least one file during the submission window (excluding test files).</p>
+        <p><strong>Providers with successful submission</strong><br>The number of providers that had at least one file successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
+        <p><strong>File rejection (%)</strong><br>The percentage of submitted files that were rejected during validation checks (excluding test files).</p>
+        <p><strong>Test submissions</strong><br>The number of submissions identified as test file type.</p>
+      </div>
+    </details>
+
+    <!-- Collection and Time Period Filters -->
+    <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <div class="nhsuk-grid-column-one-half">
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="collection-select">
+            <strong>Collection</strong>
+          </label>
+          <div class="nhsuk-hint" id="collection-select-hint">
+            Select a collection to view its performance.
+          </div>
+          <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
+            <option value="Diagnostic Imaging Data Set (V2.0)" selected>Diagnostic Imaging Data Set (V2.0)</option>
+            <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="nhsuk-grid-column-one-half">
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="time-period-select">
+            <strong>Time range</strong>
+          </label>
+          <div class="nhsuk-hint" id="time-period-select-hint">
+            Select a time range.
+          </div>
+          <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+            <option value="last-year" selected>Last year</option>
+            <option value="last-2-years">Last 2 years</option>
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  <!--   <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8" style="max-width: 560px;">
+      <label class="nhsuk-label" for="performance-year"><strong>Reporting period year</strong></label>
+      <div class="nhsuk-hint" id="performance-year-hint">Choose a reporting period year to view performance data.</div>
+      <select class="nhsuk-select" id="performance-year" name="year" aria-describedby="performance-year-hint">
+        <option value="2025" selected>2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div> -->  
+
+    <!-- Tabs navigation -->
+    <div class="nhsuk-tabs" data-module="nhsuk-tabs">
+      <h2 class="nhsuk-tabs__title">Contents</h2>
+      <ul class="nhsuk-tabs__list">
+        <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+          <a class="nhsuk-tabs__tab" href="#periods">Tabular data</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#organisations">Chart</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#download">Download</a>
+        </li>
+      </ul>
+
+      <!-- First tab: Reporting Periods -->
+      <div class="nhsuk-tabs__panel" id="periods">
+        
+        <p class="nhsuk-body">Use the filters below to narrow down the submissions shown in the table. You need to click 'Apply filters' to update the results.</p>
+
+        <!-- Table filters -->
+        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
+
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-period"><strong>Search by period</strong></label>
+              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+              <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+            </div>
+
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-status"><strong>Submission window status</strong></label>
+              <select class="nhsuk-select" id="filter-status" name="status">
+                <option value="">All</option>
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button nhsuk-button--small" style="top: 8px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+            </div>
+          </div>
+
+          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+            <div class="nhsuk-selected__header">
+              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+            </div>
+            <div class="nhsuk-selected__row" id="selected-chips"></div>
+          </div>
+
+        </form>
+      
+        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+    <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+    <thead class="nhsuk-table__head" role="rowgroup">
+      <tr role="row" class="nhsuk-table__row">
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="deadline">Submission window end-date</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission window status</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-count">Providers submitted</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Providers with successful submission**</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Number of resubmissions</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection (%)</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="test-submissions">Test submissions</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Organisation breakdown</th>
+      </tr>
+    </thead>
+    <tbody class="nhsuk-table__body">
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>118/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>117/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>11</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>4/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="organisation-breakdown">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>133/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>104</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>7/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>94</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>2/218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>74</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>0/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>132/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>44</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>20%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>3/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>132/209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>131/209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>73</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>1/209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>133/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>91</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>5/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>50</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>0/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>130/222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>129/222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>85</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>23%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>6/222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>132/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>62</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>2/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>121/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>120/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>38</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>1/184</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>120/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>119/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>34</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submissions</span>1/176</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+      <!--   <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; margin-bottom: 24px; gap: 12px; flex-wrap: wrap;">
+          <nav id="submissions-pagination" class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+            <ul id="pagination-list" class="nhsuk-list nhsuk-pagination__list"></ul>
+          </nav>
+          <p id="results-count" class="results-count-align-right" style="margin: 0;">Showing 1 to 10 of 12 results</p>
+        </div> -->
+
+        <!-- Second tab: Organisations -->
+ <!-- <p>*All submissions in this period, including successful, rejected, and resubmitted data. Test files are not included.<br>
+          **Number of providers with at least one successful submission in this period.<br>
+          ***Number of resubmissions in this period based only on valid submissions.</p> -->
+
+      </div>
+
+      <!-- Second tab: Organisations -->
+      <div class="nhsuk-tabs__panel" id="organisations">
+        <h2 class="nhsuk-heading-m">Submission performance</h2>
+        <p class="nhsuk-body-m">Last 12 months trend for providers submitted, total submissions, number of resubmissions, file rejected and test submissions.</p>
+        <div id="organisations-line-chart" class="org-line-chart" aria-label="Line chart for organisation metrics over last 12 months"></div>
+        <div id="organisations-line-legend" class="org-line-legend" aria-label="Chart legend"></div>
+      </div>
+
+      <!-- Third tab: Download -->
+      <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="download">
+        <h3 class="nhsuk-heading-m">Download data</h3>
+        
+        <div class="nhsuk-form-group">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+              <h4>
+                Select format
+              </h4>
+            </legend>
+            <div class="nhsuk-radios">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="format-csv" name="download-format" type="radio" value="csv" checked>
+                <label class="nhsuk-label nhsuk-radios__label" for="format-csv">
+                  CSV
+                </label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="format-json" name="download-format" type="radio" value="json">
+                <label class="nhsuk-label nhsuk-radios__label" for="format-json">
+                  JSON
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        
+        <button class="nhsuk-button" type="button" id="download-btn" style="background-color: #00703c; border-color: #00703c;">
+          Download
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<style>
+  #submissions-table th,
+  #submissions-table td {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .org-line-chart {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #d8dde0;
+    background: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .org-line-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .org-line-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+  }
+
+  .org-line-legend__swatch {
+    width: 16px;
+    height: 4px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // Toggle expander text between 'Show filters' and 'Hide filters'
+  document.addEventListener('DOMContentLoaded', function(){
+    var details = document.querySelector('.nhsuk-details.nhsuk-expander');
+    var textSpan = document.getElementById('filters-expander-text');
+    if (details && textSpan) {
+      function updateText() {
+        textSpan.textContent = details.open ? 'Hide filters' : 'Show filters';
+      }
+      details.addEventListener('toggle', updateText);
+      updateText();
+    }
+  });
+})();
+</script>
+
+<script>
+</script>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var chartHost = document.getElementById('organisations-line-chart');
+    var legendHost = document.getElementById('organisations-line-legend');
+    var yearSel = document.getElementById('performance-year');
+    if (!chartHost || !legendHost) return;
+
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var chartDataByYear = {
+      '2025': [
+        { name: 'Providers submitted', color: '#005eb8', values: [120, 121, 124, 126, 127, 129, 130, 131, 132, 133, 133, 134] },
+        { name: 'Total submissions', color: '#007f3b', values: [176, 184, 192, 205, 214, 221, 229, 236, 244, 258, 266, 278] },
+        { name: 'Number of resubmissions', color: '#fa9200', values: [34, 38, 41, 48, 52, 57, 61, 67, 73, 86, 94, 104] },
+        { name: 'File rejected', color: '#d5281b', values: [16, 18, 22, 25, 31, 26, 28, 39, 34, 22, 24, 42] },
+        { name: 'Test submissions', color: '#4c6272', values: [1, 1, 1, 2, 3, 4, 5, 0, 6, 2, 7, 4] }
+      ]
+    };
+    var availableYears = Object.keys(chartDataByYear).sort();
+
+    function getSelectedYear() {
+      if (yearSel && yearSel.value) return yearSel.value;
+      return availableYears.length ? availableYears[availableYears.length - 1] : '';
+    }
+
+    var width = 1100;
+    var height = 420;
+    var margin = { top: 20, right: 20, bottom: 80, left: 64 };
+    var plotW = width - margin.left - margin.right;
+    var plotH = height - margin.top - margin.bottom;
+
+    function renderChart() {
+      var selectedYear = getSelectedYear();
+      var labels = months.map(function(m) { return m + ' ' + selectedYear; });
+      var series = chartDataByYear[selectedYear] || [];
+
+      if (!series.length) {
+        chartHost.innerHTML = '<div class="nhsuk-inset-text" style="margin: 0;"><span class="nhsuk-u-visually-hidden">Information: </span>No graph data available for ' + selectedYear + '.</div>';
+        legendHost.innerHTML = '';
+        return;
+      }
+
+      var allValues = [];
+      series.forEach(function(s) { allValues = allValues.concat(s.values); });
+      var maxY = Math.max.apply(null, allValues);
+      var roundedMaxY = Math.ceil(maxY / 20) * 20;
+
+      function xAt(index) {
+        return margin.left + (index * (plotW / (labels.length - 1)));
+      }
+
+      function yAt(value) {
+        return margin.top + plotH - ((value / roundedMaxY) * plotH);
+      }
+
+      var svg = [];
+      svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics line chart">');
+
+      for (var t = 0; t <= 5; t++) {
+        var yVal = Math.round((roundedMaxY / 5) * t);
+        var y = yAt(yVal);
+        svg.push('<line x1="' + margin.left + '" y1="' + y + '" x2="' + (margin.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" />');
+        svg.push('<text x="' + (margin.left - 8) + '" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="#4c6272">' + yVal + '</text>');
+      }
+
+      svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      svg.push('<line x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+
+      labels.forEach(function(label, i) {
+        var x = xAt(i);
+        svg.push('<line x1="' + x + '" y1="' + (margin.top + plotH) + '" x2="' + x + '" y2="' + (margin.top + plotH + 6) + '" stroke="#212b32" stroke-width="1" />');
+        svg.push('<text x="' + x + '" y="' + (margin.top + plotH + 22) + '" text-anchor="middle" font-size="12" fill="#212b32">' + label + '</text>');
+      });
+
+      series.forEach(function(s) {
+        var pts = s.values.map(function(v, i) { return xAt(i) + ',' + yAt(v); }).join(' ');
+        svg.push('<polyline fill="none" stroke="' + s.color + '" stroke-width="3" points="' + pts + '" />');
+        s.values.forEach(function(v, i) {
+          svg.push('<circle cx="' + xAt(i) + '" cy="' + yAt(v) + '" r="3" fill="' + s.color + '" />');
+        });
+      });
+
+      svg.push('<text x="' + (margin.left + (plotW / 2)) + '" y="' + (height - 20) + '" text-anchor="middle" font-size="13" fill="#212b32">Month</text>');
+      svg.push('<text x="20" y="' + (margin.top + (plotH / 2)) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 20 ' + (margin.top + (plotH / 2)) + ')">Count</text>');
+      svg.push('</svg>');
+
+      chartHost.innerHTML = svg.join('');
+
+      legendHost.innerHTML = series.map(function(s) {
+        return '<span class="org-line-legend__item"><span class="org-line-legend__swatch" style="background:' + s.color + ';"></span>' + s.name + '</span>';
+      }).join('');
+    }
+
+    if (yearSel) {
+      yearSel.addEventListener('change', renderChart);
+    }
+    renderChart();
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Helper: get only the text node after the span (the cell value)
+  function cellValue(cell) {
+    if (!cell) return '';
+    // Find the first text node after the span
+    for (let node of cell.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        return node.textContent.trim();
+      }
+    }
+    // fallback: get all text and remove the heading
+    var txt = (cell.textContent || '').trim();
+    var heading = cell.querySelector('.nhsuk-table-responsive__heading');
+    if (heading) {
+      txt = txt.replace(heading.textContent, '').trim();
+    }
+    return txt;
+  }
+
+  function uniqueSorted(values) {
+    return Array.from(new Set(values.filter(Boolean))).sort(function(a, b) {
+      return a.localeCompare(b, undefined, { sensitivity: 'base' });
+    });
+  }
+
+  function initTableFilters(opts) {
+    var table = document.getElementById(opts.tableId);
+    var form = document.getElementById(opts.formId);
+    var yearSel = document.getElementById('performance-year');
+    if (!table || !form || !table.tBodies.length) return;
+
+    // Locate inputs
+    var statusSel = form.querySelector('#filter-status');
+    var periodInput = form.querySelector('#filter-period');
+    var clearBtn = form.querySelector('[data-clear-filters]');
+    var countEl = document.getElementById('results-count');
+    var applyBtn = form.querySelector('button[type="submit"]');
+    var chipsEl = document.getElementById('selected-chips');
+    var paginationNav = document.getElementById('submissions-pagination');
+    var paginationList = document.getElementById('pagination-list');
+    var pageSize = 10;
+    var currentPage = 1;
+
+    // Map headers by data-key to column index
+    var keyIndex = {};
+    var i = 0;
+    [].slice.call(table.tHead.rows[0].cells).forEach(function(th) {
+      var span = th.colSpan || 1;
+      var key = th.getAttribute('data-key');
+      for (var k = 0; k < span; k++) {
+        if (key && k === 0) keyIndex[key] = i;
+        i++;
+      }
+    });
+
+    var rows = [].slice.call(table.tBodies[0].rows);
+    var data = rows.map(function(row) {
+      var c = row.cells;
+      return {
+        row: row,
+        period: cellValue(c[keyIndex.period]),
+        status: cellValue(c[keyIndex.status])
+      };
+    });
+
+    // --- Period autocomplete dropdown ---
+    var suggestionBox = document.getElementById('period-suggestions');
+    if (periodInput && suggestionBox) {
+      periodInput.addEventListener('input', function() {
+        var val = periodInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+
+        var selectedYear = yearSel ? yearSel.value : '';
+        var periods = uniqueSorted(data.filter(function(r) {
+          var periodYear = (r.period.match(/(\d{4})$/) || [])[1] || '';
+          return !selectedYear || periodYear === selectedYear;
+        }).map(function(r) { return r.period; }).filter(Boolean));
+        var matches = periods.filter(function(p) { return p.toLowerCase().startsWith(val); });
+        if (matches.length === 0) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+
+        suggestionBox.style.display = 'block';
+        suggestionBox.style.background = '#fff';
+        suggestionBox.style.color = '#000';
+        suggestionBox.style.fontSize = '1.1875rem';
+        suggestionBox.style.width = periodInput.offsetWidth + 'px';
+        suggestionBox.style.border = '1px solid #b1b4b6';
+        suggestionBox.style.borderTop = 'none';
+        suggestionBox.style.maxHeight = '200px';
+        suggestionBox.style.overflowY = 'auto';
+        suggestionBox.innerHTML = matches.map(function(m) {
+          return '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>';
+        }).join('');
+      });
+
+      suggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('period-suggestion')) {
+          periodInput.value = e.target.textContent;
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          periodInput.focus();
+        }
+      });
+
+      periodInput.addEventListener('blur', function() {
+        setTimeout(function() {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+        }, 200);
+      });
+    }
+
+    function matches(rec) {
+      var selectedYear = yearSel ? yearSel.value : '';
+      var statusQ = (statusSel && statusSel.value) || '';
+      var periodQ = (periodInput && periodInput.value ? periodInput.value : '').trim().toLowerCase();
+      var periodYear = (rec.period.match(/(\d{4})$/) || [])[1] || '';
+
+      if (selectedYear && periodYear !== selectedYear) return false;
+      if (statusQ && rec.status !== statusQ) return false;
+      if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false;
+      return true;
+    }
+
+    function renderPagination(total, totalPages) {
+      if (!paginationNav || !paginationList) return;
+      paginationList.innerHTML = '';
+
+      if (totalPages <= 1) {
+        paginationNav.style.display = 'none';
+        return;
+      }
+
+      paginationNav.style.display = '';
+
+      function pageItem(label, targetPage, isCurrent, isNext, isPrev) {
+        var li = document.createElement('li');
+        li.className = isCurrent
+          ? 'nhsuk-pagination__item--current'
+          : 'nhsuk-pagination__item' + (isNext ? ' nhsuk-pagination__item--next' : '') + (isPrev ? ' nhsuk-pagination__item--prev' : '');
+
+        var link = document.createElement('a');
+        link.className = 'nhsuk-pagination__link';
+        link.href = '#';
+        link.textContent = label;
+
+        if (isCurrent) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentPage = targetPage;
+            render();
+          });
+        }
+
+        li.appendChild(link);
+        return li;
+      }
+
+      if (currentPage > 1) {
+        paginationList.appendChild(pageItem('Previous', currentPage - 1, false, false, true));
+      }
+
+      for (var p = 1; p <= totalPages; p++) {
+        paginationList.appendChild(pageItem(String(p), p, p === currentPage, false, false));
+      }
+
+      if (currentPage < totalPages) {
+        paginationList.appendChild(pageItem('Next', currentPage + 1, false, true, false));
+      }
+    }
+
+    function renderChips() {
+      if (!chipsEl) return;
+      var chips = [];
+
+      if (statusSel && statusSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" title="Clear Status filter">Status: ' + statusSel.options[statusSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (periodInput && periodInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+
+      chipsEl.innerHTML = chips.join(' ');
+
+      var clearLink = form.querySelector('[data-clear-filters]');
+      if (clearLink) {
+        if (chips.length === 0) {
+          clearLink.style.display = 'none';
+          if (!document.getElementById('no-filters-msg')) {
+            var msg = document.createElement('span');
+            msg.id = 'no-filters-msg';
+            msg.textContent = 'No filters applied';
+            msg.style.color = '#4c6272';
+            msg.style.fontSize = '16px';
+            msg.style.display = 'block';
+            msg.style.textAlign = 'left';
+            clearLink.parentNode.appendChild(msg);
+          }
+        } else {
+          clearLink.style.display = '';
+          var msg = document.getElementById('no-filters-msg');
+          if (msg) msg.remove();
+        }
+      }
+
+      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          var filter = tag.getAttribute('data-filter');
+          if (filter === 'status' && statusSel) statusSel.value = '';
+          if (filter === 'period' && periodInput) periodInput.value = '';
+          currentPage = 1;
+          render();
+        });
+      });
+    }
+
+    function render() {
+      var filtered = data.filter(matches);
+      var total = filtered.length;
+      var totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      data.forEach(function(rec) {
+        rec.row.style.display = 'none';
+      });
+
+      var start = total === 0 ? 0 : ((currentPage - 1) * pageSize);
+      var end = Math.min(start + pageSize, total);
+      for (var i = start; i < end; i++) {
+        filtered[i].row.style.display = '';
+      }
+
+      if (countEl) {
+        var from = total === 0 ? 0 : start + 1;
+        countEl.textContent = 'Showing ' + from + ' to ' + end + ' of ' + total + ' results';
+      }
+
+      renderPagination(total, totalPages);
+      renderChips();
+    }
+
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        currentPage = 1;
+        render();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (statusSel) statusSel.value = '';
+        if (periodInput) periodInput.value = '';
+        currentPage = 1;
+        render();
+      });
+    }
+
+    if (yearSel) {
+      yearSel.addEventListener('change', function() {
+        if (periodInput) periodInput.value = '';
+        currentPage = 1;
+        render();
+      });
+    }
+
+    render();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initTableFilters({
+      tableId: 'submissions-table',
+      formId: 'table-filters2'
+    });
+  });
+})();
+</script>
+
+<script>
+// Click column headers to sort rows
+(function() {
+  function parseValue(text, type) {
+    var t = (text || '').trim();
+    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'date') {
+      var d = Date.parse(t);
+      return isNaN(d) ? t.toLowerCase() : d;
+    }
+    return t.toLowerCase();
+  }
+
+  function indexOfCell(th) {
+    var cells = Array.prototype.slice.call(th.parentElement.children);
+    var idx = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === th) return idx;
+      idx += cells[i].colSpan || 1;
+    }
+    return -1;
+  }
+
+  function sortTable(table, colIndex, type, direction) {
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.rows);
+
+    rows.sort(function(a, b) {
+      var av = parseValue(a.cells[colIndex] && a.cells[colIndex].innerText, type);
+      var bv = parseValue(b.cells[colIndex] && b.cells[colIndex].innerText, type);
+      if (av < bv) return direction === 'ascending' ? -1 : 1;
+      if (av > bv) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+
+    var frag = document.createDocumentFragment();
+    rows.forEach(function(r) { frag.appendChild(r); });
+    tbody.appendChild(frag);
+  }
+
+  document.querySelectorAll('table.nhsuk-table--sortable').forEach(function(table) {
+    var ths = table.tHead ? table.tHead.querySelectorAll('th') : [];
+    ths.forEach(function(th) {
+      var type = th.getAttribute('data-sort') || 'string';
+      if (type === 'none') return;
+      th.setAttribute('aria-sort', 'none');
+      var label = th.textContent.trim();
+      if (!th.querySelector('button')) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nhsuk-table-sort__button';
+        btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>';
+        th.textContent = '';
+        th.appendChild(btn);
+      }
+      th.querySelector('button').addEventListener('click', function() {
+        var current = th.getAttribute('aria-sort');
+        var next = current === 'ascending' ? 'descending' : 'ascending';
+        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function(t) { t.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', next);
+        var colIndex = indexOfCell(th);
+        sortTable(table, colIndex, type, next);
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+(function() {
+  // Toggle visibility for metrics columns
+  document.addEventListener('DOMContentLoaded', function() {
+    var table = document.getElementById('submissions-table');
+    var btn = document.getElementById('toggle-metrics-columns');
+    if (!table || !btn || !table.tBodies.length) return;
+
+    var metricKeys = ['submitted-count', 'total', 'missed', 'rejections'];
+    var colIndexes = [];
+
+    if (table.tHead && table.tHead.rows.length) {
+      var headerCells = Array.prototype.slice.call(table.tHead.rows[0].cells);
+      var logicalIndex = 0;
+      headerCells.forEach(function(cell) {
+        var key = cell.getAttribute('data-key');
+        if (metricKeys.indexOf(key) !== -1) {
+          colIndexes.push(logicalIndex);
+        }
+        logicalIndex += cell.colSpan || 1;
+      });
+    }
+
+    var hidden = false;
+
+    function setVisibility(hide) {
+      var display = hide ? 'none' : '';
+      var heads = table.tHead ? Array.prototype.slice.call(table.tHead.rows) : [];
+      var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+      heads.concat(rows).forEach(function(row) {
+        colIndexes.forEach(function(idx) {
+          if (row.cells[idx]) row.cells[idx].style.display = display;
+        });
+      });
+      btn.textContent = hide ? 'No reporting period' : 'Only submission windows';
+      btn.setAttribute('aria-pressed', hide ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      hidden = !hidden;
+      setVisibility(hidden);
+    });
+
+    setVisibility(hidden);
+  });
+})();
+</script>
+{% endblock %}
