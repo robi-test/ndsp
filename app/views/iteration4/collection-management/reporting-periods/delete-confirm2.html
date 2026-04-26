@@ -4,25 +4,10 @@
 
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    },
-    {
-      href: "../setup",
-      text: "Set up"
-    },
-    {
-      href: "periods",
-      text: "Reporting period"
-    }
-  ],
-  href: "windows-april",
-  text: "April 2026"
-}) }}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -40,12 +25,16 @@
             <dd class="nhsuk-summary-list__value">Deadline extension </dd>
           </div>
           <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Reporting period</dt>
+            <dd class="nhsuk-summary-list__value">April 2026</dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Start date</dt>
-            <dd class="nhsuk-summary-list__value">1 Nov 2026, 00:00</dd>
+            <dd class="nhsuk-summary-list__value">1 Nov 2026, 00:00:00</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">End date</dt>
-            <dd class="nhsuk-summary-list__value">30 Nov 2026, 23:59</dd>
+            <dd class="nhsuk-summary-list__value">30 Nov 2026, 23:59:59</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Organisations</dt>
@@ -58,7 +47,7 @@
           <p>This action cannot be undone.</p>
         </div>
 
-        <form method="post" action="windows-april-delete-message">
+        <form method="post" action="submission-windows">
           <input type="hidden" name="action" value="delete">
           <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="windows-april">Cancel</a>
           <button class="nhsuk-button nhsuk-button--warning" type="submit">

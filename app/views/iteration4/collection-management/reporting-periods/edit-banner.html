@@ -1,28 +1,14 @@
-{% extends "iteration3/collection-management/layout-collection-management.html" %}
+{% extends "iteration4/collection-management/reporting-periods/layout-collection-management.html" %}
 
 {% set pageName = "Diagnostic Imaging Data Set (V2.0) - Reporting periods" %}
 
 {% from "breadcrumb/macro.njk" import breadcrumb %}
+
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    },
-    {
-      href: "../setup",
-      text: "Set up"
-    },
-    {
-      href: "periods",
-      text: "Reporting period"
-    }
-  ],
-  href: "windows-april",
-  text: "April 2026"
-}) }}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -49,12 +35,16 @@
             <dd class="nhsuk-summary-list__value">Submission closes</dd>
           </div>
           <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Reporting period</dt>
+            <dd class="nhsuk-summary-list__value">April 2026</dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Start date</dt>
-            <dd class="nhsuk-summary-list__value">1 Jun 2026, 00:00</dd>
+            <dd class="nhsuk-summary-list__value">1 Jun 2026, 00:00:00</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">End date</dt>
-            <dd class="nhsuk-summary-list__value">31 Jun 2026, 23:59</dd>
+            <dd class="nhsuk-summary-list__value">5 Jul 2026, 23:59:59</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Organisations</dt>
