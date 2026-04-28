@@ -31,7 +31,14 @@
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
         <p class="nhsuk-u-margin-bottom-8">You can only delete submission windows that are not open and have not already occurred. <br> You can edit open submission windows, for example to grant extensions.<br>
         </p>
-          {% from "action-link/macro.njk" import actionLink %}
+{% from "inset-text/macro.njk" import insetText %}
+      
+      {{ insetText({
+        "text": "You have successfully updated the submission window: Extension deadlines - April 2026",
+        "classes": "nhsuk-u-margin-bottom-8"
+      }) }}
+
+{% from "action-link/macro.njk" import actionLink %}
 
 {{ actionLink({
   text: "Create a new submission window",

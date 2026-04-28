@@ -18,32 +18,12 @@
   titleText: "There is a problem",
   errorList: [
     {
-      text: "Enter a reporting period name",
-      href: "#reporting-period-name"
+      text: "Select a start time option",
+      href: "#start-time-type"
     },
     {
-      text: "Start date must include a day",
-      href: "#reporting-period-start-day"
-    },
-    {
-      text: "Start date must include a month",
-      href: "#reporting-period-start-month"
-    },
-    {
-      text: "Start date must include a year",
-      href: "#reporting-period-start-year"
-    },
-    {
-      text: "End date must include a day",
-      href: "#reporting-period-end-day"
-    },
-    {
-      text: "End date must include a month",
-      href: "#reporting-period-end-month"
-    },
-    {
-      text: "End date must include a year",
-      href: "#reporting-period-end-year"
+      text: "Select an end time option",
+      href: "#end-time-type"
     }
   ]
 }) }}
@@ -60,43 +40,35 @@
   </legend>
 <p>Use this page to create a reporting period, also referred to as an activity period. This defines the time period that the submitted data relates to.</p>
 
-<!-- Reporting Period Name with Error State -->
-<div class="nhsuk-form-group nhsuk-form-group--error nhsuk-u-margin-top-4">
+<!-- Reporting Period Name -->
+<div class="nhsuk-form-group nhsuk-u-margin-top-4">
   <h1 class="nhsuk-label-wrapper">
     <label class="nhsuk-label nhsuk-label--m" for="reporting-period-name">
       Reporting period name
     </label>
   </h1>
-  <span class="nhsuk-error-message" id="reporting-period-name-error">
-    <span class="nhsuk-u-visually-hidden">Error:</span> Enter a reporting period name
-  </span>
-  <input class="nhsuk-input nhsuk-input--error" id="reporting-period-name" name="reportingPeriodName" type="text" aria-describedby="reporting-period-name-error">
+  <input class="nhsuk-input" id="reporting-period-name" name="reportingPeriodName" type="text" value="December 2026">
 </div>
 
 <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
-  <!-- Start Date with Error State -->
-  <fieldset class="nhsuk-fieldset" role="group">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-      <h1 class="nhsuk-fieldset__heading">
-        Start date
-      </h1>
-    </legend>
-    
-    <!-- Date Input Section with Error -->
-    <div class="nhsuk-form-group nhsuk-form-group--error" aria-describedby="start-date-hint start-date-error">
+  <!-- Start Date -->
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="start-date-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Start date
+        </h1>
+      </legend>
       <div id="start-date-hint" class="nhsuk-hint">
         For example, 18 3 2026
       </div>
-      <span class="nhsuk-error-message" id="start-date-error">
-        <span class="nhsuk-u-visually-hidden">Error:</span> Start date must include a day, month and year
-      </span>
       <div id="reporting-period-start" class="nhsuk-date-input">
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-day">
               Day
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2 nhsuk-input--error" id="reporting-period-start-day" name="reportingPeriodStart[day]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-day" name="reportingPeriodStart[day]" type="text" inputmode="numeric" value="1">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -104,7 +76,7 @@
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-month">
               Month
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2 nhsuk-input--error" id="reporting-period-start-month" name="reportingPeriodStart[month]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-month" name="reportingPeriodStart[month]" type="text" inputmode="numeric" value="12">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -112,14 +84,11 @@
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-year">
               Year
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4 nhsuk-input--error" id="reporting-period-start-year" name="reportingPeriodStart[year]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-start-year" name="reportingPeriodStart[year]" type="text" inputmode="numeric" value="2026">
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Time Selection Section (No Error Styling) -->
-    {% set startTimeHtml %}
+      {% set startTimeHtml %}
 <div class="nhsuk-hint nhsuk-u-margin-bottom-3">
   For example, 14 30 00
 </div>
@@ -156,6 +125,9 @@
 {{ radios({
   idPrefix: "start-time-type",
   name: "start-time-type",
+  errorMessage: {
+    text: "Select a start time option"
+  },
   fieldset: {
     legend: {
       text: "What time?",
@@ -178,31 +150,27 @@
     }
   ]
 }) }}
-  </fieldset>
+    </fieldset>
+  </div>
 
-  <!-- End Date with Error State -->
-  <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-8" role="group">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-      <h1 class="nhsuk-fieldset__heading">
-        End date
-      </h1>
-    </legend>
-    
-    <!-- Date Input Section with Error -->
-    <div class="nhsuk-form-group nhsuk-form-group--error" aria-describedby="end-date-hint end-date-error">
+  <!-- End Date -->
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="end-date-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          End date
+        </h1>
+      </legend>
       <div id="end-date-hint" class="nhsuk-hint">
         For example, 18 3 2026
       </div>
-      <span class="nhsuk-error-message" id="end-date-error">
-        <span class="nhsuk-u-visually-hidden">Error:</span> End date must include a day, month and year
-      </span>
       <div id="reporting-period-end" class="nhsuk-date-input bottom">
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-day">
               Day
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2 nhsuk-input--error" id="reporting-period-end-day" name="reportingPeriodEnd[day]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-day" name="reportingPeriodEnd[day]" type="text" inputmode="numeric" value="31">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -210,7 +178,7 @@
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-month">
               Month
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2 nhsuk-input--error" id="reporting-period-end-month" name="reportingPeriodEnd[month]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-month" name="reportingPeriodEnd[month]" type="text" inputmode="numeric" value="12">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -218,18 +186,15 @@
             <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-year">
               Year
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4 nhsuk-input--error" id="reporting-period-end-year" name="reportingPeriodEnd[year]" type="text" inputmode="numeric">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-end-year" name="reportingPeriodEnd[year]" type="text" inputmode="numeric" value="2026">
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Time Selection Section (No Error Styling) -->
-    {% set endTimeHtml %}
+      {% set endTimeHtml %}
 <div class="nhsuk-hint nhsuk-u-margin-bottom-3">
   For example, 14 30 00
 </div>
-<div id="submission-window-end-time " class="nhsuk-date-input ">
+<div id="submission-window-end-time" class="nhsuk-date-input ">
   <div class="nhsuk-date-input__item">
     <div class="nhsuk-form-group">
       <label class="nhsuk-label nhsuk-date-input__label " for="submission-window-end-hour">
@@ -262,6 +227,9 @@
 {{ radios({
   idPrefix: "end-time-type",
   name: "end-time-type",
+  errorMessage: {
+    text: "Select an end time option"
+  },
   fieldset: {
     legend: {
       text: "What time?",
@@ -284,7 +252,9 @@
     }
   ]
 }) }}
-  </fieldset>
+    </fieldset>
+  </div>
+
 </div>
 
   {% from "button/macro.njk" import button %}

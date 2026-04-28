@@ -75,15 +75,13 @@
 
 <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
   <!-- Start Date with Error State -->
-  <fieldset class="nhsuk-fieldset" role="group">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-      <h1 class="nhsuk-fieldset__heading">
-        Start date
-      </h1>
-    </legend>
-    
-    <!-- Date Input Section with Error -->
-    <div class="nhsuk-form-group nhsuk-form-group--error" aria-describedby="start-date-hint start-date-error">
+  <div class="nhsuk-form-group nhsuk-form-group--error nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="start-date-hint start-date-error">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Start date
+        </h1>
+      </legend>
       <div id="start-date-hint" class="nhsuk-hint">
         For example, 18 3 2026
       </div>
@@ -116,10 +114,7 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Time Selection Section (No Error Styling) -->
-    {% set startTimeHtml %}
+      {% set startTimeHtml %}
 <div class="nhsuk-hint nhsuk-u-margin-bottom-3">
   For example, 14 30 00
 </div>
@@ -178,18 +173,17 @@
     }
   ]
 }) }}
-  </fieldset>
+    </fieldset>
+  </div>
 
   <!-- End Date with Error State -->
-  <fieldset class="nhsuk-fieldset nhsuk-u-margin-top-8" role="group">
-    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-      <h1 class="nhsuk-fieldset__heading">
-        End date
-      </h1>
-    </legend>
-    
-    <!-- Date Input Section with Error -->
-    <div class="nhsuk-form-group nhsuk-form-group--error" aria-describedby="end-date-hint end-date-error">
+  <div class="nhsuk-form-group nhsuk-form-group--error nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="end-date-hint end-date-error">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          End date
+        </h1>
+      </legend>
       <div id="end-date-hint" class="nhsuk-hint">
         For example, 18 3 2026
       </div>
@@ -222,14 +216,11 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Time Selection Section (No Error Styling) -->
-    {% set endTimeHtml %}
+      {% set endTimeHtml %}
 <div class="nhsuk-hint nhsuk-u-margin-bottom-3">
   For example, 14 30 00
 </div>
-<div id="submission-window-end-time " class="nhsuk-date-input ">
+<div id="submission-window-end-time" class="nhsuk-date-input ">
   <div class="nhsuk-date-input__item">
     <div class="nhsuk-form-group">
       <label class="nhsuk-label nhsuk-date-input__label " for="submission-window-end-hour">
@@ -284,7 +275,9 @@
     }
   ]
 }) }}
-  </fieldset>
+    </fieldset>
+  </div>
+
 </div>
 
   {% from "button/macro.njk" import button %}
