@@ -20,13 +20,6 @@
 {% block content %}
 
 <style>
-/* Hide org detail rows (rows without an organisation name) */
-tr.org-details-row { display: none !important; }
-
-/* Hide expand/collapse buttons in org table */
-#organisation-summary-table td:nth-child(1) button { display: none !important; }
-#organisation-summary-table th:nth-child(1) { visibility: hidden; }
-
 /* Table column alignment styles */
 #organisation-summary-table {
   table-layout: fixed !important;
@@ -247,79 +240,40 @@ tr.org-details-row { display: none !important; }
                 <div class="nhsuk-radios__item">
                   <input class="nhsuk-radios__input" id="period-range-fromto" name="period-range-type" type="radio" value="range">
                   <label class="nhsuk-label nhsuk-radios__label" for="period-range-fromto">
-                    Select a range of reporting periods
+                    Select a time range
                   </label>
                   <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="period-range-fromto-conditional">
                     <div class="nhsuk-grid-row" style="margin-top: 16px;">
                       <div class="nhsuk-grid-column-one-half">
                         <div class="nhsuk-form-group">
-                          <label class="nhsuk-label" for="period-range-from-dropdown">
-                            From
-                          </label>
-                          <div class="period-dropdown-container" style="position: relative;">
-                            <button type="button" id="period-range-from-dropdown" class="nhsuk-select" style="width: 100%; max-width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                              <span id="period-range-from-label">No period selected</span>
-                              <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
-                                <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
-                              </svg>
+                          <label class="nhsuk-label" for="date-from-input">From</label>
+                          <span class="nhsuk-hint">For example, 17/5/2026</span>
+                          <div style="display: flex; align-items: stretch; position: relative;">
+                            <input class="nhsuk-input" type="text" id="date-from-input" placeholder="DD/MM/YYYY" autocomplete="off" style="width: 160px; border-right: none; border-radius: 0;">
+                            <button type="button" id="date-from-cal-btn" aria-label="Open calendar for From date" style="background: #005eb8; border: 2px solid #005eb8; padding: 6px 10px; cursor: pointer; display: flex; align-items: center;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
                             </button>
-                            
-                            <div id="period-range-from-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; max-width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
-                              <div class="nhsuk-form-group" style="margin-bottom: 16px;">
-                                <input class="nhsuk-input" id="period-range-from-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #768692;">
-                              </div>
-                              
-                              <div class="period-list" style="max-height: 200px; overflow-y: auto;">
-                                <div class="period-from-option" data-value="October 2026" style="padding: 8px 12px;">October 2026</div>
-                                <div class="period-from-option" data-value="September 2026" style="padding: 8px 12px;">September 2026</div>
-                                <div class="period-from-option" data-value="August 2026" style="padding: 8px 12px;">August 2026</div>
-                                <div class="period-from-option" data-value="July 2026" style="padding: 8px 12px;">July 2026</div>
-                                <div class="period-from-option" data-value="June 2026" style="padding: 8px 12px;">June 2026</div>
-                                <div class="period-from-option" data-value="May 2026" style="padding: 8px 12px;">May 2026</div>
-                                <div class="period-from-option" data-value="April 2026" style="padding: 8px 12px;">April 2026</div>
-                                <div class="period-from-option" data-value="March 2026" style="padding: 8px 12px;">March 2026</div>
-                                <div class="period-from-option" data-value="February 2026" style="padding: 8px 12px;">February 2026</div>
-                                <div class="period-from-option" data-value="January 2026" style="padding: 8px 12px;">January 2026</div>
-                              </div>
-                            </div>
+                            <div id="date-from-cal-panel" style="display:none; position: absolute; top: 100%; left: 0; z-index: 200; background: white; border: 2px solid #212b32; padding: 12px; min-width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"></div>
                           </div>
+                          <span id="period-range-from-label" style="display:none;">No period selected</span>
                         </div>
                       </div>
                       <div class="nhsuk-grid-column-one-half">
                         <div class="nhsuk-form-group" id="period-range-to-form-group">
-                          <label class="nhsuk-label" for="period-range-to-dropdown">
-                            To
-                          </label>
+                          <label class="nhsuk-label" for="date-to-input">To</label>
+                          <span class="nhsuk-hint">For example, 17/5/2026</span>
                           <span class="nhsuk-error-message" id="period-range-to-error" style="display: none;">
                             <span class="nhsuk-u-visually-hidden">Error:</span> 'To' date must be after the 'From' date
                           </span>
-                          <div class="period-dropdown-container" style="position: relative;">
-                            <button type="button" id="period-range-to-dropdown" class="nhsuk-select" style="width: 100%; max-width: 306px; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-                              <span id="period-range-to-label">No period selected</span>
-                              <svg width="12" height="8" viewBox="0 0 12 8" style="margin-left: auto;">
-                                <path fill="currentColor" d="M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z"/>
-                              </svg>
+                          <div style="display: flex; align-items: stretch; position: relative;">
+                            <input class="nhsuk-input" type="text" id="date-to-input" placeholder="DD/MM/YYYY" autocomplete="off" style="width: 160px; border-right: none; border-radius: 0;">
+                            <button type="button" id="date-to-cal-btn" aria-label="Open calendar for To date" style="background: #005eb8; border: 2px solid #005eb8; padding: 6px 10px; cursor: pointer; display: flex; align-items: center;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
                             </button>
-                            
-                            <div id="period-range-to-panel" class="nhsuk-card" style="position: absolute; z-index: 20; width: 100%; max-width: 306px; margin-top: 4px; display: none; padding: 16px; border: 1px solid #b1b4b6; background: white;">
-                              <div class="nhsuk-form-group" style="margin-bottom: 16px;">
-                                <input class="nhsuk-input" id="period-range-to-search" type="text" placeholder="Search" autocomplete="off" style="border: 2px solid #768692;">
-                              </div>
-                              
-                              <div class="period-list" style="max-height: 200px; overflow-y: auto;">
-                                <div class="period-to-option" data-value="October 2026" style="padding: 8px 12px;">October 2026</div>
-                                <div class="period-to-option" data-value="September 2026" style="padding: 8px 12px;">September 2026</div>
-                                <div class="period-to-option" data-value="August 2026" style="padding: 8px 12px;">August 2026</div>
-                                <div class="period-to-option" data-value="July 2026" style="padding: 8px 12px;">July 2026</div>
-                                <div class="period-to-option" data-value="June 2026" style="padding: 8px 12px;">June 2026</div>
-                                <div class="period-to-option" data-value="May 2026" style="padding: 8px 12px;">May 2026</div>
-                                <div class="period-to-option" data-value="April 2026" style="padding: 8px 12px;">April 2026</div>
-                                <div class="period-to-option" data-value="March 2026" style="padding: 8px 12px;">March 2026</div>
-                                <div class="period-to-option" data-value="February 2026" style="padding: 8px 12px;">February 2026</div>
-                                <div class="period-to-option" data-value="January 2026" style="padding: 8px 12px;">January 2026</div>
-                              </div>
-                            </div>
+                            <div id="date-to-cal-panel" style="display:none; position: absolute; top: 100%; left: 0; z-index: 200; background: white; border: 2px solid #212b32; padding: 12px; min-width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"></div>
                           </div>
+                          <span id="period-range-to-label" style="display:none;">No period selected</span>
+                          <span id="period-range-to-dropdown" style="display:none;"></span>
                         </div>
                       </div>
                     </div>
@@ -849,7 +803,9 @@ tr.org-details-row { display: none !important; }
   <div>
      <p class="nhsuk-body-m nhsuk-u-margin-bottom-4">Select your filters and click <strong>Apply</strong> to update the results. Click the plus button next to any organiisation to see the top 10 errors.</p>
     <form id="table-filters-org" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter error summary">
-      <div class="nhsuk-table-filters__grid_medium">
+      <div class="nhsuk-grid-row nhsuk-u-margin-bottom-4">
+        <div class="nhsuk-grid-column-full">
+          <div class="nhsuk-grid-row">
         
         
        
@@ -917,7 +873,8 @@ tr.org-details-row { display: none !important; }
           </fieldset>
         </div> -->
 
-        <div class="nhsuk-form-group" style="position: relative; width: 250px; margin-right: 24px;">
+            <div class="nhsuk-grid-column-one-third">
+              <div class="nhsuk-form-group">
           
           <fieldset class="nhsuk-fieldset">
             <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
@@ -946,9 +903,11 @@ tr.org-details-row { display: none !important; }
               </div>
             </div>
           </fieldset>
-        </div>
+              </div>
+            </div><!-- /nhsuk-grid-column-one-third Type -->
 
-        <div class="nhsuk-form-group" style="position: relative; width: 380px; margin-right: 24px; top:-50px">
+            <div class="nhsuk-grid-column-one-third">
+              <div id="org-filter-group" class="nhsuk-form-group">
           <fieldset class="nhsuk-fieldset">
             <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
               <h2 class="nhsuk-fieldset__heading">
@@ -1032,12 +991,18 @@ tr.org-details-row { display: none !important; }
               </div>
             </div>
           </fieldset>
-        </div> 
-        
-        <div class="nhsuk-table-filters__actions">
-          <button class="nhsuk-button" type="submit" onclick="handleShowResultsOrg(this); return false" style="top:-50px">Apply</button>
-        </div>
-      </div>
+              </div>
+            </div><!-- /nhsuk-grid-column-one-third Organisations -->
+
+            <div class="nhsuk-grid-column-one-third" style="display: flex; align-items: flex-end;">
+              <div class="nhsuk-form-group" style="width: 100%;">
+                <button class="nhsuk-button nhsuk-u-margin-top-8" type="submit" onclick="handleShowResultsOrg(this); return false">Apply</button>
+              </div>
+            </div>
+
+          </div><!-- /nhsuk-grid-row inner -->
+        </div><!-- /nhsuk-grid-column-full -->
+      </div><!-- /nhsuk-grid-row outer -->
     </form>
   </div>
 
@@ -2145,6 +2110,86 @@ tr.org-details-row { display: none !important; }
             <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>31</td>
         </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101002</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>nhs_number</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>28</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101003</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>date_of_birth</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>24</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>outcome_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>20</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200301</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referral_source</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>17</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101004</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>gp_practice_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>14</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200401</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>scan_type</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>11</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101005</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>ethnicity</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>8</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="North Cumbria Integrated Care" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>follow_up_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>6</td>
+        </tr>
 
         <!-- County Durham and Darlington NHS Foundation Trust (LCS) -->
         <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
@@ -2168,6 +2213,86 @@ tr.org-details-row { display: none !important; }
             <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>outcome_code</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>29</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101001</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>nhs_number</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>25</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>screening_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>22</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101002</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>postcode</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>19</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200301</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referral_source</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>16</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101004</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>gp_practice_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>13</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>smoking_status</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>10</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101005</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>ethnicity</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>7</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="County Durham and Darlington NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200401</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>scan_type</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>5</td>
         </tr>
 
         <!-- Northumbria Healthcare NHS Foundation Trust (LCS) -->
@@ -2193,6 +2318,76 @@ tr.org-details-row { display: none !important; }
             <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>22</td>
         </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>screening_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>19</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101001</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>nhs_number</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>16</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>outcome_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>14</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101003</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>date_of_birth</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>12</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>smoking_status</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>10</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101004</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>gp_practice_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>8</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="Northumbria Healthcare NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>follow_up_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>4</td>
+        </tr>
 
         <!-- South Tyneside and Sunderland NHS Foundation Trust (LCS) -->
         <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
@@ -2217,6 +2412,76 @@ tr.org-details-row { display: none !important; }
             <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>18</td>
         </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101001</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>nhs_number</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>15</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>screening_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>13</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101003</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>date_of_birth</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>11</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>outcome_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>9</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101002</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>postcode</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>8</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200301</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referral_source</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>6</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="South Tyneside and Sunderland NHS Foundation Trust" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>follow_up_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>3</td>
+        </tr>
 
         <!-- InHealth - Circle Ross Hall Clinic (LCS) -->
         <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
@@ -2240,6 +2505,86 @@ tr.org-details-row { display: none !important; }
             <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>ethnicity</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
             <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>14</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200201</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>screening_date</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>12</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101001</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>nhs_number</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>10</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00300101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS003_OUTCOME</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>outcome_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>9</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101002</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>postcode</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Invalid</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>7</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200101</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>smoking_status</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>6</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101003</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>date_of_birth</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>5</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Warning</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00200301</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS002_ACTIVITY</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>referral_source</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Missing</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>4</td>
+        </tr>
+        <tr class="nhsuk-table__row org-details-row" role="row" data-organisation="InHealth - Circle Ross Hall Clinic" data-collection="lcs" style="display: none;">
+            <td class="nhsuk-table__cell" role="cell" style="width: 60px; min-width: 60px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 200px; min-width: 200px;"></td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Failure</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 120px; min-width: 120px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Error code</span>LCS00101004</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 160px; min-width: 160px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>LCS001_PATIENT</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 300px; min-width: 300px; word-wrap: break-word;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Data Item</span>gp_practice_code</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 100px; min-width: 100px;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Category</span>Bad value</td>
+            <td class="nhsuk-table__cell" role="cell" style="width: 80px; min-width: 80px; text-align: right;"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Count</span>3</td>
         </tr>
 
     </tbody>
@@ -2501,31 +2846,201 @@ tr.org-details-row { display: none !important; }
 
       <script>
         function downloadData() {
-          const format = document.querySelector('input[name="download-format"]:checked').value;
-          const filename = `data-quality-summary.${format}`;
-          
-          let data, mimeType;
-          
-          if (format === 'csv') {
-            // Sample CSV data for data quality summary
-            data = `Error Level,Error Code,Count,Percentage
-Critical,VAL001,15,25%
-Warning,VAL002,8,13.3%
-Critical,VAL003,22,36.7%
-Warning,VAL004,15,25%`;
-            mimeType = 'text/csv';
+          const view = document.querySelector('input[name="download-format"]:checked').value;
+          const collectionSelect = document.getElementById('collection-select');
+          const isLCS = collectionSelect && collectionSelect.value === 'Lung Cancer Screening (LCS)';
+          const collectionLabel = isLCS ? 'LCS' : 'DIDS';
+          const viewLabel = view === 'json' ? 'by-organisation' : 'by-error';
+          const now = new Date();
+          const monthName = now.toLocaleString('en-GB', { month: 'long' }).toLowerCase();
+          const year = now.getFullYear();
+          const filename = `error-overview-${collectionLabel}-${monthName}${year}-${viewLabel}.csv`;
+
+          let data;
+
+          if (view === 'json') {
+            // By organisation view
+            if (isLCS) {
+              data = `Organisation,Type,Error code,Group,Data item,Category,Count
+North Cumbria Integrated Care,Failure,LCS00101001,LCS001_PATIENT,nhs_number,Invalid,54
+North Cumbria Integrated Care,Warning,LCS00200201,LCS002_ACTIVITY,screening_date,Missing,31
+North Cumbria Integrated Care,Failure,LCS00101002,LCS001_PATIENT,nhs_number,Invalid,28
+North Cumbria Integrated Care,Failure,LCS00101003,LCS001_PATIENT,date_of_birth,Bad value,24
+North Cumbria Integrated Care,Warning,LCS00300101,LCS003_OUTCOME,outcome_code,Missing,20
+North Cumbria Integrated Care,Failure,LCS00101004,LCS001_PATIENT,gp_practice_code,Bad value,17
+North Cumbria Integrated Care,Warning,LCS00200301,LCS002_ACTIVITY,referral_source,Missing,14
+North Cumbria Integrated Care,Failure,LCS00101005,LCS001_PATIENT,postcode,Invalid,11
+North Cumbria Integrated Care,Warning,LCS00300201,LCS003_OUTCOME,follow_up_date,Missing,8
+North Cumbria Integrated Care,Failure,LCS00101006,LCS001_PATIENT,ethnicity,Bad value,6
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101001,LCS001_PATIENT,nhs_number,Invalid,61
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101003,LCS001_PATIENT,date_of_birth,Bad value,47
+County Durham and Darlington NHS Foundation Trust,Warning,LCS00200201,LCS002_ACTIVITY,screening_date,Missing,39
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101002,LCS001_PATIENT,nhs_number,Invalid,33
+County Durham and Darlington NHS Foundation Trust,Warning,LCS00300101,LCS003_OUTCOME,outcome_code,Missing,27
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101004,LCS001_PATIENT,gp_practice_code,Bad value,22
+County Durham and Darlington NHS Foundation Trust,Warning,LCS00200301,LCS002_ACTIVITY,referral_source,Missing,18
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101005,LCS001_PATIENT,postcode,Invalid,13
+County Durham and Darlington NHS Foundation Trust,Warning,LCS00300201,LCS003_OUTCOME,follow_up_date,Missing,9
+County Durham and Darlington NHS Foundation Trust,Failure,LCS00101006,LCS001_PATIENT,ethnicity,Bad value,5
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101001,LCS001_PATIENT,nhs_number,Invalid,49
+Northumbria Healthcare NHS Foundation Trust,Warning,LCS00200201,LCS002_ACTIVITY,screening_date,Missing,38
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101003,LCS001_PATIENT,date_of_birth,Bad value,30
+Northumbria Healthcare NHS Foundation Trust,Warning,LCS00300101,LCS003_OUTCOME,outcome_code,Missing,24
+Northumbria Healthcare NHS Foundation Trust,Warning,LCS00200301,LCS002_ACTIVITY,referral_source,Missing,19
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101002,LCS001_PATIENT,nhs_number,Invalid,15
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101004,LCS001_PATIENT,gp_practice_code,Bad value,12
+Northumbria Healthcare NHS Foundation Trust,Warning,LCS00300201,LCS003_OUTCOME,follow_up_date,Missing,8
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101005,LCS001_PATIENT,postcode,Invalid,6
+Northumbria Healthcare NHS Foundation Trust,Failure,LCS00101006,LCS001_PATIENT,ethnicity,Bad value,3
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101001,LCS001_PATIENT,nhs_number,Invalid,45
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101003,LCS001_PATIENT,date_of_birth,Bad value,33
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101004,LCS001_PATIENT,gp_practice_code,Bad value,27
+South Tyneside and Sunderland NHS Foundation Trust,Warning,LCS00200201,LCS002_ACTIVITY,screening_date,Missing,21
+South Tyneside and Sunderland NHS Foundation Trust,Warning,LCS00300101,LCS003_OUTCOME,outcome_code,Missing,16
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101002,LCS001_PATIENT,nhs_number,Invalid,12
+South Tyneside and Sunderland NHS Foundation Trust,Warning,LCS00200301,LCS002_ACTIVITY,referral_source,Missing,9
+South Tyneside and Sunderland NHS Foundation Trust,Warning,LCS00300201,LCS003_OUTCOME,follow_up_date,Missing,7
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101005,LCS001_PATIENT,postcode,Invalid,5
+South Tyneside and Sunderland NHS Foundation Trust,Failure,LCS00101006,LCS001_PATIENT,ethnicity,Bad value,2
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101001,LCS001_PATIENT,nhs_number,Invalid,38
+InHealth - Circle Ross Hall Clinic,Warning,LCS00200201,LCS002_ACTIVITY,screening_date,Missing,26
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101003,LCS001_PATIENT,date_of_birth,Bad value,19
+InHealth - Circle Ross Hall Clinic,Warning,LCS00300101,LCS003_OUTCOME,outcome_code,Missing,14
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101002,LCS001_PATIENT,nhs_number,Invalid,10
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101004,LCS001_PATIENT,gp_practice_code,Bad value,8
+InHealth - Circle Ross Hall Clinic,Warning,LCS00200301,LCS002_ACTIVITY,referral_source,Missing,6
+InHealth - Circle Ross Hall Clinic,Warning,LCS00300201,LCS003_OUTCOME,follow_up_date,Missing,4
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101005,LCS001_PATIENT,postcode,Invalid,3
+InHealth - Circle Ross Hall Clinic,Failure,LCS00101006,LCS001_PATIENT,ethnicity,Bad value,1`;
+            } else {
+              // DIDS - read all rows from the DOM table (main rows + all expanded detail rows)
+              const orgTable = document.getElementById('organisation-summary-table');
+              const orgTbody = orgTable ? orgTable.querySelector('tbody') : null;
+              function getCellText(cell) {
+                const span = cell.querySelector('.nhsuk-table-responsive__heading');
+                if (span) return cell.textContent.replace(span.textContent, '').trim();
+                return cell.textContent.trim();
+              }
+              function escapeCSV(val) {
+                if (val && (val.includes(',') || val.includes('"') || val.includes('\n'))) {
+                  return '"' + val.replace(/"/g, '""') + '"';
+                }
+                return val || '';
+              }
+              const csvRows = ['Organisation,Type,Error code,Group,Data item,Category,Count'];
+              let currentOrg = '';
+              let currentOrgInCollection = false;
+              if (orgTbody) {
+                orgTbody.querySelectorAll('tr').forEach(function(row) {
+                  const isDetailRow = row.classList.contains('org-details-row');
+                  if (!isDetailRow) {
+                    const rowCollection = row.getAttribute('data-collection');
+                    currentOrgInCollection = (rowCollection === 'dids');
+                    if (!currentOrgInCollection) return;
+                    const cells = row.querySelectorAll('td');
+                    currentOrg = getCellText(cells[1]);
+                    csvRows.push([
+                      escapeCSV(currentOrg),
+                      escapeCSV(getCellText(cells[2])),
+                      escapeCSV(getCellText(cells[3])),
+                      escapeCSV(getCellText(cells[4])),
+                      escapeCSV(getCellText(cells[5])),
+                      escapeCSV(getCellText(cells[6])),
+                      escapeCSV(getCellText(cells[7]))
+                    ].join(','));
+                  } else if (currentOrgInCollection) {
+                    const cells = row.querySelectorAll('td');
+                    csvRows.push([
+                      escapeCSV(currentOrg),
+                      escapeCSV(getCellText(cells[2])),
+                      escapeCSV(getCellText(cells[3])),
+                      escapeCSV(getCellText(cells[4])),
+                      escapeCSV(getCellText(cells[5])),
+                      escapeCSV(getCellText(cells[6])),
+                      escapeCSV(getCellText(cells[7]))
+                    ].join(','));
+                  }
+                });
+              }
+              data = csvRows.join('\n');
+            }
           } else {
-            // Sample JSON data for data quality summary
-            data = JSON.stringify([
-              { errorLevel: 'Critical', errorCode: 'VAL001', count: 15, percentage: '25%' },
-              { errorLevel: 'Warning', errorCode: 'VAL002', count: 8, percentage: '13.3%' },
-              { errorLevel: 'Critical', errorCode: 'VAL003', count: 22, percentage: '36.7%' },
-              { errorLevel: 'Warning', errorCode: 'VAL004', count: 15, percentage: '25%' }
-            ], null, 2);
-            mimeType = 'application/json';
+            // By error view — read from DOM table, expand each error with its org breakdown
+            const orgDataByCode = {
+              'DIDS00101002': [
+                { name: 'University College Hospital', count: 31 },
+                { name: 'Royal London Hospital', count: 27 },
+                { name: "King's College Hospital", count: 25 },
+                { name: "Guy's Hospital", count: 19 },
+                { name: 'Charing Cross Hospital', count: 19 },
+                { name: 'Moorfields Eye Hospital', count: 15 },
+                { name: 'Hammersmith Hospital', count: 13 },
+                { name: 'Royal Brompton Hospital', count: 10 },
+                { name: "St Thomas' Hospital", count: 7 },
+                { name: 'Great Ormond Street Hospital', count: 4 }
+              ],
+              'DIDS00101008': [
+                { name: "St Mary's Hospital", count: 28 },
+                { name: 'Imperial College Hospital', count: 25 },
+                { name: 'Chelsea and Westminster Hospital', count: 22 },
+                { name: 'Royal Free Hospital', count: 18 },
+                { name: 'University College Hospital', count: 16 },
+                { name: 'London Bridge Hospital', count: 14 },
+                { name: 'Royal London Hospital', count: 12 },
+                { name: 'Whittington Hospital', count: 9 },
+                { name: 'North Middlesex Hospital', count: 7 },
+                { name: 'Barnet Hospital', count: 5 }
+              ]
+            };
+            const lcsOrgData = [
+              { name: 'North Cumbria Integrated Care (RNN)', count: 42 },
+              { name: 'County Durham and Darlington NHS Foundation Trust (RTC)', count: 35 },
+              { name: 'Northumbria Healthcare NHS Foundation Trust (RTF)', count: 28 },
+              { name: 'South Tyneside and Sunderland NHS Foundation Trust (R0B)', count: 19 },
+              { name: 'InHealth - Circle Ross Hall Clinic (M3V1E)', count: 12 }
+            ];
+            function escapeCSVByErr(val) {
+              if (val && (val.includes(',') || val.includes('"') || val.includes('\n'))) {
+                return '"' + val.replace(/"/g, '""') + '"';
+              }
+              return val || '';
+            }
+            function getCellTextByErr(cell) {
+              const span = cell.querySelector('.nhsuk-table-responsive__heading');
+              if (span) return cell.textContent.replace(span.textContent, '').trim();
+              return cell.textContent.trim();
+            }
+            const csvRows = ['Type,Error code,Group,Data item,Category,Total count,Organisation,Organisation count'];
+            const errorTable = document.getElementById('error-summary-table');
+            const errorTbody = errorTable ? errorTable.querySelector('tbody') : null;
+            if (errorTbody) {
+              errorTbody.querySelectorAll('tr').forEach(function(row) {
+                if (row.classList.contains('expanded-row')) return;
+                const cells = row.querySelectorAll('td');
+                if (cells.length < 7) return;
+                const type       = escapeCSVByErr(getCellTextByErr(cells[1]));
+                const errorCode  = escapeCSVByErr(getCellTextByErr(cells[2]));
+                const group      = escapeCSVByErr(getCellTextByErr(cells[3]));
+                const dataItem   = escapeCSVByErr(getCellTextByErr(cells[4]));
+                const category   = escapeCSVByErr(getCellTextByErr(cells[5]));
+                const totalCount = escapeCSVByErr(getCellTextByErr(cells[6]));
+                const rawCode = getCellTextByErr(cells[2]);
+                let orgs;
+                if (isLCS) {
+                  orgs = lcsOrgData;
+                } else {
+                  orgs = orgDataByCode[rawCode] || orgDataByCode['DIDS00101002'];
+                }
+                orgs.forEach(function(org) {
+                  csvRows.push([type, errorCode, group, dataItem, category, totalCount,
+                    escapeCSVByErr(org.name), org.count].join(','));
+                });
+              });
+            }
+            data = csvRows.join('\n');
           }
-          
-          const blob = new Blob([data], { type: mimeType });
+
+          const blob = new Blob([data], { type: 'text/csv' });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
@@ -2695,9 +3210,17 @@ Warning,VAL004,15,25%`;
                   opt.style.display = opt.getAttribute('data-collection') === collectionKey ? '' : 'none';
                 });
 
-                // Filter organisation table rows
-                document.querySelectorAll('#organisation-summary-table tbody tr[data-collection]').forEach(function(row) {
+                // Filter organisation table rows (main rows only, not detail rows)
+                document.querySelectorAll('#organisation-summary-table tbody tr[data-collection]:not(.org-details-row)').forEach(function(row) {
                   row.style.display = row.getAttribute('data-collection') === collectionKey ? '' : 'none';
+                });
+
+                // Collapse all detail rows and reset expand buttons when switching collection
+                document.querySelectorAll('#organisation-summary-table tbody tr.org-details-row').forEach(function(row) {
+                  row.style.display = 'none';
+                });
+                document.querySelectorAll('#organisation-summary-table tbody td:nth-child(1) button').forEach(function(btn) {
+                  btn.textContent = '+';
                 });
 
                 filterTable();
@@ -2708,36 +3231,35 @@ Warning,VAL004,15,25%`;
             const periodRangeRadios = document.querySelectorAll('input[name="period-range-type"]');
             periodRangeRadios.forEach(radio => {
               radio.addEventListener('change', function() {
-                // Show loading indicator for By error tab
-                const loadingIndicator = document.getElementById('loading-indicator');
-                const table = document.getElementById('error-summary-table');
-                if (loadingIndicator) loadingIndicator.style.display = 'block';
-                if (table) table.style.opacity = '0.5';
-
-                // Show loading indicator for By organisation tab
-                const loadingIndicatorOrg = document.getElementById('loading-indicator-org');
-                const orgTable = document.getElementById('organisation-summary-table');
-                if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'flex';
-                if (orgTable) orgTable.style.display = 'none';
-                
                 const specificConditional = document.getElementById('period-range-specific-conditional');
                 const fromToConditional = document.getElementById('period-range-fromto-conditional');
-                
+
                 if (this.value === 'specific') {
                   specificConditional.classList.remove('nhsuk-radios__conditional--hidden');
                   fromToConditional.classList.add('nhsuk-radios__conditional--hidden');
+
+                  // Show loading indicator only when switching to a specific period
+                  const loadingIndicator = document.getElementById('loading-indicator');
+                  const table = document.getElementById('error-summary-table');
+                  if (loadingIndicator) loadingIndicator.style.display = 'block';
+                  if (table) table.style.opacity = '0.5';
+
+                  const loadingIndicatorOrg = document.getElementById('loading-indicator-org');
+                  const orgTable = document.getElementById('organisation-summary-table');
+                  if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'flex';
+                  if (orgTable) orgTable.style.display = 'none';
+
+                  setTimeout(() => {
+                    if (loadingIndicator) loadingIndicator.style.display = 'none';
+                    if (table) table.style.opacity = '1';
+                    if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'none';
+                    if (orgTable) orgTable.style.display = '';
+                  }, 1000);
                 } else if (this.value === 'range') {
                   specificConditional.classList.add('nhsuk-radios__conditional--hidden');
                   fromToConditional.classList.remove('nhsuk-radios__conditional--hidden');
                 }
-                
-                setTimeout(() => {
-                  if (loadingIndicator) loadingIndicator.style.display = 'none';
-                  if (table) table.style.opacity = '1';
-                  if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'none';
-                  if (orgTable) orgTable.style.display = '';
-                }, 1000);
-                
+
                 filterTable();
               });
             });
@@ -2763,138 +3285,188 @@ Warning,VAL004,15,25%`;
             if (fromInput) fromInput.addEventListener('change', filterTable);
             if (toInput) toInput.addEventListener('change', filterTable);
             
-            // From dropdown functionality
-            const periodFromDropdown = document.getElementById('period-range-from-dropdown');
-            const periodFromDropdownPanel = document.getElementById('period-range-from-panel');
-            const periodFromSearch = document.getElementById('period-range-from-search');
-            const periodFromOptions = document.querySelectorAll('.period-from-option');
-            const periodFromDropdownLabel = document.getElementById('period-range-from-label');
-            
-            if (periodFromDropdown && periodFromDropdownPanel) {
-              periodFromDropdown.addEventListener('click', function(e) {
-                e.preventDefault();
-                const isVisible = periodFromDropdownPanel.style.display === 'block';
-                // Close other dropdowns first
-                if (periodRangeDropdownPanel) periodRangeDropdownPanel.style.display = 'none';
-                if (document.getElementById('period-range-to-panel')) document.getElementById('period-range-to-panel').style.display = 'none';
-                periodFromDropdownPanel.style.display = isVisible ? 'none' : 'block';
-              });
+            // ── Date picker for From / To ──────────────────────────────────
+            (function() {
+              const MONTH_NAMES = ['January','February','March','April','May','June',
+                                   'July','August','September','October','November','December'];
+              const DAY_LABELS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
-              // Handle from period option selection
-              periodFromOptions.forEach(function(option) {
-                option.addEventListener('click', function() {
-                  // Show loading indicator for By error tab
-                  const loadingIndicator = document.getElementById('loading-indicator');
-                  const table = document.getElementById('error-summary-table');
-                  if (loadingIndicator) loadingIndicator.style.display = 'block';
-                  if (table) table.style.opacity = '0.5';
+              // Helper: parse DD/MM/YYYY string → Date or null
+              function parseDMY(str) {
+                const m = (str || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+                if (!m) return null;
+                const d = new Date(+m[3], +m[2]-1, +m[1]);
+                return isNaN(d) ? null : d;
+              }
 
-                  // Show loading indicator for By organisation tab
-                  const loadingIndicatorOrg = document.getElementById('loading-indicator-org');
-                  const orgTable = document.getElementById('organisation-summary-table');
-                  if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'flex';
-                  if (orgTable) orgTable.style.display = 'none';
-                  
-                  const value = this.dataset.value;
-                  periodFromDropdownLabel.textContent = value;
-                  periodFromDropdownPanel.style.display = 'none';
-                  
-                  setTimeout(() => {
-                    if (loadingIndicator) loadingIndicator.style.display = 'none';
-                    if (table) table.style.opacity = '1';
-                    if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'none';
-                    if (orgTable) orgTable.style.display = '';
-                  }, 1000);
-                  
-                  filterTable();
+              // Helper: format Date → "Month YYYY" for the hidden label span
+              function toMonthYear(date) {
+                return MONTH_NAMES[date.getMonth()] + ' ' + date.getFullYear();
+              }
+
+              // Build and render a calendar into a panel element
+              function renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect) {
+                const today = new Date();
+                const firstDay = new Date(viewYear, viewMonth, 1);
+                // Monday-based weekday index (0=Mon … 6=Sun)
+                let startDow = firstDay.getDay(); // 0=Sun…6=Sat
+                startDow = (startDow === 0) ? 6 : startDow - 1;
+                const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+                const prevMonth = viewMonth === 0  ? { y: viewYear-1, m: 11 } : { y: viewYear, m: viewMonth-1 };
+                const nextMonth = viewMonth === 11 ? { y: viewYear+1, m: 0  } : { y: viewYear, m: viewMonth+1 };
+
+                let html = `
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:4px;">
+                    <button type="button" data-cal-prev-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous year">&#171;</button>
+                    <button type="button" data-cal-prev-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous month">&#8249;</button>
+                    <span style="font-weight:600;font-size:14px;flex:1;text-align:center;">${MONTH_NAMES[viewMonth]} ${viewYear}</span>
+                    <button type="button" data-cal-next-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next month">&#8250;</button>
+                    <button type="button" data-cal-next-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next year">&#187;</button>
+                  </div>
+                  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                    <thead><tr>`;
+
+                DAY_LABELS.forEach(d => {
+                  html += `<th style="padding:4px 2px;text-align:center;font-weight:600;color:#425563;">${d}</th>`;
                 });
-              });
+                html += '</tr></thead><tbody><tr>';
 
-              // Search functionality
-              if (periodFromSearch) {
-                periodFromSearch.addEventListener('input', function() {
-                  const searchTerm = this.value.toLowerCase();
-                  periodFromOptions.forEach(function(option) {
-                    const text = option.textContent.toLowerCase();
-                    option.style.display = text.includes(searchTerm) ? 'block' : 'none';
+                // Empty cells before first day
+                for (let i = 0; i < startDow; i++) html += '<td></td>';
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                  const dow = (startDow + day - 1) % 7;
+                  const isToday = (day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear());
+                  const isSel  = selectedDate && (day === selectedDate.getDate() && viewMonth === selectedDate.getMonth() && viewYear === selectedDate.getFullYear());
+
+                  let bg = 'transparent', color = '#212b32', fw = 'normal';
+                  if (isSel)   { bg = '#335c9b'; color = 'white'; fw = '600'; }
+                  else if (isToday) { bg = '#f0b400'; color = '#212b32'; fw = '600'; }
+
+                  html += `<td style="padding:2px;"><button type="button" data-cal-day="${day}"
+                    style="width:32px;height:32px;border:none;background:${bg};color:${color};font-weight:${fw};cursor:pointer;border-radius:2px;font-size:13px;"
+                    ${isToday && !isSel ? 'style="border-bottom:3px solid #212b32;"' : ''}>${day}</button></td>`;
+
+                  if (dow === 6 && day < daysInMonth) html += '</tr><tr>';
+                }
+                html += '</tr></tbody></table>';
+
+                panel.innerHTML = html;
+
+                // Navigation
+                panel.querySelector('[data-cal-prev-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, prevMonth.y-1, viewMonth);  });
+                panel.querySelector('[data-cal-prev-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, prevMonth.y, prevMonth.m); });
+                panel.querySelector('[data-cal-next-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, nextMonth.y, nextMonth.m); });
+                panel.querySelector('[data-cal-next-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, nextMonth.y+1, viewMonth);  });
+
+                // Day buttons
+                panel.querySelectorAll('[data-cal-day]').forEach(function(btn) {
+                  btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const picked = new Date(viewYear, viewMonth, +this.dataset.calDay);
+                    onSelect(picked, viewYear, viewMonth);
                   });
                 });
               }
 
-              // Close dropdown when clicking outside
-              document.addEventListener('click', function(e) {
-                if (!periodFromDropdown.contains(e.target) && !periodFromDropdownPanel.contains(e.target)) {
-                  periodFromDropdownPanel.style.display = 'none';
+              // Factory: wire up one date picker
+              function initDatePicker(inputId, calBtnId, panelId, labelId) {
+                const input   = document.getElementById(inputId);
+                const calBtn  = document.getElementById(calBtnId);
+                const panel   = document.getElementById(panelId);
+                const labelEl = document.getElementById(labelId);
+                if (!input || !calBtn || !panel) return;
+
+                const today = new Date();
+                let viewYear  = today.getFullYear();
+                let viewMonth = today.getMonth();
+                let selectedDate = null;
+
+                function updateLabel(date) {
+                  if (labelEl) labelEl.textContent = date ? toMonthYear(date) : 'No period selected';
                 }
-              });
-            }
-            
-            // To dropdown functionality
-            const periodToDropdown = document.getElementById('period-range-to-dropdown');
-            const periodToDropdownPanel = document.getElementById('period-range-to-panel');
-            const periodToSearch = document.getElementById('period-range-to-search');
-            const periodToOptions = document.querySelectorAll('.period-to-option');
-            const periodToDropdownLabel = document.getElementById('period-range-to-label');
-            
-            if (periodToDropdown && periodToDropdownPanel) {
-              periodToDropdown.addEventListener('click', function(e) {
-                e.preventDefault();
-                const isVisible = periodToDropdownPanel.style.display === 'block';
-                // Close other dropdowns first
-                if (periodRangeDropdownPanel) periodRangeDropdownPanel.style.display = 'none';
-                if (periodFromDropdownPanel) periodFromDropdownPanel.style.display = 'none';
-                periodToDropdownPanel.style.display = isVisible ? 'none' : 'block';
-              });
 
-              // Handle to period option selection
-              periodToOptions.forEach(function(option) {
-                option.addEventListener('click', function() {
-                  // Show loading indicator for By error tab
-                  const loadingIndicator = document.getElementById('loading-indicator');
-                  const table = document.getElementById('error-summary-table');
-                  if (loadingIndicator) loadingIndicator.style.display = 'block';
-                  if (table) table.style.opacity = '0.5';
+                function onSelect(date, y, m) {
+                  if (date) {
+                    selectedDate = date;
+                    const dd = date.getDate();
+                    const mm = date.getMonth()+1;
+                    input.value = `${dd}/${mm}/${date.getFullYear()}`;
+                    updateLabel(date);
+                    panel.style.display = 'none';
+                    showSpinnersIfBothSet();
+                  }
+                  viewYear  = y;
+                  viewMonth = m;
+                  if (panel.style.display !== 'none') {
+                    renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+                  }
+                }
 
-                  // Show loading indicator for By organisation tab
-                  const loadingIndicatorOrg = document.getElementById('loading-indicator-org');
-                  const orgTable = document.getElementById('organisation-summary-table');
-                  if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'flex';
-                  if (orgTable) orgTable.style.display = 'none';
-                  
-                  const value = this.dataset.value;
-                  periodToDropdownLabel.textContent = value;
-                  periodToDropdownPanel.style.display = 'none';
-                  
-                  setTimeout(() => {
-                    if (loadingIndicator) loadingIndicator.style.display = 'none';
-                    if (table) table.style.opacity = '1';
-                    if (loadingIndicatorOrg) loadingIndicatorOrg.style.display = 'none';
-                    if (orgTable) orgTable.style.display = '';
-                  }, 1000);
-                  
-                  filterTable();
-                });
-              });
-
-              // Search functionality
-              if (periodToSearch) {
-                periodToSearch.addEventListener('input', function() {
-                  const searchTerm = this.value.toLowerCase();
-                  periodToOptions.forEach(function(option) {
-                    const text = option.textContent.toLowerCase();
-                    option.style.display = text.includes(searchTerm) ? 'block' : 'none';
+                calBtn.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  // Close the other picker's panel
+                  ['date-from-cal-panel','date-to-cal-panel'].forEach(function(pid) {
+                    if (pid !== panelId) { const p = document.getElementById(pid); if (p) p.style.display = 'none'; }
                   });
+                  const open = panel.style.display === 'block';
+                  if (open) {
+                    panel.style.display = 'none';
+                  } else {
+                    renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+                    panel.style.display = 'block';
+                  }
+                });
+
+                // Typed input: update label on blur
+                input.addEventListener('blur', function() {
+                  const d = parseDMY(this.value);
+                  selectedDate = d || null;
+                  updateLabel(d);
+                  if (d) { viewYear = d.getFullYear(); viewMonth = d.getMonth(); }
+                  showSpinnersIfBothSet();
+                });
+
+                // Close panel on outside click
+                document.addEventListener('click', function(e) {
+                  if (!input.contains(e.target) && !calBtn.contains(e.target) && !panel.contains(e.target)) {
+                    panel.style.display = 'none';
+                  }
                 });
               }
 
-              // Close dropdown when clicking outside
-              document.addEventListener('click', function(e) {
-                if (!periodToDropdown.contains(e.target) && !periodToDropdownPanel.contains(e.target)) {
-                  periodToDropdownPanel.style.display = 'none';
+              // Show spinners when both dates are filled, then filter
+              function showSpinnersIfBothSet() {
+                const fromText = (document.getElementById('period-range-from-label') || {}).textContent || '';
+                const toText   = (document.getElementById('period-range-to-label')   || {}).textContent || '';
+                const bothSet  = fromText && fromText !== 'No period selected' &&
+                                 toText   && toText   !== 'No period selected';
+                if (bothSet) {
+                  const loadingIndicator    = document.getElementById('loading-indicator');
+                  const table               = document.getElementById('error-summary-table');
+                  const loadingIndicatorOrg = document.getElementById('loading-indicator-org');
+                  const orgTable            = document.getElementById('organisation-summary-table');
+                  if (loadingIndicator)    { loadingIndicator.style.display    = 'block'; }
+                  if (table)               { table.style.opacity               = '0.5';   }
+                  if (loadingIndicatorOrg) { loadingIndicatorOrg.style.display = 'flex';  }
+                  if (orgTable)            { orgTable.style.display            = 'none';  }
+                  setTimeout(function() {
+                    if (loadingIndicator)    { loadingIndicator.style.display    = 'none'; }
+                    if (table)               { table.style.opacity               = '1';    }
+                    if (loadingIndicatorOrg) { loadingIndicatorOrg.style.display = 'none'; }
+                    if (orgTable)            { orgTable.style.display            = '';     }
+                    filterTable();
+                  }, 1000);
+                } else {
+                  filterTable();
                 }
-              });
-            }
-            
+              }
+
+              initDatePicker('date-from-input', 'date-from-cal-btn', 'date-from-cal-panel', 'period-range-from-label');
+              initDatePicker('date-to-input',   'date-to-cal-btn',   'date-to-cal-panel',   'period-range-to-label');
+            })();
+
             // Call filterTable initially to set correct table state on page load
             filterTable();
           });
@@ -3000,8 +3572,23 @@ Warning,VAL004,15,25%`;
               ]
             };
             
-            // Get organization data for this error code or use default
-            const orgData = organizationData[errorCode] || organizationData['DIDS00101002'];
+            // Check if LCS collection is selected
+            const collectionSelect = document.getElementById('collection-select');
+            const isLCS = collectionSelect && collectionSelect.value === 'Lung Cancer Screening (LCS)';
+
+            let orgData;
+            if (isLCS) {
+              orgData = [
+                { name: 'North Cumbria Integrated Care (RNN)', count: 42 },
+                { name: 'County Durham and Darlington NHS Foundation Trust (RTC)', count: 35 },
+                { name: 'Northumbria Healthcare NHS Foundation Trust (RTF)', count: 28 },
+                { name: 'South Tyneside and Sunderland NHS Foundation Trust (R0B)', count: 19 },
+                { name: 'InHealth - Circle Ross Hall Clinic (M3V1E)', count: 12 }
+              ];
+            } else {
+              // Get organization data for this error code or use default
+              orgData = organizationData[errorCode] || organizationData['DIDS00101002'];
+            }
             
             // Create organization list HTML
             const orgListHTML = orgData.map(org => `
@@ -3649,6 +4236,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (loadingIndicator) loadingIndicator.style.display = 'block';
     if (table) table.style.opacity = '0.5';
+
+
     
     if (orgSpecificRadio.checked) {
       orgSpecificConditional.classList.remove('nhsuk-radios__conditional--hidden');

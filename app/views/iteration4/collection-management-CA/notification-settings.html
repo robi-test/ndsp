@@ -1,24 +1,18 @@
-{% extends "iteration4/collection-management/layout-collection-management.html" %}
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
 {% set pageName = "Email notification settings" %}
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-
 {{ breadcrumb({
+  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
   items: [
     {
       href: "home",
       text: "Home"
-    },
-    {
-      href: "configuration-collections",
-      text: "Collections setup"
-    },
-    {
-      href: "configuration-dids",
-      text: "Diagnostic Imaging Data Set (V2.0)"
     }
-  ]
+  ],
+  href: "setup",
+      text: "Set up"
 }) }}
+
 {% endblock %}
 {% block content %}
 {% from "button/macro.njk" import button %}

@@ -1,0 +1,87 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Download report" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "dids-dashboard",
+      text: "DIDS Dashboard"
+    },
+    {
+      href: "submissions",
+      text: "Submissions"
+    }
+  ],
+  href: "download-report",
+  text: "Download report"
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <h1 class="nhsuk-heading-l">Download report</h1>
+    <p class="nhsuk-body">Choose what to include in your export, then download a CSV report.</p>
+
+    <form method="post" action="#">
+      <div class="nhsuk-form-group">
+        <fieldset class="nhsuk-fieldset" aria-describedby="report-options-hint">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">Report contents</legend>
+          <div class="nhsuk-hint" id="report-options-hint">Select all sections you want in the downloaded report.</div>
+
+          <div class="nhsuk-checkboxes" data-module="nhsuk-checkboxes">
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-period" name="reportOptions" type="checkbox" value="period">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-period">Reporting periods</label>
+            </div>
+
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-providers-submitted" name="reportOptions" type="checkbox" value="providers-submitted">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-providers-submitted">Providers (submitted)</label>
+            </div>
+
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-providers-not-submitted" name="reportOptions" type="checkbox" value="providers-not-submitted">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-providers-not-submitted">Providers (not submitted)</label>
+            </div>
+
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-providers-all" name="reportOptions" type="checkbox" value="providers-all">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-providers-all">All providers</label>
+            </div>
+
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-status" name="reportOptions" type="checkbox" value="status">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-status">Submission status</label>
+            </div>
+
+            <div class="nhsuk-checkboxes__item">
+              <input class="nhsuk-checkboxes__input" id="report-rejections" name="reportOptions" type="checkbox" value="rejections">
+              <label class="nhsuk-label nhsuk-checkboxes__label" for="report-rejections">Rejections and errors</label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="nhsuk-form-group">
+        <label class="nhsuk-label" for="report-format"><strong>File format</strong></label>
+        <div class="nhsuk-hint" id="report-format-hint">CSV is compatible with spreadsheets and databases.</div>
+        <select class="nhsuk-select" id="report-format" name="format" aria-describedby="report-format-hint">
+          <option value="csv">CSV</option>
+          <option value="xlsx">Excel (.xlsx)</option>
+        </select>
+      </div>
+
+      <button class="nhsuk-button" type="submit">Download report</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

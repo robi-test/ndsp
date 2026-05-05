@@ -32,7 +32,7 @@
         <p><strong>Reporting period</strong><br>The reporting period that the submissions relate to.</p>
         <p><strong>Submission window end date</strong><br>The date when the submission window closes for that period.</p>
         <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
-        <p><strong>Total file submitted</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
+        <p><strong>Total submissions</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
         <p><strong>Providers submitted</strong><br>The number of providers that submitted at least one file during the submission window (excluding test files).</p>
         <p><strong>Providers with successful submission</strong><br>The number of providers that had at least one file successfully accepted during the submission window (excluding test files).</p>
         <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
@@ -143,9 +143,10 @@
     <thead class="nhsuk-table__head" role="rowgroup">
       <tr role="row" class="nhsuk-table__row">
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="deadline">Submission window end-date</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission window status</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total files submitted</th>
-        <!-- <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-count">Providers submitted</th> -->
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total submissions</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submitted-count">Providers submitted</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Providers with successful submission**</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Number of resubmissions</th>
         <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection (%)</th>
@@ -156,9 +157,10 @@
     <tbody class="nhsuk-table__body">
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>235</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>118/235</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>118/235</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>117/235</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>11</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
@@ -167,9 +169,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>133/278</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>104</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
@@ -178,9 +181,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>218</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/218</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/218</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/218</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>94</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
@@ -189,9 +193,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/199</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>74</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
@@ -200,9 +205,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>132/195</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>44</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>20%</td>
@@ -211,9 +217,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2026</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>209</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>132/209</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>132/209</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>131/209</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>73</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
@@ -222,9 +229,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Jun 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/199</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>133/199</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>91</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>10%</td>
@@ -233,9 +241,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 May 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>134/278</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>134/278</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>50</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>14%</td>
@@ -244,9 +253,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>30 Apr 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>222</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>130/222</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>130/222</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>129/222</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>85</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>23%</td>
@@ -255,9 +265,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Mar 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>133/195</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>132/195</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>62</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>15%</td>
@@ -266,9 +277,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>28 Feb 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>184</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>121/184</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>121/184</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>120/184</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>38</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>18%</td>
@@ -277,9 +289,10 @@
       </tr>
       <tr class="nhsuk-table__row" role="row">
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Deadline</span>31 Jan 2025</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>176</td>
-        <!-- <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>120/176</td> -->
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>120/176</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers with successful submission</span>119/176</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>34</td>
         <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">% of rejections</span>16%</td>
@@ -306,7 +319,7 @@
       <!-- Second tab: Organisations -->
       <div class="nhsuk-tabs__panel" id="organisations">
         <h2 class="nhsuk-heading-m">Submission performance</h2>
-        <p class="nhsuk-body-m">Last 12 months trend for providers submitted, total files submitted, number of resubmissions, file rejected and test submissions.</p>
+        <p class="nhsuk-body-m">Last 12 months trend for providers submitted, total submissions, number of resubmissions, file rejected and test submissions.</p>
         <div id="organisations-line-chart" class="org-line-chart" aria-label="Line chart for organisation metrics over last 12 months"></div>
         <div id="organisations-line-legend" class="org-line-legend" aria-label="Chart legend"></div>
       </div>
@@ -423,7 +436,7 @@
     var chartDataByYear = {
       '2025': [
         { name: 'Providers submitted', color: '#005eb8', values: [120, 121, 124, 126, 127, 129, 130, 131, 132, 133, 133, 134] },
-        { name: 'Total files submitted', color: '#007f3b', values: [176, 184, 192, 205, 214, 221, 229, 236, 244, 258, 266, 278] },
+        { name: 'Total submissions', color: '#007f3b', values: [176, 184, 192, 205, 214, 221, 229, 236, 244, 258, 266, 278] },
         { name: 'Number of resubmissions', color: '#fa9200', values: [34, 38, 41, 48, 52, 57, 61, 67, 73, 86, 94, 104] },
         { name: 'File rejected', color: '#d5281b', values: [16, 18, 22, 25, 31, 26, 28, 39, 34, 22, 24, 42] },
         { name: 'Test submissions', color: '#4c6272', values: [1, 1, 1, 2, 3, 4, 5, 0, 6, 2, 7, 4] }

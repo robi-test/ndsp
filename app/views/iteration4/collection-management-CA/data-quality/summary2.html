@@ -42,7 +42,7 @@
                 <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
               </div>
               <div class="nhsuk-table-filters__actions">
-                <button class="nhsuk-button" style="margin: bottom 24px;px" type="submit" onclick="handleApply(); return false">Apply</button>
+                <button class="nhsuk-button" style="margin: bottom 24px;px" type="submit" onclick="return false">Apply</button>
               </div>
             </div>
            <!--  <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
@@ -54,12 +54,7 @@
             </div> -->
           </form>
         </div>
-
-        <div id="loading-indicator" class="loading-container" style="display: none;">
-          <div class="loading-spinner"></div>
-          <div class="loading-text">Loading results...</div>
-        </div>
-
+        
         <table id="error-summary-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table" style="background-color: white;">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhsuk-u-visually-hidden">Top validation errors for the period</caption>
         <thead class="nhsuk-table__head" role="rowgroup">
@@ -303,35 +298,6 @@
   overflow-wrap: break-word;
 }
 
-/* Loading indicator styles */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  background-color: #f0f4f5;
-  border-radius: 4px;
-  margin: 24px 0;
-}
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #d8dde0;
-  border-top: 4px solid #005eb8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.loading-text {
-  font-size: 16px;
-  color: #212b32;
-  font-weight: 600;
-}
 </style>
 <script>
 // Click column headers to sort rows
@@ -401,53 +367,5 @@ sortTable(table, colIndex, type, next)
 })
 })()
 
-</script>
-
-<script>
-(function() {
-  function cellText(cell) {
-    if (!cell) return '';
-    var heading = cell.querySelector('.nhsuk-table-responsive__heading');
-    var txt = (cell.textContent || '').trim();
-    if (heading) txt = txt.replace(heading.textContent.trim(), '').trim();
-    return txt;
-  }
-
-  window.handleApply = function() {
-    var loadingIndicator = document.getElementById('loading-indicator');
-    var errorTable = document.getElementById('error-summary-table');
-    var applyBtn = document.querySelector('.nhsuk-button[onclick*="handleApply"]');
-
-    if (loadingIndicator) loadingIndicator.style.display = 'flex';
-    if (errorTable) errorTable.style.display = 'none';
-    if (applyBtn) { applyBtn.disabled = true; applyBtn.textContent = 'Loading...'; }
-
-    var loadingTime = Math.random() * 500 + 800;
-    setTimeout(function() {
-      var orgQ = ((document.getElementById('filter-organisation') || {}).value || '').trim().toLowerCase();
-      var periodQ = ((document.getElementById('filter-period') || {}).value || '').trim().toLowerCase();
-
-      var rows = errorTable ? Array.prototype.slice.call(errorTable.tBodies[0].rows) : [];
-      rows.forEach(function(row) {
-        var show = true;
-        // Organisation filter: check all cell text for a match
-        if (orgQ) {
-          var rowText = (row.textContent || '').toLowerCase();
-          if (rowText.indexOf(orgQ) === -1) show = false;
-        }
-        // Period filter: check all cell text for a match
-        if (show && periodQ) {
-          var rowText = (row.textContent || '').toLowerCase();
-          if (rowText.indexOf(periodQ) === -1) show = false;
-        }
-        row.style.display = show ? '' : 'none';
-      });
-
-      if (loadingIndicator) loadingIndicator.style.display = 'none';
-      if (errorTable) errorTable.style.display = '';
-      if (applyBtn) { applyBtn.disabled = false; applyBtn.textContent = 'Apply'; }
-    }, loadingTime);
-  };
-})();
 </script>
 {% endblock %}

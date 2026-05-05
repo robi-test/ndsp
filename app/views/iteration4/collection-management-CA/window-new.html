@@ -1,0 +1,399 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+{% from "radios/macro.njk" import radios %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "../home",
+      text: "Home"
+    },
+    {
+      href: "../configuration-collections",
+      text: "Collections configurations"
+    },
+    {
+      href: "../configuration-dids",
+      text: "Diagnostic Imaging Data Set (V2.0)"
+    },
+    {
+      href: "submission-windows",
+      text: "Submission windows"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+       
+<fieldset class="nhsuk-fieldset">
+  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+    <h1 class="nhsuk-fieldset__heading">
+      Create a submission window
+    </h1>
+  </legend>
+
+<div class="nhsuk-form-group">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
+      Submission window name
+    </label>
+  </h1>
+  <input class="nhsuk-input" id="submission-window-name" name="submissionWindowName" type="text" value="April 2026 (provisional processing deadline)">
+</div>
+
+
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="reporting-period-start-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Reporting period start
+        </h1>
+      </legend>
+      <div id="reporting-period-start-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="reporting-period-start" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-day" name="reportingPeriodStart[day]" type="text" inputmode="numeric" value="01">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-start-month" name="reportingPeriodStart[month]" type="text" inputmode="numeric" value="04">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-start-year" name="reportingPeriodStart[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="reporting-period-end-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Reporting period end
+        </h1>
+      </legend>
+      <div id="reporting-period-end-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="reporting-period-end" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-day" name="reportingPeriodEnd[day]" type="text" inputmode="numeric" value="30">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="reporting-period-end-month" name="reportingPeriodEnd[month]" type="text" inputmode="numeric" value="04">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="reporting-period-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="reporting-period-end-year" name="reportingPeriodEnd[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+        
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="submission-window-start-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window start
+        </h1>
+      </legend>
+      <div id="submission-window-start-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="submission-window-start" class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric" value="01">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric" value="05">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-year" name="submissionWindowStart[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+      </div>
+      
+      {% set startTimeHtml %}
+<div id="submission-window-start-time" class="nhsuk-date-input ">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-minute" name="submissionWindowStart[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-second" name="submissionWindowStart[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "start-time-type",
+  name: "start-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s nhsuk-u-margin-top-8",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "start-of-day",
+      text: "Start of the day (12:00:00 am)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: startTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="submission-window-end-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Submission window end
+        </h1>
+      </legend>
+      <div id="submission-window-end-hint" class="nhsuk-hint">
+        For example, 18 3 2026
+      </div>
+      <div id="submission-window-end" class="nhsuk-date-input bottom">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-day">
+              Day
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-day" name="submissionWindowEnd[day]" type="text" inputmode="numeric" value="31">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-month">
+              Month
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-month" name="submissionWindowEnd[month]" type="text" inputmode="numeric" value="05">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-year">
+              Year
+            </label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-year" name="submissionWindowEnd[year]" type="text" inputmode="numeric" value="2026">
+          </div>
+        </div>
+      </div>
+      
+      {% set endTimeHtml %}
+<div id="submission-window-end-time" class="nhsuk-date-input ">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-hour" name="submissionWindowEnd[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-minute" name="submissionWindowEnd[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-second" name="submissionWindowEnd[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "end-time-type",
+  name: "end-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "end-of-day",
+      text: "End of the day (11:59:59 pm)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: endTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+   <label class="nhsuk-label" for="sort-by">
+    <h3>Organisationn</h3>
+  </label>
+  <select class="nhsuk-select" id="sort-by" name="sortBy">
+    <option value="recently-published" selected>All</option>
+    <option value="recently-updated">Org1</option>
+    <option value="most-views">Org2</option>
+    <option value="most-comments">Org3</option>
+  </select>
+
+  {% from "button/macro.njk" import button %}
+
+
+
+</fieldset>
+<div class="nhsuk-u-margin-top-8">
+{{ button({
+  text: "Create"
+}) }}
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+  // Simple custom conditional logic without NHS frontend dependencies
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle start time radios
+    const startRadios = document.querySelectorAll('input[name="start-time-type"]');
+    const startConditional = document.getElementById('conditional-start-time-type-specific-time');
+    
+    if (startRadios.length > 0 && startConditional) {
+      startRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          if (this.value === 'specific-time' && this.checked) {
+            startConditional.style.display = 'block';
+          } else if (this.value === 'start-of-day' && this.checked) {
+            startConditional.style.display = 'none';
+          }
+        });
+      });
+    }
+    
+    // Handle end time radios
+    const endRadios = document.querySelectorAll('input[name="end-time-type"]');
+    const endConditional = document.getElementById('conditional-end-time-type-specific-time');
+    
+    if (endRadios.length > 0 && endConditional) {
+      endRadios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          if (this.value === 'specific-time' && this.checked) {
+            endConditional.style.display = 'block';
+          } else if (this.value === 'end-of-day' && this.checked) {
+            endConditional.style.display = 'none';
+          }
+        });
+      });
+    }
+  });
+</script>
+{% endblock %}

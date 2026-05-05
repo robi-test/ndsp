@@ -1,0 +1,47 @@
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+         Collections setup
+      </h1>
+
+      <p>
+         Select a collection for which you have configuration permissions.
+      </p>
+
+    <div class="nhsuk-u-margin-top-6">
+      <a class="nhsuk-action-link nhsuk-u-margin-bottom-3" href="configuration-dids" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Diagnostic Imaging Data Set V2.0</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+      
+      <a class="nhsuk-action-link" href="#lung-cancer-screening" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Lung Cancer Screening</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+    </div>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

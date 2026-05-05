@@ -9,10 +9,6 @@
     {
       href: "home",
       text: "Home"
-    },
-    {
-      href: "configuration-collections",
-      text: "Collections setup"
     }
   ]
 }) }}
@@ -21,7 +17,7 @@
 <div class="nhsuk-grid-row">
    <div class="nhsuk-u-margin-top-2">
       <h1 class="nhsuk-heading-l">
-         Diagnostic Imaging Data Set (V2.0)
+         Monitoring
       </h1>
 
       <p>
@@ -31,51 +27,43 @@
 
     <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
 
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-       {{ card({
-        href: "collection-setup",
+<!--       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "submissions",
         primary: "true",
         clickable: "true",
-        heading: "General configuration",
+        heading: "Submissions",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li> -->
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "performance-by-period",
+        primary: "true",
+        clickable: "true",
+        heading: "Performance by period",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "data-quality/summary",
+        primary: "true",
+        clickable: "true",
+        heading: "Errors overview",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-       {{ card({
-        href: "providers",
+      {{ card({
+        href: "-",
         primary: "true",
         clickable: "true",
         heading: "Submitting organisations",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
-
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "reporting-periods/periods",
-        primary: "true",
-        clickable: "true",
-        heading: "Reporting periods",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "reporting-periods/submission-windows",
-        primary: "true",
-        clickable: "true",
-        heading: "Submission windows",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
-
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-           {{ card({
-        href: "notification-settings",
-        primary: "true",
-        clickable: "true",
-        heading: "Manage notifications",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
