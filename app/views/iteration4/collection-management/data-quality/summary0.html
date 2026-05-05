@@ -222,15 +222,15 @@
                           
                           <div class="period-list" style="max-height: 200px; overflow-y: auto;">
                             <div class="period-option organisation-multiselect__option--selected" data-value="October 2026">October 2026</div>
-                            <div class="period-option" data-value="February 2026">September 2026</div>
-                            <div class="period-option" data-value="February 2026">August 2026</div>
-                            <div class="period-option" data-value="January 2026">July 2026</div>
-                            <div class="period-option" data-value="December 2025">June 2026</div>
-                            <div class="period-option" data-value="November 2025">May 2026</div>
-                            <div class="period-option" data-value="October 2025">April 2026</div>
-                            <div class="period-option" data-value="September 2025">March 2026</div>
-                            <div class="period-option" data-value="August 2025">February 2026</div>
-                            <div class="period-option" data-value="July 2025">January 2026</div>
+                            <div class="period-option" data-value="September 2026">September 2026</div>
+                            <div class="period-option" data-value="August 2026">August 2026</div>
+                            <div class="period-option" data-value="July 2026">July 2026</div>
+                            <div class="period-option" data-value="June 2026">June 2026</div>
+                            <div class="period-option" data-value="May 2026">May 2026</div>
+                            <div class="period-option" data-value="April 2026">April 2026</div>
+                            <div class="period-option" data-value="March 2026">March 2026</div>
+                            <div class="period-option" data-value="February 2026">February 2026</div>
+                            <div class="period-option" data-value="January 2026">January 2026</div>
                           </div>
                         </div>
                       </div>
@@ -2816,7 +2816,65 @@
 
     <div class="nhsuk-tabs__panel" id="download" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
       <h2>Download data</h2>
-      <p>The downloaded data will reflect the collection and period range selected above.</p>
+      <p>The downloaded data will reflect the collection and period or time range selected above.</p>
+      <p id="download-filter-summary" class="nhsuk-u-margin-bottom-4" style="font-size: 1.1875rem; color: #0b0c0c;"></p>
+
+      <script>
+        function updateDownloadFilterSummary() {
+          var collectionEl = document.getElementById('collection-select');
+          var collection = collectionEl ? collectionEl.options[collectionEl.selectedIndex].text : '';
+
+          var periodTypeEl = document.querySelector('input[name="period-range-type"]:checked');
+          var periodType = periodTypeEl ? periodTypeEl.value : 'specific';
+          var timeRange = '';
+          if (periodType === 'specific') {
+            var label = document.getElementById('period-range-dropdown-label');
+            timeRange = label ? label.textContent.trim() : '';
+          } else {
+            var from = document.getElementById('date-from-input');
+            var to = document.getElementById('date-to-input');
+            var fromVal = from ? from.value.trim() : '';
+            var toVal = to ? to.value.trim() : '';
+            timeRange = (fromVal && toVal) ? fromVal + ' to ' + toVal : (fromVal || toVal || 'Not set');
+          }
+
+          var summary = document.getElementById('download-filter-summary');
+          if (summary) {
+            summary.innerHTML = 'Collection: <strong>' + collection + '</strong>  |  Time range: <strong>' + timeRange + '</strong>';
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+          updateDownloadFilterSummary();
+
+          var collectionEl = document.getElementById('collection-select');
+          if (collectionEl) collectionEl.addEventListener('change', updateDownloadFilterSummary);
+
+          document.querySelectorAll('input[name="period-range-type"]').forEach(function(r) {
+            r.addEventListener('change', updateDownloadFilterSummary);
+          });
+
+          var periodLabel = document.getElementById('period-range-dropdown-label');
+          if (periodLabel) {
+            var observer = new MutationObserver(updateDownloadFilterSummary);
+            observer.observe(periodLabel, { childList: true, characterData: true, subtree: true });
+          }
+
+          ['date-from-input', 'date-to-input'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.addEventListener('change', updateDownloadFilterSummary);
+          });
+
+          // Also refresh when the download tab is clicked
+          document.querySelectorAll('.nhsuk-tabs__tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+              if (tab.getAttribute('href') === '#download' || (tab.closest('[id="download"]'))) {
+                updateDownloadFilterSummary();
+              }
+            });
+          });
+        });
+      </script>
       
       <div class="nhsuk-form-group">
         <fieldset class="nhsuk-fieldset">
