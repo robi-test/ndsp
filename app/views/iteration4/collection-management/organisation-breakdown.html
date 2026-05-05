@@ -1,7 +1,7 @@
-{% extends "iteration4/collection-management/layout-collection-management.html" %}
+{% extends "iteration3/collection-management/layout-collection-management.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
-{% set pageName = "December 2025 Submission details" %}
+{% set pageName = "October 2026 Submission details" %}
 
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -30,7 +30,7 @@
     <div class="nhsuk-grid-column-full">
       <div class="nhsuk-width-container">
         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
-            <h1 class="nhsuk-heading-lm nhsuk-u-margin-bottom-8">December 2025</h1>
+            <h1 class="nhsuk-heading-lm nhsuk-u-margin-bottom-8">October 2026</h1>
 
             {% from "summary-list/macro.njk" import summaryList %}
             {{ summaryList({
@@ -41,7 +41,7 @@
                 },
                 {
                   key: { text: "Reporting period" },
-                  value: { text: "December 2025" }
+                  value: { text: "October 2026" }
                 }
               ]
             }) }}
@@ -60,9 +60,38 @@
         <li class="nhsuk-tabs__list-item">
           <a class="nhsuk-tabs__tab" href="#performance">Performance chart</a>
         </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#download">Download</a>
+        </li>
       </ul>
 
       <div class="nhsuk-tabs__panel" id="organisation-breakdown">
+
+        <div style="display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;">
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-0" style="position: relative; min-width: 260px;">
+            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="org-breakdown-filter"><strong>Organisation / ODS:</strong></label>
+            <input class="nhsuk-input" id="org-breakdown-filter" name="orgBreakdownFilter" type="text" placeholder="Start typing to search" autocomplete="off" style="width: 100%;">
+            <div id="org-breakdown-suggestions" style="display:none; position:absolute; z-index:20; background:#fff; border:1px solid #b1b4b6; width:100%; max-height:200px; overflow-y:auto;"></div>
+          </div>
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="org-breakdown-status-filter"><strong>Submission status:</strong></label>
+            <select class="nhsuk-select" id="org-breakdown-status-filter" name="orgBreakdownStatus">
+              <option value="">All statuses</option>
+              <option value="Submitted">Submitted</option>
+              <option value="No valid submission">No valid submission</option>
+            </select>
+          </div>
+          <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="button" id="org-breakdown-apply" onclick="return false">Apply</button>
+        </div>
+
+        <div id="org-breakdown-selected-filters" class="nhsuk-selected" aria-live="polite" style="margin-bottom: 16px;">
+          <div class="nhsuk-selected__header">
+            <h3 class="nhsuk-heading-xs nhsuk-selected__title" style="margin-bottom:0px">Selected filters:</h3>
+            <a href="#" class="nhsuk-link" id="org-breakdown-clear-filters" style="margin-right: auto; display: none;">Clear filters</a>
+          </div>
+          <div class="nhsuk-selected__row" id="org-breakdown-chips"></div>
+        </div>
+
 <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
         <thead class="nhsuk-table__head" role="rowgroup">
@@ -74,7 +103,6 @@
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="Period">Accepted</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="testSubmission">Test submissions</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="type">Last submission</th>
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Submissions</th>
           </tr>
         </thead>
         <tbody class="nhsuk-table__body">
@@ -85,8 +113,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>3</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>0</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>1</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>17 Dec 2025, 09:10</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="submissions-org">View</a></td>   
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>17 Nov 2026, 09:10</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NYR)</td>           
@@ -96,8 +123,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>3</td>
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>29 Dec 2025, 11:45 </td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="submission-details1r">View</a></td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>29 Nov 2026, 11:45 </td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical (NT9)</td>
@@ -106,8 +132,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>4</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>5</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Dec 2025, 14:23</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>28 Nov 2026, 14:23</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RF4)</td>
@@ -116,8 +141,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>2</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>22 Dec 2025, 10:15</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>22 Nov 2026, 10:15</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
@@ -126,8 +150,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>4</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>19 Dec 2025, 16:45</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>19 Nov 2026, 16:45</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
@@ -137,7 +160,6 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>-</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
@@ -146,8 +168,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>2</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>1</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>20 Dec 2025, 13:22</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>20 Nov 2026, 13:22</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
@@ -156,8 +177,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>3</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>27 Dec 2025, 15:10</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>27 Nov 2026, 15:10</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)</td>
@@ -166,8 +186,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>1</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>1</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>2</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>24 Dec 2025, 08:45</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>24 Nov 2026, 08:45</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust (RJ1)</td>
@@ -176,8 +195,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Rejected</span>0</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>3</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>5</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>18 Dec 2025, 12:05</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submission history</span><a href="#">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>18 Nov 2026, 12:05</td>
           </tr>
         </tbody>
       </table>
@@ -212,6 +230,109 @@
         <p class="nhsuk-body">Counts by organisation for accepted, rejected and test submissions.</p>
         <div id="performance-chart" aria-label="Organisation performance bar chart"></div>
         <div id="performance-legend" class="nhsuk-u-margin-top-3" aria-label="Chart legend"></div>
+      </div>
+
+      <!-- Download tab -->
+      <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="download" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+        <h2>Download data</h2>
+        <p>The downloaded data will reflect the currently visible organisation breakdown table.</p>
+        <p id="org-download-filter-summary" class="nhsuk-u-margin-bottom-4" style="font-size: 1.1875rem; color: #0b0c0c;"></p>
+
+        <script>
+          function updateOrgDownloadFilterSummary() {
+            var orgEl = document.getElementById('org-breakdown-filter');
+            var statusEl = document.getElementById('org-breakdown-status-filter');
+            var orgVal = orgEl ? orgEl.value.trim() : '';
+            var statusVal = statusEl && statusEl.value ? statusEl.options[statusEl.selectedIndex].text : 'All statuses';
+            var summary = document.getElementById('org-download-filter-summary');
+            if (summary) {
+              var orgPart = orgVal ? '<strong>' + orgVal + '</strong>' : '<strong>All organisations</strong>';
+              summary.innerHTML = 'Organisation: ' + orgPart + '  |  Status: <strong>' + statusVal + '</strong>';
+            }
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            updateOrgDownloadFilterSummary();
+
+            var orgEl = document.getElementById('org-breakdown-filter');
+            var statusEl = document.getElementById('org-breakdown-status-filter');
+            var applyBtn = document.getElementById('org-breakdown-apply');
+
+            if (orgEl) orgEl.addEventListener('input', updateOrgDownloadFilterSummary);
+            if (statusEl) statusEl.addEventListener('change', updateOrgDownloadFilterSummary);
+            if (applyBtn) applyBtn.addEventListener('click', updateOrgDownloadFilterSummary);
+
+            document.querySelectorAll('.nhsuk-tabs__tab').forEach(function(tab) {
+              tab.addEventListener('click', function() {
+                if (tab.getAttribute('href') === '#download') {
+                  updateOrgDownloadFilterSummary();
+                }
+              });
+            });
+          });
+        </script>
+
+        <button class="nhsuk-button" type="button" onclick="downloadOrgBreakdownData(); return false;">
+          Download CSV
+        </button>
+
+        <script>
+          function downloadOrgBreakdownData() {
+            var table = document.getElementById('submissions-table');
+            if (!table) return;
+
+            function cellText(cell) {
+              if (!cell) return '';
+              var clone = cell.cloneNode(true);
+              clone.querySelectorAll('.nhsuk-table-responsive__heading').forEach(function(s) { s.remove(); });
+              return clone.textContent.trim();
+            }
+
+            function esc(v) {
+              var s = String(v || '');
+              return (s.indexOf(',') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1)
+                ? '"' + s.replace(/"/g, '""') + '"'
+                : s;
+            }
+
+            var headers = [];
+            table.querySelectorAll('thead th').forEach(function(th) { headers.push(th.textContent.trim()); });
+
+            var lines = [headers.map(esc).join(',')];
+            var rows = table.querySelectorAll('tbody tr');
+            rows.forEach(function(row) {
+              if (row.style.display === 'none') return;
+              var cells = row.querySelectorAll('td');
+              var values = [];
+              cells.forEach(function(cell) { values.push(cellText(cell)); });
+              lines.push(values.map(esc).join(','));
+            });
+
+            var csv = lines.join('\r\n');
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            // Read collection and reporting period from the summary list
+            var collectionVal = 'unknown-collection';
+            var periodVal = 'unknown-period';
+            document.querySelectorAll('.nhsuk-summary-list__row').forEach(function(row) {
+              var key = row.querySelector('.nhsuk-summary-list__key');
+              var val = row.querySelector('.nhsuk-summary-list__value');
+              if (!key || !val) return;
+              var keyText = key.textContent.trim().toLowerCase();
+              if (keyText === 'collection') collectionVal = val.textContent.trim();
+              if (keyText === 'reporting period') periodVal = val.textContent.trim();
+            });
+            function slugify(s) {
+              return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            }
+            a.download = 'organisation-breakdown-' + slugify(collectionVal) + '-' + slugify(periodVal) + '.csv';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+          }
+        </script>
       </div>
 
     </div>
@@ -357,6 +478,139 @@
       })();
     </script>
 
+    <script>
+    (function() {
+      document.addEventListener('DOMContentLoaded', function() {
+        var input = document.getElementById('org-breakdown-filter');
+        var suggestionsBox = document.getElementById('org-breakdown-suggestions');
+        var statusFilter = document.getElementById('org-breakdown-status-filter');
+        var applyBtn = document.getElementById('org-breakdown-apply');
+        var clearBtn = document.getElementById('org-breakdown-clear-filters');
+        var chipsEl = document.getElementById('org-breakdown-chips');
+        var table = document.getElementById('submissions-table');
+        if (!input || !applyBtn || !table) return;
+
+        // Build list of organisation names from table rows
+        function getOrgNames() {
+          var names = [];
+          var rows = table.tBodies[0] ? table.tBodies[0].rows : [];
+          for (var i = 0; i < rows.length; i++) {
+            var cell = rows[i].cells[0];
+            if (!cell) continue;
+            var text = cell.innerText || cell.textContent || '';
+            // Strip responsive heading if present
+            var span = cell.querySelector('.nhsuk-table-responsive__heading');
+            if (span) text = text.replace(span.innerText || span.textContent, '').trim();
+            if (text) names.push(text);
+          }
+          return names;
+        }
+
+        // Show autocomplete suggestions
+        input.addEventListener('input', function() {
+          var val = input.value.trim().toLowerCase();
+          suggestionsBox.innerHTML = '';
+          if (!val) { suggestionsBox.style.display = 'none'; return; }
+          var names = getOrgNames();
+          var matches = names.filter(function(n) { return n.toLowerCase().indexOf(val) !== -1; });
+          if (!matches.length) { suggestionsBox.style.display = 'none'; return; }
+          matches.forEach(function(name) {
+            var item = document.createElement('div');
+            item.textContent = name;
+            item.style.cssText = 'padding: 8px 12px; cursor: pointer; border-bottom: 1px solid #f0f4f5; font-size: 16px;';
+            item.addEventListener('mousedown', function(e) {
+              e.preventDefault();
+              input.value = name;
+              suggestionsBox.style.display = 'none';
+            });
+            item.addEventListener('mouseover', function() { item.style.background = '#f0f4f5'; });
+            item.addEventListener('mouseout', function() { item.style.background = ''; });
+            suggestionsBox.appendChild(item);
+          });
+          suggestionsBox.style.display = 'block';
+        });
+
+        // Hide suggestions on blur
+        input.addEventListener('blur', function() {
+          setTimeout(function() { suggestionsBox.style.display = 'none'; }, 150);
+        });
+
+        // Render filter chips below the filter bar
+        function renderChips() {
+          if (!chipsEl) return;
+          var chips = [];
+          var orgVal = input.value.trim();
+          var statusVal = statusFilter ? statusFilter.value : '';
+          var statusLabel = statusVal ? (statusFilter.options[statusFilter.selectedIndex] ? statusFilter.options[statusFilter.selectedIndex].text : statusVal) : '';
+
+          if (orgVal) {
+            chips.push({ label: 'Organisation: ' + orgVal, key: 'org' });
+          }
+          if (statusVal) {
+            chips.push({ label: 'Status: ' + statusLabel, key: 'status' });
+          }
+
+          chipsEl.innerHTML = chips.map(function(c) {
+            return '<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-chip-key="' + c.key + '" title="Remove filter">' +
+              c.label + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>';
+          }).join(' ');
+
+          if (chips.length === 0) {
+            chipsEl.innerHTML = '<span style="color:#4c6272;font-size:16px;">No filters applied</span>';
+            if (clearBtn) clearBtn.style.display = 'none';
+          } else {
+            if (clearBtn) clearBtn.style.display = '';
+          }
+
+          // Click on individual chip to remove that filter
+          chipsEl.querySelectorAll('[data-chip-key]').forEach(function(chip) {
+            chip.addEventListener('click', function() {
+              var key = chip.getAttribute('data-chip-key');
+              if (key === 'org') input.value = '';
+              if (key === 'status' && statusFilter) statusFilter.value = '';
+              applyFilter();
+              renderChips();
+            });
+          });
+        }
+
+        // Apply filter — show only rows matching org name AND status
+        function applyFilter() {
+          var val = input.value.trim().toLowerCase();
+          var statusVal = statusFilter ? statusFilter.value.toLowerCase() : '';
+          var rows = table.tBodies[0] ? table.tBodies[0].rows : [];
+          for (var i = 0; i < rows.length; i++) {
+            var orgCell = rows[i].cells[0];
+            var orgText = (orgCell ? (orgCell.innerText || orgCell.textContent || '') : '').toLowerCase();
+            var statusCell = rows[i].cells[1];
+            var statusText = (statusCell ? (statusCell.innerText || statusCell.textContent || '') : '').toLowerCase();
+            var orgMatch = !val || orgText.indexOf(val) !== -1;
+            var statusMatch = !statusVal || statusText.indexOf(statusVal) !== -1;
+            rows[i].style.display = (orgMatch && statusMatch) ? '' : 'none';
+          }
+          renderChips();
+        }
+
+        // Clear all filters
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            input.value = '';
+            if (statusFilter) statusFilter.value = '';
+            applyFilter();
+          });
+        }
+
+        // Initial chips render
+        renderChips();
+
+        applyBtn.addEventListener('click', applyFilter);
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') { suggestionsBox.style.display = 'none'; applyFilter(); }
+        });
+      });
+    })();
+    </script>
 
     </div>
   </div>
