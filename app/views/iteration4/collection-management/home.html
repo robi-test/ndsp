@@ -24,26 +24,23 @@
           '
         }) }}
         </li>
+
+  
+        
+
         
        </ul>
-      <hr>  
-<!--       <h2>
-        Diagnostic Imaging Data Set (V2.0)
-      </h2> -->
-
-<div class="nhsuk-grid-column-full nhsuk-u-margin-top-6 ">
 
    <ul class="nhsuk-grid-row nhsuk-card-group ">
 
-
-
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
         href: "performance-by-period",
         primary: "true",
         clickable: "true",
         heading: "Performance by period",
-        headingClasses: "nhsuk-heading-s"
+        headingClasses: "nhsuk-heading-s",
+         descriptionHtml: '<br>Check if organisations are up to date with submissions.'
       }) }}
       </li>
 
@@ -54,9 +51,11 @@
         primary: "true",
         clickable: "true",
         heading: "Data quality",
-        headingClasses: "nhsuk-heading-s"
+        headingClasses: "nhsuk-heading-s",
+         descriptionHtml: '<br>Track how errors and warnings change over time.'
       }) }}
       </li> 
+
 
       <!-- <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
@@ -81,6 +80,58 @@
     </ul>
 
 
+      <hr>  
+<!--       <h2>
+        Diagnostic Imaging Data Set (V2.0)
+      </h2> -->
+
+<div class="nhsuk-grid-column-full nhsuk-u-margin-top-6 ">
+          <div class="nhsuk-table__panel-with-heading-tab">
+            <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>
+            <table class="nhsuk-table-responsive nhsuk-table--sortable">
+              <caption class="nhsuk-table__caption--s nhsuk-u-margin-bottom-5 nhsuk-u-visually-hidden">Next deadlines</caption>
+              <thead class="nhsuk-table__head">
+                <tr role="row" class="nhsuk-table__row">
+                  <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Collection</th>
+                  <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Reporting period</th>
+                  <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Deadline</th>
+                </tr>
+              </thead>
+              <tbody class="nhsuk-table__body">
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-09">September 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-10-31">31 Oct 2026, 11.59.59pm</td>
+                </tr>
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-04">April 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-10-31">31 Oct 2026, 11.59.59pm</td>
+                </tr>
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-05">May 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-11-30">30 Nov 2026, 11.59.59pm</td>
+                </tr>
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-06">June 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-12-31">31 Dec 2026, 11.59.59pm</td>
+                </tr>
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-07">July 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2027-01-31">31 Jan 2027, 11.59.59pm</td>
+                </tr>
+                <tr class="nhsuk-table__row">
+                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
+                  <td class="nhsuk-table__cell" data-sort-value="2026-08">August 2026</td>
+                  <td class="nhsuk-table__cell" data-sort-value="2027-02-28">28 Feb 2027, 11.59.59pm</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="nhsuk-u-margin-top-4">* This deadline table shows only the open submissions.</p>
+          </div>
 
       <hr>  
  </div>    
@@ -96,6 +147,66 @@
 
 {% block scripts %}
 <script>
-
+(function () {
+  function parseValue(text, type, cell) {
+    var t = (text || '').trim();
+    if (cell && cell.hasAttribute('data-sort-value')) {
+      var sortValue = cell.getAttribute('data-sort-value');
+      if (type === 'date') return new Date(sortValue).getTime();
+      return sortValue;
+    }
+    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'date') { var d = Date.parse(t); return isNaN(d) ? t.toLowerCase() : d; }
+    return t.toLowerCase();
+  }
+  function indexOfCell(th) {
+    var cells = Array.prototype.slice.call(th.parentElement.children);
+    var idx = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === th) return idx;
+      idx += cells[i].colSpan || 1;
+    }
+    return -1;
+  }
+  function sortTable(table, colIndex, type, direction) {
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.rows);
+    rows.sort(function (a, b) {
+      var av = parseValue(a.cells[colIndex] && a.cells[colIndex].innerText, type, a.cells[colIndex]);
+      var bv = parseValue(b.cells[colIndex] && b.cells[colIndex].innerText, type, b.cells[colIndex]);
+      if (av < bv) return direction === 'ascending' ? -1 : 1;
+      if (av > bv) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    var frag = document.createDocumentFragment();
+    rows.forEach(function (r) { frag.appendChild(r); });
+    tbody.appendChild(frag);
+  }
+  document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+    var ths = table.tHead ? table.tHead.querySelectorAll('th') : [];
+    ths.forEach(function (th) {
+      var type = th.getAttribute('data-sort') || 'string';
+      if (type === 'none') return;
+      th.setAttribute('aria-sort', 'none');
+      var label = th.textContent.trim();
+      if (!th.querySelector('button')) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nhsuk-table-sort__button';
+        btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>';
+        th.textContent = '';
+        th.appendChild(btn);
+      }
+      th.querySelector('button').addEventListener('click', function () {
+        var current = th.getAttribute('aria-sort');
+        var next = current === 'ascending' ? 'descending' : 'ascending';
+        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', next);
+        sortTable(table, indexOfCell(th), type, next);
+      });
+    });
+  });
+})();
 </script>
 {% endblock %}

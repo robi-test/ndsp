@@ -29,15 +29,14 @@
         <span class="nhsuk-details__summary-text">More about the data on this page</span>
       </summary>
       <div class="nhsuk-details__text">
-        <p><strong>Reporting period</strong><br>The reporting period that the submissions relate to.</p>
-        <p><strong>Submission window end date</strong><br>The date when the submission window closes for that period.</p>
+        <p><strong>Reporting period</strong><br>The period when the activity happened.</p>
         <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
         <p><strong>Total file submitted</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
-        <p><strong>Providers submitted</strong><br>The number of providers that submitted at least one file during the submission window (excluding test files).</p>
-        <p><strong>Providers with successful submission</strong><br>The number of providers that had at least one file successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Organisations with successful submission</strong><br>The number of organisations that had at least one file successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Organisations not submitted</strong><br>The number of organisations that did not have any files successfully accepted during the submission window (excluding test files).</p>
         <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
-        <p><strong>File rejection (%)</strong><br>The percentage of submitted files that were rejected during validation checks (excluding test files).</p>
-        <p><strong>Test submissions</strong><br>The number of submissions identified as test file type.</p>
+        <p><strong>File rejection (%)</strong><br>The number and percentage of submitted files that were rejected during validation checks (excluding test files).</p>
+        <p><strong>Record rejection</strong><br>The number of records that were rejected during validation checks (excluding test files). This includes records in files that have been rejected.</p>
       </div>
     </details>
 
@@ -499,15 +498,24 @@
     var legendHost = document.getElementById('organisations-line-legend');
     if (!chartHost || !legendHost) return;
 
-    // Labels: Nov 2025 → Oct 2026 (oldest to newest, matching table rows reversed)
     var chartLabels = ['Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26'];
-    var chartSeries = [
-      { name: 'Total files submitted',                    color: '#007f3b', values: [176, 184, 195, 222, 278, 199, 209, 195, 199, 218, 278, 357] },
-      { name: 'Organisations with successful submission', color: '#005eb8', values: [235, 235, 235, 235, 231, 235, 235, 233, 235, 235, 235, 221] },
-      { name: 'Organisations not submitted',              color: '#4c6272', values: [0,   0,   0,   0,   4,   0,   0,   2,   0,   0,   0,   14 ] },
-      { name: 'Number of resubmissions',                 color: '#fa9200', values: [120, 121, 133, 130, 134, 134, 132, 133, 134, 134, 134, 118] },
-      { name: 'File rejection',                          color: '#d5281b', values: [28,  33,  29,  51,  39,  20,  33,  39,  28,  22,  42,  96 ] }
-    ];
+
+    var allSeries = {
+      dids: [
+        { name: 'Total files submitted',                    color: '#007f3b', values: [176, 184, 195, 222, 278, 199, 209, 195, 199, 218, 278, 357] },
+        { name: 'Organisations with successful submission', color: '#005eb8', values: [235, 235, 235, 235, 231, 235, 235, 233, 235, 235, 235, 221] },
+        { name: 'Organisations not submitted',              color: '#4c6272', values: [0,   0,   0,   0,   4,   0,   0,   2,   0,   0,   0,   14 ] },
+        { name: 'Number of resubmissions',                 color: '#fa9200', values: [120, 121, 133, 130, 134, 134, 132, 133, 134, 134, 134, 118] },
+        { name: 'File rejection',                          color: '#d5281b', values: [28,  33,  29,  51,  39,  20,  33,  39,  28,  22,  42,  96 ] }
+      ],
+      lcs: [
+        { name: 'Total files submitted',                    color: '#007f3b', values: [15,  17,  20,  18,  25,  21,  19,  22,  24,  27,  31,  38 ] },
+        { name: 'Organisations with successful submission', color: '#005eb8', values: [5,   5,   5,   5,   5,   5,   5,   4,   5,   5,   5,   3  ] },
+        { name: 'Organisations not submitted',              color: '#4c6272', values: [0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0,   2  ] },
+        { name: 'Number of resubmissions',                 color: '#fa9200', values: [2,   3,   4,   3,   5,   4,   3,   4,   5,   4,   6,   8  ] },
+        { name: 'File rejection',                          color: '#d5281b', values: [2,   3,   3,   4,   4,   2,   3,   4,   3,   3,   5,   6  ] }
+      ]
+    };
 
     var width = 1100;
     var height = 420;
@@ -516,8 +524,10 @@
     var plotH = height - margin.top - margin.bottom;
 
     function renderChart() {
+      var sel = document.getElementById('collection-select');
+      var isLCS = sel && sel.value === 'Lung Cancer Screening (LCS)';
       var labels = chartLabels;
-      var series = chartSeries;
+      var series = isLCS ? allSeries.lcs : allSeries.dids;
 
       var allValues = [];
       series.forEach(function(s) { allValues = allValues.concat(s.values); });
@@ -571,6 +581,13 @@
     }
 
     renderChart();
+
+    var sel = document.getElementById('collection-select');
+    if (sel) {
+      sel.addEventListener('change', function() {
+        renderChart();
+      });
+    }
   });
 })();
 </script>
@@ -986,33 +1003,33 @@
 // Collection filter — swap table rows between DIDS and LCS datasets
 (function() {
   var didsData = [
-    { period: 'December 2025',  status: 'Open',   total: '357', providers: '118/357', orgsSuccess: '221/235', orgsNot: '14', fileRej: '96 (26%)',  recRej: 'N/A', link: 'organisation-breakdown' },
-    { period: 'November 2025',  status: 'Open',   total: '278', providers: '134/278', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '42 (15%)',  recRej: 'N/A', link: '#' },
-    { period: 'October 2025',   status: 'Open',   total: '218', providers: '134/218', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '22 (10%)',  recRej: 'N/A', link: '#' },
-    { period: 'September 2025', status: 'Open',   total: '199', providers: '134/199', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '28 (14%)',  recRej: 'N/A', link: '#' },
-    { period: 'August 2025',    status: 'Open',   total: '195', providers: '133/195', orgsSuccess: '233/235', orgsNot: '2',  fileRej: '39 (20%)',  recRej: 'N/A', link: '#' },
-    { period: 'July 2025',      status: 'Open',   total: '209', providers: '132/209', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '33 (16%)',  recRej: 'N/A', link: '#' },
-    { period: 'June 2025',      status: 'Closed', total: '199', providers: '134/199', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '20 (10%)',  recRej: 'N/A', link: '#' },
-    { period: 'May 2025',       status: 'Closed', total: '278', providers: '134/278', orgsSuccess: '231/235', orgsNot: '4',  fileRej: '39 (14%)',  recRej: 'N/A', link: '#' },
-    { period: 'April 2025',     status: 'Closed', total: '222', providers: '130/222', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '51 (23%)',  recRej: 'N/A', link: '#' },
-    { period: 'March 2025',     status: 'Closed', total: '195', providers: '133/195', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '29 (15%)',  recRej: 'N/A', link: '#' },
-    { period: 'February 2025',  status: 'Closed', total: '184', providers: '121/184', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '33 (18%)',  recRej: 'N/A', link: '#' },
-    { period: 'January 2025',   status: 'Closed', total: '176', providers: '120/176', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '28 (16%)',  recRej: 'N/A', link: '#' }
+    { period: 'October 2026',   status: 'Open',   total: '357', orgsSuccess: '221/235', orgsNot: '14', resubmissions: '118/357', fileRej: '96/357 (26%)',  recRej: 'N/A', link: 'organisation-breakdown' },
+    { period: 'September 2026', status: 'Open',   total: '278', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/278', fileRej: '42/278 (15%)',  recRej: 'N/A', link: '#' },
+    { period: 'August 2026',    status: 'Open',   total: '218', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/218', fileRej: '22/218 (10%)',  recRej: 'N/A', link: '#' },
+    { period: 'July 2026',      status: 'Open',   total: '199', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/199', fileRej: '28/199 (14%)',  recRej: 'N/A', link: '#' },
+    { period: 'June 2026',      status: 'Open',   total: '195', orgsSuccess: '233/235', orgsNot: '2',  resubmissions: '133/195', fileRej: '39/195 (20%)',  recRej: 'N/A', link: '#' },
+    { period: 'May 2026',       status: 'Open',   total: '209', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '132/209', fileRej: '33/209 (16%)',  recRej: 'N/A', link: '#' },
+    { period: 'April 2026',     status: 'Closed', total: '199', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/199', fileRej: '20/199 (10%)',  recRej: 'N/A', link: '#' },
+    { period: 'March 2026',     status: 'Closed', total: '278', orgsSuccess: '231/235', orgsNot: '4',  resubmissions: '134/278', fileRej: '39/278 (14%)',  recRej: 'N/A', link: '#' },
+    { period: 'February 2026',  status: 'Closed', total: '222', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '130/222', fileRej: '51/222 (23%)',  recRej: 'N/A', link: '#' },
+    { period: 'January 2026',   status: 'Closed', total: '195', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '133/195', fileRej: '29/195 (15%)',  recRej: 'N/A', link: '#' },
+    { period: 'December 2025',  status: 'Closed', total: '184', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '121/184', fileRej: '33/184 (18%)',  recRej: 'N/A', link: '#' },
+    { period: 'November 2025',  status: 'Closed', total: '176', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '120/176', fileRej: '28/176 (16%)',  recRej: 'N/A', link: '#' }
   ];
 
   var lcsData = [
-    { period: 'December 2025',  status: 'Open',   total: '38', providers: '5/38', orgsSuccess: '3/5', orgsNot: '2', fileRej: '6 (15%)',  recRej: '32', link: '#' },
-    { period: 'November 2025',  status: 'Open',   total: '31', providers: '5/31', orgsSuccess: '5/5', orgsNot: '0', fileRej: '5 (16%)',  recRej: '28', link: '#' },
-    { period: 'October 2025',   status: 'Open',   total: '27', providers: '5/27', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (10%)',  recRej: '35', link: '#' },
-    { period: 'September 2025', status: 'Open',   total: '24', providers: '5/24', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (14%)',  recRej: '40', link: '#' },
-    { period: 'August 2025',    status: 'Open',   total: '22', providers: '4/22', orgsSuccess: '4/5', orgsNot: '1', fileRej: '4 (20%)',  recRej: '27', link: '#' },
-    { period: 'July 2025',      status: 'Open',   total: '19', providers: '5/19', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (16%)',  recRej: '33', link: '#' },
-    { period: 'June 2025',      status: 'Closed', total: '21', providers: '5/21', orgsSuccess: '5/5', orgsNot: '0', fileRej: '2 (10%)',  recRej: '38', link: '#' },
-    { period: 'May 2025',       status: 'Closed', total: '25', providers: '5/25', orgsSuccess: '5/5', orgsNot: '0', fileRej: '4 (14%)',  recRej: '29', link: '#' },
-    { period: 'April 2025',     status: 'Closed', total: '18', providers: '5/18', orgsSuccess: '5/5', orgsNot: '0', fileRej: '4 (23%)',  recRej: '36', link: '#' },
-    { period: 'March 2025',     status: 'Closed', total: '20', providers: '5/20', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (15%)',  recRej: '31', link: '#' },
-    { period: 'February 2025',  status: 'Closed', total: '17', providers: '5/17', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (18%)',  recRej: '25', link: '#' },
-    { period: 'January 2025',   status: 'Closed', total: '15', providers: '5/15', orgsSuccess: '5/5', orgsNot: '0', fileRej: '2 (16%)',  recRej: '22', link: '#' }
+    { period: 'October 2026',   status: 'Open',   total: '38', orgsSuccess: '3/5', orgsNot: '2', resubmissions: '8/38',  fileRej: '6/38 (15%)',  recRej: '32', link: 'organisation-breakdown0LCS' },
+    { period: 'September 2026', status: 'Open',   total: '31', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '6/31',  fileRej: '5/31 (16%)',  recRej: '28', link: '#' },
+    { period: 'August 2026',    status: 'Open',   total: '27', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/27',  fileRej: '3/27 (10%)',  recRej: '35', link: '#' },
+    { period: 'July 2026',      status: 'Open',   total: '24', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '5/24',  fileRej: '3/24 (14%)',  recRej: '40', link: '#' },
+    { period: 'June 2026',      status: 'Open',   total: '22', orgsSuccess: '4/5', orgsNot: '1', resubmissions: '4/22',  fileRej: '4/22 (20%)',  recRej: '27', link: '#' },
+    { period: 'May 2026',       status: 'Open',   total: '19', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/19',  fileRej: '3/19 (16%)',  recRej: '33', link: '#' },
+    { period: 'April 2026',     status: 'Closed', total: '21', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/21',  fileRej: '2/21 (10%)',  recRej: '38', link: '#' },
+    { period: 'March 2026',     status: 'Closed', total: '25', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '5/25',  fileRej: '4/25 (14%)',  recRej: '29', link: '#' },
+    { period: 'February 2026',  status: 'Closed', total: '18', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/18',  fileRej: '4/18 (23%)',  recRej: '36', link: '#' },
+    { period: 'January 2026',   status: 'Closed', total: '20', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/20',  fileRej: '3/20 (15%)',  recRej: '31', link: '#' },
+    { period: 'December 2025',  status: 'Closed', total: '17', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/17',  fileRej: '3/17 (18%)',  recRej: '25', link: '#' },
+    { period: 'November 2025',  status: 'Closed', total: '15', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '2/15',  fileRej: '2/15 (16%)',  recRej: '22', link: '#' }
   ];
 
   function makeTag(status) {
@@ -1027,9 +1044,9 @@
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>' + d.period + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>' + makeTag(d.status) + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>' + d.total + '</td>' +
-        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Providers submitted</span>' + d.providers + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>' + d.orgsSuccess + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>' + d.orgsNot + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>' + d.resubmissions + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>' + d.fileRej + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>' + d.recRej + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="' + d.link + '">View</a></td>' +
