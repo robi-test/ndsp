@@ -1,6 +1,6 @@
 {% extends "iteration4/collection-management/layout-collection-management.html" %}
 
-{% set pageName = "Performance by period" %}
+{% set pageName = "Organisations overview" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
@@ -23,23 +23,7 @@
 
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-l">Performance by period</h1>
-    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
-      <summary class="nhsuk-details__summary">
-        <span class="nhsuk-details__summary-text">More about the data on this page</span>
-      </summary>
-      <div class="nhsuk-details__text">
-        <p><strong>Reporting period</strong><br>The period when the activity happened.</p>
-        <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
-        <p><strong>Total file submitted</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
-        <p><strong>Organisations with successful submission</strong><br>The number of organisations that had at least one file successfully accepted during the submission window (excluding test files).</p>
-        <p><strong>Organisations not submitted</strong><br>The number of organisations that did not have any files successfully accepted during the submission window (excluding test files).</p>
-        <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
-        <p><strong>File rejection (%)</strong><br>The number and percentage of submitted files that were rejected during validation checks (excluding test files).</p>
-        <p><strong>Record rejection</strong><br>The number of records that were rejected during validation checks (excluding test files). This includes records in files that have been rejected.</p>
-      </div>
-    </details>
-
+      <h1 class="nhsuk-heading-l">Organisations overview</h1>
     <!-- Collection and Time Period Filters -->
     <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
       <div class="nhsuk-grid-column-one-half">
@@ -48,7 +32,7 @@
             <strong>Collection</strong>
           </label>
           <div class="nhsuk-hint" id="collection-select-hint">
-            Select a collection to view its performance.
+            Select a collection to view organisations.
           </div>
           <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
             <option value="Diagnostic Imaging Data Set (V2.0)" selected>Diagnostic Imaging Data Set (V2.0)</option>
@@ -57,7 +41,7 @@
         </div>
       </div>
 
-      <div class="nhsuk-grid-column-one-half">
+     <div class="nhsuk-grid-column-one-half">
         <div class="nhsuk-form-group">
           <label class="nhsuk-label" for="time-period-select">
             <strong>Time range</strong>
@@ -66,22 +50,16 @@
             Select a time range.
           </div>
           <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
-            <option value="last-year" selected>Last year</option>
+            <option value="last-three-months" selected>Last three months</option>
+            <option value="last-six-months">Last six months</option>
+            <option value="last-year">Last year</option>
             <option value="last-2-years">Last 2 years</option>
-            <option value="">All</option>
           </select>
         </div>
-      </div>
+      </div> 
     </div>
 
-  <!--   <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8" style="max-width: 560px;">
-      <label class="nhsuk-label" for="performance-year"><strong>Reporting period year</strong></label>
-      <div class="nhsuk-hint" id="performance-year-hint">Choose a reporting period year to view performance data.</div>
-      <select class="nhsuk-select" id="performance-year" name="year" aria-describedby="performance-year-hint">
-        <option value="2025" selected>2025</option>
-        <option value="2024">2024</option>
-      </select>
-    </div> -->  
+
 
     <!-- Tabs navigation -->
     <div class="nhsuk-tabs" data-module="nhsuk-tabs">
@@ -98,212 +76,209 @@
         </li>
       </ul>
 
-      <!-- First tab: Reporting Periods -->
+      <!-- First tab: Tabular data -->
       <div class="nhsuk-tabs__panel" id="periods">
-        
-        <p class="nhsuk-body">Use the filters below to narrow down the submissions shown in the table. You need to click 'Apply filters' to update the results.</p>
+        <p class="nhsuk-body-m nhsuk-u-margin-bottom-2">View submission performance by organisation.</p>
+        <p class="nhsuk-body-m nhsuk-u-margin-bottom-4">Active organisations are those currently enabled to submit data for this collection.</p>
 
         <!-- Table filters -->
-        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter organisations">
           <div class="nhsuk-table-filters__grid">
-
             <div class="nhsuk-form-group">
-              <label class="nhsuk-label" for="filter-period"><strong>Search by period</strong></label>
-              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
-              <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+              <label class="nhsuk-label" for="filter-organisation"><strong>Search by organisation</strong></label>
+              <input class="nhsuk-input" id="filter-organisation" name="filterOrganisation" type="text" placeholder="" autocomplete="off">
+              <div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
             </div>
-
-            <div class="nhsuk-form-group">
-              <label class="nhsuk-label" for="filter-status"><strong>Submission window status</strong></label>
-              <select class="nhsuk-select" id="filter-status" name="status">
-                <option value="">All</option>
-                <option value="Open">Open</option>
-                <option value="Closed">Closed</option>
-              </select>
-            </div>
-
             <div class="nhsuk-table-filters__actions">
-              <button class="nhsuk-button nhsuk-button--small" style="top: 8px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--small" style="top: 15px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 15px;" type="button" data-clear-filters>Clear</button>
             </div>
           </div>
-
-          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
-            <div class="nhsuk-selected__header">
-              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
-              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
-            </div>
-            <div class="nhsuk-selected__row" id="selected-chips"></div>
-          </div>
-
         </form>
-      
-        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
-    <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
-    <thead class="nhsuk-table__head" role="rowgroup">
-      <tr role="row" class="nhsuk-table__row">
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission window status</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total files submitted</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Organisations with successful submission</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Organisations not submitted</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="resubmissions-count">Number of resubmissions</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="record-rejections">Record rejection</th>
-        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Organisation breakdown</th>
-      </tr>
-    </thead>
-    <tbody class="nhsuk-table__body">
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>357</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>221/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>14/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>118/357</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>96/357 (26%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="organisation-breakdown">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/278</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>42/278 (15%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>218</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/218</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>22/218 (10%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/199</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>28/199 (14%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>233/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>2/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>133/195</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>39/195 (20%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>209</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>132/209</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>33/209 (16%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/199</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>20/199 (10%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>231/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>4/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/278</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>39/278 (14%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>222</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>130/222</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>51/222 (23%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>Januuary 2026</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>133/195</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>29/195 (15%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>184</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>121/184</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>33/209 (16%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-      <tr class="nhsuk-table__row" role="row">
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>176</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>120/176</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>28/176 (16%)</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
-        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
-      </tr>
-    </tbody>
-  </table>
 
-      <!--   <div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; margin-bottom: 24px; gap: 12px; flex-wrap: wrap;">
-          <nav id="submissions-pagination" class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
-            <ul id="pagination-list" class="nhsuk-list nhsuk-pagination__list"></ul>
+        <table id="organisations-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Organisations Overview</caption>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name">Organisation</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions">Total submissions</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last submission</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="periods-submitted">Valid submissions (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Files rejected (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="records-rejected">Records rejected (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>124</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>15 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Valid submissions (%)</span>92%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Files rejected (%)</span>25%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>119</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>16 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions</span>88%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>16%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>122</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>14 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>100%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>9%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>18</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>10 Oct 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>65%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>38%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>127</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>13 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>96%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>11%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>121</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>18 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>85%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>12%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>118</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>12 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>78%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>14%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>125</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>17 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>94%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>8%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>123</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>19 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>90%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>13%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="dids">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>126</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>20 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>98%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>7%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>38</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>18 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>95%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>6%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>County Durham and Darlington NHS Foundation Trust (RTC)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>31</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>15 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>88%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>12%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>27</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>12 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>82%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>18%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>South Tyneside and Sunderland NHS Foundation Trust (R0B)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>24</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>10 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>91%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>9%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>InHealth - Circle Ross Hall Clinic (M3V1E)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>22</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>19 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>77%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>22%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div id="table-pagination-row" class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+          <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+            <ul class="nhsuk-list nhsuk-pagination__list">
+              <li class="nhsuk-pagination__item--current">
+                <a class="nhsuk-pagination__link" href="?page=1">1</a>
+              </li>
+            </ul>
           </nav>
-          <p id="results-count" class="results-count-align-right" style="margin: 0;">Showing 1 to 10 of 12 results</p>
-        </div> -->
-
-        <!-- Second tab: Organisations -->
- <!-- <p>*All submissions in this period, including successful, rejected, and resubmitted data. Test files are not included.<br>
-          **Number of providers with at least one successful submission in this period.<br>
-          ***Number of resubmissions in this period based only on valid submissions.</p> -->
+          <p class="results-count-align-right" style="margin: 0;">Showing <strong>1</strong> to <strong>10</strong> of <strong>10</strong> results</p>
+        </div>
 
       </div>
 
-      <!-- Second tab: Organisations -->
-      <div class="nhsuk-tabs__panel" id="organisations">
+      <!-- Second tab: Chart -->
+      <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="organisations">
         <h2 class="nhsuk-heading-m">Submission performance</h2>
         <p class="nhsuk-body-m">Last 12 months trend for total files submitted, organisations with successful submission, organisations not submitted, number of resubmissions, and file rejection.</p>
         <div id="organisations-line-chart" class="org-line-chart" aria-label="Line chart for organisation metrics over last 12 months"></div>
@@ -466,46 +441,67 @@
     border-radius: 2px;
     display: inline-block;
   }
-
-  .chart-tooltip {
-    position: fixed;
-    background: #212b32;
-    color: #fff;
-    border-radius: 4px;
-    padding: 10px 14px;
-    font-size: 14px;
-    line-height: 1.4;
-    pointer-events: none;
-    z-index: 200;
-    min-width: 220px;
-    display: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
-  }
-
-  .chart-tooltip__title {
-    font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 6px;
-  }
-
-  .chart-tooltip__row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 4px;
-  }
-
-  .chart-tooltip__swatch {
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
 </style>
 
 {% endblock %}
 
 {% block scripts %}
+<script>
+(function(){
+  // Show/hide table rows and update results count based on collection filter
+  document.addEventListener('DOMContentLoaded', function() {
+    var sel = document.getElementById('collection-select');
+    var countEl = document.querySelector('.results-count-align-right');
+    var tableWrapper = document.querySelector('#periods .nhsuk-table-responsive');
+    var paginationRow = document.getElementById('table-pagination-row');
+
+    // Create spinner overlay
+    var spinner = document.createElement('div');
+    spinner.setAttribute('aria-live', 'polite');
+    spinner.setAttribute('aria-label', 'Loading');
+    spinner.style.cssText = 'display:none;position:relative;text-align:center;padding:32px 0;';
+    spinner.innerHTML = '<div role="status" style="display:inline-block;width:40px;height:40px;border:4px solid #d8dde0;border-top-color:#005eb8;border-radius:50%;animation:spin 0.7s linear infinite;"></div>';
+    if (tableWrapper) tableWrapper.parentNode.insertBefore(spinner, tableWrapper);
+
+    // Inject keyframes once
+    if (!document.getElementById('spinner-keyframes')) {
+      var style = document.createElement('style');
+      style.id = 'spinner-keyframes';
+      style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(style);
+    }
+
+    function filterByCollection() {
+      // Show spinner, hide table
+      if (tableWrapper) tableWrapper.style.display = 'none';
+      spinner.style.display = 'block';
+
+      setTimeout(function() {
+        var isLCS = sel && sel.value === 'Lung Cancer Screening (LCS)';
+        var key = isLCS ? 'lcs' : 'dids';
+        var rows = document.querySelectorAll('#organisations-table tbody tr[data-collection]');
+        var visible = 0;
+        rows.forEach(function(row) {
+          var show = row.getAttribute('data-collection') === key;
+          row.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (countEl) {
+          countEl.innerHTML = 'Showing <strong>1</strong> to <strong>' + visible + '</strong> of <strong>' + visible + '</strong> results';
+        }
+        // Hide spinner, show table
+        spinner.style.display = 'none';
+        if (tableWrapper) tableWrapper.style.display = '';
+        if (paginationRow) paginationRow.style.display = isLCS ? 'none' : 'flex';
+      }, 600);
+    }
+
+    if (sel) sel.addEventListener('change', filterByCollection);
+    filterByCollection();
+  });
+})();
+</script>
+
 <script>
 (function(){
   // Toggle expander text between 'Show filters' and 'Hide filters'
@@ -533,136 +529,101 @@
     var legendHost = document.getElementById('organisations-line-legend');
     if (!chartHost || !legendHost) return;
 
-    var tooltip = document.getElementById('perf-chart-tooltip');
-    if (!tooltip) {
-      tooltip = document.createElement('div');
-      tooltip.id = 'perf-chart-tooltip';
-      tooltip.className = 'chart-tooltip';
-      document.body.appendChild(tooltip);
-    }
+    var chartLabels = ['Circle Health', 'Healthshare', 'Alliance Medical', 'Barking', 'Barts Health', 'Chelsea & West.', 'Croydon', 'Epsom & St Helier', 'Great Ormond St', "Guy's & St Thomas'"];
 
-    var chartLabels = ['Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26'];
+    var chartSeries = [
+      { name: 'Total submissions',                   color: '#007f3b', values: [124, 119, 122, 18,  127, 121, 118, 125, 123, 126] },
+      { name: 'Avg valid submissions per period (%)', color: '#005eb8', values: [92,  88,  100, 65,  96,  85,  78,  94,  90,  98 ] },
+      { name: 'Avg errors per period (%)',            color: '#d5281b', values: [25,  16,  9,   38,  11,  12,  14,  8,   13,  7  ] }
+    ];
 
-    var allSeries = {
-      dids: [
-        { name: 'Total files submitted',                    color: '#007f3b', dash: '',          values: [176, 184, 195, 222, 278, 199, 209, 195, 199, 218, 278, 357] },
-        { name: 'Organisations with successful submission', color: '#005eb8', dash: '8,4',       values: [235, 235, 235, 235, 231, 235, 235, 233, 235, 235, 235, 221] },
-        { name: 'Organisations not submitted',              color: '#4c6272', dash: '3,4',       values: [0,   0,   0,   0,   4,   0,   0,   2,   0,   0,   0,   14 ] },
-        { name: 'Number of resubmissions',                 color: '#fa9200', dash: '2,6',       linecap: 'round', values: [120, 121, 133, 130, 134, 134, 132, 133, 134, 134, 134, 118] },
-        { name: 'File rejection',                          color: '#d5281b', dash: '14,4',      values: [28,  33,  29,  51,  39,  20,  33,  39,  28,  22,  42,  96 ] }
-      ],
-      lcs: [
-        { name: 'Total files submitted',                    color: '#007f3b', dash: '',          values: [15,  17,  20,  18,  25,  21,  19,  22,  24,  27,  31,  38 ] },
-        { name: 'Organisations with successful submission', color: '#005eb8', dash: '8,4',       values: [5,   5,   5,   5,   5,   5,   5,   4,   5,   5,   5,   3  ] },
-        { name: 'Organisations not submitted',              color: '#4c6272', dash: '3,4',       values: [0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0,   2  ] },
-        { name: 'Number of resubmissions',                 color: '#fa9200', dash: '2,6',       linecap: 'round', values: [2,   3,   4,   3,   5,   4,   3,   4,   5,   4,   6,   8  ] },
-        { name: 'File rejection',                          color: '#d5281b', dash: '14,4',      values: [2,   3,   3,   4,   4,   2,   3,   4,   3,   3,   5,   6  ] }
-      ]
-    };
+    var lcsChartLabels = ['N. Cumbria IC (RNN)', 'Durham & Darlington (RTC)', 'Northumbria HC (RTF)', 'S. Tyneside & Sund. (R0B)', 'InHealth Ross Hall (M3V1E)'];
 
-    var width = 1100;
-    var height = 420;
-    var margin = { top: 20, right: 20, bottom: 80, left: 64 };
-    var plotW = width - margin.left - margin.right;
-    var plotH = height - margin.top - margin.bottom;
+    var lcsChartSeries = [
+      { name: 'Total submissions',                   color: '#007f3b', values: [38,  31,  27,  24,  22 ] },
+      { name: 'Avg valid submissions per period (%)', color: '#005eb8', values: [95,  88,  82,  91,  77 ] },
+      { name: 'Avg errors per period (%)',            color: '#d5281b', values: [6,   12,  18,  9,   22 ] }
+    ];
+
+    var width = 900;
+    var margin = { top: 20, right: 30, bottom: 50, left: 200 };
 
     function renderChart() {
       var sel = document.getElementById('collection-select');
       var isLCS = sel && sel.value === 'Lung Cancer Screening (LCS)';
-      var labels = chartLabels;
-      var series = isLCS ? allSeries.lcs : allSeries.dids;
+      var labels = isLCS ? lcsChartLabels : chartLabels;
+      var series = isLCS ? lcsChartSeries : chartSeries;
+      var nOrgs = labels.length;
+      var height = margin.top + margin.bottom + nOrgs * 70;
+      var plotW = width - margin.left - margin.right;
+      var plotH = height - margin.top - margin.bottom;
+      var nSeries = series.length;
 
       var allValues = [];
       series.forEach(function(s) { allValues = allValues.concat(s.values); });
-      var maxY = Math.max.apply(null, allValues);
-      var roundedMaxY = Math.ceil(maxY / 20) * 20;
+      var maxVal = Math.max.apply(null, allValues);
+      var roundedMax = Math.ceil(maxVal / 20) * 20;
 
-      function xAt(index) {
-        return margin.left + (index * (plotW / (labels.length - 1)));
+      // Each org band height
+      var bandH = plotH / nOrgs;
+      // Bars per band with small padding
+      var barPad = 4;
+      var barH = Math.floor((bandH - barPad * (nSeries + 1)) / nSeries);
+
+      function xAt(value) {
+        return margin.left + (value / roundedMax) * plotW;
       }
 
-      function yAt(value) {
-        return margin.top + plotH - ((value / roundedMaxY) * plotH);
+      function yBand(orgIndex) {
+        return margin.top + orgIndex * bandH;
       }
 
       var svg = [];
-      svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics line chart">');
+      svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics chart">');
 
+      // Vertical grid lines
       for (var t = 0; t <= 5; t++) {
-        var yVal = Math.round((roundedMaxY / 5) * t);
-        var y = yAt(yVal);
-        svg.push('<line x1="' + margin.left + '" y1="' + y + '" x2="' + (margin.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" />');
-        svg.push('<text x="' + (margin.left - 8) + '" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="#4c6272">' + yVal + '</text>');
+        var xVal = Math.round((roundedMax / 5) * t);
+        var xPos = xAt(xVal);
+        svg.push('<line x1="' + xPos + '" y1="' + margin.top + '" x2="' + xPos + '" y2="' + (margin.top + plotH) + '" stroke="#d8dde0" stroke-width="1" />');
+        svg.push('<text x="' + xPos + '" y="' + (margin.top + plotH + 18) + '" text-anchor="middle" font-size="12" fill="#4c6272">' + xVal + '</text>');
       }
 
-      svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      // Axes
       svg.push('<line x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
 
+      // Bars and org labels
       labels.forEach(function(label, i) {
-        var x = xAt(i);
-        svg.push('<line x1="' + x + '" y1="' + (margin.top + plotH) + '" x2="' + x + '" y2="' + (margin.top + plotH + 6) + '" stroke="#212b32" stroke-width="1" />');
-        svg.push('<text x="' + x + '" y="' + (margin.top + plotH + 22) + '" text-anchor="middle" font-size="12" fill="#212b32">' + label + '</text>');
-      });
-
-      series.forEach(function(s) {
-        var pts = s.values.map(function(v, i) { return xAt(i) + ',' + yAt(v); }).join(' ');
-        var dashAttr = s.dash ? ' stroke-dasharray="' + s.dash + '"' : '';
-        var capAttr = s.linecap ? ' stroke-linecap="' + s.linecap + '"' : '';
-        svg.push('<polyline fill="none" stroke="' + s.color + '" stroke-width="3"' + dashAttr + capAttr + ' points="' + pts + '" />');
-        s.values.forEach(function(v, i) {
-          svg.push('<circle cx="' + xAt(i) + '" cy="' + yAt(v) + '" r="3" fill="' + s.color + '" />');
+        var bandTop = yBand(i);
+        var bandMid = bandTop + bandH / 2;
+        // Org label on Y axis
+        svg.push('<text x="' + (margin.left - 8) + '" y="' + (bandMid + 4) + '" text-anchor="end" font-size="12" fill="#212b32">' + label + '</text>');
+        // Subtle row stripe
+        if (i % 2 === 0) {
+          svg.push('<rect x="' + margin.left + '" y="' + bandTop + '" width="' + plotW + '" height="' + bandH + '" fill="#f0f4f5" />');
+        }
+        // Bars for each series
+        series.forEach(function(s, si) {
+          var barY = bandTop + barPad * (si + 1) + barH * si;
+          var barW = Math.max(0, xAt(s.values[i]) - margin.left);
+          svg.push('<rect x="' + margin.left + '" y="' + barY + '" width="' + barW + '" height="' + barH + '" fill="' + s.color + '" />');
+          // Value label at end of bar
+          if (s.values[i] > 0) {
+            svg.push('<text x="' + (margin.left + barW + 4) + '" y="' + (barY + barH - 3) + '" font-size="11" fill="#212b32">' + s.values[i] + '</text>');
+          }
         });
       });
 
-      svg.push('<text x="' + (margin.left + (plotW / 2)) + '" y="' + (height - 20) + '" text-anchor="middle" font-size="13" fill="#212b32">Month</text>');
-      svg.push('<text x="20" y="' + (margin.top + (plotH / 2)) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 20 ' + (margin.top + (plotH / 2)) + ')">Count</text>');
+      // Axis labels
+      svg.push('<text x="' + (margin.left + plotW / 2) + '" y="' + (height - 8) + '" text-anchor="middle" font-size="13" fill="#212b32">Count / %</text>');
+      svg.push('<text x="' + (margin.left / 2) + '" y="' + (margin.top + plotH / 2) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 ' + (margin.left / 2) + ' ' + (margin.top + plotH / 2) + ')">Organisation</text>');
       svg.push('</svg>');
 
       chartHost.innerHTML = svg.join('');
 
-      var svgEl = chartHost.querySelector('svg');
-      if (svgEl) {
-        svgEl.addEventListener('mousemove', function(e) {
-          var rect = svgEl.getBoundingClientRect();
-          var svgScale = rect.width / width;
-          var mouseX = (e.clientX - rect.left) / svgScale;
-          if (mouseX < margin.left - 20 || mouseX > margin.left + plotW + 20) {
-            tooltip.style.display = 'none';
-            return;
-          }
-          var nearest = 0;
-          var minDist = Infinity;
-          labels.forEach(function(lbl, i) {
-            var dist = Math.abs(mouseX - xAt(i));
-            if (dist < minDist) { minDist = dist; nearest = i; }
-          });
-          var fullLabel = labels[nearest].replace(/ (\d{2})$/, function(m, y) { return ' 20' + y; });
-          var html = '<div class="chart-tooltip__title">' + fullLabel + '</div>';
-          series.forEach(function(s) {
-            html += '<div class="chart-tooltip__row">';
-            html += '<span class="chart-tooltip__swatch" style="background:' + s.color + ';"></span>';
-            html += s.name + ': <strong>' + s.values[nearest] + '</strong>';
-            html += '</div>';
-          });
-          tooltip.innerHTML = html;
-          tooltip.style.display = 'block';
-          var tx = e.clientX + 16;
-          var ty = e.clientY - 16;
-          if (tx + 250 > window.innerWidth) { tx = e.clientX - 266; }
-          if (ty + tooltip.offsetHeight > window.innerHeight) { ty = window.innerHeight - tooltip.offsetHeight - 8; }
-          tooltip.style.left = tx + 'px';
-          tooltip.style.top = ty + 'px';
-        });
-        svgEl.addEventListener('mouseleave', function() {
-          tooltip.style.display = 'none';
-        });
-      }
-
       legendHost.innerHTML = series.map(function(s) {
-        var dashAttr = s.dash ? ' stroke-dasharray="' + s.dash + '"' : '';
-        var capAttr = s.linecap ? ' stroke-linecap="' + s.linecap + '"' : '';
-        var swatch = '<svg width="32" height="12" viewBox="0 0 32 12" style="vertical-align:middle;margin-right:6px;"><line x1="0" y1="6" x2="32" y2="6" stroke="' + s.color + '" stroke-width="3"' + dashAttr + capAttr + '/></svg>';
-        return '<span class="org-line-legend__item">' + swatch + s.name + '</span>';
+        return '<span class="org-line-legend__item"><span class="org-line-legend__swatch" style="background:' + s.color + ';"></span>' + s.name + '</span>';
       }).join('');
     }
 
