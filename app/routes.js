@@ -104,7 +104,17 @@ router.post('/iteration3/data-submission/choose-period', (req, res) => {
   res.redirect('/iteration3/data-submission/upload-file1');
 });
 
+router.post('/iteration4/data-submission/choose-period', (req, res) => {
+  req.session.data['period'] = req.session.data['period'];
+  res.redirect('/iteration4/data-submission/upload-file1');
+});
 
+router.post('/iteration4/data-submission-LCS/choose-period', (req, res) => {
+  req.session.data['collection'] = 'Lung Cancer Screening Data Set (LCSDS)';
+  req.session.data['organisation'] = 'North Cumbria Integrated Care (RNL)';
+  req.session.data['period'] = req.session.data['period'];
+  res.redirect('/iteration4/data-submission-LCS/upload-file1');
+});
 
 router.post("/iteration1/permission-management/existing-local-admin/select-role", (req, res) => {
   const role = req.session.data.role;
@@ -275,5 +285,7 @@ router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-co
   // Redirect back to the details page
   res.redirect("/iteration1/permission-management/no-existing-local-admin/submitter2-terms");
 });
+
+
  
 module.exports = router;

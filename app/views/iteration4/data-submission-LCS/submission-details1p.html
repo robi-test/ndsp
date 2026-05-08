@@ -1,4 +1,4 @@
-{% extends "iteration3/data-submission/layout.html" %}
+{% extends "iteration4/data-submission-LCS/layout.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 {% set pageName = "Submission details" %}
@@ -13,7 +13,7 @@
       text: "Home"
     }
   ],
-  href: "submissions",
+  href: "submissions4",
   text: "Submissions"
 }) }}
 {% endblock %}
@@ -32,11 +32,11 @@
               rows: [
                 {
                   key: { text: "Collection" },
-                  value: { text: "Diagnostic Imaging Data Set  (DIDS v2.0)" }
+                  value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
                 },
                 {
                   key: { text: "Organisation" },
-                  value: { text: "Sheffield Teaching Hospital" }
+                  value: { text: "North Cumbria Integrated Care (RNN)" }
                 },
                 {
                   key: { text: "Reporting period" },
@@ -44,7 +44,7 @@
                 },
                 {
                   key: { text: "File submitted" },
-                  value: { text: "DID_SepProv4_2026_2.xml" },
+                  value: { text: "LCS_SepProv4_2026_2.xml" },
                   actions: {
                     items: [
                       {
