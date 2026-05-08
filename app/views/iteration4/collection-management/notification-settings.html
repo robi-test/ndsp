@@ -25,19 +25,16 @@
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        
-      <span class="nhsuk-caption-l">Diagnostic Imaging Data Set (DIDS v2.0)</span>
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
-        <div class="nhsuk-u-margin-bottom-6"> 
-           <div class="nhsuk-u-margin-bottom-6"> 
-          <p>Choose which email notifications you want to receive from the National Data Submission Portal.
-You can turn notifications on or off at any time. Some essential service emails will always be sent.
-          </p>
+        <div class="nhsuk-u-margin-bottom-8"> 
+           <div class="nhsuk-u-margin-bottom-8"> 
+
 
           {% from "summary-list/macro.njk" import summaryList %}
           {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0">Notification summary</h2>
-            <a href="notification-settings-edit" class="nhsuk-link">Change notification setting</a>
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
+            <a href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
           {{ summaryList({
             classes: "notification-summary-list",
@@ -107,5 +104,22 @@ You can turn notifications on or off at any time. Some essential service emails 
     text-align: right;
     white-space: nowrap;
   }
+  .nhsuk-summary-list__key {
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+@media (min-width: 40.0625em) {
+    .nhsuk-summary-list__key, .nhsuk-summary-list__value, .nhsuk-summary-list__actions {
+        display: table-cell;
+        padding-bottom: 14px;
+        padding-right: 24px;
+        padding-top: 14px;
+    }
+}
+
+a {
+  font-size: 20px;
+}
 </style>
 {% endblock %}
