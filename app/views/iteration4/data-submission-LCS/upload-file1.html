@@ -121,7 +121,7 @@
 
             <div class="nhsuk-u-margin-top-7">
               <h2 class="nhsuk-heading-m" style="clear: both;">Choose file to upload</h2>
-              <p class="nhsuk-hint">Only .csv and .xml files are accepted. The maximum file size is 6Gb.</p>
+              <p class="nhsuk-hint">Only .xml files are accepted. The maximum file size is 6Gb.</p>
             </div>   
 
            <!--  <p>You can add more than one file. Only .csv, .xlsx and .txt files are accepted. <br></p>
@@ -152,7 +152,7 @@
                   <li id="files-list-empty">No file added yet</li>
                 </ul>
               </div>
-              <input id="file-input" name="files" type="file" single hidden accept=".csv,.xlm">
+              <input id="file-input" name="files" type="file" single hidden accept=".xml">
                </label> <span class="nhsuk-error-message" id="name-error">
                 
               </div>
@@ -233,7 +233,7 @@ You must upload the file again when you are ready to make your official submissi
           if (existing.name === file.name && existing.size === file.size) return;
         }
         // Only accept .csv, .xlsx, .txt files
-        if (matchesAccept(file, ".csv,.xlsx,.txt")) {
+        if (matchesAccept(file, ".xml")) {
           store.items.add(file);
           added++;
         }
@@ -303,7 +303,7 @@ You must upload the file again when you are ready to make your official submissi
     });
 
     var MAX_MB = "";//{ maxMb | default(10) };
-    var accept = '.csv,.xlsx,.txt';
+    var accept = '.xml';
 
     form.addEventListener('submit', function (e) {
       var tooBig = false, badType = false;
