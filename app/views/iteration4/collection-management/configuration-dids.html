@@ -41,15 +41,16 @@
       }) }}
       </li>
 
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-       {{ card({
-        href: "providers",
+         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+           {{ card({
+        href: "notification-settings",
         primary: "true",
         clickable: "true",
-        heading: "Submitting organisations",
+        heading: "Manage notifications",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
+
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
@@ -71,15 +72,24 @@
       </li>
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-           {{ card({
-        href: "notification-settings",
+       {{ card({
+        href: "providers",
         primary: "true",
         clickable: "true",
-        heading: "Manage notifications",
+        heading: "Manage regions",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
-
+      
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "providers",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage organisations",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
 
 
     </ul>

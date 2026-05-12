@@ -331,6 +331,21 @@ document.addEventListener('DOMContentLoaded', function() {
       // Make the entire header cell focusable and keyboard accessible
       th.style.cursor = 'pointer'
     })
+
+    // Default sort: Start date descending
+    var startDateTh = Array.prototype.find.call(ths, function(th) {
+      return th.textContent.trim().toLowerCase().indexOf('start date') !== -1
+    })
+    if (startDateTh) {
+      // Reset all columns to none, then set this one to descending
+      startDateTh.parentElement.querySelectorAll('th[aria-sort]').forEach(function(t) {
+        t.setAttribute('aria-sort', 'none')
+      })
+      startDateTh.setAttribute('aria-sort', 'descending')
+      var colIndex = indexOfCell(startDateTh)
+      var type = startDateTh.getAttribute('data-sort') || 'string'
+      sortTable(table, colIndex, type, 'descending')
+    }
   })
 })
 </script>

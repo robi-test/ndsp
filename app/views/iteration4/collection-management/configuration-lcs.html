@@ -9,6 +9,10 @@
     {
       href: "home",
       text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections setup"
     }
   ]
 }) }}
@@ -17,73 +21,78 @@
 <div class="nhsuk-grid-row">
    <div class="nhsuk-u-margin-top-2">
       <h1 class="nhsuk-heading-l">
-         Monitoring
+         Lung Cancer Screening Data Set
       </h1>
 
       <p>
-         
+         Select a configuration option for the Lung Cancer Screening Data Set.
       </p>
   {% from "card/macro.njk" import card %}
 
     <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
 
-<!--       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "submissions",
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "collection-setup",
         primary: "true",
         clickable: "true",
-        heading: "Submissions",
+        heading: "General configuration",
         headingClasses: "nhsuk-heading-s"
       }) }}
-      </li> -->
+      </li>
+
+         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+           {{ card({
+        href: "notification-settings",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage notifications",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
-        href: "performance-by-period",
+        href: "reporting-periods/periods",
         primary: "true",
         clickable: "true",
-        heading: "Performance by period",
+        heading: "Reporting periods",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "reporting-periods/submission-windows",
+        primary: "true",
+        clickable: "true",
+        heading: "Submission windows",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "submitting-organisations",
+       {{ card({
+        href: "lcs-region",
         primary: "true",
         clickable: "true",
-        heading: "Performance by organisations",
+        heading: "Manage grouping",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
-
+      
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-      {{ card({
-        href: "data-quality/summary0",
+       {{ card({
+        href: "lcs-organisations",
         primary: "true",
         clickable: "true",
-        heading: "Errors overview",
+        heading: "Manage organisations",
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
- 
-</ul>
-     <hr>  
-     
-  <ul class="nhsuk-grid-row nhsuk-card-group">
-  <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
-    <div class="nhsuk-card nhsuk-card--clickable nhsuk-card--secondary">
-      <div class="nhsuk-card__content">
-        <h2 class="nhsuk-card__heading nhsuk-heading-m">
-          <a class="nhsuk-card__link" href="organisations-list">Organisations details</a>
-        </h2>
-        <p class="nhsuk-card__description">View organisations you have permission to view and access detailed information, including users and roles.</p>
-      </div>
-    </div>
 
-  </li>
-</ul>
-  
+
+    </ul>
      
   </div>
 </div>

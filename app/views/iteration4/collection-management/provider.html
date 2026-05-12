@@ -1,4 +1,4 @@
-{% extends "iteration2/collection-management/layout-collection-management.html" %}
+{% extends "iteration4/collection-management/layout-collection-management.html" %}
 
       <h1 class="nhsuk-heading-m">Circle Health Group Limited</h1>
       <h1 class="nhsuk-heading-m">Circle Health Group Limited</h1>
@@ -6,10 +6,22 @@
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
-  {{ backLink({
-    href:  "javascript:history.back()",
-    text: "Back"
-  }) }}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "monitoring",
+      text: "Monitoring"
+    },
+    {
+      href: "organiisations-list",
+      text: "Organisations details"
+    }
+  ]
+}) }}
 {% endblock %}
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
@@ -22,7 +34,7 @@
               rows: [
                 {
                   key: { text: "Organisation" },
-                  value: { text: "Circle Health Group Limited" }
+                  value: { text: "Alliance Medical" }
                 },
                 {
                   key: { text: "ODS code" },
@@ -30,7 +42,7 @@
                 },
                {
                   key: { text: "Region" },
-                  value: { text: "-" }
+                  value: { text: "Y56" }
                 },
                {
                   key: { text: "Staus" },
@@ -57,19 +69,19 @@
         <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Full name</span>James Jackson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>james.jackson@circlehealth.co.uk</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>james.jackson@alliancemedical.co.uk</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Full name</span>Priya Sharma</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>priya.sharma@circlehealth.co.uk</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>priya.sharma@alliancemedical.co.uk</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Local administrator</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Full name</span>Hannah Patel</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>hannah.patel@circlehealth.co.uk</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>hannah.patel@alliancemedical.co.uk</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Not active", classes: "nhsuk-tag--red"}) }}</td>
           </tr>
@@ -392,4 +404,14 @@ sortTable(table, colIndex, type, next)
 })
 })()
 </script>
+<style>
+@media (min-width: 40.0625em) {
+    th, td {
+        font-size: 18px;
+        font-size: 1.2rem !important;
+        line-height: 1.47368;
+    }
+}
+
+</style>
 {% endblock %}
