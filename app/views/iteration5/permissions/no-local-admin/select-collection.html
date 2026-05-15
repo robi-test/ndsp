@@ -1,0 +1,70 @@
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% set pageName = "Select the collection" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    
+{% from 'radios/macro.njk' import radios %}
+
+<form action="/iteration1/permission-management/no-existing-local-admin/select-collection" method="post" class="form">
+{{ radios({
+  idPrefix: "collections",
+  name: "collections",
+  fieldset: {
+    legend: {
+      text: "Which collection do you want permissions for?",
+      classes: "nhsuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  },
+   hint: {
+    text: "Select the collection you need permissions for. "
+  },
+   values: data.collection,
+  items: [
+    {
+      value: "Diagnostic Imaging Data Set (DIDS)",
+      text: "Diagnostic Imaging Data Set (DIDS)"
+    }
+  ]
+}) }}
+
+</form>
+<p class="nhsuk-u-margin-top-2">Note: At this time, only one collection is available through this portal.</p>
+ <button id="continue-to-organisation" onclick="location='select-organisation'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="select-collection-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const continueButton = document.getElementById('continue-to-organisation');
+  if (!continueButton) {
+    return;
+  }
+
+  continueButton.addEventListener('click', function () {
+    const selected = document.querySelector('input[name="collections"]:checked');
+    if (selected && selected.value) {
+      sessionStorage.setItem('summary.collections', selected.value);
+    }
+  });
+});
+</script>
+{% endblock %}

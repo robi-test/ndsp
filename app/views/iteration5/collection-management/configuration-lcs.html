@@ -1,0 +1,105 @@
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections setup"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+         Lung Cancer Screening Data Set
+      </h1>
+
+      <p>
+         Select a configuration option for the Lung Cancer Screening Data Set.
+      </p>
+  {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "collection-setup",
+        primary: "true",
+        clickable: "true",
+        heading: "General configuration",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+           {{ card({
+        href: "notification-settings",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage notifications",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "reporting-periods/periods",
+        primary: "true",
+        clickable: "true",
+        heading: "Reporting periods",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "reporting-periods/submission-windows",
+        primary: "true",
+        clickable: "true",
+        heading: "Submission windows",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "lcs-region",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage grouping",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+      
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "lcs-organisations",
+        primary: "true",
+        clickable: "true",
+        heading: "Manage organisations",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
+
+    </ul>
+     
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

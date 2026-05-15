@@ -1,4 +1,4 @@
-{% extends "iteration4/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
 {% set pageName = "Organisations overview" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -22,7 +22,7 @@
 
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-l">Organisations overview</h1>
+      <h1 class="nhsuk-heading-l">Performance by organisation</h1>
     <!-- Collection and Time Period Filters -->
     <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
       <div class="nhsuk-grid-column-one-half">
@@ -35,7 +35,7 @@
           </div>
           <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
             <option value="Diagnostic Imaging Data Set (V2.0)" selected>Diagnostic Imaging Data Set (V2.0)</option>
-            <!-- <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option> -->
+            <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option>
           </select>
         </div>
       </div>
@@ -65,7 +65,7 @@
       <h2 class="nhsuk-tabs__title">Contents</h2>
       <ul class="nhsuk-tabs__list">
         <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
-          <a class="nhsuk-tabs__tab" href="#periods">Performance</a>
+          <a class="nhsuk-tabs__tab" href="#periods">Tabular data</a>
         </li>
         <li class="nhsuk-tabs__list-item">
           <a class="nhsuk-tabs__tab" href="#organisations">Chart</a>
@@ -90,8 +90,8 @@
               <div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
             </div>
             <div class="nhsuk-table-filters__actions">
-              <button class="nhsuk-button nhsuk-button--small" style="top: 5px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
-              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 5px;" type="button" data-clear-filters>Clear</button>
+              <button class="nhsuk-button nhsuk-button--small" style="top: 15px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 15px;" type="button" data-clear-filters>Clear</button>
             </div>
           </div>
         </form>
@@ -101,119 +101,151 @@
           <thead class="nhsuk-table__head" role="rowgroup">
             <tr role="row" class="nhsuk-table__row">
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name">Organisation</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Status</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions">Total submissions</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last successful submission date</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last submission</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="periods-submitted">Valid submissions (%)</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Average validation errors per submission</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Files rejected (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="records-rejected">Records rejected (%)</th>
             </tr>
           </thead>
           <tbody class="nhsuk-table__body">
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>124</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>15 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>15 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Valid submissions (%)</span>92%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>18</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Files rejected (%)</span>25%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>119</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>16 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>16 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions</span>88%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>14</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>16%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>122</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>14 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>14 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>100%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>7</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>9%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>18</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>10 Oct 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>10 Oct 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>65%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>27</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>38%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>127</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>13 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>13 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>96%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>9</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>11%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>121</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>18 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>18 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>85%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>11</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>12%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>118</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>12 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>12 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>78%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>12</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>14%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>125</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>17 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>94%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>6</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>8%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>123</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>19 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>19 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>90%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>10</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>13%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>126</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>20 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>20 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>98%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>5</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>7%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>38</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>18 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>18 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>95%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>4</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>6%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>County Durham and Darlington NHS Foundation Trust (RTC)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>31</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>15 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>15 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>88%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>10</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>12%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>27</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>12 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>12 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>82%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>16</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>18%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
 
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>South Tyneside and Sunderland NHS Foundation Trust (R0B)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>24</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>10 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>10 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>91%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>8</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>9%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
 
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>InHealth - Circle Ross Hall Clinic (M3V1E)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>22</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>19 Nov 2026</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>19 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>77%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>19</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg errors per period</span>22%</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
 
             </tr>
           </tbody>
@@ -242,15 +274,9 @@
 
       <!-- Second tab: Chart -->
       <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="organisations">
-        <h2 class="nhsuk-heading-m" id="org-chart-title">Submission performance – all organisations (average)</h2>
-        <div class="nhsuk-form-group nhsuk-u-margin-bottom-4" style="max-width:400px;">
-          <label class="nhsuk-label" for="org-chart-select"><strong>Organisation</strong></label>
-          <select class="nhsuk-select" id="org-chart-select">
-            <option value="all" selected>All organisations</option>
-          </select>
-        </div>
-        <p class="nhsuk-body-m nhsuk-u-margin-bottom-6" id="org-chart-description">Aggregated average across all organisations for the selected collection. The X-axis shows time range; values update when you change the collection above.</p>
-        <div id="organisations-line-chart" style="width:100%;overflow-x:auto;" aria-label="Line chart: submission performance by time range"></div>
+        <h2 class="nhsuk-heading-m">Submission performance – all organisations (average)</h2>
+        <p class="nhsuk-body-m nhsuk-u-margin-bottom-6">Aggregated average across all organisations for the selected collection. The X-axis shows time range; values update when you change the collection above.</p>
+        <div id="organisations-line-chart" style="width:100%;overflow-x:auto;" aria-label="Line chart: average valid submissions and files rejected by time range"></div>
         <div id="organisations-line-legend" style="display:flex;flex-wrap:wrap;gap:20px;margin-top:16px;"></div>
       </div>
 
@@ -500,11 +526,13 @@
 
 <script>
 (function() {
+  // Aggregated average line chart: Valid submissions (%) and Files rejected (%)
+  // X-axis: time ranges; Y-axis: %
   var didsData = {
     labels: ['Last 3 months', 'Last 6 months', 'Last year', 'Last 2 years'],
     series: [
       { name: 'Valid submissions (%)', color: '#005eb8', values: [88.6, 86.9, 85.3, 83.1] },
-      { name: 'Average validation errors per submission', color: '#d5281b', values: [15.3, 16.6, 17.9, 19.4] }
+      { name: 'Files rejected (%)',    color: '#d5281b', values: [15.3, 16.6, 17.9, 19.4] }
     ]
   };
 
@@ -512,192 +540,92 @@
     labels: ['Last 3 months', 'Last 6 months', 'Last year', 'Last 2 years'],
     series: [
       { name: 'Valid submissions (%)', color: '#005eb8', values: [86.6, 84.6, 82.6, 80.6] },
-      { name: 'Average validation errors per submission', color: '#d5281b', values: [13.4, 14.8, 16.6, 18.2] }
+      { name: 'Files rejected (%)',    color: '#d5281b', values: [13.4, 14.8, 16.6, 18.2] }
     ]
   };
-
-  function populateOrgSelect() {
-    var orgSel = document.getElementById('org-chart-select');
-    if (!orgSel) return;
-    var collSel = document.getElementById('collection-select');
-    var isLCS = collSel && collSel.value === 'Lung Cancer Screening (LCS)';
-    var collKey = isLCS ? 'lcs' : 'dids';
-    while (orgSel.options.length > 1) orgSel.remove(1);
-    var rows = document.querySelectorAll('#organisations-table tbody tr[data-collection="' + collKey + '"]');
-    rows.forEach(function(row) {
-      var cell = row.cells[0];
-      if (!cell) return;
-      var span = cell.querySelector('.nhsuk-table-responsive__heading');
-      var name = (cell.textContent || '').trim();
-      if (span) name = name.replace(span.textContent, '').trim();
-      if (name) {
-        var opt = document.createElement('option');
-        opt.value = name;
-        opt.textContent = name;
-        orgSel.appendChild(opt);
-      }
-    });
-  }
 
   function renderLineChart() {
     var chartHost = document.getElementById('organisations-line-chart');
     var legendHost = document.getElementById('organisations-line-legend');
-    var titleEl = document.getElementById('org-chart-title');
-    var descEl = document.getElementById('org-chart-description');
     if (!chartHost || !legendHost) return;
 
-    var collSel = document.getElementById('collection-select');
-    var isLCS = collSel && collSel.value === 'Lung Cancer Screening (LCS)';
-    var orgSel = document.getElementById('org-chart-select');
-    var selectedOrg = orgSel ? orgSel.value : 'all';
+    var sel = document.getElementById('collection-select');
+    var isLCS = sel && sel.value === 'Lung Cancer Screening (LCS)';
+    var data = isLCS ? lcsData : didsData;
 
     var W = 900, H = 420;
-    var m = { top: 40, right: 90, bottom: 72, left: 72 };
+    var m = { top: 40, right: 50, bottom: 72, left: 72 };
     var plotW = W - m.left - m.right;
     var plotH = H - m.top - m.bottom;
-    var n = 4;
-    var timeRangeKeys = ['last-three-months', 'last-six-months', 'last-year', 'last-2-years'];
-    var xPos = function(i) { return m.left + (i / (n - 1)) * plotW; };
+    var n = data.labels.length;
 
-    var data, isDualAxis;
+    var yMin = 0, yMax = 100;
+    var yTicks = [0, 20, 40, 60, 80, 100];
 
-    if (selectedOrg === 'all') {
-      data = isLCS ? lcsData : didsData;
-      isDualAxis = false;
-      if (titleEl) titleEl.textContent = 'Submission performance – all organisations (average)';
-      if (descEl) descEl.textContent = 'Aggregated average across all organisations for the selected collection. The X-axis shows time range; values update when you change the collection above.';
-    } else {
-      var orgData = window.orgTimeData && window.orgTimeData[selectedOrg];
-      if (!orgData) return;
-      isDualAxis = true;
-      var validValues = timeRangeKeys.map(function(k) {
-        return parseFloat((orgData.valid[k] || '0').replace('%', ''));
-      });
-      var rejValues = timeRangeKeys.map(function(k) {
-        return parseFloat(orgData.rejected[k] || '0');
-      });
-      var series = [
-        { name: 'Valid submissions (%)', color: '#005eb8', values: validValues, axis: 'left' },
-        { name: 'Average validation errors per submission', color: '#d5281b', values: rejValues, axis: 'right' }
-      ];
-      data = {
-        labels: ['Last 3 months', 'Last 6 months', 'Last year', 'Last 2 years'],
-        series: series
-      };
-      if (titleEl) titleEl.textContent = 'Submission performance – ' + selectedOrg;
-      if (descEl) descEl.textContent = 'Valid submissions (%) and average validation errors per submission across time ranges for the selected organisation.';
-    }
+    function xPos(i) { return m.left + (i / (n - 1)) * plotW; }
+    function yPos(v) { return m.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH; }
 
     var svg = [];
-    svg.push('<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Line chart: submission performance by time range" style="max-width:100%;">');
+    svg.push('<svg width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Line chart: average submission performance by time range" style="max-width:100%;">');
 
-    if (isDualAxis) {
-      var yTicksLeft = [0, 20, 40, 60, 80, 100];
-      var yTicksRight = [0, 5, 10, 15, 20, 25, 30];
-      var yPosLeft = function(v) { return m.top + plotH - (v / 100) * plotH; };
-      var yPosRight = function(v) { return m.top + plotH - (v / 30) * plotH; };
+    // Horizontal grid lines + Y labels
+    yTicks.forEach(function(tick) {
+      var y = yPos(tick);
+      svg.push('<line x1="' + m.left + '" y1="' + y + '" x2="' + (m.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" stroke-dasharray="4 3" />');
+      svg.push('<text x="' + (m.left - 10) + '" y="' + (y + 5) + '" text-anchor="end" font-size="15" fill="#4c6272">' + tick + '%</text>');
+    });
 
-      yTicksLeft.forEach(function(tick) {
-        var y = yPosLeft(tick);
-        svg.push('<line x1="' + m.left + '" y1="' + y + '" x2="' + (m.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" stroke-dasharray="4 3" />');
-        svg.push('<text x="' + (m.left - 10) + '" y="' + (y + 5) + '" text-anchor="end" font-size="15" fill="#4c6272">' + tick + '%</text>');
+    // Axes
+    svg.push('<line x1="' + m.left + '" y1="' + m.top + '" x2="' + m.left + '" y2="' + (m.top + plotH) + '" stroke="#212b32" stroke-width="2" />');
+    svg.push('<line x1="' + m.left + '" y1="' + (m.top + plotH) + '" x2="' + (m.left + plotW) + '" y2="' + (m.top + plotH) + '" stroke="#212b32" stroke-width="2" />');
+
+    // X axis labels
+    data.labels.forEach(function(label, i) {
+      var x = xPos(i);
+      svg.push('<line x1="' + x + '" y1="' + (m.top + plotH) + '" x2="' + x + '" y2="' + (m.top + plotH + 6) + '" stroke="#212b32" stroke-width="1.5" />');
+      // Wrap long labels over two lines
+      var parts = label.split(' ');
+      var mid = Math.ceil(parts.length / 2);
+      var line1 = parts.slice(0, mid).join(' ');
+      var line2 = parts.slice(mid).join(' ');
+      svg.push('<text x="' + x + '" y="' + (m.top + plotH + 24) + '" text-anchor="middle" font-size="14" fill="#212b32">' + line1 + '</text>');
+      if (line2) svg.push('<text x="' + x + '" y="' + (m.top + plotH + 42) + '" text-anchor="middle" font-size="14" fill="#212b32">' + line2 + '</text>');
+    });
+
+    // Y axis label
+    svg.push('<text x="' + (m.left - 52) + '" y="' + (m.top + plotH / 2) + '" text-anchor="middle" font-size="15" fill="#212b32" transform="rotate(-90 ' + (m.left - 52) + ' ' + (m.top + plotH / 2) + ')">%</text>');
+
+    // Lines and dots
+    data.series.forEach(function(s) {
+      // Build polyline points
+      var points = s.values.map(function(v, i) { return xPos(i) + ',' + yPos(v); }).join(' ');
+      svg.push('<polyline points="' + points + '" fill="none" stroke="' + s.color + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />');
+      // Dots and value labels
+      s.values.forEach(function(v, i) {
+        var cx = xPos(i), cy = yPos(v);
+        svg.push('<circle cx="' + cx + '" cy="' + cy + '" r="6" fill="' + s.color + '" stroke="#fff" stroke-width="2.5" />');
+        var labelY = cy - 13;
+        svg.push('<text x="' + cx + '" y="' + labelY + '" text-anchor="middle" font-size="14" font-weight="bold" fill="' + s.color + '">' + v + '%</text>');
       });
-
-      yTicksRight.forEach(function(tick) {
-        var y = yPosRight(tick);
-        svg.push('<text x="' + (m.left + plotW + 12) + '" y="' + (y + 5) + '" text-anchor="start" font-size="14" fill="#d5281b">' + tick + '</text>');
-      });
-
-      svg.push('<line x1="' + m.left + '" y1="' + m.top + '" x2="' + m.left + '" y2="' + (m.top + plotH) + '" stroke="#005eb8" stroke-width="2" />');
-      svg.push('<line x1="' + m.left + '" y1="' + (m.top + plotH) + '" x2="' + (m.left + plotW) + '" y2="' + (m.top + plotH) + '" stroke="#212b32" stroke-width="2" />');
-      svg.push('<line x1="' + (m.left + plotW) + '" y1="' + m.top + '" x2="' + (m.left + plotW) + '" y2="' + (m.top + plotH) + '" stroke="#d5281b" stroke-width="2" />');
-
-      data.labels.forEach(function(label, i) {
-        var x = xPos(i);
-        svg.push('<line x1="' + x + '" y1="' + (m.top + plotH) + '" x2="' + x + '" y2="' + (m.top + plotH + 6) + '" stroke="#212b32" stroke-width="1.5" />');
-        var parts = label.split(' ');
-        var mid = Math.ceil(parts.length / 2);
-        svg.push('<text x="' + x + '" y="' + (m.top + plotH + 24) + '" text-anchor="middle" font-size="14" fill="#212b32">' + parts.slice(0, mid).join(' ') + '</text>');
-        if (parts.slice(mid).length) svg.push('<text x="' + x + '" y="' + (m.top + plotH + 42) + '" text-anchor="middle" font-size="14" fill="#212b32">' + parts.slice(mid).join(' ') + '</text>');
-      });
-
-      svg.push('<text x="' + (m.left - 55) + '" y="' + (m.top + plotH / 2) + '" text-anchor="middle" font-size="13" fill="#005eb8" transform="rotate(-90 ' + (m.left - 55) + ' ' + (m.top + plotH / 2) + ')">Valid submissions (%)</text>');
-      svg.push('<text x="' + (m.left + plotW + 68) + '" y="' + (m.top + plotH / 2) + '" text-anchor="middle" font-size="13" fill="#d5281b" transform="rotate(90 ' + (m.left + plotW + 68) + ' ' + (m.top + plotH / 2) + ')">Avg validation errors</text>');
-
-      data.series.forEach(function(s) {
-        var yFn = s.axis === 'right' ? yPosRight : yPosLeft;
-        var points = s.values.map(function(v, i) { return xPos(i) + ',' + yFn(v); }).join(' ');
-        svg.push('<polyline points="' + points + '" fill="none" stroke="' + s.color + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />');
-        s.values.forEach(function(v, i) {
-          var cx = xPos(i), cy = yFn(v);
-          svg.push('<circle cx="' + cx + '" cy="' + cy + '" r="6" fill="' + s.color + '" stroke="#fff" stroke-width="2.5" />');
-          var lbl = s.axis === 'right' ? String(v) : (v + '%');
-          svg.push('<text x="' + cx + '" y="' + (cy - 13) + '" text-anchor="middle" font-size="14" font-weight="bold" fill="' + s.color + '">' + lbl + '</text>');
-        });
-      });
-
-    } else {
-      var yTicks = [0, 20, 40, 60, 80, 100];
-      var yPos = function(v) { return m.top + plotH - (v / 100) * plotH; };
-
-      yTicks.forEach(function(tick) {
-        var y = yPos(tick);
-        svg.push('<line x1="' + m.left + '" y1="' + y + '" x2="' + (m.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" stroke-dasharray="4 3" />');
-        svg.push('<text x="' + (m.left - 10) + '" y="' + (y + 5) + '" text-anchor="end" font-size="15" fill="#4c6272">' + tick + '%</text>');
-      });
-
-      svg.push('<line x1="' + m.left + '" y1="' + m.top + '" x2="' + m.left + '" y2="' + (m.top + plotH) + '" stroke="#212b32" stroke-width="2" />');
-      svg.push('<line x1="' + m.left + '" y1="' + (m.top + plotH) + '" x2="' + (m.left + plotW) + '" y2="' + (m.top + plotH) + '" stroke="#212b32" stroke-width="2" />');
-
-      data.labels.forEach(function(label, i) {
-        var x = xPos(i);
-        svg.push('<line x1="' + x + '" y1="' + (m.top + plotH) + '" x2="' + x + '" y2="' + (m.top + plotH + 6) + '" stroke="#212b32" stroke-width="1.5" />');
-        var parts = label.split(' ');
-        var mid = Math.ceil(parts.length / 2);
-        svg.push('<text x="' + x + '" y="' + (m.top + plotH + 24) + '" text-anchor="middle" font-size="14" fill="#212b32">' + parts.slice(0, mid).join(' ') + '</text>');
-        if (parts.slice(mid).length) svg.push('<text x="' + x + '" y="' + (m.top + plotH + 42) + '" text-anchor="middle" font-size="14" fill="#212b32">' + parts.slice(mid).join(' ') + '</text>');
-      });
-
-      svg.push('<text x="' + (m.left - 52) + '" y="' + (m.top + plotH / 2) + '" text-anchor="middle" font-size="15" fill="#212b32" transform="rotate(-90 ' + (m.left - 52) + ' ' + (m.top + plotH / 2) + ')">%</text>');
-
-      data.series.forEach(function(s) {
-        var points = s.values.map(function(v, i) { return xPos(i) + ',' + yPos(v); }).join(' ');
-        svg.push('<polyline points="' + points + '" fill="none" stroke="' + s.color + '" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />');
-        s.values.forEach(function(v, i) {
-          var cx = xPos(i), cy = yPos(v);
-          svg.push('<circle cx="' + cx + '" cy="' + cy + '" r="6" fill="' + s.color + '" stroke="#fff" stroke-width="2.5" />');
-          svg.push('<text x="' + cx + '" y="' + (cy - 13) + '" text-anchor="middle" font-size="14" font-weight="bold" fill="' + s.color + '">' + v + '%</text>');
-        });
-      });
-    }
+    });
 
     svg.push('</svg>');
     chartHost.innerHTML = svg.join('');
+
     legendHost.innerHTML = data.series.map(function(s) {
       return '<span style="display:inline-flex;align-items:center;gap:10px;font-size:18px;"><span style="display:inline-block;width:28px;height:4px;background:' + s.color + ';border-radius:2px;"></span>' + s.name + '</span>';
     }).join('');
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    populateOrgSelect();
     renderLineChart();
-
-    var collSel = document.getElementById('collection-select');
-    if (collSel) collSel.addEventListener('change', function() {
-      populateOrgSelect();
-      renderLineChart();
-    });
-
-    var orgSel = document.getElementById('org-chart-select');
-    if (orgSel) orgSel.addEventListener('change', renderLineChart);
+    var sel = document.getElementById('collection-select');
+    if (sel) sel.addEventListener('change', renderLineChart);
 
     // Also re-render when the Chart tab is clicked
     document.querySelectorAll('.nhsuk-tabs__tab').forEach(function(tab) {
       tab.addEventListener('click', function() {
-        if (tab.getAttribute('href') === '#organisations') {
-          populateOrgSelect();
-          renderLineChart();
-        }
+        if (tab.getAttribute('href') === '#organisations') renderLineChart();
       });
     });
   });
@@ -1154,6 +1082,7 @@
     return data.map(function(d) {
       return '<tr class="nhsuk-table__row" role="row">' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>' + d.period + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>' + makeTag(d.status) + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>' + d.total + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>' + d.orgsSuccess + '</td>' +
         '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>' + d.orgsNot + '</td>' +
@@ -1184,70 +1113,70 @@
 <script>
 // Update Valid submissions (%) and Files rejected (%) based on selected time range
 (function() {
-  window.orgTimeData = {
+  var orgTimeData = {
     'Circle Health Group Limited': {
       valid:    { 'last-three-months': '92%', 'last-six-months': '89%', 'last-year': '87%', 'last-2-years': '85%' },
-      rejected: { 'last-three-months': '18',  'last-six-months': '20',  'last-year': '22',  'last-2-years': '24' }
+      rejected: { 'last-three-months': '25%', 'last-six-months': '28%', 'last-year': '30%', 'last-2-years': '32%' }
     },
     'Healthshare Diagnostics': {
       valid:    { 'last-three-months': '88%', 'last-six-months': '85%', 'last-year': '83%', 'last-2-years': '80%' },
-      rejected: { 'last-three-months': '14',  'last-six-months': '15',  'last-year': '17',  'last-2-years': '19' }
+      rejected: { 'last-three-months': '16%', 'last-six-months': '18%', 'last-year': '20%', 'last-2-years': '22%' }
     },
     'Alliance Medical': {
       valid:    { 'last-three-months': '100%', 'last-six-months': '98%', 'last-year': '96%', 'last-2-years': '95%' },
-      rejected: { 'last-three-months': '7',    'last-six-months': '8',   'last-year': '9',   'last-2-years': '10' }
+      rejected: { 'last-three-months': '9%',   'last-six-months': '10%', 'last-year': '11%', 'last-2-years': '12%' }
     },
     'Barking, Havering and Redbridge University Hospitals NHS Trust': {
       valid:    { 'last-three-months': '65%', 'last-six-months': '70%', 'last-year': '72%', 'last-2-years': '68%' },
-      rejected: { 'last-three-months': '27',  'last-six-months': '25',  'last-year': '23',  'last-2-years': '25' }
+      rejected: { 'last-three-months': '38%', 'last-six-months': '35%', 'last-year': '33%', 'last-2-years': '36%' }
     },
     'Barts Health NHS Trust': {
       valid:    { 'last-three-months': '96%', 'last-six-months': '94%', 'last-year': '92%', 'last-2-years': '90%' },
-      rejected: { 'last-three-months': '9',   'last-six-months': '10',  'last-year': '12',  'last-2-years': '13' }
+      rejected: { 'last-three-months': '11%', 'last-six-months': '12%', 'last-year': '14%', 'last-2-years': '15%' }
     },
     'Chelsea and Westminster Hospital NHS Foundation Trust': {
       valid:    { 'last-three-months': '85%', 'last-six-months': '82%', 'last-year': '80%', 'last-2-years': '78%' },
-      rejected: { 'last-three-months': '11',  'last-six-months': '12',  'last-year': '14',  'last-2-years': '16' }
+      rejected: { 'last-three-months': '12%', 'last-six-months': '14%', 'last-year': '16%', 'last-2-years': '18%' }
     },
     'Croydon Health Services NHS Trust': {
       valid:    { 'last-three-months': '78%', 'last-six-months': '75%', 'last-year': '73%', 'last-2-years': '71%' },
-      rejected: { 'last-three-months': '12',  'last-six-months': '14',  'last-year': '16',  'last-2-years': '17' }
+      rejected: { 'last-three-months': '14%', 'last-six-months': '16%', 'last-year': '18%', 'last-2-years': '19%' }
     },
     'Epsom and St Helier University Hospitals NHS Trust': {
       valid:    { 'last-three-months': '94%', 'last-six-months': '91%', 'last-year': '89%', 'last-2-years': '87%' },
-      rejected: { 'last-three-months': '6',   'last-six-months': '8',   'last-year': '10',  'last-2-years': '11' }
+      rejected: { 'last-three-months': '8%',  'last-six-months': '10%', 'last-year': '12%', 'last-2-years': '13%' }
     },
     'Great Ormond Street Hospital For Children NHS Foundation Trust': {
       valid:    { 'last-three-months': '90%', 'last-six-months': '88%', 'last-year': '86%', 'last-2-years': '84%' },
-      rejected: { 'last-three-months': '10',  'last-six-months': '13',  'last-year': '14',  'last-2-years': '15' }
+      rejected: { 'last-three-months': '13%', 'last-six-months': '15%', 'last-year': '16%', 'last-2-years': '17%' }
     },
     "Guy's and St Thomas' NHS Foundation Trust": {
       valid:    { 'last-three-months': '98%', 'last-six-months': '97%', 'last-year': '95%', 'last-2-years': '93%' },
-      rejected: { 'last-three-months': '5',   'last-six-months': '6',   'last-year': '7',   'last-2-years': '8' }
+      rejected: { 'last-three-months': '7%',  'last-six-months': '8%',  'last-year': '9%',  'last-2-years': '10%' }
     },
     'North Cumbria Integrated Care (RNN)': {
       valid:    { 'last-three-months': '95%', 'last-six-months': '93%', 'last-year': '91%', 'last-2-years': '89%' },
-      rejected: { 'last-three-months': '4',   'last-six-months': '6',   'last-year': '7',   'last-2-years': '9' },
+      rejected: { 'last-three-months': '6%',  'last-six-months': '8%',  'last-year': '9%',  'last-2-years': '11%' },
       records:  { 'last-three-months': '8%',  'last-six-months': '10%', 'last-year': '13%', 'last-2-years': '16%' }
     },
     'County Durham and Darlington NHS Foundation Trust (RTC)': {
       valid:    { 'last-three-months': '88%', 'last-six-months': '86%', 'last-year': '84%', 'last-2-years': '82%' },
-      rejected: { 'last-three-months': '10',  'last-six-months': '11',  'last-year': '13',  'last-2-years': '14' },
+      rejected: { 'last-three-months': '12%', 'last-six-months': '13%', 'last-year': '15%', 'last-2-years': '16%' },
       records:  { 'last-three-months': '12%', 'last-six-months': '14%', 'last-year': '17%', 'last-2-years': '20%' }
     },
     'Northumbria Healthcare NHS Foundation Trust (RTF)': {
       valid:    { 'last-three-months': '82%', 'last-six-months': '80%', 'last-year': '78%', 'last-2-years': '76%' },
-      rejected: { 'last-three-months': '16',  'last-six-months': '17',  'last-year': '19',  'last-2-years': '21' },
+      rejected: { 'last-three-months': '18%', 'last-six-months': '19%', 'last-year': '21%', 'last-2-years': '23%' },
       records:  { 'last-three-months': '18%', 'last-six-months': '17%', 'last-year': '15%', 'last-2-years': '20%' }
     },
     'South Tyneside and Sunderland NHS Foundation Trust (R0B)': {
       valid:    { 'last-three-months': '91%', 'last-six-months': '89%', 'last-year': '87%', 'last-2-years': '85%' },
-      rejected: { 'last-three-months': '8',   'last-six-months': '9',   'last-year': '11',  'last-2-years': '12' },
+      rejected: { 'last-three-months': '9%',  'last-six-months': '10%', 'last-year': '12%', 'last-2-years': '13%' },
       records:  { 'last-three-months': '9%',  'last-six-months': '11%', 'last-year': '14%', 'last-2-years': '16%' }
     },
     'InHealth - Circle Ross Hall Clinic (M3V1E)': {
       valid:    { 'last-three-months': '77%', 'last-six-months': '75%', 'last-year': '73%', 'last-2-years': '71%' },
-      rejected: { 'last-three-months': '19',  'last-six-months': '21',  'last-year': '23',  'last-2-years': '25' },
+      rejected: { 'last-three-months': '22%', 'last-six-months': '24%', 'last-year': '26%', 'last-2-years': '28%' },
       records:  { 'last-three-months': '15%', 'last-six-months': '17%', 'last-year': '19%', 'last-2-years': '20%' }
     }
   };
@@ -1275,12 +1204,12 @@
       var orgName = getOrgName(row.cells[0]);
       var data = orgTimeData[orgName];
       if (!data) return;
-      if (data.valid[timeRange])    setCellText(row.cells[3], data.valid[timeRange]);
-      if (data.rejected[timeRange]) setCellText(row.cells[4], data.rejected[timeRange]);
+      if (data.valid[timeRange])    setCellText(row.cells[4], data.valid[timeRange]);
+      if (data.rejected[timeRange]) setCellText(row.cells[5], data.rejected[timeRange]);
       if (data.records && data.records[timeRange]) {
-        setCellText(row.cells[5], data.records[timeRange]);
+        setCellText(row.cells[6], data.records[timeRange]);
       } else if (!data.records) {
-        setCellText(row.cells[5], 'N/A');
+        setCellText(row.cells[6], 'N/A');
       }
     });
   }

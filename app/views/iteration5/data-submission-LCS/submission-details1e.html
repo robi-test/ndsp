@@ -1,0 +1,194 @@
+{% extends "iteration5/data-submission-LCS/layout.html" %}
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Submission details" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "submissions4",
+  text: "Submissions"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            <p>Your submission details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Collection" },
+                  value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
+                },
+                {
+                  key: { text: "Organisation" },
+                  value: { text: "North Cumbria Integrated Care (RNN)" }
+                },
+                {
+                  key: { text: "Reporting period" },
+                  value: { text: "September 2026" }
+                },
+                {
+                  key: { text: "File submitted" },
+                  value: { text: "LCS_SepProv4_2026_2.xml" },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: " ",
+                        visuallyHiddenText: "File submitted"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }
+                }
+                
+              ]
+            }) }}
+
+
+ <details class="nhsuk-details">
+  <summary class="nhsuk-details__summary">
+    <span class="nhsuk-details__summary-text">
+      More details about the submission
+    </span>
+  </summary>
+  <div class="nhsuk-details__text">
+           {{ summaryList({
+              rows: [
+                
+                {
+                  key: { text: "Template version" },
+                  value: { text: "DID V2.0" }
+                },
+                {
+                  key: { text: "Submission ID" },
+                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
+                },
+                {
+                  key: { text: "Submission route" },
+                  value: { text: "File submission" }
+                },
+                
+                {
+                  key: { text: "Submitted on" },
+                  value: { text: "26 Oct 2026, 16:20" }
+                },
+                {
+                  key: { text: "Submitted by" },
+                  value: { text: "Anne Williams" }
+                },
+                {
+                  key: { text: "Type" },
+                  value: { text: "Test" }
+                }
+              ]
+            }) }}
+  </div>
+</details>
+
+
+
+      
+  </div>
+    <div style="margin-top:40px; margin-bottom:80px">
+                  <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+                 <p>Your validation feedback details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Number of records" },
+                  value: { text: "1,734" }
+                },
+                {
+                  key: { text: "Errors" },
+                  value: { text: "10 Error(s)" }
+                },
+                {
+                  key: { text: "Warnings" },
+                  value: { text: "0 Warning(s)" }
+                }
+              ]
+            }) }}
+      
+         {% from 'action-link/macro.njk' import actionLink %}
+
+{{ actionLink({
+  text: "Download validation report",
+  href: "#"
+}) }}     
+    </div>
+
+ <div>
+      <h2 class="nhsuk-heading-m">Error summary</h2>
+      <table class="nhsuk-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation errors for the period</caption>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Error code</th>
+            <th scope="col" class="nhsuk-table__header">Group</th>
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Category</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LCS000002_03</td>
+            <td class="nhsuk-table__cell">LCS000_HEADER</td>
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (CODE OF PROVIDER)</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">3</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LCS002002_02</td>
+            <td class="nhsuk-table__cell">LCS002_GP_PRACTICE_REGISTRATION</td>
+            <td class="nhsuk-table__cell">GENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LCS003001_01</td>
+            <td class="nhsuk-table__cell">LCS003_FINDING</td>
+            <td class="nhsuk-table__cell">LOCAL PATIENT IDENTIFIER (EXTENDED)</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LCS103004_01</td>
+            <td class="nhsuk-table__cell">LCS103_SCREENING_OFFER</td>
+            <td class="nhsuk-table__cell">SCREENING OFFER TYPE (LUNG CANCER SCREENING)</td>
+            <td class="nhsuk-table__cell">Blank</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LCS103006_01</td>
+            <td class="nhsuk-table__cell">LCS103_SCREENING_OFFER</td>
+            <td class="nhsuk-table__cell">SCREENING OFFER IDENTIFIER</td>
+            <td class="nhsuk-table__cell">Bad value</td>
+            <td class="nhsuk-table__cell">1</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

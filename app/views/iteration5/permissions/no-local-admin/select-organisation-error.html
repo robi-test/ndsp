@@ -1,0 +1,230 @@
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% set pageName = "Which organisation do you want permissions for?" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from 'error-summary/macro.njk' import errorSummary %}
+
+{{ errorSummary({
+  titleText: "There is a problem",
+  descriptionText: "You must select an organisation to continue.",
+  errorList: [
+    {
+      text: "Select an organisation",
+      href: "#organisation-search"
+    }
+  ]
+}) }}
+       <h1>
+         {{ pageName }}
+      </h1>
+      <p>To continue your request, search and select the organisation you will be submitting data for.
+Only organisations that are authorised to submit data for the selected collection will appear in the list.
+This may be:
+<ul>
+  <li>Your own organisation, or</li>
+  <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
+</ul>
+The ODS code will be automatically shown once you select the organisation.
+      </p>
+
+ {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Why my organisation is not appearing?",
+        html: "
+  <p>There are a few reasons why your organisation may not be appearing in the list :</p>
+  <ul>
+    <li>Your organisation may not be registered to submit data for the selected collection.</li>
+    <li>You may be looking for a different name or ODS code for your organisation.</li>
+  </ul>"
+        }) }}
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{% from 'input/macro.njk' import input %}
+
+<div class="nhsuk-form-group nhsuk-form-group--error">
+  <label class="nhsuk-label nhsuk-label--m" for="organisation-search">
+    Organisation name
+  </label>
+  <span class="nhsuk-error-message" id="organisation-search-error">
+    <span class="nhsuk-u-visually-hidden">Error:</span> Select an organisation
+  </span>
+  <div class="nhsuk-hint" id="organisation-search-hint">
+    Start typing to search the organisation.
+  </div>
+  <input class="nhsuk-input nhsuk-input--width-30" id="organisation-search" name="organisation-search" type="text" aria-describedby="organisation-search-hint organisation-search-error" autocomplete="off">
+  <p id="organisation-search-status" class="nhsuk-body-s nhsuk-u-margin-top-2"></p>
+
+  <!-- Dropdown suggestions -->
+  <div id="organisation-suggestions" style="display: none; position: absolute; background: white; border: 2px solid #005eb8; border-top: none; max-width: 600px; z-index: 1000;">
+  </div>
+</div>
+
+<p class="nhsuk-u-margin-bottom-8"> </p>
+{{ input({
+  label: {
+    text: "ODS code",
+    classes: "nhsuk-label--m",
+    isPageHeading: "true"
+  },
+  hint: {
+    text: "This ODS code appears based on the organisation name code you entered."
+  },
+  id: "ods-code-field",
+  name: "ods-code-field",
+  classes: "nhsuk-input--width-10",
+  inputmode: "string",
+  attributes: {
+    disabled: "disabled",
+    readonly: "readonly",
+    style: "background-color: #dfe4e5; cursor: not-allowed;"
+  }
+}) }}
+ <button id="continue-to-ig" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/js/odsHospitalSearchService.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('organisation-search');
+    const searchStatus = document.getElementById('organisation-search-status');
+    const suggestionsDiv = document.getElementById('organisation-suggestions');
+    const odsCodeField = document.getElementById('ods-code-field');
+    const continueButton = document.getElementById('continue-to-ig');
+
+    if (!searchInput || !searchStatus || !suggestionsDiv || !odsCodeField || !continueButton || !window.OdsHospitalSearchService) {
+      return;
+    }
+
+    const service = new window.OdsHospitalSearchService();
+    let selectedOrganisation = null;
+    let debounceTimer = null;
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.trim();
+      selectedOrganisation = null;
+      odsCodeField.value = '';
+
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+
+      if (searchTerm.length < 2) {
+        searchStatus.textContent = 'Enter at least 2 characters to search.';
+        suggestionsDiv.style.display = 'none';
+        suggestionsDiv.innerHTML = '';
+        return;
+      }
+
+      searchStatus.textContent = '';
+
+      debounceTimer = setTimeout(async function () {
+        try {
+        const allMatches = await service.searchHospitals(searchTerm, 30);
+        const nameOnlyMatches = allMatches
+          .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+          .slice(0, 15);
+
+        renderSuggestions(nameOnlyMatches);
+
+        } catch (error) {
+          searchStatus.textContent = `Search failed: ${error.message || error}`;
+          suggestionsDiv.style.display = 'none';
+          suggestionsDiv.innerHTML = '';
+        }
+      }, 250);
+    });
+
+    continueButton.addEventListener('click', function() {
+      const orgName = searchInput.value.trim();
+      const orgCode = odsCodeField.value.trim();
+
+      if (!orgName || !orgCode) {
+        window.location.href = 'select-organisation-error';
+        return;
+      }
+
+      const target = `add-ig-contact?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+      window.location.href = target;
+    });
+
+    document.addEventListener('click', function(event) {
+      if (!searchInput.contains(event.target) && !suggestionsDiv.contains(event.target)) {
+        suggestionsDiv.style.display = 'none';
+      }
+    });
+
+    function renderSuggestions(matches) {
+      suggestionsDiv.innerHTML = '';
+      searchStatus.textContent = '';
+
+      if (!matches.length) {
+        suggestionsDiv.style.display = 'none';
+        return;
+      }
+
+      matches.forEach((org) => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.style.cssText = 'padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;';
+        suggestionItem.innerHTML = `<strong>${escapeHtml(org.name)}</strong>`;
+
+        suggestionItem.addEventListener('mouseenter', function() {
+          this.style.backgroundColor = '#f0f4f5';
+        });
+
+        suggestionItem.addEventListener('mouseleave', function() {
+          this.style.backgroundColor = 'white';
+        });
+
+        suggestionItem.addEventListener('click', function() {
+          selectedOrganisation = org;
+          searchInput.value = org.name;
+          odsCodeField.value = org.code;
+          searchStatus.textContent = '';
+          suggestionsDiv.style.display = 'none';
+        });
+
+        suggestionsDiv.appendChild(suggestionItem);
+      });
+
+      suggestionsDiv.style.display = 'block';
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+    }
+});
+</script>
+{% endblock %}
+
+<style>
+.suggestion-item:hover {
+  background-color: #f0f4f5 !important;
+}
+
+#organisation-suggestions {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+

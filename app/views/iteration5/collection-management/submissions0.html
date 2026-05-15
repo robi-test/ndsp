@@ -1,4 +1,4 @@
-{% extends "iteration4/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
  <!--This page shows a submissions table that includes org column and related filter-->
 
 {% set pageName = serviceName %}
@@ -39,58 +39,33 @@
 
         <div class="nhsuk-grid-column-one-half">
           <div class="nhsuk-form-group">
-            <fieldset class="nhsuk-fieldset">
-              <legend class="nhsuk-fieldset__legend">
-                <strong>Time range</strong>
-              </legend>
-              <div class="nhsuk-radios nhsuk-radios--small nhsuk-radios--conditional">
-
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="time-range-preset" name="timeRangeType" type="radio" value="preset" checked aria-controls="conditional-time-range-preset">
-                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-preset">
-                    Select a time range
-                  </label>
-                </div>
-                <div class="nhsuk-radios__conditional" id="conditional-time-range-preset">
-                  <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                    <select class="nhsuk-select" id="time-period-select" name="timePeriod">
-                      <option value="last-2-weeks" selected>Last 2 weeks</option>
-                      <option value="last-month">Last month</option>
-                      <option value="last-2-months">Last 2 months</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="time-range-custom" name="timeRangeType" type="radio" value="custom" aria-controls="conditional-time-range-custom">
-                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-custom">
-                    Custom date range
-                  </label>
-                </div>
-                <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="conditional-time-range-custom">
-                  <p class="nhsuk-hint nhsuk-u-margin-bottom-3">The date range cannot be longer than 2 months.</p>
-                  <div style="display:flex; gap: 24px; flex-wrap: wrap; align-items: flex-end;">
-                    <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                      <label class="nhsuk-label" for="date-from"><strong>From</strong></label>
-                      <div class="nhsuk-hint" style="font-size: 1.0rem;">For example, 17/5/2026</div>
-                      <input class="nhsuk-input nhsuk-input--width-10" id="date-from" name="dateFrom" type="date">
-                    </div>
-                    <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                      <label class="nhsuk-label" for="date-to"><strong>To</strong></label>
-                      <div class="nhsuk-hint" style="font-size: 1.0rem;">For example, 17/5/2026</div>
-                      <input class="nhsuk-input nhsuk-input--width-10" id="date-to" name="dateTo" type="date">
-                    </div>
-                    <div class="nhsuk-u-margin-bottom-3">
-                      <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" type="button" id="load-results-btn" onclick="return false;">Load results</button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </fieldset>
+            <label class="nhsuk-label" for="time-period-select">
+              <strong>Time range</strong>
+            </label>
+            <div class="nhsuk-hint" id="time-period-select-hint">
+              Select a time range.
+            </div>
+            <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+              <option value="last-2-weeks" selected>Last 2 weeks</option>
+              <option value="last-month">Last month</option>
+              <option value="last-2-months">Last 2 months</option>
+              <option value="last-6-months">Last 6 months</option>
+            </select>
           </div>
         </div>
       </div>
+ <!--  <nav class="nhsuk-contents-list" role="navigation" aria-label="List of submissions by Collections">
+  <h2 class="nhsuk-u-visually-hidden">List of collections</h2>
+  <ol class="nhsuk-contents-list__list">
+    <li class="nhsuk-contents-list__item" aria-current="page">
+      <span class="nhsuk-contents-list__current">Diagnostic Imaging Data Set (DIDS v2.0)</span>
+    </li>
+    <li class="nhsuk-contents-list__item">
+      <a class="nhsuk-contents-list__link" href="#">Collection 2</a>
+    </li>
+
+  </ol>
+</nav>-->
 
 
 
@@ -388,7 +363,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration5/collection-management/submission-details">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">DIDS_Jan1_2026_2.xml</span></td>            
@@ -1025,14 +1000,12 @@
         var rowCollection = rec.row.getAttribute('data-collection') || 'Diagnostic Imaging Data Set (V2.0)'
         if (rowCollection !== selectedCollection) return false
       }
-      // Time range filter
-      var timeRangeType = document.querySelector('input[name="timeRangeType"]:checked')
-      var timeRangeTypeVal = timeRangeType ? timeRangeType.value : 'preset'
-      var submittedDateObj = parseSubmittedDate(rec.submittedOn)
-      if (timeRangeTypeVal === 'preset') {
-        var timePeriodSelectEl = document.getElementById('time-period-select')
-        var timePeriod = timePeriodSelectEl ? timePeriodSelectEl.value : ''
-        if (timePeriod && submittedDateObj) {
+      // Time range filter (top-level dropdown)
+      var timePeriodSelectEl = document.getElementById('time-period-select')
+      var timePeriod = timePeriodSelectEl ? timePeriodSelectEl.value : ''
+      if (timePeriod) {
+        var submittedDateObj = parseSubmittedDate(rec.submittedOn)
+        if (submittedDateObj) {
           var today = new Date()
           var startDate = null
           if (timePeriod === 'last-2-weeks') { startDate = new Date(); startDate.setDate(today.getDate() - 14) }
@@ -1040,13 +1013,6 @@
           else if (timePeriod === 'last-2-months') { startDate = new Date(); startDate.setMonth(today.getMonth() - 2) }
           if (startDate && submittedDateObj < startDate) return false
         }
-      } else if (timeRangeTypeVal === 'custom') {
-        var dateFromEl = document.getElementById('date-from')
-        var dateToEl = document.getElementById('date-to')
-        var fromVal = dateFromEl ? dateFromEl.value : ''
-        var toVal = dateToEl ? dateToEl.value : ''
-        if (fromVal && submittedDateObj && submittedDateObj < new Date(fromVal)) return false
-        if (toVal && submittedDateObj && submittedDateObj > new Date(toVal + 'T23:59:59')) return false
       }
       var submittedMonthQ = (submittedMonthSel && submittedMonthSel.value ? submittedMonthSel.value : '')
       var idQ = (idInput?.value || '').trim().toLowerCase()
@@ -1460,27 +1426,6 @@ sortTable(table, colIndex, type, next)
     }
     if (collectionSelect) collectionSelect.addEventListener('change', triggerRender);
     if (timePeriodSelect) timePeriodSelect.addEventListener('change', triggerRender);
-
-    // Radio show/hide for time range type
-    var radios = document.querySelectorAll('input[name="timeRangeType"]');
-    function updateTimeRangeVisibility() {
-      var selected = document.querySelector('input[name="timeRangeType"]:checked');
-      var val = selected ? selected.value : 'preset';
-      var presetPanel = document.getElementById('conditional-time-range-preset');
-      var customPanel = document.getElementById('conditional-time-range-custom');
-      if (presetPanel) presetPanel.classList.toggle('nhsuk-radios__conditional--hidden', val !== 'preset');
-      if (customPanel) customPanel.classList.toggle('nhsuk-radios__conditional--hidden', val !== 'custom');
-      triggerRender();
-    }
-    radios.forEach(function(r) { r.addEventListener('change', updateTimeRangeVisibility); });
-
-    var dateFrom = document.getElementById('date-from');
-    var dateTo = document.getElementById('date-to');
-    if (dateFrom) dateFrom.addEventListener('change', triggerRender);
-    if (dateTo) dateTo.addEventListener('change', triggerRender);
-
-    var loadResultsBtn = document.getElementById('load-results-btn');
-    if (loadResultsBtn) loadResultsBtn.addEventListener('click', triggerRender);
   });
 })();
 </script>

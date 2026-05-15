@@ -1,0 +1,282 @@
+{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% set pageName = "Check your request details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+    <div class="nhsuk-u-margin-bottom-6"> 
+      <p>Please review the details below before submitting your access request.<br>
+The name and email address shown are taken from the account you used to sign in. This will be the account you must use to access the portal. If any of these details are incorrect, please contact your identity provider to update them.
+<br>Once submitted, your request will be reviewed and processed by the appropriate administrators.        
+      </p>
+</div>
+
+{% from "summary-list/macro.njk" import summaryList %}
+
+{% set selectedRole = data['role'] %}
+{% set roleLabel = 'Not provided' %}
+{% if selectedRole == 'submitter' %}
+  {% set roleLabel = 'Submitter' %}
+{% elif selectedRole == 'local-admin' %}
+  {% set roleLabel = 'Local admin' %}
+{% endif %}
+
+{% set agreedTerms = 'Not agreed' %}
+{% if data['terms'] %}
+  {% set agreedTerms = 'Agreed' %}
+{% endif %}
+
+{{ summaryList({
+  rows: [
+    {
+      key: {
+        text: "Name"
+      },
+      value: {
+        text: "Laura Smith"
+      }
+    },
+    {
+      key: {
+        text: "Email address"
+      },
+      value: {
+        text: "laura.smith@nhs.net"
+      }
+    },
+    {
+      key: {
+        text: "Collection"
+      },
+      value: {
+        html: '<span id="summary-collection">' + (data['collections'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-collection",
+            text: "Change",
+            visuallyHiddenText: "collection"
+          }
+        ]
+      }
+    },
+   {
+      key: {
+        text: "Organisation"
+      },
+      value: {
+        html: '<span id="summary-organisation">' + (data['organisation-search'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "organisation"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "ODS"
+      },
+      value: {
+        html: '<span id="summary-ods">' + (data['ods-code-field'] or data['trust-search-query'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-organisation",
+            text: "Change",
+            visuallyHiddenText: "ODS"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Role"
+      },
+      value: {
+        html: '<span id="summary-role">' + roleLabel + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-role",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead full name"
+      },
+     value: {
+        html: '<span id="summary-ig-name">' + (data['ig-name'] or 'Not provided') + '</span>'
+    },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "IG Lead email address"
+      },
+      value: {
+        html: '<span id="summary-ig-email">' + (data['email-address-field'] or 'Not provided') + '</span>'
+    },
+      actions: {
+        items: [
+          {
+            href: "add-ig-contact",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    
+    {
+      key: {
+        text: "Your team or department"
+      },
+      value: {
+        html: '<span id="summary-team">' + (data['team'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Job title"
+      },
+      value: {
+        html: '<span id="summary-job-title">' + (data['job-title'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Reason for requesting administrator access (optional)"
+      },
+      value: {
+        html: '<span id="summary-reason">' + (data['reason'] or 'Not provided') + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "add-ig-context2",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Terms and conditions"
+      },
+      value: {
+        html: '<span id="summary-terms">' + agreedTerms + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "submitter2-terms",
+            text: "Change",
+            visuallyHiddenText: "terms"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+ <button onclick="location='submitter-confirmation'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Submit
+              </button>
+
+</div>
+
+   
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function setText(id, value, fallback) {
+    const el = document.getElementById(id);
+    if (!el) {
+      return;
+    }
+    const text = (value || '').trim();
+    if (text) {
+      el.textContent = text;
+    } else if (fallback) {
+      el.textContent = fallback;
+    }
+  }
+
+  const roleMap = {
+    submitter: 'Submitter',
+    'local-admin': 'Local admin'
+  };
+
+  const storedRole = sessionStorage.getItem('summary.role') || '';
+  const roleLabel = roleMap[storedRole] || '';
+
+  setText('summary-collection', sessionStorage.getItem('summary.collections'), 'Not provided');
+  setText('summary-organisation', sessionStorage.getItem('summary.organisation'), 'Not provided');
+  setText('summary-ods', sessionStorage.getItem('summary.ods'), 'Not provided');
+  setText('summary-role', roleLabel, 'Not provided');
+  setText('summary-ig-name', sessionStorage.getItem('summary.igName'), 'Not provided');
+  setText('summary-ig-email', sessionStorage.getItem('summary.igEmail'), 'Not provided');
+  setText('summary-team', sessionStorage.getItem('summary.team'), 'Not provided');
+  setText('summary-job-title', sessionStorage.getItem('summary.jobTitle'), 'Not provided');
+  setText('summary-reason', sessionStorage.getItem('summary.reason'), 'Not provided');
+
+  const terms = sessionStorage.getItem('summary.terms');
+  if (terms === 'yes') {
+    setText('summary-terms', 'Agreed', 'Not agreed');
+  } else if (terms === 'no') {
+    setText('summary-terms', 'Not agreed', 'Not agreed');
+  }
+});
+</script>
+{% endblock %}

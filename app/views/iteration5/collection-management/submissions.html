@@ -1,4 +1,4 @@
-{% extends "iteration4/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
  <!--This page shows a submissions table that includes org column and related filter-->
 
 {% set pageName = serviceName %}
@@ -31,68 +31,30 @@
               Select a collection to view its submissions.
             </div>
             <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
-              <option value="Diagnostic Imaging Data Set (V2.0)">Diagnostic Imaging Data Set (V2.0) - DIDS</option>
-              <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening - LCS</option>
+              <option value="" selected>All</option>
+              <option value="Diagnostic Imaging Data Set (V2.0)">Diagnostic Imaging Data Set (V2.0)</option>
+              <option value="Lung Cancer Screening (LCS)">Lung Cancer Screening (LCS)</option>
             </select>
           </div>
         </div>
 
         <div class="nhsuk-grid-column-one-half">
           <div class="nhsuk-form-group">
-            <fieldset class="nhsuk-fieldset">
-              <legend class="nhsuk-fieldset__legend">
-                <strong>Time range</strong>
-              </legend>
-              <div class="nhsuk-radios nhsuk-radios--small nhsuk-radios--conditional">
-
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="time-range-preset" name="timeRangeType" type="radio" value="preset" checked aria-controls="conditional-time-range-preset">
-                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-preset">
-                    Select a time range
-                  </label>
-                </div>
-                <div class="nhsuk-radios__conditional" id="conditional-time-range-preset">
-                  <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                    <select class="nhsuk-select" id="time-period-select" name="timePeriod">
-                      <option value="last-2-weeks" selected>Last 2 weeks</option>
-                      <option value="last-month">Last month</option>
-                      <option value="last-2-months">Last 2 months</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="time-range-custom" name="timeRangeType" type="radio" value="custom" aria-controls="conditional-time-range-custom">
-                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-custom">
-                    Custom date range
-                  </label>
-                </div>
-                <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="conditional-time-range-custom">
-                  <p class="nhsuk-hint nhsuk-u-margin-bottom-3">The date range cannot be longer than 2 months.</p>
-                  <div style="display:flex; gap: 24px; flex-wrap: wrap; align-items: flex-end;">
-                    <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                      <label class="nhsuk-label" for="date-from"><strong>From</strong></label>
-                      <div class="nhsuk-hint" style="font-size: 1.0rem;">For example, 17/5/2026</div>
-                      <input class="nhsuk-input nhsuk-input--width-10" id="date-from" name="dateFrom" type="date">
-                    </div>
-                    <div class="nhsuk-form-group nhsuk-u-margin-bottom-2">
-                      <label class="nhsuk-label" for="date-to"><strong>To</strong></label>
-                      <div class="nhsuk-hint" style="font-size: 1.0rem;">For example, 17/5/2026</div>
-                      <input class="nhsuk-input nhsuk-input--width-10" id="date-to" name="dateTo" type="date">
-                    </div>
-                    <div class="nhsuk-u-margin-bottom-3">
-                      <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0" type="button" id="load-results-btn" onclick="return false;">Load results</button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </fieldset>
+            <label class="nhsuk-label" for="time-period-select">
+              <strong>Time range</strong>
+            </label>
+            <div class="nhsuk-hint" id="time-period-select-hint">
+              Select a time range.
+            </div>
+            <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+              <option value="last-2-weeks" selected>Last 2 weeks</option>
+              <option value="last-month">Last month</option>
+              <option value="last-2-months">Last 2 months</option>
+              <option value="">All</option>
+            </select>
           </div>
         </div>
       </div>
-
-
 
 
 <!--<div class="nhsuk-form-group nhsuk-u-margin-bottom-4" style="max-width: 5S20px;">
@@ -131,7 +93,17 @@
 <div>
 <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
 <div class="nhsuk-table-filters__grid_small">
-
+<!-- <div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-id"><strong>Search by ID</strong></label>
+<input class="nhsuk-input" id="filter-id" name="id" type="text" placeholder="" autocomplete="off">
+<div class="nhsuk-form-group">
+<label class="nhsuk-label" for="filter-organisation"><strong>Organisation:</strong></label>
+<select class="nhsuk-select" id="filter-organisation" name="organisation">
+<option value="">All organisations</option>
+<option value="Sheffield Teaching Hospital">Sheffield Teaching Hospital</option>
+</select>
+</div> 
+</div>-->
 <div class="nhsuk-form-group" style="position: relative; width: 200px;">
 <label class="nhsuk-label" for="filter-submitted-by"><strong>Submitted by:</strong></label>
 <input class="nhsuk-input" id="filter-submitted-by" name="submittedBy" type="text" placeholder="Start typing to search..." autocomplete="off">
@@ -198,17 +170,11 @@
 </div>
 </form>
 </div>
-
-        <div id="loading-indicator" class="loading-container" style="display: none;">
-          <div class="loading-spinner"></div>
-          <div class="loading-text">Loading results...</div>
-        </div>
-
       <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
         <thead class="nhsuk-table__head" role="rowgroup">
           <tr role="row" class="nhsuk-table__row">
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">File name</th> 
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="name">Collection</th> 
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="desc" data-key="submittedOn">Submitted on</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="submittedBy">Submitted by</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="organisation">Organisation</th>
@@ -219,109 +185,8 @@
           </tr>
         </thead>
         <tbody class="nhsuk-table__body">
-                  <!-- LCS-specific rows: visible when 'Lung Cancer Screening (LCS)' is selected in the collection filter -->
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv1_2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>28 Apr 2026, 10:00</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Emma Wilson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Caret (RNN)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv2_2026_2.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>27 Apr 2026, 15:30</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Michael Davies</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>County Durham and Darlington NHS Foundation Trust (RTC)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanFinal2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 12:45</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Jackson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                   <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv1_2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>28 Apr 2026, 10:00</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Emma Wilson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Caret (RNN)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv2_2026_2.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>27 Apr 2026, 15:30</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Laura Lee</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>South Tyneside and Sunderland NHS Foundation Trust (R0B)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanFinal2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 12:45</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Jackson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>InHealth - Circle Ross Hall Clinic (M3V1E)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                   <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv1_2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>28 Apr 2026, 10:00</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Emma Wilson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Caret (RNN)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanProv2_2026_2.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>27 Apr 2026, 15:30</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Michael Davies</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>InHealth - Circle Ross Hall Clinic (M3V1E)/td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanFinal2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 12:45</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Jackson</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
-                  <tr class="nhsuk-table__row lcs-row" data-collection="Lung Cancer Screening (LCS)" role="row">
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">LCS_JanFinal2026_1.xml</span></td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 12:45</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Michael Davies</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>County Durham and Darlington NHS Foundation Trust (RTC)</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-                    <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-                  </tr>
           <tr class="nhsuk-table__row" role="row">      
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanProv4_2026_2.xml</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>26 Apr 2026, 09:30</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Olivia Patel</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
@@ -331,17 +196,17 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details2">View</a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanFinal2026_1.xml</span></td>           
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>           
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Apr 2026, 14:10</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Error", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanProv3_2026_4.xml</span></td>    
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>    
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>24 Apr 2026, 11:05</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Amelia Khan</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RQM)</td>
@@ -351,7 +216,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanProv2_2026_3.xml</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>23 Apr 2026, 09:15</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Emma Wilson</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
@@ -361,7 +226,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanProv1_2026_2.xml</span></td>        
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>        
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>22 Apr 2026, 16:20</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
@@ -371,7 +236,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1w">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanFinal2026_1.xml</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>21 Apr 2026, 11:30</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Michael Davies</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Royal Free London NHS Foundation Trust (RFW)</td>
@@ -381,17 +246,17 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">DIDS_Jan1_2026_2.xml</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Apr 2026, 10:55</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration0/submission-details1r2">View</a></td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="/iteration5/collection-management/submission-details">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">DIDS_Jan1_2026_2.xml</span></td>            
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Lung Cancer Screening (LCS)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>19 Apr 2026, 15:20</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Thompson</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
@@ -401,7 +266,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanFinal2026_3.xml</span></td>         
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>18 Apr 2026, 13:45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NVC01)</td>
@@ -411,7 +276,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">DIDS_Jan1_2026_2.xml</span></td>         
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>17 Apr 2026, 13:42</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
@@ -421,7 +286,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanFinal2026_2.xml</span></td>          
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>          
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>12 Apr 2026, 12:35</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
@@ -431,7 +296,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_MayFinal2026_1.xml</span></td>            
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>            
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>5 Apr 2026, 11:13</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
@@ -441,7 +306,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DID_JunFinal2026_2.xml</span></td>         
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span><span class="file-name-cell__text">Diagnostic Imaging Data Set (V2.0)</span></td>         
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>2 Apr 2026, 10:45</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Lucas Reed</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited (NMT01)</td>
@@ -450,81 +315,11 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_MarProv1_2026_1.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>30 Mar 2026, 09:10</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Amelia Khan</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust (RJ1)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_MarFinal2026_2.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>28 Mar 2026, 14:55</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Lucas Reed</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical (NMR01)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_FebProv2_2026_3.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>25 Mar 2026, 10:30</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Olivia Patel</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_FebFinal2026_1.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>20 Mar 2026, 16:05</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Sarah Thompson</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_FebProv1_2026_4.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>15 Mar 2026, 11:50</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Ethan Moore</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Royal Free London NHS Foundation Trust (RFW)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanProv5_2026_1.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>10 Mar 2026, 13:20</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Noah Bennett</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital (RD8)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Error", classes: "nhsuk-tag--red"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
-          <tr class="nhsuk-table__row" role="row">
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span><span class="file-name-cell__text">DIDS_JanFinal2026_4.xml</span></td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted on</span>5 Mar 2026, 08:45</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Grace Turner</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
-          </tr>
         </tbody>
       </table>
 
 <!-- Pagination -->
-<div id="pagination-row" class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
   <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
     <ul class="nhsuk-list nhsuk-pagination__list">
       <li class="nhsuk-pagination__item--current">
@@ -550,33 +345,19 @@
 <!-- End of tab panel -->
 
 <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="graph">
-  <!-- DIDS chart -->
-  <div id="chart-dids">
-    <h3 class="nhsuk-heading-m">Submission trends — Diagnostic Imaging Data Set (V2.0)</h3>
-    <div class="nhsuk-u-margin-bottom-4">
-      <canvas id="submissions-chart-dids" width="800" height="400"></canvas>
-    </div>
-    <div class="chart-legend">
-      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="width: 20px; height: 3px; background-color: #0072CE;"></div>
-          <span style="font-size: 16px; font-weight: 500;">Diagnostic Imaging Data Set (V2.0)</span>
-        </div>
-      </div>
-    </div>
+  <h3 class="nhsuk-heading-m">Submission trends by collection</h3>
+  <div class="nhsuk-u-margin-bottom-4">
+    <canvas id="submissions-chart" width="800" height="400"></canvas>
   </div>
-  <!-- LCS chart -->
-  <div id="chart-lcs" style="display: none;">
-    <h3 class="nhsuk-heading-m">Submission trends — Lung Cancer Screening (LCS)</h3>
-    <div class="nhsuk-u-margin-bottom-4">
-      <canvas id="submissions-chart-lcs" width="800" height="400"></canvas>
-    </div>
-    <div class="chart-legend">
-      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="width: 20px; height: 3px; background-color: #78BE20;"></div>
-          <span style="font-size: 16px; font-weight: 500;">Lung Cancer Screening (LCS)</span>
-        </div>
+  <div class="chart-legend">
+    <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="width: 20px; height: 3px; background-color: #0072CE;"></div>
+        <span style="font-size: 16px; font-weight: 500;">Diagnostic Imaging Data Set (V2.0)</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="width: 20px; height: 3px; background-color: #78BE20;"></div>
+        <span style="font-size: 16px; font-weight: 500;">Lung Cancer Screening (LCS)</span>
       </div>
     </div>
   </div>
@@ -584,10 +365,34 @@
 
 <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="download">
   <h3 class="nhsuk-heading-m">Download data</h3>
-  <p>The downloaded CSV will contain all submissions matching the currently selected collection and time range.</p>
-  <p id="download-summary" class="nhsuk-body"></p>
+  <p>The downloaded data will reflect the collection and time range selected above.</p>
+  
+  <div class="nhsuk-form-group">
+    <fieldset class="nhsuk-fieldset">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <p>
+          Select format
+        </p>
+      </legend>
+      <div class="nhsuk-radios">
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="format-csv" name="download-format" type="radio" value="csv" checked>
+          <label class="nhsuk-label nhsuk-radios__label" for="format-csv">
+            CSV
+          </label>
+        </div>
+        <div class="nhsuk-radios__item">
+          <input class="nhsuk-radios__input" id="format-json" name="download-format" type="radio" value="json">
+          <label class="nhsuk-label nhsuk-radios__label" for="format-json">
+            JSON
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  
   <button class="nhsuk-button" type="button" id="download-btn" style="background-color: #00703c; border-color: #00703c;">
-    Download CSV
+    Download
   </button>
 </div>
 
@@ -610,6 +415,9 @@
 // Chart initialization
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('submissions-chart');
+    if (!ctx) return;
+
     // Generate last 12 months labels
     const months = [];
     const now = new Date();
@@ -618,98 +426,99 @@
       months.push(date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }));
     }
 
-    const sharedOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        subtitle: {
-          display: true,
-          text: 'This includes only successful submissions',
-          font: { size: 14 },
-          color: '#666'
-        }
+    // Sample data for demonstration - in real scenario this would come from backend
+    const didsData = [150, 220, 180, 250, 300, 280, 350, 400, 380, 420, 450, 480]; // Diagnostic Imaging Data Set
+    const lcsData = [80, 120, 100, 150, 180, 160, 200, 250, 220, 280, 300, 320];   // Lung Cancer Screening
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Diagnostic Imaging Data Set (V2.0)',
+          data: didsData,
+          borderColor: '#0072CE', // Custom Blue
+          backgroundColor: 'rgba(0, 114, 206, 0.1)',
+          borderWidth: 3,
+          fill: false,
+          tension: 0
+        }, {
+          label: 'Lung Cancer Screening (LCS)',  
+          data: lcsData,
+          borderColor: '#78BE20', // Custom Green
+          backgroundColor: 'rgba(120, 190, 32, 0.1)',
+          borderWidth: 3,
+          borderDash: [5, 5],
+          fill: false,
+          tension: 0
+        }]
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: 'Number of submissions', font: { size: 16 } },
-          ticks: { font: { size: 14 } },
-          grid: { color: '#f0f4f5' }
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false // We're using custom legend
+          },
+          title: {
+            display: true,
+            text: 'Number of submissions per month by collection',
+            font: {
+              size: 18
+            }
+          },
+          subtitle: {
+            display: true,
+            text: 'This includes only successful submissions',
+            font: {
+              size: 14
+            },
+            color: '#666'
+          }
         },
-        x: {
-          title: { display: true, text: 'Month', font: { size: 16 } },
-          ticks: { font: { size: 14 } },
-          grid: { color: '#f0f4f5' }
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Number of submissions',
+              font: {
+                size: 16
+              }
+            },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
+            grid: {
+              color: '#f0f4f5'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month',
+              font: {
+                size: 16
+              }
+            },
+            ticks: {
+              font: {
+                size: 14
+              }
+            },
+            grid: {
+              color: '#f0f4f5'
+            }
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index'
         }
-      },
-      interaction: { intersect: false, mode: 'index' }
-    };
-
-    // DIDS chart
-    const ctxDids = document.getElementById('submissions-chart-dids');
-    if (ctxDids) {
-      new Chart(ctxDids, {
-        type: 'line',
-        data: {
-          labels: months,
-          datasets: [{
-            label: 'Diagnostic Imaging Data Set (V2.0)',
-            data: [150, 220, 180, 250, 300, 280, 350, 400, 380, 420, 450, 480],
-            borderColor: '#0072CE',
-            backgroundColor: 'rgba(0, 114, 206, 0.1)',
-            borderWidth: 3,
-            fill: false,
-            tension: 0
-          }]
-        },
-        options: Object.assign({}, sharedOptions, {
-          plugins: Object.assign({}, sharedOptions.plugins, {
-            title: { display: true, text: 'Number of DIDS submissions per month', font: { size: 18 } }
-          })
-        })
-      });
-    }
-
-    // LCS chart
-    const ctxLcs = document.getElementById('submissions-chart-lcs');
-    if (ctxLcs) {
-      new Chart(ctxLcs, {
-        type: 'line',
-        data: {
-          labels: months,
-          datasets: [{
-            label: 'Lung Cancer Screening (LCS)',
-            data: [80, 120, 100, 150, 180, 160, 200, 250, 220, 280, 300, 320],
-            borderColor: '#78BE20',
-            backgroundColor: 'rgba(120, 190, 32, 0.1)',
-            borderWidth: 3,
-            borderDash: [5, 5],
-            fill: false,
-            tension: 0
-          }]
-        },
-        options: Object.assign({}, sharedOptions, {
-          plugins: Object.assign({}, sharedOptions.plugins, {
-            title: { display: true, text: 'Number of LCS submissions per month', font: { size: 18 } }
-          })
-        })
-      });
-    }
-
-    // Sync chart visibility with the collection dropdown
-    function updateChart() {
-      const sel = document.getElementById('collection-select');
-      const isLcs = sel && sel.value === 'Lung Cancer Screening (LCS)';
-      var didsDiv = document.getElementById('chart-dids');
-      var lcsDiv = document.getElementById('chart-lcs');
-      if (didsDiv) didsDiv.style.display = isLcs ? 'none' : '';
-      if (lcsDiv) lcsDiv.style.display = isLcs ? '' : 'none';
-    }
-
-    var collectionSelect = document.getElementById('collection-select');
-    if (collectionSelect) collectionSelect.addEventListener('change', updateChart);
-    updateChart();
+      }
+    });
   });
 })();
 </script>
@@ -1018,36 +827,6 @@
   populateSelect(typeSel, data.map(r=>extractType(r.type)));
 
     function matches(rec){
-      // Collection filter (top-level dropdown)
-      var collectionSelectEl = document.getElementById('collection-select')
-      var selectedCollection = collectionSelectEl ? collectionSelectEl.value : ''
-      if (selectedCollection) {
-        var rowCollection = rec.row.getAttribute('data-collection') || 'Diagnostic Imaging Data Set (V2.0)'
-        if (rowCollection !== selectedCollection) return false
-      }
-      // Time range filter
-      var timeRangeType = document.querySelector('input[name="timeRangeType"]:checked')
-      var timeRangeTypeVal = timeRangeType ? timeRangeType.value : 'preset'
-      var submittedDateObj = parseSubmittedDate(rec.submittedOn)
-      if (timeRangeTypeVal === 'preset') {
-        var timePeriodSelectEl = document.getElementById('time-period-select')
-        var timePeriod = timePeriodSelectEl ? timePeriodSelectEl.value : ''
-        if (timePeriod && submittedDateObj) {
-          var today = new Date()
-          var startDate = null
-          if (timePeriod === 'last-2-weeks') { startDate = new Date(); startDate.setDate(today.getDate() - 14) }
-          else if (timePeriod === 'last-month') { startDate = new Date(); startDate.setMonth(today.getMonth() - 1) }
-          else if (timePeriod === 'last-2-months') { startDate = new Date(); startDate.setMonth(today.getMonth() - 2) }
-          if (startDate && submittedDateObj < startDate) return false
-        }
-      } else if (timeRangeTypeVal === 'custom') {
-        var dateFromEl = document.getElementById('date-from')
-        var dateToEl = document.getElementById('date-to')
-        var fromVal = dateFromEl ? dateFromEl.value : ''
-        var toVal = dateToEl ? dateToEl.value : ''
-        if (fromVal && submittedDateObj && submittedDateObj < new Date(fromVal)) return false
-        if (toVal && submittedDateObj && submittedDateObj > new Date(toVal + 'T23:59:59')) return false
-      }
       var submittedMonthQ = (submittedMonthSel && submittedMonthSel.value ? submittedMonthSel.value : '')
       var idQ = (idInput?.value || '').trim().toLowerCase()
       var orgQ = (orgInput?.value || '').trim().toLowerCase()
@@ -1145,25 +924,14 @@
         }
       })
       if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's')
-      var paginationRow = document.getElementById('pagination-row')
-      if (paginationRow) paginationRow.style.display = shown > 10 ? 'flex' : 'none'
       renderChips();
     }
 
-    // Only apply filters on button click — show spinner before updating the table
+    // Only apply filters on button click
     if (applyBtn) {
       applyBtn.addEventListener('click', function(e){
         e.preventDefault();
-        var loadingIndicator = document.getElementById('loading-indicator');
-        var submissionsTable = document.getElementById('submissions-table');
-        if (loadingIndicator) loadingIndicator.style.display = 'flex';
-        if (submissionsTable) submissionsTable.style.display = 'none';
-        var loadingTime = Math.random() * 500 + 800;
-        setTimeout(function() {
-          render();
-          if (loadingIndicator) loadingIndicator.style.display = 'none';
-          if (submissionsTable) submissionsTable.style.display = '';
-        }, loadingTime);
+        render();
       });
     }
   // Remove live filtering for period; only filter on Apply
@@ -1319,41 +1087,9 @@
         padding: 0px;
       }
     `
-    style.textContent += `
-/* Loading indicator styles */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  background-color: #f0f4f5;
-  border-radius: 4px;
-  margin: 24px 0;
-}
-.loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #d8dde0;
-  border-top: 4px solid #005eb8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.loading-text {
-  font-size: 16px;
-  color: #212b32;
-  font-weight: 600;
-}
-    `
     document.head.appendChild(style)
 
     // Initial render to show all
-    window._ndspRender = render
     render()
   }
 
@@ -1441,151 +1177,92 @@ sortTable(table, colIndex, type, next)
 </script>
 
 <script>
-// Collection and time range filter — re-run table filter on change
+// Collection and time period filter functionality
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
-    var collectionSelect = document.getElementById('collection-select');
-    var timePeriodSelect = document.getElementById('time-period-select');
-    function triggerRender() {
-      var loadingIndicator = document.getElementById('loading-indicator');
-      var submissionsTable = document.getElementById('submissions-table');
-      if (loadingIndicator) loadingIndicator.style.display = 'flex';
-      if (submissionsTable) submissionsTable.style.display = 'none';
-      var loadingTime = Math.random() * 500 + 800;
-      setTimeout(function() {
-        if (typeof window._ndspRender === 'function') window._ndspRender();
-        if (loadingIndicator) loadingIndicator.style.display = 'none';
-        if (submissionsTable) submissionsTable.style.display = '';
-      }, loadingTime);
+    const collectionSelect = document.getElementById('collection-select');
+    const timePeriodSelect = document.getElementById('time-period-select');
+    const submissionsTable = document.getElementById('submissions-table');
+    
+    if (!collectionSelect || !timePeriodSelect || !submissionsTable) return;
+    
+    function parseSubmissionDate(dateStr) {
+      // Parse date format like "25 Feb 2026, 09:30"
+      const parts = dateStr.split(', ')[0]; // Get "25 Feb 2026" part
+      return new Date(parts);
     }
-    if (collectionSelect) collectionSelect.addEventListener('change', triggerRender);
-    if (timePeriodSelect) timePeriodSelect.addEventListener('change', triggerRender);
-
-    // Radio show/hide for time range type
-    var radios = document.querySelectorAll('input[name="timeRangeType"]');
-    function updateTimeRangeVisibility() {
-      var selected = document.querySelector('input[name="timeRangeType"]:checked');
-      var val = selected ? selected.value : 'preset';
-      var presetPanel = document.getElementById('conditional-time-range-preset');
-      var customPanel = document.getElementById('conditional-time-range-custom');
-      if (presetPanel) presetPanel.classList.toggle('nhsuk-radios__conditional--hidden', val !== 'preset');
-      if (customPanel) customPanel.classList.toggle('nhsuk-radios__conditional--hidden', val !== 'custom');
-      triggerRender();
-    }
-    radios.forEach(function(r) { r.addEventListener('change', updateTimeRangeVisibility); });
-
-    var dateFrom = document.getElementById('date-from');
-    var dateTo = document.getElementById('date-to');
-    if (dateFrom) dateFrom.addEventListener('change', triggerRender);
-    if (dateTo) dateTo.addEventListener('change', triggerRender);
-
-    var loadResultsBtn = document.getElementById('load-results-btn');
-    if (loadResultsBtn) loadResultsBtn.addEventListener('click', triggerRender);
-  });
-})();
-</script>
-
-<script>
-// CSV download — exports visible table rows matching current collection + time range
-(function() {
-  document.addEventListener('DOMContentLoaded', function() {
-    var downloadBtn = document.getElementById('download-btn');
-    var downloadSummary = document.getElementById('download-summary');
-
-    var collectionLabels = {
-      'Diagnostic Imaging Data Set (V2.0)': 'Diagnostic Imaging Data Set (V2.0) - DIDS',
-      'Lung Cancer Screening (LCS)': 'Lung Cancer Screening - LCS'
-    };
-    var timeRangeLabels = {
-      'last-2-weeks': 'Last 2 weeks',
-      'last-month': 'Last month',
-      'last-2-months': 'Last 2 months',
-      '': 'All'
-    };
-
-    function getSelectionText() {
-      var colSel = document.getElementById('collection-select');
-      var timeSel = document.getElementById('time-period-select');
-      var colLabel = colSel ? (collectionLabels[colSel.value] || colSel.value) : '';
-      var timeLabel = timeSel ? (timeRangeLabels[timeSel.value] !== undefined ? timeRangeLabels[timeSel.value] : timeSel.value) : '';
-      return 'Collection: <strong>' + colLabel + '</strong> &nbsp;|&nbsp; Time range: <strong>' + timeLabel + '</strong>';
-    }
-
-    function updateSummary() {
-      if (downloadSummary) downloadSummary.innerHTML = getSelectionText();
-    }
-
-    function escapeCSV(val) {
-      var s = (val || '').trim();
-      if (s.indexOf(',') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1) {
-        return '"' + s.replace(/"/g, '""') + '"';
+    
+    function getDateRange(timePeriod) {
+      const today = new Date();
+      let startDate = null;
+      
+      switch(timePeriod) {
+        case 'last-2-weeks':
+          startDate = new Date();
+          startDate.setDate(today.getDate() - 14);
+          break;
+        case 'last-month':
+          startDate = new Date();
+          startDate.setMonth(today.getMonth() - 1);
+          break;
+        case 'last-2-months':
+          startDate = new Date();
+          startDate.setMonth(today.getMonth() - 2);
+          break;
+        default:
+          return null; // No date filtering for 'All'
       }
-      return s;
+      
+      return startDate;
     }
-
-    function getVisibleRows() {
-      var table = document.getElementById('submissions-table');
-      if (!table || !table.tBodies.length) return [];
-      return Array.prototype.slice.call(table.tBodies[0].rows).filter(function(row) {
-        return row.style.display !== 'none';
-      });
-    }
-
-    function cellText(cell) {
-      if (!cell) return '';
-      var heading = cell.querySelector('.nhsuk-table-responsive__heading');
-      var txt = (cell.textContent || '').trim();
-      if (heading) txt = txt.replace(heading.textContent.trim(), '').trim();
-      return txt;
-    }
-
-    function buildCSV(rows) {
-      var headers = ['File name', 'Submitted on', 'Submitted by', 'Organisation', 'Reporting period', 'Type', 'Status'];
-      var lines = [headers.map(escapeCSV).join(',')];
+    
+    function filterTable() {
+      const selectedCollection = collectionSelect.value;
+      const selectedTimePeriod = timePeriodSelect.value;
+      const tbody = submissionsTable.querySelector('tbody');
+      if (!tbody) return;
+      
+      const rows = tbody.querySelectorAll('tr');
+      const dateRange = getDateRange(selectedTimePeriod);
+      
       rows.forEach(function(row) {
-        var cells = row.cells;
-        // columns 0-6 (skip Action column 7)
-        var values = [];
-        for (var i = 0; i < 7; i++) {
-          values.push(escapeCSV(cellText(cells[i])));
+        let showRow = true;
+        
+        // Filter by collection
+        if (selectedCollection && selectedCollection !== 'All') {
+          const collectionCell = row.querySelector('.file-name-cell__text');
+          if (collectionCell) {
+            const cellValue = collectionCell.textContent.trim();
+            if (cellValue !== selectedCollection) {
+              showRow = false;
+            }
+          }
         }
-        lines.push(values.join(','));
-      });
-      return lines.join('\n');
-    }
-
-    function filenameFromSelection() {
-      var colSel = document.getElementById('collection-select');
-      var timeSel = document.getElementById('time-period-select');
-      var col = colSel ? colSel.value.replace(/[^a-zA-Z0-9]/g, '_') : 'submissions';
-      var time = timeSel ? timeSel.value.replace(/[^a-zA-Z0-9]/g, '_') : 'all';
-      return 'submissions_' + col + '_' + time + '.csv';
-    }
-
-    if (downloadBtn) {
-      downloadBtn.addEventListener('click', function() {
-        var rows = getVisibleRows();
-        var csv = buildCSV(rows);
-        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = filenameFromSelection();
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 100);
+        
+        // Filter by time period
+        if (showRow && dateRange) {
+          const submittedCells = row.querySelectorAll('td');
+          let submissionDate = null;
+          
+          submittedCells.forEach(function(cell) {
+            const heading = cell.querySelector('.nhsuk-table-responsive__heading');
+            if (heading && heading.textContent.trim() === 'Submitted on') {
+              const dateText = cell.textContent.replace('Submitted on', '').trim();
+              submissionDate = parseSubmissionDate(dateText);
+            }
+          });
+          
+          if (submissionDate && submissionDate < dateRange) {
+            showRow = false;
+          }
+        }
+        
+        row.style.display = showRow ? '' : 'none';
       });
     }
-
-    // Keep the summary text live
-    var colSel = document.getElementById('collection-select');
-    var timeSel = document.getElementById('time-period-select');
-    if (colSel) colSel.addEventListener('change', updateSummary);
-    if (timeSel) timeSel.addEventListener('change', updateSummary);
-    updateSummary();
+    
+    collectionSelect.addEventListener('change', filterTable);
+    timePeriodSelect.addEventListener('change', filterTable);
   });
 })();
 </script>
