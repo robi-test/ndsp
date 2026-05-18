@@ -354,12 +354,47 @@
           });
         </script>
 
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+              <h3 class="nhsuk-fieldset__heading">What would you like to download?</h3>
+            </legend>
+            <div class="nhsuk-radios" id="download-type-radios">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="download-type-org" name="download-type" type="radio" value="organisation-details">
+                <label class="nhsuk-label nhsuk-radios__label" for="download-type-org">
+                  Organisation details
+                </label>
+                <div class="nhsuk-hint nhsuk-radios__hint" id="download-type-org-hint">
+                  Organisation name, region, number of users and contact details.
+                </div>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="download-type-perf" name="download-type" type="radio" value="performance">
+                <label class="nhsuk-label nhsuk-radios__label" for="download-type-perf">
+                  Performance data
+                </label>
+                <div class="nhsuk-hint nhsuk-radios__hint" id="download-type-perf-hint">
+                  Performance data based on the selected time range.
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
         <button class="nhsuk-button" type="button" onclick="downloadPbpData(); return false;">
           Download CSV
         </button>
 
         <script>
           function downloadPbpData() {
+            var selectedTypeEl = document.querySelector('input[name="download-type"]:checked');
+            if (!selectedTypeEl) {
+              alert('Please select what you would like to download.');
+              return;
+            }
+            var downloadType = selectedTypeEl.value;
+
             var collectionEl = document.getElementById('collection-select');
             var isLCS = collectionEl && collectionEl.value === 'Lung Cancer Screening (LCS)';
             var collectionLabel = isLCS ? 'LCS' : 'DIDS';
@@ -368,6 +403,11 @@
             var timePeriodLabel = timePeriodEl
               ? timePeriodEl.options[timePeriodEl.selectedIndex].text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
               : 'all';
+
+            if (downloadType === 'organisation-details') {
+              downloadOrgDetails(collectionLabel);
+              return;
+            }
 
             var filename = 'performance-by-period-' + collectionLabel + '-' + timePeriodLabel + '.csv';
 
@@ -421,6 +461,127 @@
             var a = document.createElement('a');
             a.href = url;
             a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+          }
+
+          function downloadOrgDetails(collectionLabel) {
+            var orgData = [
+              { name: 'Circle Health Group Limited', odsCode: 'NT4', region: 'London', users: [
+                  { userName: 'Sarah Mitchell',   email: 's.mitchell@circlehealthgroup.co.uk' },
+                  { userName: 'James Thornton',   email: 'j.thornton@circlehealthgroup.co.uk' },
+                  { userName: 'Priya Sharma',     email: 'p.sharma@circlehealthgroup.co.uk' },
+                  { userName: 'David Okafor',     email: 'd.okafor@circlehealthgroup.co.uk' },
+                  { userName: 'Emma Lawson',      email: 'e.lawson@circlehealthgroup.co.uk' },
+                  { userName: 'Tom Griffiths',    email: 't.griffiths@circlehealthgroup.co.uk' },
+                  { userName: 'Natalie Hughes',   email: 'n.hughes@circlehealthgroup.co.uk' },
+                  { userName: 'Ravi Patel',       email: 'r.patel@circlehealthgroup.co.uk' }
+                ]
+              },
+              { name: 'Healthshare Diagnostics', odsCode: 'NYR', region: 'South East', users: [
+                  { userName: 'Claire Bennett',   email: 'c.bennett@healthshare.co.uk' },
+                  { userName: 'Mark Edwards',     email: 'm.edwards@healthshare.co.uk' },
+                  { userName: 'Aisha Malik',      email: 'a.malik@healthshare.co.uk' },
+                  { userName: 'Luke Watkins',     email: 'l.watkins@healthshare.co.uk' },
+                  { userName: 'Sophie Clarke',    email: 's.clarke@healthshare.co.uk' }
+                ]
+              },
+              { name: 'Alliance Medical', odsCode: 'NT9', region: 'Midlands', users: [
+                  { userName: 'Daniel Fox',       email: 'd.fox@alliancemedical.co.uk' },
+                  { userName: 'Karen Yates',      email: 'k.yates@alliancemedical.co.uk' },
+                  { userName: 'Mohammed Al-Rashid', email: 'm.alrashid@alliancemedical.co.uk' },
+                  { userName: 'Helen Pearce',     email: 'h.pearce@alliancemedical.co.uk' },
+                  { userName: 'Callum Stevenson', email: 'c.stevenson@alliancemedical.co.uk' },
+                  { userName: 'Fatima Hussain',   email: 'f.hussain@alliancemedical.co.uk' },
+                  { userName: 'Ben Nicholls',     email: 'b.nicholls@alliancemedical.co.uk' },
+                  { userName: 'Laura Morgan',     email: 'l.morgan@alliancemedical.co.uk' },
+                  { userName: 'Tobi Adeyemi',     email: 't.adeyemi@alliancemedical.co.uk' },
+                  { userName: 'Fiona Walsh',      email: 'f.walsh@alliancemedical.co.uk' },
+                  { userName: 'George Holt',      email: 'g.holt@alliancemedical.co.uk' }
+                ]
+              },
+              { name: 'Barking, Havering and Redbridge University Hospitals NHS Trust', odsCode: 'RF4', region: 'London', users: [
+                  { userName: 'Sunita Verma',     email: 's.verma@bhrhospitals.nhs.uk' },
+                  { userName: 'Peter Doyle',      email: 'p.doyle@bhrhospitals.nhs.uk' },
+                  { userName: 'Amara Osei',       email: 'a.osei@bhrhospitals.nhs.uk' },
+                  { userName: 'Jessica Palmer',   email: 'j.palmer@bhrhospitals.nhs.uk' },
+                  { userName: 'Ryan McAllister',  email: 'r.mcallister@bhrhospitals.nhs.uk' },
+                  { userName: 'Leila Nouri',      email: 'l.nouri@bhrhospitals.nhs.uk' }
+                ]
+              },
+              { name: 'Barts Health NHS Trust', odsCode: 'R1H', region: 'London', users: [
+                  { userName: 'Oliver Grant',     email: 'o.grant@bartshealth.nhs.uk' },
+                  { userName: 'Diana Obi',        email: 'd.obi@bartshealth.nhs.uk' },
+                  { userName: 'Hamid Qureshi',    email: 'h.qureshi@bartshealth.nhs.uk' },
+                  { userName: 'Tracey Simmons',   email: 't.simmons@bartshealth.nhs.uk' },
+                  { userName: 'Ian Blackwood',    email: 'i.blackwood@bartshealth.nhs.uk' },
+                  { userName: 'Yemi Adebayo',     email: 'y.adebayo@bartshealth.nhs.uk' },
+                  { userName: 'Christina Voss',   email: 'c.voss@bartshealth.nhs.uk' },
+                  { userName: 'Patrick Nolan',    email: 'p.nolan@bartshealth.nhs.uk' },
+                  { userName: 'Anjali Menon',     email: 'a.menon@bartshealth.nhs.uk' },
+                  { userName: 'Stuart Reid',      email: 's.reid@bartshealth.nhs.uk' },
+                  { userName: 'Bola Fashola',     email: 'b.fashola@bartshealth.nhs.uk' },
+                  { userName: 'Lucy Barton',      email: 'l.barton@bartshealth.nhs.uk' },
+                  { userName: 'Aaron Dempsey',    email: 'a.dempsey@bartshealth.nhs.uk' },
+                  { userName: 'Miriam Zeleny',    email: 'm.zeleny@bartshealth.nhs.uk' }
+                ]
+              },
+              { name: 'Chelsea and Westminster Hospital NHS Foundation Trust', odsCode: 'RQM', region: 'London', users: [
+                  { userName: 'Niamh Brennan',    email: 'n.brennan@chelwest.nhs.uk' },
+                  { userName: 'Carlos Rivera',    email: 'c.rivera@chelwest.nhs.uk' },
+                  { userName: 'Tanya Frost',      email: 't.frost@chelwest.nhs.uk' },
+                  { userName: 'Ibrahim Saleh',    email: 'i.saleh@chelwest.nhs.uk' },
+                  { userName: 'Gemma Price',      email: 'g.price@chelwest.nhs.uk' },
+                  { userName: 'Nathan Carr',      email: 'n.carr@chelwest.nhs.uk' },
+                  { userName: 'Divya Krishnan',   email: 'd.krishnan@chelwest.nhs.uk' },
+                  { userName: 'Liam Donnelly',    email: 'l.donnelly@chelwest.nhs.uk' },
+                  { userName: 'Rose Abara',       email: 'r.abara@chelwest.nhs.uk' }
+                ]
+              },
+              { name: 'Croydon Health Services NHS Trust', odsCode: 'RJ6', region: 'London', users: [
+                  { userName: 'Sean Brady',       email: 's.brady@croydonhealth.nhs.uk' },
+                  { userName: 'Martha Owusu',     email: 'm.owusu@croydonhealth.nhs.uk' },
+                  { userName: 'Paul Jennings',    email: 'p.jennings@croydonhealth.nhs.uk' },
+                  { userName: 'Kiran Patel',      email: 'k.patel@croydonhealth.nhs.uk' },
+                  { userName: 'Abigail Stone',    email: 'a.stone@croydonhealth.nhs.uk' },
+                  { userName: 'Dennis Nkosi',     email: 'd.nkosi@croydonhealth.nhs.uk' },
+                  { userName: 'Hannah Griffiths', email: 'h.griffiths@croydonhealth.nhs.uk' }
+                ]
+              },
+              { name: 'Epsom and St Helier University Hospitals NHS Trust', odsCode: 'RVR', region: 'South East', users: [
+                  { userName: 'Alicia Fontaine',  email: 'a.fontaine@epsom-sthelier.nhs.uk' },
+                  { userName: 'Marcus Webb',      email: 'm.webb@epsom-sthelier.nhs.uk' },
+                  { userName: 'Nadia Hassan',     email: 'n.hassan@epsom-sthelier.nhs.uk' },
+                  { userName: 'Robert Tully',     email: 'r.tully@epsom-sthelier.nhs.uk' },
+                  { userName: 'Chidi Eze',        email: 'c.eze@epsom-sthelier.nhs.uk' },
+                  { userName: 'Sandra Booth',     email: 's.booth@epsom-sthelier.nhs.uk' },
+                  { userName: 'Joel Ramírez',     email: 'j.ramirez@epsom-sthelier.nhs.uk' },
+                  { userName: 'Patricia Okonkwo', email: 'p.okonkwo@epsom-sthelier.nhs.uk' }
+                ]
+              }
+            ];
+
+            function esc(v) {
+              var s = String(v || '');
+              return (s.indexOf(',') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1)
+                ? '"' + s.replace(/"/g, '""') + '"'
+                : s;
+            }
+
+            var lines = ['Organisation name,ODS code,Region,Number of users,User name,User email'];
+            orgData.forEach(function(d) {
+              d.users.forEach(function(u) {
+                lines.push([d.name, d.odsCode, d.region, d.users.length, u.userName, u.email].map(esc).join(','));
+              });
+            });
+
+            var csv = lines.join('\r\n');
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'organisation-details-' + collectionLabel + '.csv';
             document.body.appendChild(a);
             a.click();
             setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
