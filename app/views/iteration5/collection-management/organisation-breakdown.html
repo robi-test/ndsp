@@ -46,10 +46,11 @@
               ]
             }) }}
 
-            {{ actionLink({
-              text: "Send reminder",
-              href: "#"
-            }) }}
+          <div class="nhsuk-inset-text" style="margin-bottom:24px;">
+            <span class="nhsuk-u-visually-hidden">Information: </span>
+            <p style="margin:0 0 16px 0; font-size:1.1875rem;"><strong><a href="non-submitting-organisations" class="nhsuk-link" style="font-size:1.1875rem;">2 organisation(s)</a></strong> have not yet submitted for this period.</p>
+            <!-- <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2 nhsuk-button--secondary nhsuk-u-margin-bottom-4" type="button" id="bulk-send-reminder-btn" style="font-size:1.1875rem; padding:10px 24px; min-height:0;">Send reminder to all</button> -->
+          </div>
 
     <div class="nhsuk-tabs" data-module="nhsuk-tabs">
       <h2 class="nhsuk-tabs__title">Contents</h2>
@@ -479,4 +480,169 @@
 
     </div>
   </div>
+
+<!-- ===== Org Details Modal ===== -->
+<div id="org-details-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1000; background:rgba(0,0,0,0.5);" role="dialog" aria-modal="true" aria-labelledby="org-details-modal-title">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:4px; padding:40px; max-width:560px; width:92%; max-height:90vh; overflow-y:auto; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+    <h2 class="nhsuk-heading-m" id="org-details-modal-title" style="margin-bottom:24px;">Organisation details</h2>
+    <dl class="nhsuk-summary-list" id="org-details-list"></dl>
+    <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button" id="org-details-close">Close</button>
+  </div>
+</div>
+
+<!-- ===== Send Reminder Modal ===== -->
+<div id="reminder-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1000; background:rgba(0,0,0,0.5);" role="dialog" aria-modal="true" aria-labelledby="reminder-modal-title">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:4px; padding:40px; max-width:540px; width:92%; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+    <h2 class="nhsuk-heading-m" id="reminder-modal-title" style="margin-bottom:16px;">Send reminder</h2>
+    <div id="reminder-modal-body"></div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
+      <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="button" id="reminder-confirm-btn">Send reminder</button>
+      <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button" id="reminder-cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Success Banner ===== -->
+<div id="reminder-success-banner" style="display:none; position:fixed; bottom:24px; right:24px; z-index:1100; background:#007f3b; color:#fff; padding:16px 24px; border-radius:4px; font-size:1rem; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.2);" role="alert" aria-live="polite"></div>
+
+<script>
+(function() {
+  // ---- Org contact data ----
+  var orgContactData = {
+    'Circle Health Group Limited (NT4)': { name: 'Circle Health Group Limited', ods: 'NT4', contact: 'Sarah Williams', email: 'datasubmissions@circlehealthgroup.co.uk', phone: '0121 456 7890', address: '10 Cavendish Square, London, W1G 0NB' },
+    'Healthshare Diagnostics (NYR)': { name: 'Healthshare Diagnostics', ods: 'NYR', contact: 'Mark Thompson', email: 'submissions@healthshare.co.uk', phone: '01865 904 050', address: 'Bloomfield Road, Oxford, OX3 7LH' },
+    'Alliance Medical (NT9)': { name: 'Alliance Medical', ods: 'NT9', contact: 'Lisa Chen', email: 'nhssubmissions@alliancemedical.co.uk', phone: '01926 485 900', address: 'Kenilworth Road, Balsall Common, Coventry, CV7 7EL' },
+    'Barking, Havering and Redbridge University Hospitals NHS Trust (RF4)': { name: 'Barking, Havering and Redbridge University Hospitals NHS Trust', ods: 'RF4', contact: 'James Patel', email: 'dataservices@bhrhospitals.nhs.uk', phone: '01708 435 000', address: "Queen's Hospital, Rom Valley Way, Romford, RM7 0AG" },
+    'Barts Health NHS Trust (R1H)': { name: 'Barts Health NHS Trust', ods: 'R1H', contact: 'Priya Sharma', email: 'data.submissions@bartshealth.nhs.uk', phone: '020 3416 5000', address: 'The Royal London Hospital, Whitechapel Road, London, E1 1BB' },
+    'Chelsea and Westminster Hospital NHS Foundation Trust (RQM)': { name: 'Chelsea and Westminster Hospital NHS Foundation Trust', ods: 'RQM', contact: 'David Andrews', email: 'datateam@chelwest.nhs.uk', phone: '020 3315 8000', address: '369 Fulham Road, Chelsea, London, SW10 9NH' },
+    'Croydon Health Services NHS Trust (RJ6)': { name: 'Croydon Health Services NHS Trust', ods: 'RJ6', contact: 'Emma Johnson', email: 'submissions@croydonhealth.nhs.uk', phone: '020 8401 3000', address: 'Croydon University Hospital, 530 London Road, Croydon, CR7 7YE' },
+    'Epsom and St Helier University Hospitals NHS Trust (RVR)': { name: 'Epsom and St Helier University Hospitals NHS Trust', ods: 'RVR', contact: 'Tom Bradley', email: 'informatics@epsom-sthelier.nhs.uk', phone: '020 8296 2000', address: 'Wrythe Lane, Carshalton, Surrey, SM5 1AA' },
+    'Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)': { name: 'Great Ormond Street Hospital For Children NHS Foundation Trust', ods: 'RP4', contact: 'Rachel Moore', email: 'data@gosh.nhs.uk', phone: '020 7405 9200', address: 'Great Ormond Street, London, WC1N 3JH' },
+    "Guy's and St Thomas' NHS Foundation Trust (RJ1)": { name: "Guy's and St Thomas' NHS Foundation Trust", ods: 'RJ1', contact: 'Michael Foster', email: 'nhsdata@gstt.nhs.uk', phone: '020 7188 7188', address: 'Westminster Bridge Road, London, SE1 7EH' }
+  };
+
+  function getOrgName(row) {
+    var cell = row.cells[0];
+    if (!cell) return '';
+    var span = cell.querySelector('.nhsuk-table-responsive__heading');
+    var text = (cell.innerText || cell.textContent || '').trim();
+    if (span) text = text.replace((span.innerText || span.textContent || '').trim(), '').trim();
+    return text;
+  }
+
+  function isNonSubmitting(row) {
+    var statusCell = row.cells[1];
+    if (!statusCell) return false;
+    var txt = (statusCell.innerText || statusCell.textContent || '').toLowerCase();
+    return txt.indexOf('no valid submission') !== -1 || txt.indexOf('no submission') !== -1;
+  }
+
+  function showSuccess(msg) {
+    var banner = document.getElementById('reminder-success-banner');
+    if (!banner) return;
+    banner.textContent = msg;
+    banner.style.display = 'block';
+    setTimeout(function() { banner.style.display = 'none'; }, 4000);
+  }
+
+  function openDetailsModal(orgName) {
+    var modal = document.getElementById('org-details-modal');
+    var list = document.getElementById('org-details-list');
+    if (!modal || !list) return;
+    var d = orgContactData[orgName];
+    if (!d) { list.innerHTML = '<p>No details available for this organisation.</p>'; }
+    else {
+      var rows = [
+        ['Organisation', d.name],
+        ['ODS code', d.ods],
+        ['Contact name', d.contact],
+        ['Email address', '<a href="mailto:' + d.email + '">' + d.email + '</a>'],
+        ['Telephone', d.phone],
+        ['Address', d.address]
+      ];
+      list.innerHTML = rows.map(function(r) {
+        return '<div class="nhsuk-summary-list__row"><dt class="nhsuk-summary-list__key" style="width:40%">' + r[0] + '</dt><dd class="nhsuk-summary-list__value">' + r[1] + '</dd></div>';
+      }).join('');
+    }
+    modal.style.display = 'block';
+    document.getElementById('org-details-close').focus();
+  }
+
+  function openReminderModal(orgNames) {
+    var modal = document.getElementById('reminder-modal');
+    var body = document.getElementById('reminder-modal-body');
+    if (!modal || !body) return;
+    if (orgNames.length === 1) {
+      var d = orgContactData[orgNames[0]];
+      var email = d ? d.email : 'unknown';
+      body.innerHTML = '<p>A reminder will be sent to <strong>' + orgNames[0] + '</strong>.</p><p>Reminder email will be sent to: <strong>' + email + '</strong></p>';
+    } else {
+      var items = orgNames.map(function(n) {
+        var d = orgContactData[n];
+        return '<li>' + n + (d ? ' — <a href="mailto:' + d.email + '">' + d.email + '</a>' : '') + '</li>';
+      }).join('');
+      body.innerHTML = '<p>A reminder will be sent to <strong>' + orgNames.length + '</strong> non-submitting organisations:</p><ul style="margin-top:8px;">' + items + '</ul>';
+    }
+    modal.dataset.targets = JSON.stringify(orgNames);
+    modal.style.display = 'block';
+    document.getElementById('reminder-confirm-btn').focus();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var table = document.getElementById('submissions-table');
+    if (!table) return;
+
+    // Build non-submitting orgs list for bulk reminder
+    var nonSubmittingOrgs = [];
+    var rows = table.tBodies[0] ? table.tBodies[0].rows : [];
+    for (var i = 0; i < rows.length; i++) {
+      if (isNonSubmitting(rows[i])) nonSubmittingOrgs.push(getOrgName(rows[i]));
+    }
+
+    // Bulk reminder button
+    var bulkBtn = document.getElementById('bulk-send-reminder-btn');
+    if (bulkBtn) {
+      bulkBtn.addEventListener('click', function() {
+        openReminderModal(nonSubmittingOrgs);
+      });
+    }
+
+    // Close details modal
+    var detClose = document.getElementById('org-details-close');
+    if (detClose) detClose.addEventListener('click', function() { document.getElementById('org-details-modal').style.display = 'none'; });
+
+    // Close reminder modal
+    var remCancel = document.getElementById('reminder-cancel-btn');
+    if (remCancel) remCancel.addEventListener('click', function() { document.getElementById('reminder-modal').style.display = 'none'; });
+
+    // Confirm reminder
+    var remConfirm = document.getElementById('reminder-confirm-btn');
+    if (remConfirm) {
+      remConfirm.addEventListener('click', function() {
+        var modal = document.getElementById('reminder-modal');
+        var targets = JSON.parse(modal.dataset.targets || '[]');
+        modal.style.display = 'none';
+        showSuccess(targets.length === 1 ? 'Reminder sent to ' + targets[0] : 'Reminders sent to ' + targets.length + ' organisations.');
+      });
+    }
+
+    // Close modals on backdrop click
+    ['org-details-modal', 'reminder-modal'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function(e) { if (e.target === el) el.style.display = 'none'; });
+    });
+
+    // Close modals on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        ['org-details-modal', 'reminder-modal'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+      }
+    });
+  });
+})();
+</script>
+
 {% endblock %}

@@ -79,21 +79,33 @@
       <div class="nhsuk-tabs__panel" id="periods">
         <p class="nhsuk-body-m nhsuk-u-margin-bottom-2"></p>
         <p class="nhsuk-body-m nhsuk-u-margin-bottom-2">Submission values reflect the time range selected above. </p>
-               <p>You can only view organisations and details for which you have permission. This may not include all organisations in the collection.</p>
+           
 
         <!-- Table filters -->
         <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter organisations">
           <div class="nhsuk-table-filters__grid">
             <div class="nhsuk-form-group">
-              <label class="nhsuk-label" for="filter-organisation"><strong>Search by organisation</strong></label>
+              <label class="nhsuk-label" for="filter-organisation"><strong>Search by organisation/ ODS code</strong></label>
               <input class="nhsuk-input" id="filter-organisation" name="filterOrganisation" type="text" placeholder="" autocomplete="off">
               <div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
             </div>
             <div class="nhsuk-table-filters__actions">
-              <button class="nhsuk-button nhsuk-button--small" style="top: 15px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
-              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 15px;" type="button" data-clear-filters>Clear</button>
+              <button class="nhsuk-button nhsuk-button--small" style="top: 5px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 5px;" type="button" data-clear-filters>Clear</button>
             </div>
-          </div>
+          
+   
+  <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
+    <div class="nhsuk-checkboxes" data-module="nhsuk-checkboxes">
+      <div class="nhsuk-checkboxes__item">
+        <input class="nhsuk-checkboxes__input" id="example" name="example" type="checkbox" value="email">
+        <label class="nhsuk-label nhsuk-checkboxes__label" for="example">
+          Show only active
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
         </form>
 
         <table id="organisations-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
@@ -101,135 +113,167 @@
           <thead class="nhsuk-table__head" role="rowgroup">
             <tr role="row" class="nhsuk-table__row">
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name">Organisation</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions">Total submissions</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last successful submission date</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="periods-submitted">Valid submissions (%)</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Average validation errors per submission</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="records-rejected">Records rejected (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
             </tr>
           </thead>
           <tbody class="nhsuk-table__body">
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Circle Health Group Limited (NT4)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--red">Not active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>124</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>15 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Valid submissions (%)</span>92%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>18</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NYR)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>119</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>16 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions</span>88%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>14</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Alliance Medical (NT9)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>122</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>14 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>100%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>7</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barking, Havering and Redbridge University Hospitals NHS Trust (RF4)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>18</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>10 Oct 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>65%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>27</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Barts Health NHS Trust (R1H)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>127</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>13 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>96%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>9</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>121</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>18 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>85%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>11</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Croydon Health Services NHS Trust (RJ6)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>118</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>12 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>78%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>12</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Epsom and St Helier University Hospitals NHS Trust (RVR)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>125</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last Submission</span>17 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>94%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>6</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>123</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>19 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>90%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>10</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Guy's and St Thomas' NHS Foundation Trust (RJ1)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>126</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>20 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>98%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>5</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>38</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>18 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>95%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>4</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>County Durham and Darlington NHS Foundation Trust (RTC)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>31</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>15 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>88%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>10</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Northumbria Healthcare NHS Foundation Trust (RTF)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>27</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>12 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>82%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>16</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
 
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>South Tyneside and Sunderland NHS Foundation Trust (R0B)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>24</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>10 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>91%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>8</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
 
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="lcs" style="display:none">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>InHealth - Circle Ross Hall Clinic (M3V1E)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>22</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>19 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>77%</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>19</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
 
             </tr>
           </tbody>
@@ -762,6 +806,7 @@
     // Locate inputs
     var statusSel = form.querySelector('#filter-status');
     var periodInput = form.querySelector('#filter-period');
+    var orgInput = form.querySelector('#filter-organisation');
     var clearBtn = form.querySelector('[data-clear-filters]');
     var countEl = document.getElementById('results-count');
     var applyBtn = form.querySelector('button[type="submit"]');
@@ -789,7 +834,8 @@
       return {
         row: row,
         period: cellValue(c[keyIndex.period]),
-        status: cellValue(c[keyIndex.status])
+        status: cellValue(c[keyIndex.status]),
+        name: cellValue(c[keyIndex.name])
       };
     });
 
@@ -851,11 +897,13 @@
       var selectedYear = yearSel ? yearSel.value : '';
       var statusQ = (statusSel && statusSel.value) || '';
       var periodQ = (periodInput && periodInput.value ? periodInput.value : '').trim().toLowerCase();
+      var orgQ = (orgInput && orgInput.value ? orgInput.value : '').trim().toLowerCase();
       var periodYear = (rec.period.match(/(\d{4})$/) || [])[1] || '';
 
       if (selectedYear && periodYear !== selectedYear) return false;
       if (statusQ && rec.status !== statusQ) return false;
       if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false;
+      if (orgQ && !(rec.name || '').toLowerCase().includes(orgQ)) return false;
       return true;
     }
 
