@@ -65,7 +65,7 @@
       <h2 class="nhsuk-tabs__title">Contents</h2>
       <ul class="nhsuk-tabs__list">
         <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
-          <a class="nhsuk-tabs__tab" href="#periods">Performance</a>
+          <a class="nhsuk-tabs__tab" href="#periods">Organisations details</a>
         </li>
         <li class="nhsuk-tabs__list-item">
           <a class="nhsuk-tabs__tab" href="#organisations">Chart</a>
@@ -1256,43 +1256,43 @@
 // Update Valid submissions (%) and Files rejected (%) based on selected time range
 (function() {
   window.orgTimeData = {
-    'Circle Health Group Limited': {
+    'Circle Health Group Limited (NT4)': {
       valid:    { 'last-three-months': '92%', 'last-six-months': '89%', 'last-year': '87%', 'last-2-years': '85%' },
       rejected: { 'last-three-months': '18',  'last-six-months': '20',  'last-year': '22',  'last-2-years': '24' }
     },
-    'Healthshare Diagnostics': {
+    'Healthshare Diagnostics (NYR)': {
       valid:    { 'last-three-months': '88%', 'last-six-months': '85%', 'last-year': '83%', 'last-2-years': '80%' },
       rejected: { 'last-three-months': '14',  'last-six-months': '15',  'last-year': '17',  'last-2-years': '19' }
     },
-    'Alliance Medical': {
+    'Alliance Medical (NT9)': {
       valid:    { 'last-three-months': '100%', 'last-six-months': '98%', 'last-year': '96%', 'last-2-years': '95%' },
       rejected: { 'last-three-months': '7',    'last-six-months': '8',   'last-year': '9',   'last-2-years': '10' }
     },
-    'Barking, Havering and Redbridge University Hospitals NHS Trust': {
+    'Barking, Havering and Redbridge University Hospitals NHS Trust (RF4)': {
       valid:    { 'last-three-months': '65%', 'last-six-months': '70%', 'last-year': '72%', 'last-2-years': '68%' },
       rejected: { 'last-three-months': '27',  'last-six-months': '25',  'last-year': '23',  'last-2-years': '25' }
     },
-    'Barts Health NHS Trust': {
+    'Barts Health NHS Trust (R1H)': {
       valid:    { 'last-three-months': '96%', 'last-six-months': '94%', 'last-year': '92%', 'last-2-years': '90%' },
       rejected: { 'last-three-months': '9',   'last-six-months': '10',  'last-year': '12',  'last-2-years': '13' }
     },
-    'Chelsea and Westminster Hospital NHS Foundation Trust': {
+    'Chelsea and Westminster Hospital NHS Foundation Trust (RQM)': {
       valid:    { 'last-three-months': '85%', 'last-six-months': '82%', 'last-year': '80%', 'last-2-years': '78%' },
       rejected: { 'last-three-months': '11',  'last-six-months': '12',  'last-year': '14',  'last-2-years': '16' }
     },
-    'Croydon Health Services NHS Trust': {
+    'Croydon Health Services NHS Trust (RJ6)': {
       valid:    { 'last-three-months': '78%', 'last-six-months': '75%', 'last-year': '73%', 'last-2-years': '71%' },
       rejected: { 'last-three-months': '12',  'last-six-months': '14',  'last-year': '16',  'last-2-years': '17' }
     },
-    'Epsom and St Helier University Hospitals NHS Trust': {
+    'Epsom and St Helier University Hospitals NHS Trust (RVR)': {
       valid:    { 'last-three-months': '94%', 'last-six-months': '91%', 'last-year': '89%', 'last-2-years': '87%' },
       rejected: { 'last-three-months': '6',   'last-six-months': '8',   'last-year': '10',  'last-2-years': '11' }
     },
-    'Great Ormond Street Hospital For Children NHS Foundation Trust': {
+    'Great Ormond Street Hospital For Children NHS Foundation Trust (RP4)': {
       valid:    { 'last-three-months': '90%', 'last-six-months': '88%', 'last-year': '86%', 'last-2-years': '84%' },
       rejected: { 'last-three-months': '10',  'last-six-months': '13',  'last-year': '14',  'last-2-years': '15' }
     },
-    "Guy's and St Thomas' NHS Foundation Trust": {
+    "Guy's and St Thomas' NHS Foundation Trust (RJ1)": {
       valid:    { 'last-three-months': '98%', 'last-six-months': '97%', 'last-year': '95%', 'last-2-years': '93%' },
       rejected: { 'last-three-months': '5',   'last-six-months': '6',   'last-year': '7',   'last-2-years': '8' }
     },
@@ -1346,12 +1346,12 @@
       var orgName = getOrgName(row.cells[0]);
       var data = orgTimeData[orgName];
       if (!data) return;
-      if (data.valid[timeRange])    setCellText(row.cells[3], data.valid[timeRange]);
-      if (data.rejected[timeRange]) setCellText(row.cells[4], data.rejected[timeRange]);
+      if (data.valid[timeRange])    setCellText(row.cells[4], data.valid[timeRange]);
+      if (data.rejected[timeRange]) setCellText(row.cells[5], data.rejected[timeRange]);
       if (data.records && data.records[timeRange]) {
-        setCellText(row.cells[5], data.records[timeRange]);
+        setCellText(row.cells[6], data.records[timeRange]);
       } else if (!data.records) {
-        setCellText(row.cells[5], 'N/A');
+        setCellText(row.cells[6], 'N/A');
       }
     });
   }
