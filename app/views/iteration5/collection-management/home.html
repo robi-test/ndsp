@@ -31,7 +31,7 @@
         
        </ul>
 
-   <!-- <ul class="nhsuk-grid-row nhsuk-card-group ">
+  <ul class="nhsuk-grid-row nhsuk-card-group ">
 
     <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
@@ -39,6 +39,16 @@
         primary: "true",
         clickable: "true",
         heading: "Performance by period",
+        headingClasses: "nhsuk-heading-s",
+         descriptionHtml: '<br>Check if organisations are up to date with submissions.'
+      }) }}
+      </li>
+    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+      {{ card({
+        href: "submitting-organisations",
+        primary: "true",
+        clickable: "true",
+        heading: "Performance by organisation",
         headingClasses: "nhsuk-heading-s",
          descriptionHtml: '<br>Check if organisations are up to date with submissions.'
       }) }}
@@ -58,7 +68,7 @@
 
 
 
-    </ul> -->
+    </ul> 
 
 
       <hr>  
@@ -123,7 +133,14 @@
   </div>
 </div>
 
+<style>
+@media (min-width: 40.0625em) {
+    li {
+        margin-left: 0px;
+    }
+}
 
+</style>
 {% endblock %}
 
 {% block scripts %}

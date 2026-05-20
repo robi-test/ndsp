@@ -16,8 +16,8 @@
       text: "Collections setup"
     },
     {
-      href: "configuration-dids",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "configuration-lcs",
+      text: "Lung Cancer Screening Data Set"
     }
   ]
 }) }}
@@ -28,13 +28,16 @@
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
-        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Manage organisations</h1>
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Submitting organisations</h1>
 <div class=" nhsuk-u-margin-top-6 ">
             {{ actionLink({
               text: "Add organisation(s)",
               href: "#"
             }) }}
 </div>
+        <div class="nhsuk-u-margin-bottom-4">
+          <button id="download-csv" class="nhsuk-button nhsuk-button--secondary" type="button">Download CSV</button>
+        </div>
         <form id="table-filters2" class="nhsuk-table-filters nhsuk-u-margin-top-3" method="get" action="#" role="search" aria-label="Filter submissions">
           <div class="nhsuk-table-filters__grid">
             <div class="nhsuk-form-group">
@@ -93,7 +96,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NT9</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Y56</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="lcs-alliance-user-list">View</a></td>
             </tr>
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Barking, Havering and Redbridge University Hospitals NHS Trust</td>
@@ -261,6 +264,36 @@
 
 {% block scripts %}
 <script>
+// Download CSV
+document.getElementById('download-csv').addEventListener('click', function () {
+  var table = document.getElementById('submissions-table');
+  var allRows = Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
+  var headers = ['Organisation name', 'ODS Code', 'Group', 'Status'];
+
+  function esc(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }
+
+  var csvRows = [headers.map(esc).join(',')];
+  allRows.forEach(function (row) {
+    var orgName  = row.cells[0].innerText.replace('Organisation name', '').trim();
+    var odsCode  = row.cells[1].innerText.replace('ODS Code', '').trim();
+    var group    = row.cells[2].innerText.replace('Group', '').trim();
+    var statusEl = row.querySelector('.nhsuk-tag--green, .nhsuk-tag--red');
+    var status   = statusEl ? statusEl.innerText.trim() : '';
+    csvRows.push([orgName, odsCode, group, status].map(esc).join(','));
+  });
+
+  var csv  = csvRows.join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href  = url;
+  a.download = 'lcs-submitting-organisations.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
 // Click column headers to sort rows
 (function () {
 function parseValue(text, type) {

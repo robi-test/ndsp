@@ -1,0 +1,265 @@
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Lancashire South Cumbria – Overseer group" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections setup"
+    },
+    {
+      href: "configuration-lcs",
+      text: "Lung Cancer Screening Data Set"
+    },
+    {
+      href: "lcs-groups",
+      text: "Manage overseer groups"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-full">
+
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-3">WEST LONDON CANCER ALLIANCE (N78)</h1>
+
+<!--         <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Overseer group name</dt>
+            <dd class="nhsuk-summary-list__value">West London</dd>
+            <dd class="nhsuk-summary-list__actions">
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Number of organisations</dt>
+            <dd class="nhsuk-summary-list__value">2</dd>
+            <dd class="nhsuk-summary-list__actions"></dd>
+          </div>
+        </dl>
+ -->
+        <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8 ">Submitting organisations</h2>
+
+
+
+        <table class="nhsuk-table-responsive" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Organisations in West Londo</caption>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Organisation name</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader">ODS code</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Action</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell" colspan="4" style="color:#425563;">No organisations have been added to this group yet.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8">
+          <h2 class="nhsuk-heading-s nhsuk-u-margin-top-6">Add a submitting organisation to this group</h2>
+          <p class="nhsuk-body-m nhsuk-u-color-secondary-text-colour">The organisation must first be <a href="manage-organisations">added to the list of organisations</a> before it can be assigned to a group.</p>
+          <div style="display:flex;align-items:flex-end;gap:12px;max-width:600px;">
+            <div class="nhsuk-form-group" id="add-org-form-group" style="position:relative;flex:1;margin-bottom:0;">
+              <label class="nhsuk-label" for="add-org-search">Search by organisation name or ODS code</label>
+              <input class="nhsuk-input" id="add-org-search" type="text" placeholder="Start typing to search..." autocomplete="off" style="margin-top:1px;">
+              <div id="add-org-suggestions" style="display:none;position:absolute; z-index:10;background:#fff;border:1px solid #4c6272;width:100%;max-height:220px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,.15);"></div>
+            </div>
+            <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" id="add-org-btn" type="button" style="margin-bottom:3px;">Add to group</button>
+          </div>
+        </div>
+        <hr>
+        <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8">Monitoring users</h2>
+
+        <table class="nhsuk-table-responsive" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Monitoring users assigned to the overseer group</caption>
+          <p>Monitoring users assigned to the overseer group</p>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Name</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Email address</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell" colspan="2" style="color:#425563;">No users have been assigned to this group yet.</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- Remove organisation confirmation modal -->
+    <div id="remove-org-modal" role="dialog" aria-modal="true" aria-labelledby="remove-org-modal-title" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;">
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);" id="remove-org-modal-backdrop"></div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:32px;max-width:560px;width:90%;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
+        <h2 class="nhsuk-heading-m" id="remove-org-modal-title">Remove organisation from group</h2>
+        <p class="nhsuk-body">Are you sure you want to remove <strong id="remove-org-modal-name"></strong> from this overseer group?</p>
+        <p class="nhsuk-body nhsuk-u-color-secondary-text-colour">This will only remove the link between this organisation and the group. It will not remove the organisation from the list of submitters.</p>
+        <div style="display:flex;gap:16px;margin-top:24px;">
+          <button class="nhsuk-button nhsuk-button--secondary" id="remove-org-modal-cancel" type="button">Cancel</button>
+          <button class="nhsuk-button nhsuk-button--warning" id="remove-org-modal-confirm" type="button">Remove from group</button>
+          
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var availableOrgs = [
+    { name: 'University Hospitals of Morecambe Bay NHS Foundation Trust', ods: 'RTX' },
+    { name: 'Lancashire Teaching Hospitals NHS Foundation Trust', ods: 'RXN' },
+    { name: 'Blackpool Teaching Hospitals NHS Foundation Trust', ods: 'RXL' },
+    { name: 'East Lancashire Hospitals NHS Trust', ods: 'RXR' },
+    { name: 'Wrightington, Wigan and Leigh NHS Foundation Trust', ods: 'RRF' },
+    { name: 'Southport and Ormskirk Hospital NHS Trust', ods: 'RVY' },
+    { name: 'Cumbria, Northumberland, Tyne and Wear NHS Foundation Trust', ods: 'RX4' },
+    { name: 'North West Anglia NHS Foundation Trust', ods: 'RGQ' },
+    { name: 'Bridgewater Community Healthcare NHS Foundation Trust', ods: 'RY2' },
+    { name: 'West London Diagnostic', ods: 'J7W1C' }
+  ]
+
+  var input = document.getElementById('add-org-search')
+  var box = document.getElementById('add-org-suggestions')
+  var addBtn = document.getElementById('add-org-btn')
+  var pending = null
+
+  input.addEventListener('input', function () {
+    var q = input.value.trim().toLowerCase()
+    box.innerHTML = ''
+    if (q.length < 2) { box.style.cssText = 'display:none;position:absolute;z-index:10;'; return }
+    var matches = availableOrgs.filter(function (o) {
+      return o.name.toLowerCase().indexOf(q) !== -1 || o.ods.toLowerCase().indexOf(q) !== -1
+    })
+    if (!matches.length) { box.style.cssText = 'display:none;position:absolute;z-index:10;'; return }
+    matches.forEach(function (o) {
+      var item = document.createElement('div')
+      item.style.cssText = 'padding:8px 12px;cursor:pointer;font-size:1rem;border-bottom:1px solid #d8dde0;'
+      item.textContent = o.name + ' (' + o.ods + ')'
+      item.addEventListener('mouseover', function () { item.style.background = '#f0f4f5' })
+      item.addEventListener('mouseout', function () { item.style.background = '' })
+      item.addEventListener('mousedown', function (e) {
+        e.preventDefault()
+        pending = o
+        input.value = o.name
+        box.style.cssText = 'display:none;position:absolute;z-index:10;'
+      })
+      box.appendChild(item)
+    })
+    box.style.cssText = 'display:block;position:absolute;z-index:10;background:#fff;border:1px solid #4c6272;width:100%;max-height:220px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,.15);'
+  })
+
+  input.addEventListener('blur', function () {
+    setTimeout(function () { box.style.cssText = 'display:none;position:absolute;z-index:10;' }, 150)
+  })
+
+  addBtn.addEventListener('click', function () {
+    if (!pending) return
+    var tbody = document.querySelector('table.nhsuk-table-responsive tbody')
+
+    // remove empty-state row if present
+    var emptyRow = tbody.querySelector('td[colspan]')
+    if (emptyRow) emptyRow.closest('tr').remove()
+
+    var tr = document.createElement('tr')
+    tr.setAttribute('role', 'row')
+    tr.className = 'nhsuk-table__row'
+    tr.innerHTML =
+      '<td class="nhsuk-table__cell" role="cell">' +
+        '<span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>' + pending.name +
+      '</td>' +
+      '<td class="nhsuk-table__cell" role="cell">' +
+        '<span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS code</span>' + pending.ods +
+      '</td>' +
+      '<td class="nhsuk-table__cell" role="cell">' +
+        '<span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>' +
+        '<strong class="nhsuk-tag nhsuk-tag--green">Active</strong>' +
+      '</td>' +
+      '<td class="nhsuk-table__cell" role="cell">' +
+        '<span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>' +
+        '<a href="#" class="nhsuk-link--no-visited-state nhsuk-u-color-red">Remove</a>' +
+      '</td>'
+    tbody.appendChild(tr)
+
+    // update count in summary list
+    var countEl = document.querySelector('.nhsuk-summary-list__value + .nhsuk-summary-list__actions')
+    var countVal = document.querySelector('.nhsuk-summary-list__row:nth-child(2) .nhsuk-summary-list__value')
+    if (countVal) countVal.textContent = tbody.rows.length
+
+    input.value = ''
+    pending = null
+  })
+})()
+
+;(function () {
+  var modal = document.getElementById('remove-org-modal')
+  var modalName = document.getElementById('remove-org-modal-name')
+  var confirmBtn = document.getElementById('remove-org-modal-confirm')
+  var cancelBtn = document.getElementById('remove-org-modal-cancel')
+  var backdrop = document.getElementById('remove-org-modal-backdrop')
+  var pendingRow = null
+
+  function openModal(row) {
+    var nameCell = row.querySelector('td:first-child')
+    var name = nameCell ? nameCell.textContent.replace('Organisation name', '').trim() : 'this organisation'
+    modalName.textContent = name
+    pendingRow = row
+    modal.style.display = 'block'
+    confirmBtn.focus()
+  }
+
+  function closeModal() {
+    modal.style.display = 'none'
+    pendingRow = null
+  }
+
+  function bindRemoveLinks() {
+    var links = document.querySelectorAll('table.nhsuk-table-responsive tbody a.nhsuk-u-color-red')
+    links.forEach(function (link) {
+      if (link.dataset.modalBound) return
+      link.dataset.modalBound = 'true'
+      link.addEventListener('click', function (e) {
+        e.preventDefault()
+        openModal(link.closest('tr'))
+      })
+    })
+  }
+
+  confirmBtn.addEventListener('click', function () {
+    if (pendingRow) pendingRow.remove()
+    closeModal()
+  })
+
+  cancelBtn.addEventListener('click', closeModal)
+  backdrop.addEventListener('click', closeModal)
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.style.display === 'block') closeModal()
+  })
+
+  bindRemoveLinks()
+
+  // re-bind after new rows are added
+  var addBtn = document.getElementById('add-org-btn')
+  if (addBtn) addBtn.addEventListener('click', function () { setTimeout(bindRemoveLinks, 0) })
+})()
+</script>
+{% endblock %}

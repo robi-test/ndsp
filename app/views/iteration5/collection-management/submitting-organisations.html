@@ -112,14 +112,14 @@
           <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Organisations Overview</caption>
           <thead class="nhsuk-table__head" role="rowgroup">
             <tr role="row" class="nhsuk-table__row">
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name">Organisation</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions">Total submissions</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission">Last successful submission date</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="periods-submitted">Valid submissions (%)</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">Average validation errors per submission</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="records-rejected">Records rejected (%)</th>
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string" data-key="name" style="max-width:130px;">Organisation</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" style="text-align:left;">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total-submissions" style="text-align:left;">Total submissions</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="last-submission" style="max-width:150px;text-align:left;">Last successful ubmission date</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="numeric" data-key="periods-submitted" style="width:150px;white-space:normal;">Valid submissions (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="numeric" data-key="rejections" style="max-width:230px; white-space:normal;text-align:left;">Average validation errors per submission</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="numeric" data-key="records-rejected" style="max-width:130px;white-space:normal;text-align:left;">Records rejected (%)</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" style="text-align:left;">Action</th>
             </tr>
           </thead>
           <tbody class="nhsuk-table__body">
@@ -631,6 +631,10 @@
     border-radius: 2px;
     display: inline-block;
   }
+  .nhsuk-table-sort__button {
+
+    text-align: left;
+}
 </style>
 
 {% endblock %}

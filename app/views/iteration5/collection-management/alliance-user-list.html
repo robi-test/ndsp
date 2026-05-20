@@ -21,7 +21,7 @@
       text: "Diagnostic Imaging Data Set (V2.0)"
     },
     {
-      href: "manage-organisations",
+      href: "dids-manage-organisations",
       text: "Manage organisations"
     }
   ]
@@ -32,7 +32,7 @@
 
 <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-m  nhsuk-u-margin-top-6">Circle Health Group Limited</h1>
+      <h1 class="nhsuk-heading-m  nhsuk-u-margin-top-6">Alliance Medical</h1>
   {% from "summary-list/macro.njk" import summaryList %}
             {{ summaryList({
               rows: [
@@ -45,11 +45,11 @@
                   value: { text: "NT9" }
                 },
                {
-                  key: { text: "Region" },
+                  key: { text: "Group" },
                   value: { text: "-" }
                 },
                {
-                  key: { text: "Staus" },
+                  key: { text: "Status" },
                   value: { html: tag({text: "Active", classes: "nhsuk-tag--green"}) }
                 }
               ]
@@ -62,7 +62,7 @@
         <thead class="nhsuk-table__head" role="rowgroup">
           <tr role="row" class="nhsuk-table__row">
            <!--  <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="descending" data-key="id">ID</th> -->
-            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Full name</th>
+            <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Full name</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="submittedBy">Email address</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="Period">Role</th>
             <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="lastLogin">Last login</th>
