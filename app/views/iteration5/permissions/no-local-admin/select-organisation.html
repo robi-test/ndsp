@@ -12,15 +12,17 @@
        <h1>
          {{ pageName }}
       </h1>
-      <p>To continue your request, search and select the organisation you will be submitting data for.
+      <p>To continue your request, search and select the organisation you will be submitting data for.<br>
 Only organisations that are authorised to submit data for the selected collection will appear in the list.
-This may be:
+This may be:</p>
 <ul>
   <li>Your own organisation, or</li>
   <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
 </ul>
 The ODS code will be automatically shown once you select the organisation.
       </p>
+
+      
 
  {% from 'details/macro.njk' import details %}
       {{ details({
@@ -33,9 +35,13 @@ The ODS code will be automatically shown once you select the organisation.
   </ul>"
         }) }}
 
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{% from 'input/macro.njk' import input %}
 
+{% from 'input/macro.njk' import input %}
+<div class="nhsuk-inset-text">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <p>Need monitoring permissions for an overseer group instead?</p>
+        <p><a href="select-group">Search by overseer group</a></p>
+      </div>
 <div class="nhsuk-form-group">
   <label class="nhsuk-label nhsuk-label--m" for="organisation-search">
         Organisation name
@@ -74,6 +80,8 @@ The ODS code will be automatically shown once you select the organisation.
     style: "background-color: #dfe4e5; cursor: not-allowed;"
   }
 }) }}
+
+
  <button id="continue-to-ig" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>

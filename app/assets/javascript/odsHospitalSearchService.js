@@ -66,6 +66,61 @@
         .filter((row) => row.code && row.name);
     }
 
+    async fetchCancerNetworkReport() {
+      const response = await fetch(`${this.apiBasePath}/getReport?report=etrust`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch organisation report: ${response.status}`);
+      }
+
+      const csv = await response.text();
+      const rows = parseCsv(csv);
+
+      return rows
+        .filter((row) => row.length > 1)
+        .map((row) => ({
+          code: (row[0] || '').trim(),
+          name: (row[1] || '').trim()
+        }))
+        .filter((row) => row.code && row.name);
+    }
+
+    async searchCancerNetworks(query, maxCandidates = 30) {
+      const trimmed = (query || '').trim();
+      if (!trimmed) {
+        return [];
+      }
+
+      const normalizedQuery = trimmed.toLowerCase();
+      const isThreeCharacterCodeQuery = /^[a-zA-Z0-9]{3}$/.test(trimmed);
+
+      const reportRows = await this.fetchCancerNetworkReport();
+      const candidates = reportRows
+        .filter(
+          (row) =>
+            isThreeCharacterCodeQuery
+              ? row.code.toLowerCase() === normalizedQuery
+              : row.name.toLowerCase().includes(normalizedQuery) ||
+                row.code.toLowerCase().includes(normalizedQuery)
+        )
+        .slice(0, maxCandidates);
+
+      const details = await Promise.all(
+        candidates.map((candidate) => this.fetchOrganisationDetail(candidate.code))
+      );
+
+      return details
+        .filter(Boolean)
+        .filter((detail) => (detail.main.status || '').toLowerCase() === 'active')
+        .map((detail) => ({
+          code: detail.main.id,
+          name: detail.main.name,
+          status: detail.main.status,
+          primaryRoleName: detail.main.primaryRoleName,
+          roleNames: detail.main.roleName || []
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+    }
+
     async fetchOrganisationDetail(code) {
       const response = await fetch(
         `${this.apiBasePath}/search/singleOrganisationSearchByCode?code=${encodeURIComponent(code)}`

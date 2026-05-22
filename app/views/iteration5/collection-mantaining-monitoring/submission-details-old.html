@@ -1,0 +1,160 @@
+{% extends "iteration2/collection-management/layout-collection-management.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Submission details" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href:  "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-full">
+      <div class="nhsuk-width-container">
+        <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+            <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
+            <p>Your submission details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Collection" },
+                  value: { text: "Diagnostic Imaging Dataset" }
+                },
+                {
+                  key: { text: "Organisation" },
+                  value: { text: "Circle Health Group Limited" }
+                },
+                {
+                  key: { text: "Reporting period" },
+                  value: { text: "December 2025" }
+                },
+                {
+                  key: { text: "Template version" },
+                  value: { text: "DID V2.0" }
+                },
+                {
+                  key: { text: "Submission ID" },
+                  value: { text: "submission_f135e49b-2fc6-4326-93c2-281b564fc1ac" }
+                },
+                {
+                  key: { text: "Submission route" },
+                  value: { text: "File submission" }
+                },
+                {
+                  key: { text: "File submitted" },
+                  value: { text: "DID_Dec2025_V2.csv" },
+                  actions: {
+                    items: [
+                      {
+                        href: "#",
+                        text: " ",
+                        visuallyHiddenText: "File submitted"
+                      }
+                    ]
+                  }
+                },
+                {
+                  key: { text: "Submitted on" },
+                  value: { text: "15 Sep 2025, 09:30" }
+                },
+                {
+                  key: { text: "Submitted by" },
+                  value: { text: "James Jackson" }
+                },
+                {
+                  key: { text: "Type" },
+                  value: { text: "Submission" }
+                },
+                {
+                  key: { text: "Status" },
+                  value: { html: tag({text: "Rejected", classes: "nhsuk-tag--red"}) }
+                }
+              ]
+            }) }}
+            }) }}
+      
+  </div>
+    <div style="margin-top:100px; margin-bottom:200px">
+                  <h2 class="nhsuk-heading-m" style="clear: both;">Validation feedback</h2>
+                 <p>Your validation feedback details:</p>
+            {% from "summary-list/macro.njk" import summaryList %}
+            
+            {{ summaryList({
+              rows: [
+                {
+                  key: { text: "Number of records" },
+                  value: { text: "1,234" }
+                  
+                },
+                
+                {
+                  key: { text: "Errors" },
+                  value: { text: "10 error(s)" },
+                  actions: {
+                    items: [
+                      {
+                        href: "/iteration0/submission-errors",
+                        text: "View",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                 },
+                {
+                  key: { text: "Warnings" },
+                  value: { text: "12 warning(s)" }
+                }
+              ]
+            }) }}
+      
+         {% from 'action-link/macro.njk' import actionLink %}
+
+    <div style="margin-top: 60px;">
+      <h2 class="nhsuk-heading-m">Error details by category</h2>
+      <table class="nhsuk-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Error summary</caption>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Error</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">GP Practice Code</td>
+            <td class="nhsuk-table__cell">Invalid value</td>
+            <td class="nhsuk-table__cell">3</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Date of scan</td>
+            <td class="nhsuk-table__cell">Invalid date format</td>
+            <td class="nhsuk-table__cell">2</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Modality</td>
+            <td class="nhsuk-table__cell">Invalid value</td>
+            <td class="nhsuk-table__cell">3</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Referral code</td>
+            <td class="nhsuk-table__cell">Missing value</td>
+            <td class="nhsuk-table__cell">1</td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Report status</td>
+            <td class="nhsuk-table__cell">Invalid value</td>
+            <td class="nhsuk-table__cell">1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    </div>
+  </div>
+{% endblock %}
