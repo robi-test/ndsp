@@ -23,6 +23,21 @@
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">Performance by organisation</h1>
+    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text">More about the data on this page</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p><strong>Organisation</strong><br>The name and ODS code of the organisation submitting data to this collection.</p>
+        <p><strong>Status</strong><br>Indicates whether the organisation is currently active or not active for this collection.</p>
+        <p><strong>Total submissions</strong><br>The total number of files submitted by the organisation during the selected time range, including successful, rejected, and resubmitted files (excluding test files).</p>
+        <p><strong>Last successful submission date</strong><br>The date of the most recent file successfully accepted during the selected time range.</p>
+        <p><strong>Valid submissions (%)</strong><br>The percentage of successful submissions in the selected time range.</p>
+        <p><strong>Average validation errors per submission</strong><br>The average number of validation errors recorded per submitted file for the organisation during the selected time range.</p>
+        <p><strong>Records rejected (%)</strong><br>The percentage of records rejected during validation checks for the organisation during the selected time range. Shown as N/A where record-level rejection is not applicable to this collection.</p>
+      </div>
+    </details>
+
     <!-- Collection and Time Period Filters -->
     <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
       <div class="nhsuk-grid-column-one-half">
@@ -129,7 +144,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>124</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>15 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Valid submissions (%)</span>92%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>18</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>9</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
             </tr>
@@ -149,7 +164,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>122</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>14 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>100%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>7</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>3</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
@@ -179,7 +194,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>121</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>18 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>85%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>11</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>18</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
@@ -189,7 +204,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>118</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>12 Nov 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Avg valid submissions per period</span>78%</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>12</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Average validation errors per submission</span>22</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Records rejected (%)</span>N/A</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
             </tr>
@@ -1229,7 +1244,7 @@
 (function() {
   function parseValue(text, type) {
     var t = (text || '').trim();
-    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'number' || type === 'numeric') return Number(t.replace(/[^0-9.\-]+/g, ''));
     if (type === 'date') {
       var d = Date.parse(t);
       return isNaN(d) ? t.toLowerCase() : d;
@@ -1289,6 +1304,15 @@
         sortTable(table, colIndex, type, next);
       });
     });
+
+    // Initial sort: alphabetical by Organisation for the organisations-table
+    if (table.id === 'organisations-table') {
+      var orgTh = table.tHead.querySelector('th[data-key="name"]');
+      if (orgTh) {
+        orgTh.setAttribute('aria-sort', 'ascending');
+        sortTable(table, indexOfCell(orgTh), 'string', 'ascending');
+      }
+    }
   });
 })();
 </script>
