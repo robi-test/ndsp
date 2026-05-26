@@ -310,7 +310,7 @@
               <li class="nhsuk-pagination__item nhsuk-pagination__item--next"><a class="nhsuk-pagination__link" href="#">11</a></li>
             </ul>
           </nav>
-          <p class="results-count-align-right" style="margin: 0;">Showing <strong>1</strong> to <strong>10</strong> of <strong>104</strong> results</p>
+          <p class="results-count-align-right" style="margin: 0;">Showing <strong>1</strong> to <strong>10</strong> of <strong>114</strong> results</p>
         </div>
 
       </div>
@@ -691,7 +691,9 @@
           if (show) visible++;
         });
         if (countEl) {
-          countEl.innerHTML = 'Showing <strong>1</strong> to <strong>' + visible + '</strong> of <strong>' + visible + '</strong> results';
+          var total = isLCS ? visible : 114;
+          var showTo = isLCS ? visible : Math.min(10, total);
+          countEl.innerHTML = 'Showing <strong>1</strong> to <strong>' + showTo + '</strong> of <strong>' + total + '</strong> results';
         }
         // Hide spinner, show table
         spinner.style.display = 'none';
