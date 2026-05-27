@@ -79,3 +79,9 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+<script>
+  sessionStorage.removeItem('marcus.permissionsRevoked');
+</script>
+{% endblock %}

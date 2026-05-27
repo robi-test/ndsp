@@ -164,20 +164,7 @@
             </tr>
           </thead>
           <tbody class="nhsuk-table__body">
-            <tr role="row" class="nhsuk-table__row">
-              <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Claire Okafor
-              </td>
-              <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span><a href="mailto:claire.okafor@mft.nhs.uk">claire.okafor@mft.nhs.uk</a>
-              </td>
-              <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--yellow">Pending</strong>
-              </td>
-              <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="accept-permission-request">Manage</a>
-              </td>
-            </tr>
+            
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell">
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Marcus Deeney
@@ -186,10 +173,24 @@
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span><a href="mailto:marcus.deeney@mft.nhs.uk">marcus.deeney@mft.nhs.uk</a>
               </td>
               <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active access</strong>
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong id="marcus-status-tag" class="nhsuk-tag nhsuk-tag--green">Active access</strong>
               </td>
               <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="manage-permissions">Manage</a>
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="manage-permissions-change-status">Revoke permissions</a>
+              </td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Claire Okafor
+              </td>
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span><a href="mailto:claire.okafor@mft.nhs.uk">claire.okafor@mft.nhs.uk</a>
+              </td>
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--red">Permissions revoked</strong>
+              </td>
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href=""> </a>
               </td>
             </tr>
           </tbody>
@@ -216,6 +217,20 @@
 {% endblock %}
 
 {% block scripts %}
+<!-- <script>
+(function () {
+  var tag = document.getElementById('marcus-status-tag');
+  if (tag) {
+    if (sessionStorage.getItem('marcus.permissionsRevoked') === 'true') {
+      tag.textContent = 'Permissions revoked';
+      tag.className = 'nhsuk-tag nhsuk-tag--red';
+    } else {
+      tag.textContent = 'Active access';
+      tag.className = 'nhsuk-tag nhsuk-tag--green';
+    }
+  }
+})();
+</script> -->
 <script>
 (function () {
   var availableOrgs = [
