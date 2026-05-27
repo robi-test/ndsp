@@ -1,0 +1,109 @@
+{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+
+{% set pageName = "Add region" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Add overseer group</h1>
+
+      <form action="lcs-groups" method="get">
+
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="overseer-group-name">
+            <strong>Overseer group name</strong>
+          </label>
+          <div class="nhsuk-hint" id="overseer-group-name-hint">
+            Enter the name of the overseer group to add to the Lung Cancer Screening Data Set.
+          </div>
+          <div style="position:relative;max-width:66.6%;">
+            <input class="nhsuk-input" id="overseer-group-name" name="overseer-group-name"
+                   type="text" autocomplete="off" aria-describedby="overseer-group-name-hint">
+            <div id="org-name-suggestions" style="display:none;position:absolute;z-index:10;background:#fff;border:1px solid #4c6272;width:100%;max-height:220px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,.15);"></div>
+          </div>
+        </div>
+
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="overseer-group-ods">
+            <strong>ODS code (optional)</strong>
+          </label>
+          <div class="nhsuk-hint" id="overseer-group-ods-hint">Automatically filled when an organisation name is selected.</div>
+          <input class="nhsuk-input nhsuk-u-width-one-quarter" id="overseer-group-ods" name="overseer-group-ods"
+                 type="text" readonly aria-describedby="overseer-group-ods-hint"
+                 style="background-color:#f0f4f5;color:#425563;cursor:default;">
+        </div>
+
+        <button class="nhsuk-button" type="submit">
+          Add
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var alliances = [
+    { name: 'Lancashire and South Cumbria Cancer Alliance', ods: '13X' },
+    { name: 'Greater Manchester Cancer Alliance', ods: '14L' },
+    { name: 'Cheshire & Merseyside Cancer Alliance', ods: '12F' },
+    { name: 'Northern Cancer Alliance', ods: '13T' },
+    { name: 'West Yorkshire & Harrogate Cancer Alliance', ods: '15F' },
+    { name: 'Humber & North Yorkshire Cancer Alliance', ods: '15N' },
+    { name: 'South Yorkshire & Bassetlaw Cancer Alliance', ods: '15S' },
+    { name: 'East Midlands Cancer Alliance', ods: '15M' },
+    { name: 'West Midlands Cancer Alliance', ods: '15E' },
+    { name: 'East of England Cancer Alliance', ods: '06H' },
+    { name: 'Wessex Cancer Alliance', ods: '10D' },
+    { name: 'West London Cancer Alliance', ods: 'N78' }
+  ]
+
+  var input = document.getElementById('overseer-group-name')
+  var odsInput = document.getElementById('overseer-group-ods')
+  var box = document.getElementById('org-name-suggestions')
+
+  input.addEventListener('input', function () {
+    odsInput.value = ''
+    var q = input.value.trim().toLowerCase()
+    box.innerHTML = ''
+    if (q.length < 2) { box.style.display = 'none'; return }
+    var matches = alliances.filter(function (a) {
+      return a.name.toLowerCase().indexOf(q) !== -1
+    })
+    if (!matches.length) { box.style.display = 'none'; return }
+    matches.forEach(function (a) {
+      var item = document.createElement('div')
+      item.style.cssText = 'padding:8px 12px;cursor:pointer;font-size:1rem;border-bottom:1px solid #d8dde0;'
+      item.textContent = a.name
+      item.addEventListener('mouseover', function () { item.style.background = '#f0f4f5' })
+      item.addEventListener('mouseout', function () { item.style.background = '' })
+      item.addEventListener('mousedown', function (e) {
+        e.preventDefault()
+        input.value = a.name
+        odsInput.value = a.ods
+        box.style.display = 'none'
+      })
+      box.appendChild(item)
+    })
+    box.style.display = 'block'
+  })
+
+  input.addEventListener('blur', function () {
+    setTimeout(function () { box.style.display = 'none' }, 150)
+  })
+})()
+</script>
+{% endblock %}

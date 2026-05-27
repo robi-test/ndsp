@@ -1,0 +1,76 @@
+{% extends "iteration1/data-submission/layout.html" %}
+
+{% set pageName = "Guidance and permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row ">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+    <h1>   
+        {{ pageName }}
+    </h1> 
+    <p>If you need help using the National Data Submission Portal (NDSP), you can find answers and guidance using the resources below.
+    </p>
+    <h2>NDSP guidance 
+    </h2>
+    
+      <p>You can visit our guidance section for step-by-step instructions and information about:
+        <ul>
+          <li>Accessing the portal</li>
+          <li>Managing your permissions and roles</li>
+          <li>How to submit data</li>
+          <li>Setting up API submissions</li>
+        <ul>
+      </p> 
+    </div>
+    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+    {% from "action-link/macro.njk" import actionLink %}
+
+    {{ actionLink({
+      text: "Go to NDSP guidance",
+      href: "#"
+    }) }}
+    <hr>
+    <h2>Permissions
+    </h2>
+    <p>If your organisation is participating in a data collection and you are a designated team member, you can request access here.<br>
+    Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.
+    </p>
+
+    {% from 'action-link/macro.njk' import actionLink %}
+          {{ actionLink({
+            text: "Start a permission request",
+            href: "permission-request-start"
+          }) }}
+    <hr>
+    <p>Currently you have permissions for the following collection(s):</p>
+    {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+      <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
+      {{ card({
+        href: "dids",
+        primary: "true",
+        clickable: "true",
+        heading: "Diagnostic Imaging Data Set",
+        headingClasses: "nhsuk-heading-m",
+        description: "See guidance and permissions"
+      }) }}
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+{% endblock %}
+

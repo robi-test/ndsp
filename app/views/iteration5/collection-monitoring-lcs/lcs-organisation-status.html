@@ -1,0 +1,55 @@
+{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+
+{% set pageName = "Change organisation status" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Change organisation status</h1>
+      <p>Use this page to change the status of an organisation in the selected collection. Mark an organisation as Active when it is expected to submit data for the collection.</p>
+
+      <form action="lcs-organisations" method="get">
+
+
+
+        <div class="nhsuk-form-group">
+          <fieldset class="nhsuk-fieldset" aria-describedby="status-hint">
+            <legend class="nhsuk-fieldset__legend">
+              <strong>Status</strong>
+            </legend>
+            <div class="nhsuk-hint" id="status-hint">
+              Select the status of this organisation.
+            </div>
+            <div class="nhsuk-radios">
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="status-active" name="status" type="radio" value="active" checked>
+                <label class="nhsuk-label nhsuk-radios__label" for="status-active">Active</label>
+              </div>
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="status-inactive" name="status" type="radio" value="inactive">
+                <label class="nhsuk-label nhsuk-radios__label" for="status-inactive">Inactive</label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <button class="nhsuk-button nhsuk-u-margin-top-6" type="submit"> 
+          Save
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
