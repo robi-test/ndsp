@@ -1,4 +1,4 @@
-{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% extends "iteration5/permissions/no-local-admin/layout.html" %}
 {% set pageName = "Check your request details" %}
 {% block beforeContent %}
   {{ backLink({
@@ -24,9 +24,9 @@ The name and email address shown are taken from the account you used to sign in.
 {% set selectedRole = data['role'] %}
 {% set roleLabel = 'Not provided' %}
 {% if selectedRole == 'submitter' %}
-  {% set roleLabel = 'Submitter' %}
+{% set roleLabel = 'Submitter' %}
 {% elif selectedRole == 'local-admin' %}
-  {% set roleLabel = 'Local admin' %}
+{% set roleLabel = 'Local admin' %}
 {% endif %}
 
 {% set agreedTerms = 'Not agreed' %}

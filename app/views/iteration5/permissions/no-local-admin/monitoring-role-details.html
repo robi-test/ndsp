@@ -1,4 +1,4 @@
-{% extends "iteration3/permissions/no-local-admin/layout.html" %}
+{% extends "iteration5/permissions/no-local-admin/layout.html" %}
 {% set pageName = "Check your request details" %}
 {% block beforeContent %}
   {{ backLink({
@@ -27,6 +27,8 @@ The name and email address shown are taken from the account you used to sign in.
   {% set roleLabel = 'Submitter' %}
 {% elif selectedRole == 'local-admin' %}
   {% set roleLabel = 'Local admin' %}
+{% elif selectedRole == 'monitoring' %}
+  {% set roleLabel = 'Monitoring role' %}
 {% endif %}
 
 {% set agreedTerms = 'Not agreed' %}
@@ -103,7 +105,23 @@ The name and email address shown are taken from the account you used to sign in.
         ]
       }
     },
-     
+    {
+      key: {
+        text: "Role"
+      },
+      value: {
+        html: '<span id="summary-role">' + roleLabel + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-role",
+            text: "Change",
+            visuallyHiddenText: "role"
+          }
+        ]
+      }
+    },
     {
       key: {
         text: "Terms and conditions"
@@ -153,7 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const roleMap = {
     submitter: 'Submitter',
-    'local-admin': 'Local admin'
+    'local-admin': 'Local admin',
+    monitoring: 'Monitoring role'
   };
 
   const storedRole = sessionStorage.getItem('summary.role') || '';
