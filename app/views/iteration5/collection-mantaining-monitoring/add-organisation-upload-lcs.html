@@ -18,15 +18,12 @@
 
       <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Upload organisations</h1>
 
-      <p>Upload a CSV file to add multiple organisations at once.</p>
-      <p>The file must contain:</p>
-      <ul class="nhsuk-list nhsuk-list--bullet">
-        <li>ODS codes of organisations to add</li>
-        <li>(optional) email addresses of submitters to be migrated associated with each ODS code</li>
-      </ul>
-      <p class="nhsuk-hint"><a href="#">Download a template CSV</a>.</p>
+      <p>Upload a CSV file to add multiple organisations at once.
+      The file must contain ODS codes of organisations to add.</p>
+     
+      <p class="nhsuk-hint"><a href="#" id="download-template-csv">Download a CSV template</a>.</p>
 
-      <form action="lcs-organisations" method="get" enctype="multipart/form-data">
+      <form action="uploading-organisations-lcs" method="get" enctype="multipart/form-data">
 
       
       
@@ -58,7 +55,7 @@
                   <li id="files-list-empty">No file added yet</li>
                 </ul>
               </div>
-              <input id="file-input" name="files" type="file" single hidden accept=".xml">
+              <input id="file-input" name="files" type="file" single hidden accept=".csv">
                </label> <span class="nhsuk-error-message" id="name-error">
                 
               </div>
@@ -97,6 +94,21 @@
 
 {% block scripts %}
 <script>
+  document.getElementById('download-template-csv').addEventListener('click', function (e) {
+    e.preventDefault();
+    var csv = 'ODS code\r\n';
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'organisation-upload-template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+</script>
+<script>
   var organisation = "{{ data.organisation }}";
   (function () {
     var input = document.getElementById('file-input');
@@ -119,8 +131,8 @@
           var existing = store.files[i];
           if (existing.name === file.name && existing.size === file.size) return;
         }
-        // Only accept .csv, .xlsx, .txt files
-        if (matchesAccept(file, ".xml")) {
+        // Only accept .csv files
+        if (matchesAccept(file, ".csv")) {
           store.items.add(file);
           added++;
         }
@@ -190,7 +202,7 @@
     });
 
     var MAX_MB = "";//{ maxMb | default(10) };
-    var accept = '.xml';
+    var accept = '.csv';
 
     form.addEventListener('submit', function (e) {
       var tooBig = false, badType = false;

@@ -1,0 +1,33 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Organisations uploaded" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">
+          Organisations uploaded successfully
+        </h3>
+        <p>The file <strong>organisations.csv</strong> has been processed and the organisations list has been updated.</p>
+      </div>
+    </div>
+
+   
+    <p>You can review the <a href="lcs-organisations">updated organisations list</a>.</p>
+
+  
+   
+
+  </div>
+</div>
+
+{% endblock %}
