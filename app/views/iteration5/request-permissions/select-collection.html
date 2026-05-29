@@ -1,0 +1,86 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Select the collection" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    
+{% from 'radios/macro.njk' import radios %}
+
+<form action="/iteration1/permission-management/no-existing-local-admin/select-collection" method="post" class="form">
+{{ radios({
+  idPrefix: "collections",
+  name: "collections",
+  fieldset: {
+    legend: {
+      text: "Which collection do you want permissions for?",
+      classes: "nhsuk-fieldset__legend--l",
+      isPageHeading: true
+    }
+  },
+   hint: {
+    text: "Select the collection you need permissions for. "
+  },
+   values: data.collection,
+  items: [
+    {
+      value: "Diagnostic Imaging Data Set V2.0 (DIDS)",
+      text: "Diagnostic Imaging Data Set V2.0 (DIDS)"
+    },
+    {
+      value: "Lung Cancer Screening Data Set (LCSDS)",
+      text: "Lung Cancer Screening Data Set (LCSDS)"
+    }
+  ]
+}) }}
+
+</form>
+
+ <button id="continue-to-role" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+</div>
+    </div>
+ <!--    <details class="nhsuk-details nhsuk-u-margin-top-6" >
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text" style="color: #d5281b; font-weight: bold;">Prototype navigation only</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p class="nhsuk-body-s nhsuk-u-margin-bottom-2">These links are not part of the real service. They are here to help navigate the prototype.</p>
+        <p> <a href="select-collection-error" class="nhsuk-u-margin-top-8">Error</a></p>
+      </div>
+    </details> -->
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const continueButton = document.getElementById('continue-to-role');
+  if (!continueButton) {
+    return;
+  }
+
+  continueButton.addEventListener('click', function () {
+    const selected = document.querySelector('input[name="collections"]:checked');
+    if (selected && selected.value) {
+      sessionStorage.setItem('summary.collections', selected.value);
+    }
+
+    const target = (selected && selected.value === 'Diagnostic Imaging Data Set V2.0 (DIDS)')
+      ? 'select-role-dids'
+      : 'select-role';
+
+    window.location.href = target;
+  });
+});
+</script>
+{% endblock %}

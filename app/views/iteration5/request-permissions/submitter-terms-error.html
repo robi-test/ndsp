@@ -1,4 +1,4 @@
-{% extends "layout00.html" %}
+{% extends "iteration5/request-permissions/layout.html" %}
 {% set pageName = "Terms and conditions" %}
 {% block beforeContent %}
   {{ backLink({
@@ -7,16 +7,30 @@
   }) }}
 {% endblock %}
 {% block content %}
+
+<!-- Error Summary -->
+{% from 'error-summary/macro.njk' import errorSummary %}
+
+{{ errorSummary({
+  titleText: "There is a problem",
+  errorList: [
+    {
+      text: "You must agree to the terms and conditions to continue",
+      href: "#term"
+    }
+  ]
+}) }}
+
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
        <h1>
          {{ pageName }}
       </h1>
     <div class="nhsuk-u-margin-bottom-6"> 
-      <p>Before submitting your access request, you must confirm that you’ve read and agree to the terms and conditions for using the National Data Submission Portal.
-<br>These terms apply to users requesting local administrator permissions and explain:
+      <p>Before submitting your request, you must confirm that you've read and agree to the terms and conditions for using the National Data Submission Portal.
+These terms apply to users requesting submitter permissions and explain:
 <ul>
-<li>Your responsibilities for managing user access and overseeing data submissions</li>
+<li>Your responsibilities when submitting or managing data</li>
 <li>How your personal information will be used</li>
 <li>The rules for accessing data on behalf of your organisation</li>
 <li>What to do if your role or responsibilities change</li>
@@ -37,6 +51,9 @@ Please take the time to review the full document.
 {{ checkboxes({
   idPrefix: "term",
   name: "terms",
+  errorMessage: {
+    text: "You must agree to the terms and conditions to continue"
+  },
   fieldset: {
     legend: {
       text: "Do you agree to the terms and conditions?",
@@ -52,13 +69,17 @@ Please take the time to review the full document.
   ]
 }) }}
 
- <button onclick="location='local-admin-details'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button onclick="location='#'" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
 </div>
 
-
+    </div>
+    <div  class="nhsuk-u-margin-top-4" >
+      <a href="select-role-error" class="nhsuk-u-margin-top-8">Error</a>
+    </div>
+      
   </div>
 </div>
 {% endblock %}

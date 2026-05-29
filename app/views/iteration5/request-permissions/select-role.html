@@ -1,0 +1,97 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Choose your role" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+    <div class="nhsuk-form-group">
+      <fieldset class="nhsuk-fieldset" aria-describedby="choose-role-hint">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+          <h1 class="nhsuk-fieldset__heading">{{ pageName }}</h1>
+        </legend>
+        <div id="choose-role-hint" class="nhsuk-hint">
+          To continue your request, choose the roles you are applying for, your request will go through the appropriate approval process.
+        </div>
+
+        <div class="nhsuk-radios nhsuk-u-margin-top-5" data-module="nhsuk-radios">
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="role-submitter" name="role" type="radio" value="submitter">
+            <label class="nhsuk-label nhsuk-radios__label" for="role-submitter">
+              Submitter
+            </label>
+          </div>
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="role-localadmin" name="role" type="radio" value="local-admin">
+            <label class="nhsuk-label nhsuk-radios__label" for="role-localadmin">
+              Local Administrator
+            </label>
+          </div>
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="role-monitoring" name="role" type="radio" value="monitoring">
+            <label class="nhsuk-label nhsuk-radios__label" for="role-monitoring">
+              Monitoring role
+            </label>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <button id="continue-to-ig-contact" type="button" class="nhsuk-button nhsuk-u-margin-top-3">
+      Continue
+    </button>
+  </div>
+
+    </div>
+    <!-- <details class="nhsuk-details nhsuk-u-margin-top-6" >
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text" style="color: #d5281b; font-weight: bold;">Prototype navigation only</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p class="nhsuk-body-s nhsuk-u-margin-bottom-2">These links are not part of the real service. They are here to help navigate the prototype.</p>
+        <p> <a href="select-role-error" class="nhsuk-u-margin-top-8">Error</a></p>
+      </div>
+    </details> -->
+
+
+     
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const continueButton = document.getElementById('continue-to-ig-contact');
+  if (!continueButton) {
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const orgCode = (params.get('orgCode') || '').trim();
+  const orgName = (params.get('orgName') || '').trim();
+
+  continueButton.addEventListener('click', function () {
+    const selected = document.querySelector('input[name="role"]:checked');
+    if (selected && selected.value) {
+      sessionStorage.setItem('summary.role', selected.value);
+    }
+
+    let target = 'select-organisation';
+    if (selected && selected.value === 'monitoring') {
+      target = 'select-group';
+    } else if (selected && selected.value === 'submitter') {
+      target = 'select-organisation-submitter-lcs';
+    } else if (orgCode || orgName) {
+      target += `?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+    }
+
+    window.location.href = target;
+  });
+});
+</script>
+{% endblock %}

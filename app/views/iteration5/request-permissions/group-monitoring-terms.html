@@ -1,0 +1,82 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Agree to terms and conditions" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       <h1>
+         {{ pageName }}
+      </h1>
+    <div class="nhsuk-u-margin-bottom-6"> 
+      <p>Before submitting your request, you must confirm that you’ve read and agree to the terms and conditions for using the National Data Submission Portal.
+These terms apply to users requesting submitter permissions and explain:</p>
+<ul>
+<li>Your responsibilities when monitoring and supporting data submissions</li>
+<li>The rules for accessing submission and organisation information</li>
+<li>What to do if your monitoring role or responsibilities change</li>
+</ul>
+<p>Please take the time to review the full document.</p>
+</div>
+
+
+{% from 'action-link/macro.njk' import actionLink %}
+      {{ actionLink({
+        text: "Read terms and conditions (open in a new window)",
+        href: "group-monitoring-terms-copy",
+        openInNewWindow: "true"
+      }) }}
+{% from 'checkboxes/macro.njk' import checkboxes %}
+
+{{ checkboxes({
+  idPrefix: "term",
+  name: "terms",
+  fieldset: {
+    legend: {
+      text: "Do you agree to the terms and conditions?",
+      classes: "nhsuk-fieldset__legend--m",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "yes",
+      text: "Yes, I agree to the terms and conditions"
+    }
+  ]
+}) }}
+
+ <button id="continue-to-summary" onclick="location='monitoring-role-details'" class="nhsuk-button nhsuk-u-margin-top-7">
+                Continue
+              </button>
+
+</div>
+
+    </div>
+   
+     
+    </div>
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const continueButton = document.getElementById('continue-to-summary');
+  if (!continueButton) {
+    return;
+  }
+
+  continueButton.addEventListener('click', function () {
+    const agreed = document.querySelector('input[name="terms"]:checked');
+    sessionStorage.setItem('summary.terms', agreed ? 'yes' : 'no');
+  });
+});
+</script>
+{% endblock %}
