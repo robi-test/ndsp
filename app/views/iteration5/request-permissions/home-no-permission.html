@@ -24,7 +24,9 @@
             <span class="nhs-visually-hidden">Warning</span>
             You don't currently have permissions for any collections on this portal.
           </strong>
+          
         </div>
+         <p>If your organisation is participating in a data collection and you are a designated team member, you can request access here. </p>
       {% from 'details/macro.njk' import details %}
       {{ details({
         text: "Need help with permissions or submitting data?",
@@ -38,13 +40,14 @@
           "
         }) }}
       <hr>  
-      <p>If your organisation is participating in a data collection and you are a designated team member, you can request access here. <br>
-Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+     
+      
       {% from 'action-link/macro.njk' import actionLink %}
       {{ actionLink({
         text: "Start a permission request",
         href: "permission-request-start"
       }) }}
+      <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
 </div>
     </div>
   </div>

@@ -1,0 +1,45 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Your permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+    <div class="nhs-warning-text nhsuk-grid-column-full">
+      <span class="nhs-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="nhs-warning-text__text" style="line-height: 32px;">
+        <span class="nhs-visually-hidden">Warning</span>
+        You don't currently have permissions for any collections on this portal.
+      </strong>
+      <hr>
+    </div>
+    
+    <h2 class="nhsuk-heading-l">Pending requests</h2>
+    <p>No pending requests.</p>
+    <hr>  
+
+    {% from 'action-link/macro.njk' import actionLink %}
+    {{ actionLink({
+      text: "Start a permission request",
+      href: "permission-request-start"
+    }) }}
+ <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+  </div>
+</div>
+{% endblock %}

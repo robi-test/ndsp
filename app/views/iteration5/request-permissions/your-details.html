@@ -1,0 +1,50 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Your details" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+    <p>Your details are managed by your identity provider. If any of the information below is incorrect or you would like to make a change, please contact your identity provider.</p>
+
+    <dl class="nhsuk-summary-list">
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Name</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['username'] or 'James Jackson' }}</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Email address</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['email'] or 'james.jackson@nhs.net' }}</dd>
+        <dd class="nhsuk-summary-list__actions">
+        </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Organisation</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['organisation'] or 'NHS England' }}</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+{% endblock %}

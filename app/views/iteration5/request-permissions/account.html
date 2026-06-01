@@ -1,0 +1,58 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Your account" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+  </div>
+</div>
+
+<div class="nhsuk-grid-row">
+
+  <div class="nhsuk-grid-column-one-third">
+    <div class="nhsuk-card nhsuk-card--clickable">
+      <div class="nhsuk-card__content">
+        <h2 class="nhsuk-card__heading nhsuk-heading-m">
+          <a class="nhsuk-card__link" href="your-details">Your details</a>
+        </h2>
+        <p class="nhsuk-card__description">View and update your name, email address and password.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nhsuk-grid-column-one-third">
+    <div class="nhsuk-card nhsuk-card--clickable">
+      <div class="nhsuk-card__content">
+        <h2 class="nhsuk-card__heading nhsuk-heading-m">
+          <a class="nhsuk-card__link" href="your-permissions">Your permissions</a>
+        </h2>
+        <p class="nhsuk-card__description">View the data collections and organisations you have access to.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="nhsuk-grid-column-one-third">
+    <div class="nhsuk-card nhsuk-card--clickable">
+      <div class="nhsuk-card__content">
+        <h2 class="nhsuk-card__heading nhsuk-heading-m">
+          <a class="nhsuk-card__link" href="notification-settings">Notification settings</a>
+        </h2>
+        <p class="nhsuk-card__description">Manage the email notifications you receive from the portal.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

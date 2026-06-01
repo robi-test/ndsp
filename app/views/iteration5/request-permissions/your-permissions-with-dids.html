@@ -1,0 +1,57 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Your permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+    <p>Currently you have permissions for the following collection(s):</p>
+
+    <dl class="nhsuk-summary-list">
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Collection</dt>
+        <dd class="nhsuk-summary-list__value">Diagnostic Imaging Data Set V2.0 (DIDS)</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Role</dt>
+        <dd class="nhsuk-summary-list__value">Submitter</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Organisation</dt>
+        <dd class="nhsuk-summary-list__value">Bedfordshire Hospitals NHS Foundation Trust</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+    </dl>
+
+    <h2 class="nhsuk-heading-l">Pending requests</h2>
+    <p>No pending requests.</p>
+    <hr>
+
+    {% from 'action-link/macro.njk' import actionLink %}
+    {{ actionLink({
+      text: "Start a permission request",
+      href: "permission-request-start"
+    }) }}
+    <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+
+  </div>
+</div>
+{% endblock %}

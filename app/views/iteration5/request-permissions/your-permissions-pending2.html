@@ -1,0 +1,63 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Your permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+    <h2 class="nhsuk-heading-l">Pending requests</h2>
+
+    <p>The following permission requests are under review. Further details about your request can be found in the confirmation email sent to you.<br>
+    You will be notified by email once a decision has been made.</p>
+
+    <table class="nhsuk-table">
+      <thead class="nhsuk-table__head">
+        <tr class="nhsuk-table__row">
+          <th class="nhsuk-table__header" scope="col">Data collection</th>
+          <th class="nhsuk-table__header" scope="col">Role</th>
+          <th class="nhsuk-table__header" scope="col">Organisation</th>
+          <th class="nhsuk-table__header" scope="col">Date requested</th>
+          <th class="nhsuk-table__header" scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">Lung Cancer Screening Data Set (LCSDS)</td>
+          <td class="nhsuk-table__cell">Monitoring role</td>
+          <td class="nhsuk-table__cell">Northern Cancer Alliance</td>
+          <td class="nhsuk-table__cell">28 May 2026</td>
+          <td class="nhsuk-table__cell"><strong class="nhsuk-tag nhsuk-tag--yellow">Pending</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="nhsuk-section-break nhsuk-section-break--m nhsuk-section-break--visible">
+
+    <p>If you need access to additional data collections or organisations, you can submit another request.</p>
+    <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+
+    {% from 'action-link/macro.njk' import actionLink %}
+    {{ actionLink({
+      text: "Start a permission request",
+      href: "permission-request-start"
+    }) }}
+
+  </div>
+</div>
+{% endblock %}
