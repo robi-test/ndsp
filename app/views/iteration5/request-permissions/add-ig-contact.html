@@ -79,7 +79,8 @@
   name: "ig-name",
   value: data['ig-name'],
   classes: "nhsuk-input--width-30",
-  inputmode: "string"
+  inputmode: "string",
+  attributes: { readonly: "true", style: "background-color: #e6e7e7;" }
 }) }}
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
@@ -92,7 +93,8 @@
   name: "email-address-field",
   value: data['email-address-field'],
   classes: "nhsuk-input--width-30",
-  inputmode: "string"
+  inputmode: "string",
+  attributes: { readonly: "true", style: "background-color: #e6e7e7;" }
   
 }) }}
 
@@ -217,7 +219,18 @@
           status.textContent = `Found ${matches.length} result(s).`
 
           if (!matches.length) {
-            results.innerHTML = '<p class="nhsuk-body-s">No active NHS foundation trust hospitals found.</p>'
+            if (contactListGroup && contactList) {
+              contactListGroup.style.display = 'block'
+              contactList.innerHTML = '<div style="display:flex; align-items:center; gap:12px; margin-top:16px; margin-bottom:16px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; background-color:#ffb81c; color:#fff; font-size:1.2rem; font-weight:700; flex-shrink:0;" aria-hidden="true">!</span><strong style="font-size:1.1875rem;">No results found.</strong></div><p class="nhsuk-body-s">If you can see the IG lead\'s details on the <a href="https://www.odsdatasearchandexport.nhs.uk/" target="_blank">ODS portal</a>, you can enter their name and email address manually in the fields below.</p>'
+            }
+            if (igNameInput) {
+              igNameInput.removeAttribute('readonly')
+              igNameInput.style.backgroundColor = '#ffffff'
+            }
+            if (igEmailInput) {
+              igEmailInput.removeAttribute('readonly')
+              igEmailInput.style.backgroundColor = '#ffffff'
+            }
             return
           }
 

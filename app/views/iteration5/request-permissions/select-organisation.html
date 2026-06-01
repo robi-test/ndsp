@@ -110,6 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedOrganisation = null;
         let debounceTimer = null;
 
+        const localOrganisations = [
+          { code: 'A0J1B', name: 'NORTHGATE HEALTH CENTRE' }
+        ];
+
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.trim();
             selectedOrganisation = null;
@@ -137,7 +141,15 @@ document.addEventListener('DOMContentLoaded', function() {
                   .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
                   .slice(0, 15);
 
-                renderSuggestions(nameOnlyMatches);
+                const localMatches = localOrganisations.filter((item) =>
+                  item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  item.code.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                const combined = [...localMatches, ...nameOnlyMatches.filter((item) =>
+                  !localMatches.some((l) => l.code === item.code)
+                )];
+
+                renderSuggestions(combined);
                 
                 } catch (error) {
                     searchStatus.textContent = `Search failed: ${error.message || error}`;
