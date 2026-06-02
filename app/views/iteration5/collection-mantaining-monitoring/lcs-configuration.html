@@ -12,7 +12,7 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections setup"
+      text: "Collections configuration"
     }
   ]
 }) }}
@@ -24,14 +24,19 @@
          Lung Cancer Screening Data Set
       </h1>
 
-      <p>
-         Select a configuration option for the Lung Cancer Screening Data Set.
-      </p>
   {% from "card/macro.njk" import card %}
 
     <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-8">
 
-
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "#",
+        primary: "true",
+        clickable: "true",
+        heading: "General configuration",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
 
          <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
            {{ card({

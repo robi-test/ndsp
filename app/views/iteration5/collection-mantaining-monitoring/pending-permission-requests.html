@@ -3,29 +3,12 @@
 {% set pageName = "Pending permission requests" %}
 
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-
-{{ breadcrumb({
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    },
-    {
-      href: "configuration-collections",
-      text: "Collections setup"
-    },
-    {
-      href: "lcs-configuration",
-      text: "Lung Cancer Screening Data Set"
-    },
-    {
-      href: "lcs-groups",
-      text: "Manage overseer groups"
-    }
-  ]
-}) }}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
 {% endblock %}
+
 
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
