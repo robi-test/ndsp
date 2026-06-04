@@ -1,0 +1,52 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Group added" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">
+          Overseer group added successfully
+        </h3>
+        <p id="confirmation-message">The overseer group has been added to the Lung Cancer Screening Data Set.</p>
+        <script>
+          (function () {
+            var params = new URLSearchParams(window.location.search);
+            var groupName = params.get('overseer-group-name') || '';
+            var odsCode = params.get('overseer-group-ods') || '';
+            function escapeHtml(v) {
+              return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+            }
+            var msg = document.getElementById('confirmation-message');
+            if (msg && groupName) {
+              msg.innerHTML = '<strong>' + escapeHtml(groupName) + '</strong>'
+                + (odsCode ? ' (' + escapeHtml(odsCode) + ')' : '')
+                + ' has been added to the Lung Cancer Screening Data Set. You can now map organisations to this group.';
+            }
+          })();
+        </script>
+      </div>
+    </div>
+
+    <h2 class="nhsuk-heading-m">What happens next</h2>
+    <p>The overseer group is now active. You can start mapping organisations to it.</p>
+
+    <a href="lcs-groups" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3">
+      View all groups
+    </a>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

@@ -43,14 +43,14 @@
     <tr class="nhsuk-table__row" role="row">
       <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="none">Window name</th>
       <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="none">Reporting period</th>
-      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date">
-        <button class="nhsuk-table-sort__button" aria-sort="ascending">
+      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date" aria-sort="ascending">
+        <button class="nhsuk-table-sort__button">
           <span class="nhsuk-table-sort__label">Open on</span>
           <span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>
         </button>
       </th>
-      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date">
-        <button class="nhsuk-table-sort__button" aria-sort="none">
+      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date" aria-sort="none">
+        <button class="nhsuk-table-sort__button">
           <span class="nhsuk-table-sort__label">Close on</span>
           <span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>
         </button>
@@ -285,7 +285,8 @@
 
 {% endblock %}
 
-{% block headerStyles %}
+{% block head %}
+{{ super() }}
 <style>
 .nhsuk-table-sort__button {
   background: none;
@@ -298,6 +299,7 @@
   margin: -12px -16px;
   width: calc(100% + 32px);
   display: flex;
+  pointer-events: auto;
   align-items: center;
   justify-content: space-between;
   position: relative;
@@ -332,7 +334,7 @@
 
 /* Default state - show both arrows */
 th[aria-sort="none"] .nhsuk-table-sort__indicator::after {
-  content: "⇅";
+  content: "\2195";
   color: #768692;
 }
 
@@ -445,7 +447,6 @@ th[aria-sort="descending"] .nhsuk-table-sort__indicator::after {
 
 
 </style>
-
 {% endblock %}
 
 {% block scripts %}
@@ -613,8 +614,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ths.forEach(function (th) {
       var type = th.getAttribute('data-sort') || 'string'
       if (type === 'none') return
-      
-      th.setAttribute('aria-sort', 'none')
+
+      if (!th.getAttribute('aria-sort')) {
+        th.setAttribute('aria-sort', 'none')
+      }
       var label = th.textContent.trim()
       
       if (!th.querySelector('button')) {
@@ -628,13 +631,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
       th.querySelector('button').addEventListener('click', function (event) {
         event.preventDefault()
-        event.stopPropagation()
         
         var current = th.getAttribute('aria-sort')
         var next = current === 'ascending' ? 'descending' : 'ascending'
         
-        // Reset all other columns
-        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { 
+        // Reset all other sortable columns
+        th.closest('thead').querySelectorAll('th[aria-sort]').forEach(function (t) { 
           t.setAttribute('aria-sort', 'none') 
         })
         
@@ -645,15 +647,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sortTable(table, colIndex, type, next)
       })
       
-      // Also add click handler to the entire th element for better UX
-      th.addEventListener('click', function(event) {
-        var button = th.querySelector('button')
-        if (button && event.target !== button && !button.contains(event.target)) {
-          button.click()
-        }
-      })
-      
-      // Make the entire header cell focusable and keyboard accessible
       th.style.cursor = 'pointer'
     })
   })
