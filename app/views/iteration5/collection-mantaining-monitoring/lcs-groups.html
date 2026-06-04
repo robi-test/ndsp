@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "Lung Cancer Screening Data Set Overseer groups" %}
 
@@ -93,9 +93,9 @@
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Overseer group name</span>West Yorkshire &amp; Harrogate Cancer Alliance</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS code</span>N70</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Assigned users</span>4</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitting organisations</span>5</td>
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a> | <a href="#" class="nhsuk-link--no-visited-state nhsuk-u-color-red">Delete</a></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Assigned users</span>0</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitting organisations</span>0</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="lcs-group-yorkshire">View</a> | <a href="remove-org-yorkshire" class="nhsuk-link--no-visited-state nhsuk-u-color-red">Delete</a></td>
             </tr>
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Overseer group name</span>Humber &amp; North Yorkshire Cancer Alliance</td>
@@ -168,7 +168,7 @@
       </div>
     </div>
 
-    <!-- Delete confirmation modal -->
+    <!-- Delete confirmation modal 
     <div id="delete-group-modal" role="dialog" aria-modal="true" aria-labelledby="delete-group-modal-title" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;">
       <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);" id="delete-group-modal-backdrop"></div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:32px;max-width:560px;width:90%;box-shadow:0 4px 16px rgba(0,0,0,0.3);">
@@ -180,7 +180,7 @@
           <button class="nhsuk-button nhsuk-button--secondary" id="delete-group-modal-cancel" type="button">Cancel</button>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- Cannot delete modal (has assigned users) -->
     <div id="delete-group-blocked-modal" role="dialog" aria-modal="true" aria-labelledby="delete-group-blocked-title" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;">
@@ -281,8 +281,8 @@ sortTable(table, colIndex, type, next)
   if (!tbody) return
 
   var groupLinks = {
-    'west london cancer alliance': 'lcs-group-west-london',
-    'lancashire and south cumbria cancer alliance': 'lcs-group-lancashire'
+    'west london cancer alliance': 'lcs-group-west-london'
+    
   }
   var viewHref = groupLinks[name.toLowerCase().trim()] || '#'
 
@@ -305,39 +305,14 @@ sortTable(table, colIndex, type, next)
 })()
 
 ;(function () {
-  var modal = document.getElementById('delete-group-modal')
-  var modalName = document.getElementById('delete-group-modal-name')
-  var confirmBtn = document.getElementById('delete-group-modal-confirm')
-  var cancelBtn = document.getElementById('delete-group-modal-cancel')
-  var backdrop = document.getElementById('delete-group-modal-backdrop')
-
   var blockedModal = document.getElementById('delete-group-blocked-modal')
   var blockedName = document.getElementById('delete-group-blocked-name')
   var blockedClose = document.getElementById('delete-group-blocked-close')
   var blockedBackdrop = document.getElementById('delete-group-blocked-backdrop')
 
-  var pendingRow = null
-
   function getGroupName(row) {
     var cell = row.querySelector('td:first-child')
     return cell ? cell.textContent.replace('Overseer group name', '').trim() : 'this group'
-  }
-
-  function getAssignedUsers(row) {
-    var cells = row.querySelectorAll('td')
-    for (var i = 0; i < cells.length; i++) {
-      if (cells[i].textContent.indexOf('Assigned users') !== -1) {
-        return parseInt(cells[i].textContent.replace('Assigned users', '').trim(), 10) || 0
-      }
-    }
-    return 0
-  }
-
-  function openConfirm(row) {
-    modalName.textContent = getGroupName(row)
-    pendingRow = row
-    modal.style.display = 'block'
-    confirmBtn.focus()
   }
 
   function openBlocked(row) {
@@ -347,17 +322,10 @@ sortTable(table, colIndex, type, next)
   }
 
   function closeAll() {
-    modal.style.display = 'none'
     blockedModal.style.display = 'none'
-    pendingRow = null
   }
 
-  confirmBtn.addEventListener('click', function () {
-    if (pendingRow) pendingRow.remove()
-    closeAll()
-  })
-
-  ;[cancelBtn, backdrop, blockedClose, blockedBackdrop].forEach(function (el) {
+  ;[blockedClose, blockedBackdrop].forEach(function (el) {
     el.addEventListener('click', closeAll)
   })
 
@@ -369,14 +337,12 @@ sortTable(table, colIndex, type, next)
     document.querySelectorAll('table.nhsuk-table-responsive tbody a.nhsuk-u-color-red').forEach(function (link) {
       if (link.dataset.deleteBound) return
       link.dataset.deleteBound = 'true'
+      var href = link.getAttribute('href')
+      if (href && href !== '#') return // let real links navigate normally
       link.addEventListener('click', function (e) {
         e.preventDefault()
         var row = link.closest('tr')
-        if (getAssignedUsers(row) > 0) {
-          openBlocked(row)
-        } else {
-          openConfirm(row)
-        }
+        openBlocked(row)
       })
     })
   }

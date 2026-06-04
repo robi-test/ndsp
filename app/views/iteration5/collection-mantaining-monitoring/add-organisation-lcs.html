@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "Add organisation" %}
 
@@ -17,7 +17,7 @@
       <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Add organisation</h1>
       <p>Use this page to add an organisation to the selected collection. Mark an organisation as Active when it is expected to submit data for the collection.</p>
 
-      <form action="lcs-organisations" method="get">
+      <form action="add-organisation-lcs-confirmed" method="get">
 
  <div class="nhsuk-form-group">
           <label class="nhsuk-label" for="ods-code">
@@ -38,7 +38,7 @@
             This organisation name appears based on the ODS code you entered.
           </div>
           <input class="nhsuk-input" id="org-name" name="org-name"
-                 type="text" autocomplete="off" aria-describedby="org-name-hint" disabled>
+                 type="text" autocomplete="off" aria-describedby="org-name-hint" readonly style="background-color: #e6e7e7;">
         </div>
 
        

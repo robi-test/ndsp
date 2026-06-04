@@ -1,0 +1,33 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Remove organisation from group" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Remove organisation from group</h1>
+    <p>You are about to remove <strong>West Yorkshire & Harrogate Cancer Alliance</strong> (N70) from Northern Cancer Alliance.</p>
+    <p>This will only remove the link between this organisation and the group. It will not remove the organisation from the list of submitters.</p>
+
+    <div class="nhsuk-u-margin-top-6">
+      <a href="javascript:history.back()" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3">
+        Cancel
+      </a>
+      <a href="lcs-groups" class="nhsuk-button nhsuk-button--warning">
+        Remove from group
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

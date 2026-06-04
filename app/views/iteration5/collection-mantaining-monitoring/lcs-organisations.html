@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "Diagnostic Imaging Data Set (V2.0) Providers" %}
 
@@ -545,5 +545,25 @@ sortTable(table, colIndex, type, next)
 })
 })
 })()
+
+// Sort by organisation name ascending on load
+;(function () {
+  var table = document.getElementById('submissions-table')
+  if (!table) return
+  var firstTh = table.tHead && table.tHead.querySelector('th[data-sort]')
+  if (!firstTh) return
+  firstTh.setAttribute('aria-sort', 'ascending')
+  var tbody = table.tBodies[0]
+  if (!tbody) return
+  var rows = Array.prototype.slice.call(tbody.rows)
+  rows.sort(function (a, b) {
+    var av = (a.cells[0] ? a.cells[0].innerText : '').replace('Organisation name', '').trim().toLowerCase()
+    var bv = (b.cells[0] ? b.cells[0].innerText : '').replace('Organisation name', '').trim().toLowerCase()
+    return av < bv ? -1 : av > bv ? 1 : 0
+  })
+  var frag = document.createDocumentFragment()
+  rows.forEach(function (r) { frag.appendChild(r) })
+  tbody.appendChild(frag)
+}())
 </script>
 {% endblock %}
