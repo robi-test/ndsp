@@ -16,38 +16,78 @@
 
       <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Add overseer group</h1>
 
+      <p class="nhsuk-body nhsuk-u-margin-bottom-7">Use this form to add a new overseer group to the Lung Cancer Screening Data Set. <br>Select whether the group has an ODS code. If it does, you can search by name and the code will be filled in automatically; if it does not, enter the group name manually.</p>
+
       <form action="lcs-add-group-confirmed" method="get">
 
-        <div class="nhsuk-form-group">
-          <label class="nhsuk-label" for="overseer-group-name">
-            <strong>Overseer group name</strong>
-          </label>
-          <div class="nhsuk-hint" id="overseer-group-name-hint">
-            Enter the name of the overseer group to add to the Lung Cancer Screening Data Set.
-          </div>
-          <div style="position:relative;max-width:66.6%;">
-            <input class="nhsuk-input" id="overseer-group-name" name="overseer-group-name"
-                   type="text" autocomplete="off" aria-describedby="overseer-group-name-hint">
-            <div id="org-name-suggestions" style="display:none;position:absolute;z-index:10;background:#fff;border:1px solid #4c6272;width:100%;max-height:220px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,.15);"></div>
-          </div>
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-7">
+          <fieldset class="nhsuk-fieldset">
+            <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+              <strong>Does this group have an ODS code?</strong>
+            </legend>
+            <div class="nhsuk-radios nhsuk-radios--conditional" data-module="nhsuk-radios">
+
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="has-ods-yes" name="has-ods" type="radio" value="yes" data-aria-controls="fields-with-ods">
+                <label class="nhsuk-label nhsuk-radios__label" for="has-ods-yes">
+                  The group has an ODS code
+                </label>
+              </div>
+
+              <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="fields-with-ods">
+                <div class="nhsuk-form-group">
+                  <label class="nhsuk-label" for="overseer-group-name">
+                    <strong>Overseer group name</strong>
+                  </label>
+                  <div class="nhsuk-hint" id="overseer-group-name-hint">
+                    Enter the name of the overseer group to add to the Lung Cancer Screening Data Set.
+                  </div>
+                  <div style="position:relative;max-width:66.6%;">
+                    <input class="nhsuk-input" id="overseer-group-name" name="overseer-group-name"
+                           type="text" autocomplete="off" aria-describedby="overseer-group-name-hint">
+                    <div id="org-name-suggestions" style="display:none;position:absolute;z-index:10;background:#fff;border:1px solid #4c6272;width:100%;max-height:220px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,.15);"></div>
+                  </div>
+                </div>
+                <div class="nhsuk-form-group">
+                  <label class="nhsuk-label" for="overseer-group-ods">
+                    <strong>ODS code (optional)</strong>
+                  </label>
+                  <div class="nhsuk-hint" id="overseer-group-ods-hint">Automatically filled when an organisation name is selected.</div>
+                  <input class="nhsuk-input nhsuk-u-width-one-quarter" id="overseer-group-ods" name="overseer-group-ods"
+                         type="text" readonly aria-describedby="overseer-group-ods-hint"
+                         style="background-color:#f0f4f5;color:#425563;cursor:default;">
+                </div>
+              </div>
+
+              <div class="nhsuk-radios__item">
+                <input class="nhsuk-radios__input" id="has-ods-no" name="has-ods" type="radio" value="no" data-aria-controls="fields-without-ods">
+                <label class="nhsuk-label nhsuk-radios__label" for="has-ods-no">
+                  The group does not have an ODS code
+                </label>
+              </div>
+
+              <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="fields-without-ods">
+                <div class="nhsuk-form-group">
+                  <label class="nhsuk-label" for="overseer-group-name-manual">
+                    <strong>Overseer group name</strong>
+                  </label>
+                  <input class="nhsuk-input" id="overseer-group-name-manual" name="overseer-group-name-manual"
+                         type="text" style="max-width:66.6%;">
+                </div>
+              </div>
+
+            </div>
+          </fieldset>
         </div>
 
-        <div class="nhsuk-form-group">
-          <label class="nhsuk-label" for="overseer-group-ods">
-            <strong>ODS code (optional)</strong>
-          </label>
-          <div class="nhsuk-hint" id="overseer-group-ods-hint">Automatically filled when an organisation name is selected.</div>
-          <input class="nhsuk-input nhsuk-u-width-one-quarter" id="overseer-group-ods" name="overseer-group-ods"
-                 type="text" readonly aria-describedby="overseer-group-ods-hint"
-                 style="background-color:#f0f4f5;color:#425563;cursor:default;">
-        </div>
-
+        <div class="nhsuk-u-margin-top-4">
         <a href="lcs-groups" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3">
           Cancel
         </a>
         <button class="nhsuk-button" type="submit">
           Add group
         </button>
+        </div>
 
       </form>
 
@@ -57,6 +97,30 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+(function () {
+  // Conditional reveal for radios (NHS markup, plain JS)
+  document.addEventListener('DOMContentLoaded', function () {
+    var radios = document.querySelectorAll('input[data-aria-controls]')
+    function updatePanels() {
+      radios.forEach(function (radio) {
+        var panel = document.getElementById(radio.getAttribute('data-aria-controls'))
+        if (!panel) return
+        if (radio.checked) {
+          panel.classList.remove('nhsuk-radios__conditional--hidden')
+        } else {
+          panel.classList.add('nhsuk-radios__conditional--hidden')
+        }
+      })
+    }
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', updatePanels)
+    })
+    updatePanels()
+  })
+})()
+</script>
+
 <script>
 (function () {
   var alliances = [

@@ -1,5 +1,5 @@
 {% extends "iteration5/request-permissions/layout.html" %}
-{% set pageName = "Which overseer group do you want permissions for?" %}
+{% set pageName = "Which organisation group do you want permissions for?" %}
 {% block beforeContent %}
   {{ backLink({
     href: "javascript:history.back()",
@@ -13,26 +13,26 @@
          {{ pageName }}
       </h1>
 
-<p>If you are requesting monitoring permissions as part of an overseer group, search and select the organisation below. This should be the group or alliance you support, rather than an organisation submitting data.</p>
+<p>If you are requesting monitoring permissions as part of an organisation group, search and select the organisation group below. This should be the region or alliance you support, rather than an organisation submitting data.</p>
  
 {% from 'details/macro.njk' import details %}
       {{ details({
-        text: "Why my organisation is not appearing?",
+        text: "Why my organisation group is not appearing?",
         html: "
-  <p>There are a few reasons why your organisation may not be appearing in the list :</p>
+  <p>There are a few reasons why your organisation group may not be appearing in the list :</p>
   <ul>
-    <li>Your organisation may not be registered as overseer group for the selected collection.</li>
-    <li>You may be looking for a different name or ODS code for your organisation.</li>
+    <li>Your organisation group may not be registered as a group for the selected collection.</li>
+    <li>You may be looking for a wrong name.</li>
   </ul>
-  <p>If you can't find your organisation, contact the NDSP <a href='support'>support team</a> for help.</p>"
+  <p>If you can't find your organisation group, contact the NDSP <a href='support'>support team</a> for help.</p>"
         }) }}
 
 <div class="nhsuk-form-group">
   <label class="nhsuk-label nhsuk-label--m" for="overseer-organisation-search">
-    Organisation name
+    Organisation group name
   </label>
   <div class="nhsuk-hint" id="overseer-organisation-search-hint">
-    Start typing to search for the organisation.
+    Start typing to search for the organisation group.
   </div>
   <div class="organisation-search-input-wrap">
     <input class="nhsuk-input nhsuk-input--width-30" id="overseer-organisation-search" name="overseer-organisation-search" type="text" aria-describedby="overseer-organisation-search-hint" autocomplete="off" style="width: 600px; max-width: 100%;">

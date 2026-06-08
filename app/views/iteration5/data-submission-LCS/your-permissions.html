@@ -1,0 +1,54 @@
+{% extends "iteration5/data-submission-LCS/layout.html" %}
+{% set pageName = "Your permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+
+    <p>Currently you have permissions for the following collection(s):</p>
+    {% from "card/macro.njk" import card %}
+
+    <ul class="nhsuk-grid-row nhsuk-card-group">
+      <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
+      {{ card({
+        href: "lcs",
+        primary: "true",
+        clickable: "true",
+        heading: "Lung Cancer Screening Data Set (LCSDS)",
+        headingClasses: "nhsuk-heading-m",
+        description: "See guidance and permissions"
+      }) }}
+      </li>
+    </ul>
+
+    
+    <h2 class="nhsuk-heading-l">Pending requests</h2>
+    <p>No pending requests.</p>
+    <hr>  
+
+    {% from 'action-link/macro.njk' import actionLink %}
+    {{ actionLink({
+      text: "Start a permission request",
+      href: "../request-permissions/permission-request-start"
+    }) }}
+ <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+  </div>
+</div>
+{% endblock %}
