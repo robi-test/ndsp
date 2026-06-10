@@ -99,28 +99,31 @@
         <!-- Table filters -->
         <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter organisations">
           <div class="nhsuk-table-filters__grid">
+            <div class="nhsuk-form-group" style="position:relative;">
+              <label class="nhsuk-label" for="filter-organisation"><strong>Organisation/ ODS code</strong></label>
+              <input class="nhsuk-input" id="filter-organisation" name="filterOrganisation" type="text" placeholder="Start typing to search..." autocomplete="off" aria-autocomplete="list" aria-haspopup="listbox">
+              <div id="organisation-suggestions" style="display:none;position:absolute;z-index:100;left:0;top:100%;"></div>
+            </div>
             <div class="nhsuk-form-group">
-              <label class="nhsuk-label" for="filter-organisation"><strong>Search by organisation/ ODS code</strong></label>
-              <input class="nhsuk-input" id="filter-organisation" name="filterOrganisation" type="text" placeholder="" autocomplete="off">
-              <div id="organisation-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+              <label class="nhsuk-label" for="filter-status"><strong>Status</strong></label>
+              <select class="nhsuk-select" id="filter-status" name="filterStatus">
+                <option value="">All</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
             </div>
             <div class="nhsuk-table-filters__actions">
-              <button class="nhsuk-button nhsuk-button--small" style="top: 5px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
-              <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" style="top: 5px;" type="button" data-clear-filters>Clear</button>
+              <button class="nhsuk-button nhsuk-button--small" style="top: 5px; margin-right: 8px;" type="submit">Apply</button>
             </div>
           
-   
-  <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
-    <div class="nhsuk-checkboxes" data-module="nhsuk-checkboxes">
-      <div class="nhsuk-checkboxes__item">
-        <input class="nhsuk-checkboxes__input" id="example" name="example" type="checkbox" value="email">
-        <label class="nhsuk-label nhsuk-checkboxes__label" for="example">
-          Show only active organisations
-        </label>
-      </div>
-    </div>
-  </fieldset>
 </div>
+        <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+          <div class="nhsuk-selected__header">
+            <h3 class="nhsuk-heading-xs nhsuk-selected__title">Filters applied</h3>
+            <a href="#" class="nhsuk-link" id="org-clear-filter-link" style="display:none;margin-right:auto;" data-org-clear>Clear filters</a>
+          </div>
+          <div class="nhsuk-selected__row" id="org-selected-chips"></div>
+        </div>
         </form>
 
         <table id="organisations-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
@@ -149,7 +152,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="provider">View</a></td>
             </tr>
             <tr class="nhsuk-table__row" role="row" data-collection="dids">
-              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NYR)</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Milton Keynes University Hospital NHS Foundation Trust (MKB)</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total Submissions</span>119</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last successful submission date</span>16 Nov 2026</td>
@@ -489,12 +492,12 @@
                   { userName: 'Ravi Patel',       email: 'r.patel@circlehealthgroup.co.uk' }
                 ]
               },
-              { name: 'Healthshare Diagnostics', odsCode: 'NYR', region: 'South East', users: [
-                  { userName: 'Claire Bennett',   email: 'c.bennett@healthshare.co.uk' },
-                  { userName: 'Mark Edwards',     email: 'm.edwards@healthshare.co.uk' },
-                  { userName: 'Aisha Malik',      email: 'a.malik@healthshare.co.uk' },
-                  { userName: 'Luke Watkins',     email: 'l.watkins@healthshare.co.uk' },
-                  { userName: 'Sophie Clarke',    email: 's.clarke@healthshare.co.uk' }
+              { name: 'Milton Keynes University Hospital NHS Foundation Trust', odsCode: 'MKB', region: 'South East', users: [
+                  { userName: 'Claire Bennett',   email: 'c.bennett@mkuh.nhs.uk' },
+                  { userName: 'Mark Edwards',     email: 'm.edwards@mkuh.nhs.uk' },
+                  { userName: 'Aisha Malik',      email: 'a.malik@mkuh.nhs.uk' },
+                  { userName: 'Luke Watkins',     email: 'l.watkins@mkuh.nhs.uk' },
+                  { userName: 'Sophie Clarke',    email: 's.clarke@mkuh.nhs.uk' }
                 ]
               },
               { name: 'Alliance Medical', odsCode: 'NT9', region: 'Midlands', users: [
@@ -1446,7 +1449,7 @@
       valid:    { 'last-three-months': '92%', 'last-six-months': '89%', 'last-year': '87%', 'last-2-years': '85%' },
       rejected: { 'last-three-months': '18',  'last-six-months': '20',  'last-year': '22',  'last-2-years': '24' }
     },
-    'Healthshare Diagnostics (NYR)': {
+    'Milton Keynes University Hospital NHS Foundation Trust (MKB)': {
       valid:    { 'last-three-months': '88%', 'last-six-months': '85%', 'last-year': '83%', 'last-2-years': '80%' },
       rejected: { 'last-three-months': '14',  'last-six-months': '15',  'last-year': '17',  'last-2-years': '19' }
     },
@@ -1547,6 +1550,303 @@
     if (sel) {
       sel.addEventListener('change', function() { updateOrgsTable(sel.value); });
       updateOrgsTable(sel.value);
+    }
+  });
+})();
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  function getVisibleCollectionKey() {
+    var collSel = document.getElementById('collection-select');
+    if (collSel && collSel.value === 'Lung Cancer Screening (LCS)') return 'lcs';
+    return 'dids';
+  }
+
+  function getOrgEntries() {
+    var key = getVisibleCollectionKey();
+    var rows = document.querySelectorAll('#organisations-table tbody tr[data-collection="' + key + '"]');
+    var entries = [];
+    rows.forEach(function (row) {
+      var cell = row.cells[0];
+      if (!cell) return;
+      var span = cell.querySelector('.nhsuk-table-responsive__heading');
+      var fullText = cell.textContent || '';
+      if (span) fullText = fullText.replace(span.textContent, '').trim();
+      fullText = fullText.trim();
+      // Extract ODS code from parentheses, e.g. "Barts Health NHS Trust (R1H)"
+      var match = fullText.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+      if (match) {
+        entries.push({ name: match[1].trim(), code: match[2].trim(), full: fullText });
+      } else {
+        entries.push({ name: fullText, code: '', full: fullText });
+      }
+    });
+    return entries;
+  }
+
+  function filterTable(query, statusValue) {
+    var key = getVisibleCollectionKey();
+    var rows = document.querySelectorAll('#organisations-table tbody tr[data-collection="' + key + '"]');
+    var q = (query || '').toLowerCase().trim();
+    var s = (statusValue || '').toLowerCase().trim();
+    rows.forEach(function (row) {
+      var orgCell = row.cells[0];
+      var orgText = (orgCell ? orgCell.textContent : '').toLowerCase();
+      var orgMatch = !q || orgText.indexOf(q) !== -1;
+
+      var statusCell = row.cells[1];
+      var statusText = (statusCell ? statusCell.textContent : '').toLowerCase().trim();
+      // Tag text is "Active" or "Not active"
+      var statusMatch = !s ||
+        (s === 'active' && statusText.indexOf('not active') === -1 && statusText.indexOf('active') !== -1) ||
+        (s === 'inactive' && statusText.indexOf('not active') !== -1);
+
+      row.style.display = (orgMatch && statusMatch) ? '' : 'none';
+    });
+  }
+
+  function clearFilter() {
+    var key = getVisibleCollectionKey();
+    var rows = document.querySelectorAll('#organisations-table tbody tr[data-collection="' + key + '"]');
+    rows.forEach(function (row) { row.style.display = ''; });
+  }
+
+  function buildSuggestions(query, entries) {
+    var q = query.toLowerCase();
+    return entries.filter(function (e) {
+      return e.name.toLowerCase().indexOf(q) !== -1 ||
+        (e.code && e.code.toLowerCase().indexOf(q) !== -1);
+    }).slice(0, 10);
+  }
+
+  function renderSuggestions(matches, container, input) {
+    container.innerHTML = '';
+    if (!matches.length) {
+      container.style.display = 'none';
+      return;
+    }
+    var ul = document.createElement('ul');
+    ul.setAttribute('role', 'listbox');
+    ul.style.cssText = 'list-style:none;margin:0;padding:0;border:1px solid #aeb7bd;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);max-height:260px;overflow-y:auto;';
+    matches.forEach(function (entry, idx) {
+      var li = document.createElement('li');
+      li.setAttribute('role', 'option');
+      li.setAttribute('tabindex', '-1');
+      li.dataset.value = entry.full;
+      li.style.cssText = 'padding:10px 14px;cursor:pointer;font-size:16px;border-bottom:1px solid #f0f4f5;';
+      // Bold the matched portion
+      var display = entry.code
+        ? entry.name + ' <span style="color:#4c6272;">(' + entry.code + ')</span>'
+        : entry.name;
+      li.innerHTML = display;
+      li.addEventListener('mouseenter', function () {
+        li.style.background = '#f0f4f5';
+      });
+      li.addEventListener('mouseleave', function () {
+        li.style.background = '#fff';
+      });
+      li.addEventListener('mousedown', function (e) {
+        e.preventDefault(); // prevent input blur
+        input.value = entry.full;
+        container.style.display = 'none';
+        // Do not filter — user must click Search
+      });
+      ul.appendChild(li);
+    });
+    container.appendChild(ul);
+    container.style.display = 'block';
+    // Position under the input
+    var rect = input.getBoundingClientRect();
+    container.style.width = rect.width + 'px';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var input = document.getElementById('filter-organisation');
+    var suggestions = document.getElementById('organisation-suggestions');
+    var statusSel = document.getElementById('filter-status');
+    var chipsEl = document.getElementById('org-selected-chips');
+    var clearFilterLink = document.getElementById('org-clear-filter-link');
+    var headerEl = clearFilterLink ? clearFilterLink.parentNode : null;
+
+    if (!input || !suggestions) return;
+
+    // Initialise: show "No filters applied" inline in the header
+    if (clearFilterLink && headerEl && !document.getElementById('org-no-filters-msg')) {
+      var initMsg = document.createElement('span');
+      initMsg.id = 'org-no-filters-msg';
+      initMsg.textContent = 'No filters applied';
+      initMsg.style.cssText = 'color:#4c6272;font-size:16px;margin-right:auto;';
+      headerEl.appendChild(initMsg);
+    }
+
+    function getActiveChipCount() {
+      return chipsEl ? chipsEl.querySelectorAll('.org-filter-chip').length : 0;
+    }
+
+    function syncChipState() {
+      var count = getActiveChipCount();
+      var noMsg = document.getElementById('org-no-filters-msg');
+      if (count === 0) {
+        if (clearFilterLink) clearFilterLink.style.display = 'none';
+        if (headerEl && !noMsg) {
+          var msg = document.createElement('span');
+          msg.id = 'org-no-filters-msg';
+          msg.textContent = 'No filters applied';
+          msg.style.cssText = 'color:#4c6272;font-size:16px;margin-right:auto;';
+          headerEl.appendChild(msg);
+        }
+      } else {
+        if (noMsg) noMsg.remove();
+        if (clearFilterLink) clearFilterLink.style.display = '';
+      }
+    }
+
+    function addChip(key, label) {
+      if (!chipsEl) return;
+      // Remove existing chip for this key
+      var existing = chipsEl.querySelector('.org-filter-chip[data-filter-key="' + key + '"]');
+      if (existing) existing.remove();
+
+      var chip = document.createElement('span');
+      chip.className = 'nhsuk-tag nhsuk-tag--blue org-filter-chip';
+      chip.dataset.filterKey = key;
+      chip.style.cssText = 'margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;';
+      chip.title = 'Clear ' + key + ' filter';
+      chip.innerHTML = label + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span>';
+      chip.addEventListener('click', function () {
+        if (key === 'org') {
+          input.value = '';
+        } else if (key === 'status') {
+          statusSel.value = '';
+        }
+        chip.remove();
+        applyFilters();
+        syncChipState();
+      });
+      chipsEl.appendChild(chip);
+    }
+
+    function removeAllChips() {
+      if (!chipsEl) return;
+      chipsEl.querySelectorAll('.org-filter-chip').forEach(function (c) { c.remove(); });
+    }
+
+    function applyFilters() {
+      var orgVal = input.value;
+      var statusVal = statusSel ? statusSel.value : '';
+      filterTable(orgVal, statusVal);
+
+      // Hide pagination when filters produce a single visible result
+      var paginationRow = document.getElementById('table-pagination-row');
+      if (paginationRow) {
+        var key = getVisibleCollectionKey();
+        var visibleRows = document.querySelectorAll('#organisations-table tbody tr[data-collection="' + key + '"]:not([style*="display: none"]):not([style*="display:none"])');
+        var hasFilter = orgVal.trim() || statusVal;
+        paginationRow.style.display = (hasFilter && visibleRows.length <= 1) ? 'none' : 'flex';
+      }
+    }
+
+    function renderChips() {
+      removeAllChips();
+      if (input.value.trim()) addChip('org', input.value.trim());
+      if (statusSel && statusSel.value) addChip('status', 'Status: ' + statusSel.options[statusSel.selectedIndex].text);
+      syncChipState();
+    }
+
+    function doClear() {
+      input.value = '';
+      if (statusSel) statusSel.value = '';
+      suggestions.style.display = 'none';
+      clearFilter();
+      removeAllChips();
+      syncChipState();
+      var paginationRow = document.getElementById('table-pagination-row');
+      if (paginationRow) paginationRow.style.display = 'flex';
+    }
+
+    input.addEventListener('input', function () {
+      var val = input.value;
+      if (val.length < 3) {
+        suggestions.style.display = 'none';
+        if (val.length === 0) clearFilter();
+        return;
+      }
+      var entries = getOrgEntries();
+      var matches = buildSuggestions(val, entries);
+      renderSuggestions(matches, suggestions, input);
+    });
+
+    input.addEventListener('blur', function () {
+      setTimeout(function () { suggestions.style.display = 'none'; }, 150);
+    });
+
+    input.addEventListener('focus', function () {
+      if (input.value.length >= 3) {
+        var entries = getOrgEntries();
+        var matches = buildSuggestions(input.value, entries);
+        renderSuggestions(matches, suggestions, input);
+      }
+    });
+
+    // Keyboard navigation within suggestions
+    input.addEventListener('keydown', function (e) {
+      var ul = suggestions.querySelector('ul');
+      if (!ul) return;
+      var items = ul.querySelectorAll('li');
+      if (!items.length) return;
+      var active = ul.querySelector('li[aria-selected="true"]');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        var next = active ? active.nextElementSibling : items[0];
+        if (active) { active.removeAttribute('aria-selected'); active.style.background = '#fff'; }
+        if (next) { next.setAttribute('aria-selected', 'true'); next.style.background = '#f0f4f5'; next.focus(); }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        var prev = active ? active.previousElementSibling : items[items.length - 1];
+        if (active) { active.removeAttribute('aria-selected'); active.style.background = '#fff'; }
+        if (prev) { prev.setAttribute('aria-selected', 'true'); prev.style.background = '#f0f4f5'; prev.focus(); }
+      } else if (e.key === 'Enter') {
+        if (active) { input.value = active.dataset.value; }
+        suggestions.style.display = 'none';
+        applyFilters();
+        renderChips();
+      } else if (e.key === 'Escape') {
+        suggestions.style.display = 'none';
+      }
+    });
+
+    // Apply button (form submit)
+    var form = document.getElementById('table-filters2');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        suggestions.style.display = 'none';
+        applyFilters();
+        renderChips();
+      });
+    }
+
+    // "Clear filters" link inside the chips section
+    if (clearFilterLink) {
+      clearFilterLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        doClear();
+      });
+    }
+
+    // Re-clear filter when collection changes
+    var collSel = document.getElementById('collection-select');
+    if (collSel) {
+      collSel.addEventListener('change', function () {
+        input.value = '';
+        if (statusSel) statusSel.value = '';
+        suggestions.style.display = 'none';
+        removeAllChips();
+        syncChipState();
+      });
     }
   });
 })();
