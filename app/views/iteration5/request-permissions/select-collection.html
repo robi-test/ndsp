@@ -9,36 +9,33 @@
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-    
+
+    <div id="error-summary-container"></div>
+
 {% from 'radios/macro.njk' import radios %}
 
 <form action="/iteration1/permission-management/no-existing-local-admin/select-collection" method="post" class="form">
-{{ radios({
-  idPrefix: "collections",
-  name: "collections",
-  fieldset: {
-    legend: {
-      text: "Which collection do you want permissions for?",
-      classes: "nhsuk-fieldset__legend--l",
-      isPageHeading: true
-    }
-  },
-   hint: {
-    text: "Select the collection you need permissions for. "
-  },
-   values: data.collection,
-  items: [
-    {
-      value: "Diagnostic Imaging Data Set V2.0 (DIDS)",
-      text: "Diagnostic Imaging Data Set V2.0 (DIDS)"
-    },
-    {
-      value: "Lung Cancer Screening Data Set (LCSDS)",
-      text: "Lung Cancer Screening Data Set (LCSDS)"
-    }
-  ]
-}) }}
-
+<div id="collections-form-group" class="nhsuk-form-group">
+  <fieldset class="nhsuk-fieldset" aria-describedby="collections-hint">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+      <h1 class="nhsuk-fieldset__heading">Which collection do you want permissions for?</h1>
+    </legend>
+    <div id="collections-hint" class="nhsuk-hint">Select the collection you need permissions for.</div>
+    <div id="collections-error" class="nhsuk-error-message" style="display:none;">
+      <span class="nhsuk-u-visually-hidden">Error:</span> Select a collection
+    </div>
+    <div class="nhsuk-radios">
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="collections-1" name="collections" type="radio" value="Diagnostic Imaging Data Set V2.0 (DIDS)">
+        <label class="nhsuk-label nhsuk-radios__label" for="collections-1">Diagnostic Imaging Data Set V2.0 (DIDS)</label>
+      </div>
+      <div class="nhsuk-radios__item">
+        <input class="nhsuk-radios__input" id="collections-2" name="collections" type="radio" value="Lung Cancer Screening Data Set (LCSDS)">
+        <label class="nhsuk-label nhsuk-radios__label" for="collections-2">Lung Cancer Screening Data Set (LCSDS)</label>
+      </div>
+    </div>
+  </fieldset>
+</div>
 </form>
 
  <button id="continue-to-role" class="nhsuk-button nhsuk-u-margin-top-7">
@@ -71,11 +68,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
   continueButton.addEventListener('click', function () {
     const selected = document.querySelector('input[name="collections"]:checked');
-    if (selected && selected.value) {
-      sessionStorage.setItem('summary.collections', selected.value);
+
+    if (!selected) {
+      // Inline error
+      const formGroup = document.getElementById('collections-form-group');
+      const errorMsg = document.getElementById('collections-error');
+      formGroup.classList.add('nhsuk-form-group--error');
+      errorMsg.style.display = 'block';
+
+      // Error summary
+      const summaryContainer = document.getElementById('error-summary-container');
+      summaryContainer.innerHTML = `
+        <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" id="error-summary">
+          <h2 class="nhsuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+          <div class="nhsuk-error-summary__body">
+            <ul class="nhsuk-list nhsuk-error-summary__list">
+              <li><a href="#collections-1">Select a collection</a></li>
+            </ul>
+          </div>
+        </div>`;
+      document.getElementById('error-summary').focus();
+      return;
     }
 
-    const target = (selected && selected.value === 'Diagnostic Imaging Data Set V2.0 (DIDS)')
+    // Clear errors
+    document.getElementById('collections-form-group').classList.remove('nhsuk-form-group--error');
+    document.getElementById('collections-error').style.display = 'none';
+    document.getElementById('error-summary-container').innerHTML = '';
+
+    sessionStorage.setItem('summary.collections', selected.value);
+
+    const target = (selected.value === 'Diagnostic Imaging Data Set V2.0 (DIDS)')
       ? 'select-role-dids'
       : 'select-role';
 

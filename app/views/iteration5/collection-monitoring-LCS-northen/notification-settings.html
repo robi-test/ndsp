@@ -1,0 +1,125 @@
+{% extends "iteration5/collection-monitoring-LCS-northen/layout-collection-monitoring.html" %}
+{% set pageName = "Email notification settings" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections setup"
+    },
+    {
+      href: "configuration-dids",
+      text: "Diagnostic Imaging Data Set (V2.0)"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+{% from "button/macro.njk" import button %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       
+      <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+        <div class="nhsuk-u-margin-bottom-8"> 
+           <div class="nhsuk-u-margin-bottom-8"> 
+
+
+          {% from "summary-list/macro.njk" import summaryList %}
+          {% from "tag/macro.njk" import tag %}
+          <div class="notification-summary-header">
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
+            <a href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
+          </div>
+          {{ summaryList({
+            classes: "notification-summary-list",
+            rows: [
+              {
+                key: {
+                  text: "Submission window opened"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline approaching"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline changed"
+                },
+                value: {
+                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
+                }
+              },
+              {
+                key: {
+                  text: "Validation completed"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              }
+            ]
+          }) }}
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .notification-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__key {
+    width: 72%;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__value {
+    width: 28%;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .nhsuk-summary-list__key {
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+@media (min-width: 40.0625em) {
+    .nhsuk-summary-list__key, .nhsuk-summary-list__value, .nhsuk-summary-list__actions {
+        display: table-cell;
+        padding-bottom: 14px;
+        padding-right: 24px;
+        padding-top: 14px;
+    }
+}
+
+a {
+  font-size: 20px;
+}
+</style>
+{% endblock %}

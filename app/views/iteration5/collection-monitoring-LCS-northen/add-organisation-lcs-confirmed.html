@@ -1,0 +1,50 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Organisation added" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">
+          Organisation added successfully
+        </h3>
+        <p id="confirmation-message">The organisation has been added to the collection.</p>
+        <script>
+          (function () {
+            var params = new URLSearchParams(window.location.search);
+            var orgName = params.get('org-name') || '';
+            var odsCode = params.get('ods-code') || '';
+            function escapeHtml(v) {
+              return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+            }
+            var msg = document.getElementById('confirmation-message');
+            if (msg && orgName && odsCode) {
+              msg.innerHTML = '<strong>' + escapeHtml(orgName) + '</strong> (' + escapeHtml(odsCode) + ') has been added to the collection.';
+            } else if (msg && orgName) {
+              msg.innerHTML = '<strong>' + escapeHtml(orgName) + '</strong> has been added to the collection.';
+            }
+          })();
+        </script>
+      </div>
+    </div>
+
+   <p>Go back to 
+    <a href="lcs-organisations" class="nhsuk-u-margin-top-4">
+      organisations list
+    </a>
+   </p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}{% endblock %}

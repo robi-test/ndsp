@@ -1,0 +1,322 @@
+{% extends "iteration5/collection-monitoring-LCS-northen/layout-collection-monitoring.html" %}
+
+{% set pageName = "Non-submitting organisations – October 2026" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "monitoring",
+      text: "Monitoring"
+    },
+    {
+      href: "performance-by-period",
+      text: "Performance by period"
+    },
+    {
+      href: "organisation-breakdown",
+      text: "October 2026"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-width-container">
+      <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-4">Non-submitting organisations</h1>
+
+        {% from "summary-list/macro.njk" import summaryList %}
+        {{ summaryList({
+          rows: [
+            {
+              key: { text: "Collection" },
+              value: { text: "Diagnostic Imaging Data Set (DIDS v2.0)" }
+            },
+            {
+              key: { text: "Reporting period" },
+              value: { text: "October 2026" }
+            },
+            {
+              key: { text: "Non-submitting organisations" },
+              value: { text: "2" }
+            }
+          ]
+        }) }}
+
+        <!-- Success banner (shown after sending reminders) -->
+        <div id="reminder-success-banner" style="display:none;" class="nhsuk-alert nhsuk-alert--success nhsuk-u-margin-bottom-6" role="alert" aria-live="polite">
+          <span id="reminder-success-text"></span>
+        </div>
+
+        <!-- Bulk reminder button -->
+        <div class="nhsuk-u-margin-bottom-8">
+          <button class="nhsuk-button nhsuk-button--secondary" type="button" id="bulk-send-reminder-btn">
+            Send reminder to all
+          </button>
+        </div>
+
+        <!-- ===== Organisation 1: Circle Health Group Limited (NT4) ===== -->
+        <section class="nhsuk-u-margin-bottom-8" aria-labelledby="org-nt4-heading">
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0" id="org-nt4-heading">Circle Health Group Limited (NT4)</h2>
+          </div>
+
+          <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-2">Users</h3>
+          <table class="nhsuk-table nhsuk-table-responsive" role="table" aria-label="Users for Circle Health Group Limited">
+            <thead class="nhsuk-table__head">
+              <tr role="row">
+                <th scope="col" class="nhsuk-table__header">Name</th>
+                <th scope="col" class="nhsuk-table__header">Role</th>
+                <th scope="col" class="nhsuk-table__header">Email address</th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Sarah Williams
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:datasubmissions@circlehealthgroup.co.uk">datasubmissions@circlehealthgroup.co.uk</a>
+                </td>
+              </tr>
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>James Holbrook
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:j.holbrook@circlehealthgroup.co.uk">j.holbrook@circlehealthgroup.co.uk</a>
+                </td>
+              </tr>
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Nadia Okonkwo
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:n.okonkwo@circlehealthgroup.co.uk">n.okonkwo@circlehealthgroup.co.uk</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2" type="button" data-org="Circle Health Group Limited (NT4)" data-emails='["datasubmissions@circlehealthgroup.co.uk","j.holbrook@circlehealthgroup.co.uk","n.okonkwo@circlehealthgroup.co.uk"]' data-org-btn>
+            Send reminder to all users in this organisation
+          </button>
+        </section>
+
+        <hr class="nhsuk-section-break nhsuk-section-break--l nhsuk-section-break--visible nhsuk-u-margin-bottom-8">
+
+        <!-- ===== Organisation 2: Chelsea and Westminster Hospital NHS Foundation Trust (RQM) ===== -->
+        <section class="nhsuk-u-margin-bottom-8" aria-labelledby="org-rqm-heading">
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:16px;">
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0" id="org-rqm-heading">Chelsea and Westminster Hospital NHS Foundation Trust (RQM)</h2>
+          </div>
+
+          <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-2">Users</h3>
+          <table class="nhsuk-table nhsuk-table-responsive" role="table" aria-label="Users for Chelsea and Westminster Hospital NHS Foundation Trust">
+            <thead class="nhsuk-table__head">
+              <tr role="row">
+                <th scope="col" class="nhsuk-table__header">Name</th>
+                <th scope="col" class="nhsuk-table__header">Role</th>
+                <th scope="col" class="nhsuk-table__header">Email address</th>
+              </tr>
+            </thead>
+            <tbody class="nhsuk-table__body">
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>David Andrews
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:datateam@chelwest.nhs.uk">datateam@chelwest.nhs.uk</a>
+                </td>
+              </tr>
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Fiona Carter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:f.carter@chelwest.nhs.uk">f.carter@chelwest.nhs.uk</a>
+                </td>
+              </tr>
+              <tr class="nhsuk-table__row" role="row">
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Tariq Hussain
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter
+                </td>
+                <td class="nhsuk-table__cell" role="cell">
+                  <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span>
+                  <a href="mailto:t.hussain@chelwest.nhs.uk">t.hussain@chelwest.nhs.uk</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2" type="button" data-org="Chelsea and Westminster Hospital NHS Foundation Trust (RQM)" data-emails='["datateam@chelwest.nhs.uk","f.carter@chelwest.nhs.uk","t.hussain@chelwest.nhs.uk"]' data-org-btn>
+            Send reminder to all users in this organisation
+          </button>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Send Reminder Modal ===== -->
+<div id="reminder-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; z-index:1000; background:rgba(0,0,0,0.5);" role="dialog" aria-modal="true" aria-labelledby="reminder-modal-title">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff; border-radius:4px; padding:40px; max-width:560px; width:92%; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+    <h2 class="nhsuk-heading-m" id="reminder-modal-title" style="margin-bottom:16px;">Send reminder</h2>
+    <div id="reminder-modal-body"></div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;">
+      <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="button" id="reminder-confirm-btn">Send reminder</button>
+      <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0" type="button" id="reminder-cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Floating Success Banner ===== -->
+<div id="reminder-float-banner" style="display:none; position:fixed; bottom:24px; right:24px; z-index:1100; background:#007f3b; color:#fff; padding:16px 24px; border-radius:4px; font-size:1rem; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.2);" role="alert" aria-live="polite"></div>
+
+<script>
+(function () {
+  var pendingTargets = [];
+
+  function showFloatSuccess(msg) {
+    var b = document.getElementById('reminder-float-banner');
+    if (!b) return;
+    b.textContent = msg;
+    b.style.display = 'block';
+    setTimeout(function () { b.style.display = 'none'; }, 4000);
+  }
+
+  function openModal(targets) {
+    // targets: array of { name, email, org }
+    pendingTargets = targets;
+    var body = document.getElementById('reminder-modal-body');
+    if (!body) return;
+    if (targets.length === 1) {
+      body.innerHTML = '<p>A reminder will be sent to <strong>' + targets[0].name + '</strong> at <a href="mailto:' + targets[0].email + '">' + targets[0].email + '</a>.</p>';
+    } else {
+      var items = targets.map(function (t) {
+        return '<li>' + t.name + ' — <a href="mailto:' + t.email + '">' + t.email + '</a></li>';
+      }).join('');
+      body.innerHTML = '<p>A reminder will be sent to <strong>' + targets.length + '</strong> users:</p><ul style="margin-top:8px;">' + items + '</ul>';
+    }
+    var modal = document.getElementById('reminder-modal');
+    modal.style.display = 'block';
+    document.getElementById('reminder-confirm-btn').focus();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Per-user "Send reminder" links
+    document.querySelectorAll('.send-reminder-link').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal([{
+          name: link.getAttribute('data-name'),
+          email: link.getAttribute('data-email'),
+          org: link.getAttribute('data-org')
+        }]);
+      });
+    });
+
+    // Per-org "Send reminder to all users" buttons
+    document.querySelectorAll('[data-org-btn]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var org = btn.getAttribute('data-org');
+        var emails = JSON.parse(btn.getAttribute('data-emails') || '[]');
+        // Build targets with generic names from the adjacent table
+        var section = btn.closest('section');
+        var rows = section ? section.querySelectorAll('tbody tr') : [];
+        var targets = emails.map(function (email, i) {
+          var row = rows[i];
+          var nameCell = row ? row.cells[0] : null;
+          var name = nameCell ? (nameCell.innerText || nameCell.textContent || '').replace(/Name/i, '').trim() : email;
+          return { name: name, email: email, org: org };
+        });
+        openModal(targets);
+      });
+    });
+
+    // Bulk "Send reminder to all non-submitting organisations" button
+    var bulkBtn = document.getElementById('bulk-send-reminder-btn');
+    if (bulkBtn) {
+      bulkBtn.addEventListener('click', function () {
+        var allTargets = [];
+        document.querySelectorAll('[data-org-btn]').forEach(function (btn) {
+          var org = btn.getAttribute('data-org');
+          var emails = JSON.parse(btn.getAttribute('data-emails') || '[]');
+          var section = btn.closest('section');
+          var rows = section ? section.querySelectorAll('tbody tr') : [];
+          emails.forEach(function (email, i) {
+            var row = rows[i];
+            var nameCell = row ? row.cells[0] : null;
+            var name = nameCell ? (nameCell.innerText || nameCell.textContent || '').replace(/Name/i, '').trim() : email;
+            allTargets.push({ name: name, email: email, org: org });
+          });
+        });
+        openModal(allTargets);
+      });
+    }
+
+    // Confirm
+    document.getElementById('reminder-confirm-btn').addEventListener('click', function () {
+      document.getElementById('reminder-modal').style.display = 'none';
+      var msg = pendingTargets.length === 1
+        ? 'Reminder sent to ' + pendingTargets[0].name
+        : 'Reminders sent to ' + pendingTargets.length + ' users';
+      showFloatSuccess(msg);
+      pendingTargets = [];
+    });
+
+    // Cancel
+    document.getElementById('reminder-cancel-btn').addEventListener('click', function () {
+      document.getElementById('reminder-modal').style.display = 'none';
+    });
+
+    // Backdrop click
+    document.getElementById('reminder-modal').addEventListener('click', function (e) {
+      if (e.target === this) this.style.display = 'none';
+    });
+
+    // Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') document.getElementById('reminder-modal').style.display = 'none';
+    });
+  });
+})();
+</script>
+
+{% endblock %}

@@ -17,7 +17,7 @@ Only organisations that are authorised to submit data for the selected collectio
 This may be:</p>
 <ul>
   <li>Your own organisation, or</li>
-  <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
+  <li>Another organisation for which you have been authorised to request access based on your role (for example, where you submit data or manage user access on behalf of that organisation).</li>
 </ul>
    </p>
    <p>The ODS code will be automatically shown once you select the organisation.</p>
@@ -28,9 +28,10 @@ This may be:</p>
         html: "
   <p>There are a few reasons why your organisation may not be appearing in the list :</p>
   <ul>
-    <li>Your organisation may not be registered to submit data for the selected collection.</li>
-    <li>You may be looking for a different name or ODS code for your organisation.</li>
-  </ul>"
+    <li>You may be looking for a different name or ODS code for the organisation.</li>
+    <li>The organisation may not be registered to submit data for the selected collection. </li>
+  </ul>
+  <p>To check whether the organisation is authorised to submit data for this collection, contact the collection team. If you still need help, contact the <a href=&quot;mailto:ssd.nationalservicedesk@nhs.net&quot;>NDSP support team</a>.</p>"
         }) }}
 
 
@@ -110,8 +111,19 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedOrganisation = null;
         let debounceTimer = null;
 
+        const params = new URLSearchParams(window.location.search);
+        const incomingOrgCode = (params.get('orgCode') || '').trim();
+        const incomingOrgName = (params.get('orgName') || '').trim();
+        const incomingRole = (params.get('role') || '').trim();
+
         const localOrganisations = [
-          { code: 'A0J1B', name: 'NORTHGATE HEALTH CENTRE' }
+          { code: 'A0J1B', name: 'NORTHGATE HEALTH CENTRE' },
+          { code: 'L3X7K', name: 'Lambeth Diagnostic Programme' },
+          { code: 'S9M2P', name: 'Southwark Diagnostic Programme' },
+          { code: 'W4T1N', name: 'Lewisham Diagnostic Programme' },
+          { code: 'G8R5C', name: 'Greenwich Diagnostic Programme' },
+          { code: 'B2F6Q', name: 'Bexley Diagnostic Programme' },
+          { code: 'Y7K4D', name: 'Bromley Diagnostic Programme' }
         ];
 
         searchInput.addEventListener('input', function() {
@@ -173,7 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
           sessionStorage.setItem('summary.organisation', orgName);
           sessionStorage.setItem('summary.ods', orgCode);
 
-          const target = `add-ig-contact?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+          const qs = new URLSearchParams();
+          qs.set('orgCode', orgCode);
+          qs.set('orgName', orgName);
+          if (incomingRole) qs.set('role', incomingRole);
+          const target = `add-ig-contact?${qs.toString()}`;
             window.location.href = target;
         });
 

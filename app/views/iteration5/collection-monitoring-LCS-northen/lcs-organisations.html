@@ -1,0 +1,569 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) Providers" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "lcs-configuration",
+      text: "Lung Cancer Screening Data Set"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-full">
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Submitting organisations</h1>
+        <p>Active organisations are currently enabled to submit data for this collection.
+Inactive organisations are not able to submit data, but remain visible for reference and management purposes.</p>
+        <p class="nhsuk-body-m nhsuk-u-color-secondary-text-colour nhsuk-u-margin-bottom-1">Download a CSV file containing the list of organisations and their associated users, including roles and access status.</p>
+        <div class="nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
+          <button id="download-csv" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" type="button">Download CSV</button>
+        </div>
+<div class=" nhsuk-u-margin-top-6 ">
+            {{ actionLink({
+              text: "Add organisation(s)",
+              href: "add-organisation-method-lcs"
+            }) }}
+</div>
+        <form id="table-filters2" class="nhsuk-table-filters nhsuk-u-margin-top-3" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-search"><strong>Organisation / ODS</strong></label>
+              <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete="off" placeholder="Start typing to search...">
+            </div>
+            <!-- GROUP FILTER HIDDEN
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-group"><strong>Group:</strong></label>
+              <select class="nhsuk-select" id="filter-group" name="group">
+                <option value="">All groups</option>
+                <option value="Lancashire South Cumbria Cancer Alliance">Lancashire South Cumbria Cancer Alliance</option>
+                <option value="Greater Manchester Cancer Alliance">Greater Manchester Cancer Alliance</option>
+                <option value="Cheshire &amp; Merseyside Cancer Alliance">Cheshire &amp; Merseyside Cancer Alliance</option>
+                <option value="Northern Cancer Alliance">Northern Cancer Alliance</option>
+                <option value="West Yorkshire &amp; Harrogate Cancer Alliance">West Yorkshire &amp; Harrogate Cancer Alliance</option>
+                <option value="Humber &amp; North Yorkshire Cancer Alliance">Humber &amp; North Yorkshire Cancer Alliance</option>
+                <option value="South Yorkshire &amp; Bassetlaw Cancer Alliance">South Yorkshire &amp; Bassetlaw Cancer Alliance</option>
+                <option value="East Midlands Cancer Alliance">East Midlands Cancer Alliance</option>
+                <option value="West Midlands Cancer Alliance">West Midlands Cancer Alliance</option>
+                <option value="East of England Cancer Alliance">East of England Cancer Alliance</option>
+                <option value="Wessex Cancer Alliance">Wessex Cancer Alliance</option>
+                <option value="Kent and Medway Cancer Alliance">Kent and Medway Cancer Alliance</option>
+                <option value="Thames Valley Cancer Alliance">Thames Valley Cancer Alliance</option>
+                <option value="SWAG Cancer Alliance">SWAG Cancer Alliance</option>
+                <option value="Peninsula Cancer Alliance">Peninsula Cancer Alliance</option>
+                <option value="West London Cancer Alliance">West London Cancer Alliance</option>
+                <option value="North Central London Cancer Alliance">North Central London Cancer Alliance</option>
+                <option value="North East London Cancer Alliance">North East London Cancer Alliance</option>
+                <option value="South East London Cancer Alliance">South East London Cancer Alliance</option>
+              </select>
+            </div>
+            END GROUP FILTER HIDDEN -->
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-status"><strong>Status:</strong></label>
+              <select class="nhsuk-select" id="filter-status" name="status">
+                <option value="">All statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button" style="top: 15px;" type="submit">Apply</button>
+            </div>
+          </div>
+          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+            <div class="nhsuk-selected__header">
+              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+            </div>
+            <div class="nhsuk-selected__row" id="selected-chips"></div>
+          </div>
+        </form>
+
+        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+          <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Diagnostic Imaging Data Set Providers</caption>
+          <thead class="nhsuk-table__head" role="rowgroup">
+            <tr role="row" class="nhsuk-table__row">
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Organisation name</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">ODS Code</th>
+<!--               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Group</th> -->
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Alliance Medical</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NT9</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Lancashire South Cumbria Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="lcs-alliance-user-list">View</a></td>
+            </tr>
+            
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>InHealth </td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RF4</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Greater Manchester Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Manchester University NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>R1H</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Greater Manchester Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Liverpool Heart & Chest Hospital </td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RQM</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Cheshire &amp; Merseyside Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Newcastle Upon Tyne NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NT4</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Northern Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--red">Inactive</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>South Tyneside and Sunderland NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ6</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Northern Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Tees Valley - InHealth</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RVR</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Northern Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>County Durham and Darlington NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RP4</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Northern Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Guy's and St Thomas' NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ1</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>West Midlands Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Healthshare Diagnostics</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NYR</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>East of England Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Healthshare Ltd</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NMK</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Wessex Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Homerton Healthcare NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RQX</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Kent and Medway Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Imperial College Healthcare NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RYJ</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Thames Valley Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Inhealth Limited</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>NV1</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Lancashire and South Cumbria Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>King's College Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJZ</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Peninsula Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Kingston and Richmond NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RAX</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>West London Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Lewisham and Greenwich NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RJ2</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>North Central London Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>London North West University Healthcare NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>R1K</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>North East London Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>Moorfields Eye Hospital NHS Foundation Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RP6</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>South East London Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+            <tr role="row" class="nhsuk-table__row">
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation name</span>North Middlesex University Hospital NHS Trust</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS Code</span>RAP</td>
+<!--               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Group</span>Greater Manchester Cancer Alliance</td> -->
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination 
+<div class="nhsuk-pagination-row" style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px; margin-bottom: 30px;">
+  <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+    <ul class="nhsuk-list nhsuk-pagination__list">
+      <li class="nhsuk-pagination__item--current">
+        <a class="nhsuk-pagination__link" href="?page=1">1</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=2">2</a>
+      </li>
+      <li class="nhsuk-pagination__item">
+        <a class="nhsuk-pagination__link" href="?page=3">3</a>
+      </li>
+      <li class="nhsuk-pagination__item nhsuk-pagination__item--next">
+        <a class="nhsuk-pagination__link" href="?page=3" aria-label="Next page">
+          <span class="nhsuk-pagination__title">Next →</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <p class="results-count-align-right" style="margin: 0;">Showing <strong> 1 </strong> to <strong> 10 </strong> of <strong> 34 </strong> results</p>
+</div>-->
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+// Download CSV
+document.getElementById('download-csv').addEventListener('click', function () {
+  var userData = {
+    'NT9': [
+      { name: 'James Jackson', email: 'james.jackson@alliancemedical.co.uk',  role: 'Submitter', lastLogin: '19 May 2026, 09:14', accessStatus: 'Active access' },
+      { name: 'Priya Sharma',  email: 'priya.sharma@alliancemedical.co.uk',   role: 'Submitter', lastLogin: '16 May 2026, 14:32', accessStatus: 'Active access' },
+      { name: 'Hannah Patel',  email: 'hannah.patel@alliancemedical.co.uk',   role: 'Submitter', lastLogin: '02 Oct 2025, 11:05', accessStatus: 'Suspended access' }
+    ],
+    'RF4': [
+      { name: 'David Okafor',   email: 'd.okafor@bhrhospitals.nhs.uk',   role: 'Submitter', lastLogin: '18 May 2026, 10:22', accessStatus: 'Active access' },
+      { name: 'Sarah Williams', email: 's.williams@bhrhospitals.nhs.uk', role: 'Submitter', lastLogin: '12 May 2026, 15:47', accessStatus: 'Active access' }
+    ],
+    'R1H': [
+      { name: 'Mohammed Khan',   email: 'm.khan@bartshealth.nhs.uk',     role: 'Submitter', lastLogin: '19 May 2026, 14:05', accessStatus: 'Active access' },
+      { name: 'Claire Thompson', email: 'c.thompson@bartshealth.nhs.uk', role: 'Submitter', lastLogin: '15 May 2026, 09:33', accessStatus: 'Active access' },
+      { name: 'Aisha Begum',     email: 'a.begum@bartshealth.nhs.uk',    role: 'Submitter', lastLogin: '01 Mar 2026, 11:20', accessStatus: 'Suspended access' }
+    ],
+    'RQM': [
+      { name: 'Tom Brennan',  email: 't.brennan@chelwest.nhs.uk', role: 'Submitter', lastLogin: '20 May 2026, 08:15', accessStatus: 'Active access' },
+      { name: 'Lucy Edwards', email: 'l.edwards@chelwest.nhs.uk', role: 'Submitter', lastLogin: '17 May 2026, 13:50', accessStatus: 'Active access' }
+    ],
+    'NT4': [],
+    'RJ6': [
+      { name: 'Diane Foster', email: 'd.foster@croydonhealth.nhs.uk', role: 'Submitter', lastLogin: '16 May 2026, 10:00', accessStatus: 'Active access' }
+    ],
+    'RVR': [
+      { name: 'Kevin Marsh', email: 'k.marsh@epsom-sthelier.nhs.uk', role: 'Submitter', lastLogin: '19 May 2026, 11:30', accessStatus: 'Active access' },
+      { name: 'Nina Patel',  email: 'n.patel@epsom-sthelier.nhs.uk', role: 'Submitter', lastLogin: '14 May 2026, 16:20', accessStatus: 'Active access' }
+    ],
+    'RP4': [
+      { name: 'Rachel Simmons', email: 'r.simmons@gosh.nhs.uk', role: 'Submitter', lastLogin: '18 May 2026, 09:45', accessStatus: 'Active access' }
+    ],
+    'RJ1': [
+      { name: 'Oliver Grant',  email: 'o.grant@gstt.nhs.uk',  role: 'Submitter', lastLogin: '20 May 2026, 07:58', accessStatus: 'Active access' },
+      { name: 'Fatima Nasser', email: 'f.nasser@gstt.nhs.uk', role: 'Submitter', lastLogin: '19 May 2026, 15:12', accessStatus: 'Active access' },
+      { name: 'Ben Carter',    email: 'b.carter@gstt.nhs.uk', role: 'Submitter', lastLogin: '10 May 2026, 08:30', accessStatus: 'Active access' }
+    ],
+    'NYR': [
+      { name: 'Sandra Lee', email: 's.lee@healthsharediagnostics.co.uk', role: 'Submitter', lastLogin: '17 May 2026, 14:00', accessStatus: 'Active access' }
+    ],
+    'NMK': [
+      { name: 'Paul Gibson', email: 'p.gibson@healthshare.co.uk', role: 'Submitter', lastLogin: '15 May 2026, 12:30', accessStatus: 'Active access' }
+    ],
+    'RQX': [
+      { name: 'Yasmin Ali',    email: 'y.ali@homerton.nhs.uk',    role: 'Submitter', lastLogin: '19 May 2026, 10:15', accessStatus: 'Active access' },
+      { name: 'George Harris', email: 'g.harris@homerton.nhs.uk', role: 'Submitter', lastLogin: '13 May 2026, 17:05', accessStatus: 'Active access' }
+    ],
+    'RYJ': [
+      { name: 'Amelia Jones', email: 'a.jones@imperial.nhs.uk',  role: 'Submitter', lastLogin: '20 May 2026, 09:00', accessStatus: 'Active access' },
+      { name: 'Chris Nguyen', email: 'c.nguyen@imperial.nhs.uk', role: 'Submitter', lastLogin: '18 May 2026, 11:40', accessStatus: 'Active access' }
+    ],
+    'NV1': [
+      { name: 'Julia Watts', email: 'j.watts@inhealthgroup.co.uk', role: 'Submitter', lastLogin: '16 May 2026, 09:55', accessStatus: 'Active access' }
+    ],
+    'RJZ': [
+      { name: 'Mark Davies',  email: 'm.davies@kch.nhs.uk', role: 'Submitter', lastLogin: '19 May 2026, 13:22', accessStatus: 'Active access' },
+      { name: 'Sunita Mehta', email: 's.mehta@kch.nhs.uk',  role: 'Submitter', lastLogin: '14 May 2026, 10:48', accessStatus: 'Active access' }
+    ],
+    'RAX': [
+      { name: 'Peter Flynn', email: 'p.flynn@kingstonhospital.nhs.uk', role: 'Submitter', lastLogin: '18 May 2026, 15:30', accessStatus: 'Active access' }
+    ],
+    'RJ2': [
+      { name: 'Karen Ahmed', email: 'k.ahmed@lewishamandgreenwich.nhs.uk', role: 'Submitter', lastLogin: '17 May 2026, 08:45', accessStatus: 'Active access' },
+      { name: 'Victor Osei', email: 'v.osei@lewishamandgreenwich.nhs.uk',  role: 'Submitter', lastLogin: '08 May 2026, 16:10', accessStatus: 'Suspended access' }
+    ],
+    'R1K': [
+      { name: 'Tanya Cross', email: 't.cross@lnwh.nhs.uk', role: 'Submitter', lastLogin: '19 May 2026, 12:00', accessStatus: 'Active access' },
+      { name: 'Simon Park',  email: 's.park@lnwh.nhs.uk',  role: 'Submitter', lastLogin: '15 May 2026, 09:20', accessStatus: 'Active access' }
+    ],
+    'RP6': [
+      { name: 'Grace Yeboah', email: 'g.yeboah@moorfields.nhs.uk', role: 'Submitter', lastLogin: '16 May 2026, 11:15', accessStatus: 'Active access' }
+    ],
+    'RAP': [
+      { name: 'Daniel Musa',   email: 'd.musa@northmid.nhs.uk',    role: 'Submitter', lastLogin: '18 May 2026, 14:35', accessStatus: 'Active access' },
+      { name: 'Iona McGregor', email: 'i.mcgregor@northmid.nhs.uk', role: 'Submitter', lastLogin: '12 May 2026, 10:05', accessStatus: 'Active access' }
+    ]
+  };
+
+  var table = document.getElementById('submissions-table');
+  var allRows = Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
+  var headers = ['Organisation name', 'ODS Code', 'Organisation status',
+                 'User full name', 'User email', 'User role', 'User last login', 'User access status'];
+
+  function esc(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }
+
+  var csvRows = [headers.map(esc).join(',')];
+  allRows.forEach(function (row) {
+    var orgName  = row.cells[0].innerText.replace('Organisation name', '').trim();
+    var odsCode  = row.cells[1].innerText.replace('ODS Code', '').trim();
+    var statusEl = row.querySelector('.nhsuk-tag--green, .nhsuk-tag--red');
+    var orgStatus = statusEl ? statusEl.innerText.trim() : '';
+    var users = userData[odsCode] || [];
+    if (users.length === 0) {
+      csvRows.push([orgName, odsCode, orgStatus, '', '', '', '', ''].map(esc).join(','));
+    } else {
+      users.forEach(function (u) {
+        csvRows.push([orgName, odsCode, orgStatus, u.name, u.email, u.role, u.lastLogin, u.accessStatus].map(esc).join(','));
+      });
+    }
+  });
+
+  var csv  = csvRows.join('\n');
+  var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href  = url;
+  a.download = 'lcs-organisations.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+// Filter functionality
+(function () {
+  var table = document.getElementById('submissions-table');
+  var tbody = table.tBodies[0];
+  var rows = Array.prototype.slice.call(tbody.rows);
+  var form = document.getElementById('table-filters2');
+  var searchInput = document.getElementById('filter-search');
+  var statusSelect = document.getElementById('filter-status');
+  var clearBtn = document.querySelector('[data-clear-filters]');
+  var chipsContainer = document.getElementById('selected-chips');
+  var filtersSection = document.getElementById('selected-filters');
+  var resultsCount = document.querySelector('.results-count-align-right');
+
+  function getRowData(row) {
+    var orgName = row.cells[0].innerText.replace('Organisation name', '').trim();
+    var odsCode = row.cells[1].innerText.replace('ODS Code', '').trim();
+    var statusEl = row.querySelector('.nhsuk-tag--green, .nhsuk-tag--red');
+    var status = statusEl ? statusEl.innerText.trim() : '';
+    return { orgName: orgName, odsCode: odsCode, status: status };
+  }
+
+  function applyFilters() {
+    var search = searchInput.value.trim().toLowerCase();
+    var status = statusSelect.value;
+    var count = 0;
+
+    rows.forEach(function (row) {
+      var d = getRowData(row);
+      var ok = (!search || d.orgName.toLowerCase().indexOf(search) !== -1 || d.odsCode.toLowerCase().indexOf(search) !== -1) &&
+               (!status || d.status === status);
+      row.style.display = ok ? '' : 'none';
+      if (ok) count++;
+    });
+
+    if (resultsCount) {
+      resultsCount.innerHTML = 'Showing <strong>1</strong> to <strong>' + count + '</strong> of <strong>' + count + '</strong> results';
+    }
+
+    renderChips(search, status);
+  }
+
+  function renderChips(search, status) {
+    var chips = [];
+    if (search) chips.push({ text: 'Organisation: ' + searchInput.value.trim(), reset: function () { searchInput.value = ''; } });
+    if (status) chips.push({ text: 'Status: ' + status, reset: function () { statusSelect.value = ''; } });
+
+    chipsContainer.innerHTML = '';
+    chips.forEach(function (chip) {
+      var tag = document.createElement('span');
+      tag.className = 'nhsuk-tag nhsuk-tag--white';
+      tag.style.cssText = 'margin-right:8px;margin-bottom:4px;';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Remove filter: ' + chip.text);
+      btn.style.cssText = 'background:none;border:none;cursor:pointer;font-weight:bold;padding:0 0 0 6px;';
+      btn.textContent = '×';
+      tag.appendChild(document.createTextNode(chip.text));
+      tag.appendChild(btn);
+      (function (c) {
+        btn.addEventListener('click', function () { c.reset(); applyFilters(); });
+      }(chip));
+      chipsContainer.appendChild(tag);
+    });
+
+    filtersSection.style.display = chips.length ? '' : 'none';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    applyFilters();
+  });
+
+  clearBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    searchInput.value = '';
+    statusSelect.value = '';
+    applyFilters();
+  });
+
+  filtersSection.style.display = 'none';
+}());
+
+// Click column headers to sort rows
+(function () {
+function parseValue(text, type) {
+var t = (text || '').trim()
+if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''))
+if (type === 'date') {
+var d = Date.parse(t)
+return isNaN(d) ? t.toLowerCase() : d
+}
+return t.toLowerCase()
+}
+
+
+function indexOfCell(th) {
+var cells = Array.prototype.slice.call(th.parentElement.children)
+var idx = 0
+for (var i = 0; i < cells.length; i++) {
+if (cells[i] === th) return idx
+idx += cells[i].colSpan || 1
+}
+return -1
+}
+
+
+function sortTable(table, colIndex, type, direction) {
+var tbody = table.tBodies[0]
+if (!tbody) return
+var rows = Array.prototype.slice.call(tbody.rows)
+
+
+rows.sort(function (a, b) {
+var av = parseValue(a.cells[colIndex]?.innerText, type)
+var bv = parseValue(b.cells[colIndex]?.innerText, type)
+if (av < bv) return direction === 'ascending' ? -1 : 1
+if (av > bv) return direction === 'ascending' ? 1 : -1
+return 0
+})
+
+
+var frag = document.createDocumentFragment()
+rows.forEach(function (r) { frag.appendChild(r) })
+tbody.appendChild(frag)
+}
+
+
+document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+var ths = table.tHead ? table.tHead.querySelectorAll('th') : []
+ths.forEach(function (th) {
+var type = th.getAttribute('data-sort') || 'string'
+if (type === 'none') return
+th.setAttribute('aria-sort', 'none')
+var label = th.textContent.trim()
+if (!th.querySelector('button')) {
+var btn = document.createElement('button')
+btn.type = 'button'
+btn.className = 'nhsuk-table-sort__button'
+btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>'
+th.textContent = ''
+th.appendChild(btn)
+}
+th.querySelector('button').addEventListener('click', function () {
+var current = th.getAttribute('aria-sort')
+var next = current === 'ascending' ? 'descending' : 'ascending'
+th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none') })
+th.setAttribute('aria-sort', next)
+var colIndex = indexOfCell(th)
+sortTable(table, colIndex, type, next)
+})
+})
+})
+})()
+
+// Sort by organisation name ascending on load
+;(function () {
+  var table = document.getElementById('submissions-table')
+  if (!table) return
+  var firstTh = table.tHead && table.tHead.querySelector('th[data-sort]')
+  if (!firstTh) return
+  firstTh.setAttribute('aria-sort', 'ascending')
+  var tbody = table.tBodies[0]
+  if (!tbody) return
+  var rows = Array.prototype.slice.call(tbody.rows)
+  rows.sort(function (a, b) {
+    var av = (a.cells[0] ? a.cells[0].innerText : '').replace('Organisation name', '').trim().toLowerCase()
+    var bv = (b.cells[0] ? b.cells[0].innerText : '').replace('Organisation name', '').trim().toLowerCase()
+    return av < bv ? -1 : av > bv ? 1 : 0
+  })
+  var frag = document.createDocumentFragment()
+  rows.forEach(function (r) { frag.appendChild(r) })
+  tbody.appendChild(frag)
+}())
+</script>
+{% endblock %}

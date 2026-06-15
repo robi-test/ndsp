@@ -15,7 +15,7 @@
           <h1 class="nhsuk-fieldset__heading">{{ pageName }}</h1>
         </legend>
         <div id="choose-role-hint" class="nhsuk-hint">
-          To continue your request, choose the roles you are applying for, your request will go through the standard approval process.
+         To continue your request, choose the roles you are applying for, your request will go through the appropriate approval process.
         </div>
 
         <div class="nhsuk-radios nhsuk-u-margin-top-5" data-module="nhsuk-radios">
@@ -74,8 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let target = 'select-organisation';
     if (selected && selected.value === 'monitoring') {
       target = 'select-group';
-    } else if (orgCode || orgName) {
-      target += `?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
+    } else {
+      const qs = new URLSearchParams();
+      if (orgCode) qs.set('orgCode', orgCode);
+      if (orgName) qs.set('orgName', orgName);
+      if (selected && selected.value) qs.set('role', selected.value);
+      const queryString = qs.toString();
+      if (queryString) target += `?${queryString}`;
     }
 
     window.location.href = target;

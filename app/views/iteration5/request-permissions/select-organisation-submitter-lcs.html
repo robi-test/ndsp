@@ -17,7 +17,7 @@ Only organisations that are authorised to submit data for the selected collectio
 This may be:</p>
 <ul>
   <li>Your own organisation, or</li>
-  <li>Another organisation you are responsible for submitting data on behalf of (for example, as a system supplier or proxy).</li>
+  <li>Another organisation for which you have been authorised to request access based on your role (for example, where you submit data or manage user access on behalf of that organisation).</li>
 </ul>
 </p>
 <p>The ODS code will be automatically shown once you select the organisation.</p>
@@ -28,9 +28,10 @@ This may be:</p>
         html: "
   <p>There are a few reasons why your organisation may not be appearing in the list :</p>
   <ul>
-    <li>Your organisation may not be registered to submit data for the selected collection.</li>
-    <li>You may be looking for a different name or ODS code for your organisation.</li>
-  </ul>"
+    <li>You may be looking for a different name or ODS code for the organisation.</li>
+    <li>The organisation may not be registered to submit data for the selected collection. </li>
+  </ul>
+  <p>To check whether the organisation is authorised to submit data for this collection, contact the collection team. If you still need help, contact the <a href=&quot;mailto:ssd.nationalservicedesk@nhs.net&quot;>NDSP support team</a>.</p>"
         }) }}
 
 
@@ -110,6 +111,25 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedOrganisation = null;
         let debounceTimer = null;
 
+        const pageParams = new URLSearchParams(window.location.search);
+        const incomingRole = (pageParams.get('role') || '').trim();
+        const incomingOrgCode = (pageParams.get('orgCode') || '').trim();
+        const incomingOrgName = (pageParams.get('orgName') || '').trim();
+
+        const localOrganisations = [
+            { name: 'Lambeth Diagnostic Programme', code: 'L3X7K', isLocal: true },
+            { name: 'Southwark Diagnostic Programme', code: 'S9M2P', isLocal: true },
+            { name: 'Lewisham Diagnostic Programme', code: 'W4T1N', isLocal: true },
+            { name: 'Greenwich Diagnostic Programme', code: 'G8R5C', isLocal: true },
+            { name: 'Bexley Diagnostic Programme', code: 'B2F6Q', isLocal: true },
+            { name: 'Bromley Diagnostic Programme', code: 'Y7K4D', isLocal: true },
+            { name: 'Barnsley Diagnostic Programme', code: 'K5N2R', isLocal: true, isNoIgLead: true },
+            { name: 'Bassetlaw Diagnostic Programme', code: 'T8P4M', isLocal: true, isNoIgLead: true },
+            { name: 'Doncaster Diagnostic Programme', code: 'D3W9F', isLocal: true, isNoIgLead: true },
+            { name: 'Rotherham Diagnostic Programme', code: 'R6X1J', isLocal: true, isNoIgLead: true },
+            { name: 'Sheffield Diagnostic Programme', code: 'S4C7V', isLocal: true, isNoIgLead: true }
+        ];
+
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.trim();
             selectedOrganisation = null;
@@ -132,12 +152,14 @@ document.addEventListener('DOMContentLoaded', function() {
             debounceTimer = setTimeout(async function () {
                 try {
               setLoading(true);
+                const localMatches = localOrganisations
+                  .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
                 const allMatches = await service.searchHospitals(searchTerm, 30);
                 const nameOnlyMatches = allMatches
                   .filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
                   .slice(0, 15);
 
-                renderSuggestions(nameOnlyMatches);
+                renderSuggestions([...localMatches, ...nameOnlyMatches]);
                 
                 } catch (error) {
                     searchStatus.textContent = `Search failed: ${error.message || error}`;
@@ -161,8 +183,17 @@ document.addEventListener('DOMContentLoaded', function() {
           sessionStorage.setItem('summary.organisation', orgName);
           sessionStorage.setItem('summary.ods', orgCode);
 
-          const target = `submitter-terms-lcs?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
-            window.location.href = target;
+          const qs = new URLSearchParams();
+          qs.set('orgCode', orgCode);
+          qs.set('orgName', orgName);
+          if (incomingRole) qs.set('role', incomingRole);
+
+          if (selectedOrganisation && selectedOrganisation.isNoIgLead) {
+            window.location.href = `add-ig-contact?${qs.toString()}`;
+            return;
+          }
+
+          window.location.href = `submitter-terms-lcs?${qs.toString()}`;
         });
 
         document.addEventListener('click', function(event) {

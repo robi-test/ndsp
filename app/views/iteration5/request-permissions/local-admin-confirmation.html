@@ -1,11 +1,11 @@
-{% extends "iteration5/request-permissions/layout.html" %}
+{% extends "iteration5/request-permissions/layout-pending.html" %}
 
 {% set pageName = 'Request submitted' %}
 
 
 
 {% block content %}
-<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="margin-top: 50px; margin-bottom: 150px;">
+<div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner" style="max-width: 66%;margin-top: 50px; margin-bottom: 150px;">
   <div class="nhsuk-notification-banner__header">
     <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
       Success
@@ -15,13 +15,13 @@
 <h3 class="nhsuk-notification-banner__heading">
     Request sent successfully
   </h3>
-  <p>Your request for access has been submitted. <br>We will contact you if we need any further information.</p>
+  <p>Your request for permissions has been submitted. <br>We will contact you if we need any further information.</p>
   </div>
   </div>
 
    <div style="margin-top:-100px">
   <h2>What happens next?</h2>
-   <p>Your request will now be reviewed by the appropriate team.<br>
+   <p>
 Your request will now be reviewed in two steps:
 <ul>
 <li>It will first be sent to your organisation’s Information Governance (IG) Lead for approval.</li>
@@ -32,7 +32,14 @@ Your request will now be reviewed in two steps:
 You’ll receive email notifications at each step or if any additional information is needed.</p>
 
 <div class="nhsuk-inset-text" style="font-size: 1.1875rem;">
- If you do not receive an update within 5 working days, please contact our <a href="support">support team</a>.
+ If you do not receive an update within 5 working days, please contact our <a href="mailto:ssd.nationalservicedesk@nhs.net">support team</a>.
+<br><br>Delays can sometimes occur because:
+<ul>
+<li>The request is awaiting review by the approver (selected IG lead) and there are high volumes of requests.</li>
+<li>The approver's contact details are no longer up to date on the ODS portal.</li>
+<li>The approver is unavailable or no longer active in their role.</li>
+
+</ul>
 </div>
 </div>
  <div  class="nhsuk-u-margin-top-4" >

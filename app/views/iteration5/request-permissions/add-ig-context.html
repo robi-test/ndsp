@@ -29,6 +29,9 @@
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
+  hint: {
+    text: "If you work for a different organisation to the one you are requesting permissions for, include your organisation name as well. This is free text."
+  },
   id: "team",
   name: "team",
   value: data['team'],
@@ -68,7 +71,7 @@
 
 
 </form>
-<button id="continue-to-terms" onclick="location='local-admin-terms'" class="nhsuk-button nhsuk-u-margin-top-7">
+<button id="continue-to-terms" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 </div>
@@ -100,9 +103,27 @@ document.addEventListener('DOMContentLoaded', function () {
     sessionStorage.setItem('summary.team', team ? team.value.trim() : '');
     sessionStorage.setItem('summary.jobTitle', jobTitle ? jobTitle.value.trim() : '');
     sessionStorage.setItem('summary.reason', reason ? reason.value.trim() : '');
+
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get('role');
+    const orgCode = params.get('orgCode') || '';
+    const orgName = params.get('orgName') || '';
+
+    const qs = new URLSearchParams();
+    if (orgCode) qs.set('orgCode', orgCode);
+    if (orgName) qs.set('orgName', orgName);
+    if (role) qs.set('role', role);
+    const queryString = qs.toString() ? `?${qs.toString()}` : '';
+
+    if (role === 'submitter') {
+      window.location.href = `submitter-terms${queryString}`;
+    } else if (role === 'local-admin') {
+      window.location.href = `local-admin-terms${queryString}`;
+    } else {
+      window.location.href = `local-admin-terms${queryString}`;
+    }
   });
 });
 </script>
 {% endblock %}
-
 

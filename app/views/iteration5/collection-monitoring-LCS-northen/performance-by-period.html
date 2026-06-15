@@ -1,0 +1,1162 @@
+{% extends "iteration5/collection-monitoring-LCS-northen/layout-collection-monitoring.html" %}
+
+{% set pageName = "Performance by period" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "monitoring",
+      text: "Monitoring"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full">
+      <h1 class="nhsuk-heading-l">Performance by period</h1>
+    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text">More about the data on this page</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p><strong>Reporting period</strong><br>The period when the activity happened.</p>
+        <p><strong>Submission window status</strong><br>Indicates whether the submission window is currently Open or Closed, this based on the Submission window end date.</p>
+        <p><strong>Total file submitted</strong><br>The total number of files submitted during the submission window, including successful, rejected, and resubmitted files (excluding test files).</p>
+        <p><strong>Organisations with successful submission</strong><br>The number of organisations that had at least one file successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Organisations not submitted</strong><br>The number of organisations that did not have any files successfully accepted during the submission window (excluding test files).</p>
+        <p><strong>Number of resubmissions</strong><br>The number of files resubmitted during the submission window, counted only for valid submissions (excluding test files).</p>
+        <p><strong>File rejection (%)</strong><br>The number and percentage of submitted files that were rejected during validation checks (excluding test files).</p>
+        <p><strong>Record rejection</strong><br>The number of records that were rejected during validation checks (excluding test files). This includes records in files that have been rejected.</p>
+      </div>
+    </details>
+
+    <!-- Collection and Time Period Filters -->
+    <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
+      <div class="nhsuk-grid-column-one-half">
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="collection-select">
+            <strong>Collection</strong>
+          </label>
+          <div class="nhsuk-hint" id="collection-select-hint">
+            Select a collection to view its performance.
+          </div>
+          <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
+            <option value="Lung Cancer Screening Data Set (LCSDS)" selected>Lung Cancer Screening Data Set (LCSDS)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="nhsuk-grid-column-one-half">
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="time-period-select">
+            <strong>Time range</strong>
+          </label>
+          <div class="nhsuk-hint" id="time-period-select-hint">
+            Select a time range.
+          </div>
+          <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
+            <option value="last-year" selected>Last year</option>
+            <option value="last-2-years">Last 2 years</option>
+            <option value="">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  <!--   <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8" style="max-width: 560px;">
+      <label class="nhsuk-label" for="performance-year"><strong>Reporting period year</strong></label>
+      <div class="nhsuk-hint" id="performance-year-hint">Choose a reporting period year to view performance data.</div>
+      <select class="nhsuk-select" id="performance-year" name="year" aria-describedby="performance-year-hint">
+        <option value="2025" selected>2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div> -->  
+
+    <!-- Tabs navigation -->
+    <div class="nhsuk-tabs" data-module="nhsuk-tabs">
+      <h2 class="nhsuk-tabs__title">Contents</h2>
+      <ul class="nhsuk-tabs__list">
+        <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+          <a class="nhsuk-tabs__tab" href="#periods">Periods</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#organisations">Chart</a>
+        </li>
+        <li class="nhsuk-tabs__list-item">
+          <a class="nhsuk-tabs__tab" href="#download">Download</a>
+        </li>
+      </ul>
+
+      <!-- First tab: Reporting Periods -->
+      <div class="nhsuk-tabs__panel" id="periods">
+        
+        <p class="nhsuk-body">Use the filters below to narrow down the submissions shown in the table. You need to click 'Apply filters' to update the results.</p>
+
+        <!-- Table filters -->
+        <form id="table-filters2" class="nhsuk-table-filters" method="get" action="#" role="search" aria-label="Filter submissions">
+          <div class="nhsuk-table-filters__grid">
+
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-period"><strong>Search by period</strong></label>
+              <input class="nhsuk-input" id="filter-period" name="filterPeriod" type="text" placeholder="Start typing to search..." autocomplete="off">
+              <div id="period-suggestions" style="display:none;position:absolute;z-index:10;"></div>
+            </div>
+
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label" for="filter-status"><strong>Submission window status</strong></label>
+              <select class="nhsuk-select" id="filter-status" name="status">
+                <option value="">All</option>
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+
+            <div class="nhsuk-table-filters__actions">
+              <button class="nhsuk-button nhsuk-button--small" style="top: 8px; margin-right: 8px;" type="submit" onclick="return false">Search</button>
+            </div>
+          </div>
+
+          <div id="selected-filters" class="nhsuk-selected" aria-live="polite">
+            <div class="nhsuk-selected__header">
+              <h3 class="nhsuk-heading-xs nhsuk-selected__title">Selected filters</h3>
+              <a href="#" class="nhsuk-link" style="margin-right: auto;" data-clear-filters>Clear filters</a>
+            </div>
+            <div class="nhsuk-selected__row" id="selected-chips"></div>
+          </div>
+
+        </form>
+      
+        <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+    <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
+    <thead class="nhsuk-table__head" role="rowgroup">
+      <tr role="row" class="nhsuk-table__row">
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="period">Reporting period</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="status">Submission window status</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="total">Total files submitted</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="successful-submitted-count">Organisations with successful submission</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="missed">Organisations not submitted</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="resubmissions-count">Number of resubmissions</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="rejections">File rejection</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none" data-key="record-rejections">Record rejection</th>
+        <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Organisation breakdown</th>
+      </tr>
+    </thead>
+    <tbody class="nhsuk-table__body">
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>357</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>221/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>14/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>118/357</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>96/357 (26%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="organisation-breakdown">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>42/278 (15%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2026</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/218</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>22/218 (10%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>28/199 (14%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>233/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>2/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>133/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>39/195 (20%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Open", classes: "nhsuk-tag--green"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>132/209</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>33/209 (16%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/199</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>20/199 (10%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>231/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>4/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>134/278</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>39/278 (14%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>130/222</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>51/222 (23%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+      <tr class="nhsuk-table__row" role="row">
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2025</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Closed", classes: "nhsuk-tag--grey"}) }}</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>235/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>0/235</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>133/195</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>29/195 (15%)</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>N/A</td>
+        <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="#">View</a></td>
+      </tr>
+
+    
+    </tbody> 
+  </table>
+
+  <div id="time-period-pagination-row" class="nhsuk-pagination-row" style="display:none; align-items: center; justify-content: space-between; margin-top: 24px; margin-bottom: 24px; gap: 12px; flex-wrap: wrap;">
+    <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+      <ul id="time-period-pagination-list" class="nhsuk-list nhsuk-pagination__list">
+        <li class="nhsuk-pagination__item--current"><a class="nhsuk-pagination__link" href="#">1</a></li>
+        <li class="nhsuk-pagination__item nhsuk-pagination__item--next"><a class="nhsuk-pagination__link" href="#">2</a></li>
+      </ul>
+    </nav>
+    <p id="time-period-results-count" class="results-count-align-right" style="margin: 0;">Showing <strong>1</strong> to <strong>10</strong> of <strong>24</strong> results</p>
+  </div>
+
+        <!-- Second tab: Organisations -->
+ <!-- <p>*All submissions in this period, including successful, rejected, and resubmitted data. Test files are not included.<br>
+          **Number of providers with at least one successful submission in this period.<br>
+          ***Number of resubmissions in this period based only on valid submissions.</p> -->
+
+      </div>
+
+      <!-- Second tab: Organisations -->
+      <div class="nhsuk-tabs__panel" id="organisations">
+        <h2 class="nhsuk-heading-m">Submission performance</h2>
+        <p class="nhsuk-body-m">Last 12 months trend for total files submitted, organisations with successful submission, organisations not submitted, number of resubmissions, and file rejection.</p>
+        <div id="organisations-line-chart" class="org-line-chart" aria-label="Line chart for organisation metrics over last 12 months"></div>
+        <div id="organisations-line-legend" class="org-line-legend" aria-label="Chart legend"></div>
+      </div>
+
+      <!-- Third tab: Download -->
+      <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="download" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 40px 24px;">
+        <h2>Download data</h2>
+        <p>The downloaded data will reflect the collection and time period selected above.</p>
+        <p id="pbp-download-filter-summary" class="nhsuk-u-margin-bottom-4" style="font-size: 1.1875rem; color: #0b0c0c;"></p>
+
+        <script>
+          function updatePbpDownloadFilterSummary() {
+            var collectionEl = document.getElementById('collection-select');
+            var collection = collectionEl ? collectionEl.options[collectionEl.selectedIndex].text : '';
+
+            var timePeriodEl = document.getElementById('time-period-select');
+            var timeRange = timePeriodEl ? timePeriodEl.options[timePeriodEl.selectedIndex].text : '';
+
+            var summary = document.getElementById('pbp-download-filter-summary');
+            if (summary) {
+              summary.innerHTML = 'Collection: <strong>' + collection + '</strong>  |  Time range: <strong>' + timeRange + '</strong>';
+            }
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            updatePbpDownloadFilterSummary();
+
+            var collectionEl = document.getElementById('collection-select');
+            if (collectionEl) collectionEl.addEventListener('change', updatePbpDownloadFilterSummary);
+
+            var timePeriodEl = document.getElementById('time-period-select');
+            if (timePeriodEl) timePeriodEl.addEventListener('change', updatePbpDownloadFilterSummary);
+
+            // Also refresh when the download tab is clicked
+            document.querySelectorAll('.nhsuk-tabs__tab').forEach(function(tab) {
+              tab.addEventListener('click', function() {
+                if (tab.getAttribute('href') === '#download') {
+                  updatePbpDownloadFilterSummary();
+                }
+              });
+            });
+          });
+        </script>
+
+        <button class="nhsuk-button" type="button" onclick="downloadPbpData(); return false;">
+          Download CSV
+        </button>
+
+        <script>
+          function downloadPbpData() {
+            var collectionEl = document.getElementById('collection-select');
+            var isLCS = collectionEl && collectionEl.value === 'Lung Cancer Screening Data Set(LCSDS)';
+            var collectionLabel = isLCS ? 'LCS' : 'DIDS';
+
+            var timePeriodEl = document.getElementById('time-period-select');
+            var timePeriodLabel = timePeriodEl
+              ? timePeriodEl.options[timePeriodEl.selectedIndex].text.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+              : 'all';
+
+            var filename = 'performance-by-period-' + collectionLabel + '-' + timePeriodLabel + '.csv';
+
+            var didsData = [
+              { period: 'December 2025',  status: 'Open',   total: '357', providers: '118/357', orgsSuccess: '221/235', orgsNot: '14', fileRej: '96 (26%)',  recRej: 'N/A' },
+              { period: 'November 2025',  status: 'Open',   total: '278', providers: '134/278', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '42 (15%)',  recRej: 'N/A' },
+              { period: 'October 2025',   status: 'Open',   total: '218', providers: '134/218', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '22 (10%)',  recRej: 'N/A' },
+              { period: 'September 2025', status: 'Open',   total: '199', providers: '134/199', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '28 (14%)',  recRej: 'N/A' },
+              { period: 'August 2025',    status: 'Open',   total: '195', providers: '133/195', orgsSuccess: '233/235', orgsNot: '2',  fileRej: '39 (20%)',  recRej: 'N/A' },
+              { period: 'July 2025',      status: 'Open',   total: '209', providers: '132/209', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '33 (16%)',  recRej: 'N/A' },
+              { period: 'June 2025',      status: 'Closed', total: '199', providers: '134/199', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '20 (10%)',  recRej: 'N/A' },
+              { period: 'May 2025',       status: 'Closed', total: '278', providers: '134/278', orgsSuccess: '231/235', orgsNot: '4',  fileRej: '39 (14%)',  recRej: 'N/A' },
+              { period: 'April 2025',     status: 'Closed', total: '222', providers: '130/222', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '51 (23%)',  recRej: 'N/A' },
+              { period: 'March 2025',     status: 'Closed', total: '195', providers: '133/195', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '29 (15%)',  recRej: 'N/A' },
+              { period: 'February 2025',  status: 'Closed', total: '184', providers: '121/184', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '33 (18%)',  recRej: 'N/A' },
+              { period: 'January 2025',   status: 'Closed', total: '176', providers: '120/176', orgsSuccess: '235/235', orgsNot: '0',  fileRej: '28 (16%)',  recRej: 'N/A' }
+            ];
+
+            var lcsData = [
+              { period: 'December 2025',  status: 'Open',   total: '38', providers: '5/38', orgsSuccess: '3/5', orgsNot: '2', fileRej: '6 (15%)',  recRej: '32' },
+              { period: 'November 2025',  status: 'Open',   total: '31', providers: '5/31', orgsSuccess: '5/5', orgsNot: '0', fileRej: '5 (16%)',  recRej: '28' },
+              { period: 'October 2025',   status: 'Open',   total: '27', providers: '5/27', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (10%)',  recRej: '35' },
+              { period: 'September 2025', status: 'Open',   total: '24', providers: '5/24', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (14%)',  recRej: '40' },
+              { period: 'August 2025',    status: 'Open',   total: '22', providers: '4/22', orgsSuccess: '4/5', orgsNot: '1', fileRej: '4 (20%)',  recRej: '27' },
+              { period: 'July 2025',      status: 'Open',   total: '19', providers: '5/19', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (16%)',  recRej: '33' },
+              { period: 'June 2025',      status: 'Closed', total: '21', providers: '5/21', orgsSuccess: '5/5', orgsNot: '0', fileRej: '2 (10%)',  recRej: '38' },
+              { period: 'May 2025',       status: 'Closed', total: '25', providers: '5/25', orgsSuccess: '5/5', orgsNot: '0', fileRej: '4 (14%)',  recRej: '29' },
+              { period: 'April 2025',     status: 'Closed', total: '18', providers: '5/18', orgsSuccess: '5/5', orgsNot: '0', fileRej: '4 (23%)',  recRej: '36' },
+              { period: 'March 2025',     status: 'Closed', total: '20', providers: '5/20', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (15%)',  recRej: '31' },
+              { period: 'February 2025',  status: 'Closed', total: '17', providers: '5/17', orgsSuccess: '5/5', orgsNot: '0', fileRej: '3 (18%)',  recRej: '25' },
+              { period: 'January 2025',   status: 'Closed', total: '15', providers: '5/15', orgsSuccess: '5/5', orgsNot: '0', fileRej: '2 (16%)',  recRej: '22' }
+            ];
+
+            var rows = isLCS ? lcsData : didsData;
+
+            function esc(v) {
+              var s = String(v || '');
+              return (s.indexOf(',') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1)
+                ? '"' + s.replace(/"/g, '""') + '"'
+                : s;
+            }
+
+            var lines = ['Reporting period,Status,Total files submitted,Providers submitted,Organisations with successful submission,Organisations not submitted,File rejection,Record rejection'];
+            rows.forEach(function(d) {
+              lines.push([d.period, d.status, d.total, d.providers, d.orgsSuccess, d.orgsNot, d.fileRej, d.recRej].map(esc).join(','));
+            });
+
+            var csv = lines.join('\r\n');
+            var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+          }
+        </script>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<style>
+  #submissions-table th,
+  #submissions-table td {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .org-line-chart {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #d8dde0;
+    background: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .org-line-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .org-line-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+  }
+
+  .org-line-legend__swatch {
+    width: 16px;
+    height: 4px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .chart-tooltip {
+    position: fixed;
+    background: #212b32;
+    color: #fff;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    pointer-events: none;
+    z-index: 200;
+    min-width: 220px;
+    display: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
+
+  .chart-tooltip__title {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .chart-tooltip__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .chart-tooltip__swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // Toggle expander text between 'Show filters' and 'Hide filters'
+  document.addEventListener('DOMContentLoaded', function(){
+    var details = document.querySelector('.nhsuk-details.nhsuk-expander');
+    var textSpan = document.getElementById('filters-expander-text');
+    if (details && textSpan) {
+      function updateText() {
+        textSpan.textContent = details.open ? 'Hide filters' : 'Show filters';
+      }
+      details.addEventListener('toggle', updateText);
+      updateText();
+    }
+  });
+})();
+</script>
+
+<script>
+</script>
+
+<script>
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var chartHost = document.getElementById('organisations-line-chart');
+    var legendHost = document.getElementById('organisations-line-legend');
+    if (!chartHost || !legendHost) return;
+
+    var tooltip = document.getElementById('perf-chart-tooltip');
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = 'perf-chart-tooltip';
+      tooltip.className = 'chart-tooltip';
+      document.body.appendChild(tooltip);
+    }
+
+    var chartLabels = ['Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26'];
+
+    var allSeries = {
+      dids: [
+        { name: 'Total files submitted',                    color: '#007f3b', dash: '',          values: [176, 184, 195, 222, 278, 199, 209, 195, 199, 218, 278, 357] },
+        { name: 'Organisations with successful submission', color: '#005eb8', dash: '8,4',       values: [235, 235, 235, 235, 231, 235, 235, 233, 235, 235, 235, 221] },
+        { name: 'Organisations not submitted',              color: '#4c6272', dash: '3,4',       values: [0,   0,   0,   0,   4,   0,   0,   2,   0,   0,   0,   14 ] },
+        { name: 'Number of resubmissions',                 color: '#fa9200', dash: '2,6',       linecap: 'round', values: [120, 121, 133, 130, 134, 134, 132, 133, 134, 134, 134, 118] },
+        { name: 'File rejection',                          color: '#d5281b', dash: '14,4',      values: [28,  33,  29,  51,  39,  20,  33,  39,  28,  22,  42,  96 ] }
+      ],
+      lcs: [
+        { name: 'Total files submitted',                    color: '#007f3b', dash: '',          values: [15,  17,  20,  18,  25,  21,  19,  22,  24,  27,  31,  38 ] },
+        { name: 'Organisations with successful submission', color: '#005eb8', dash: '8,4',       values: [5,   5,   5,   5,   5,   5,   5,   4,   5,   5,   5,   3  ] },
+        { name: 'Organisations not submitted',              color: '#4c6272', dash: '3,4',       values: [0,   0,   0,   0,   0,   0,   0,   1,   0,   0,   0,   2  ] },
+        { name: 'Number of resubmissions',                 color: '#fa9200', dash: '2,6',       linecap: 'round', values: [2,   3,   4,   3,   5,   4,   3,   4,   5,   4,   6,   8  ] },
+        { name: 'File rejection',                          color: '#d5281b', dash: '14,4',      values: [2,   3,   3,   4,   4,   2,   3,   4,   3,   3,   5,   6  ] }
+      ]
+    };
+
+    var width = 1100;
+    var height = 420;
+    var margin = { top: 20, right: 20, bottom: 80, left: 64 };
+    var plotW = width - margin.left - margin.right;
+    var plotH = height - margin.top - margin.bottom;
+
+    function renderChart() {
+      var sel = document.getElementById('collection-select');
+      var isLCS = sel && sel.value === 'Lung Cancer Screening (LCS)';
+      var labels = chartLabels;
+      var series = isLCS ? allSeries.lcs : allSeries.dids;
+
+      var allValues = [];
+      series.forEach(function(s) { allValues = allValues.concat(s.values); });
+      var maxY = Math.max.apply(null, allValues);
+      var roundedMaxY = Math.ceil(maxY / 20) * 20;
+
+      function xAt(index) {
+        return margin.left + (index * (plotW / (labels.length - 1)));
+      }
+
+      function yAt(value) {
+        return margin.top + plotH - ((value / roundedMaxY) * plotH);
+      }
+
+      var svg = [];
+      svg.push('<svg width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '" role="img" aria-label="Organisation metrics line chart">');
+
+      for (var t = 0; t <= 5; t++) {
+        var yVal = Math.round((roundedMaxY / 5) * t);
+        var y = yAt(yVal);
+        svg.push('<line x1="' + margin.left + '" y1="' + y + '" x2="' + (margin.left + plotW) + '" y2="' + y + '" stroke="#d8dde0" stroke-width="1" />');
+        svg.push('<text x="' + (margin.left - 8) + '" y="' + (y + 5) + '" text-anchor="end" font-size="12" fill="#4c6272">' + yVal + '</text>');
+      }
+
+      svg.push('<line x1="' + margin.left + '" y1="' + (margin.top + plotH) + '" x2="' + (margin.left + plotW) + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+      svg.push('<line x1="' + margin.left + '" y1="' + margin.top + '" x2="' + margin.left + '" y2="' + (margin.top + plotH) + '" stroke="#212b32" stroke-width="1.5" />');
+
+      labels.forEach(function(label, i) {
+        var x = xAt(i);
+        svg.push('<line x1="' + x + '" y1="' + (margin.top + plotH) + '" x2="' + x + '" y2="' + (margin.top + plotH + 6) + '" stroke="#212b32" stroke-width="1" />');
+        svg.push('<text x="' + x + '" y="' + (margin.top + plotH + 22) + '" text-anchor="middle" font-size="12" fill="#212b32">' + label + '</text>');
+      });
+
+      series.forEach(function(s) {
+        var pts = s.values.map(function(v, i) { return xAt(i) + ',' + yAt(v); }).join(' ');
+        var dashAttr = s.dash ? ' stroke-dasharray="' + s.dash + '"' : '';
+        var capAttr = s.linecap ? ' stroke-linecap="' + s.linecap + '"' : '';
+        svg.push('<polyline fill="none" stroke="' + s.color + '" stroke-width="3"' + dashAttr + capAttr + ' points="' + pts + '" />');
+        s.values.forEach(function(v, i) {
+          svg.push('<circle cx="' + xAt(i) + '" cy="' + yAt(v) + '" r="3" fill="' + s.color + '" />');
+        });
+      });
+
+      svg.push('<text x="' + (margin.left + (plotW / 2)) + '" y="' + (height - 20) + '" text-anchor="middle" font-size="13" fill="#212b32">Month</text>');
+      svg.push('<text x="20" y="' + (margin.top + (plotH / 2)) + '" text-anchor="middle" font-size="13" fill="#212b32" transform="rotate(-90 20 ' + (margin.top + (plotH / 2)) + ')">Count</text>');
+      svg.push('</svg>');
+
+      chartHost.innerHTML = svg.join('');
+
+      var svgEl = chartHost.querySelector('svg');
+      if (svgEl) {
+        svgEl.addEventListener('mousemove', function(e) {
+          var rect = svgEl.getBoundingClientRect();
+          var svgScale = rect.width / width;
+          var mouseX = (e.clientX - rect.left) / svgScale;
+          if (mouseX < margin.left - 20 || mouseX > margin.left + plotW + 20) {
+            tooltip.style.display = 'none';
+            return;
+          }
+          var nearest = 0;
+          var minDist = Infinity;
+          labels.forEach(function(lbl, i) {
+            var dist = Math.abs(mouseX - xAt(i));
+            if (dist < minDist) { minDist = dist; nearest = i; }
+          });
+          var fullLabel = labels[nearest].replace(/ (\d{2})$/, function(m, y) { return ' 20' + y; });
+          var html = '<div class="chart-tooltip__title">' + fullLabel + '</div>';
+          series.forEach(function(s) {
+            html += '<div class="chart-tooltip__row">';
+            html += '<span class="chart-tooltip__swatch" style="background:' + s.color + ';"></span>';
+            html += s.name + ': <strong>' + s.values[nearest] + '</strong>';
+            html += '</div>';
+          });
+          tooltip.innerHTML = html;
+          tooltip.style.display = 'block';
+          var tx = e.clientX + 16;
+          var ty = e.clientY - 16;
+          if (tx + 250 > window.innerWidth) { tx = e.clientX - 266; }
+          if (ty + tooltip.offsetHeight > window.innerHeight) { ty = window.innerHeight - tooltip.offsetHeight - 8; }
+          tooltip.style.left = tx + 'px';
+          tooltip.style.top = ty + 'px';
+        });
+        svgEl.addEventListener('mouseleave', function() {
+          tooltip.style.display = 'none';
+        });
+      }
+
+      legendHost.innerHTML = series.map(function(s) {
+        var dashAttr = s.dash ? ' stroke-dasharray="' + s.dash + '"' : '';
+        var capAttr = s.linecap ? ' stroke-linecap="' + s.linecap + '"' : '';
+        var swatch = '<svg width="32" height="12" viewBox="0 0 32 12" style="vertical-align:middle;margin-right:6px;"><line x1="0" y1="6" x2="32" y2="6" stroke="' + s.color + '" stroke-width="3"' + dashAttr + capAttr + '/></svg>';
+        return '<span class="org-line-legend__item">' + swatch + s.name + '</span>';
+      }).join('');
+    }
+
+    renderChart();
+
+    var sel = document.getElementById('collection-select');
+    if (sel) {
+      sel.addEventListener('change', function() {
+        renderChart();
+      });
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  // Helper: get only the text node after the span (the cell value)
+  function cellValue(cell) {
+    if (!cell) return '';
+    // Find the first text node after the span
+    for (let node of cell.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        return node.textContent.trim();
+      }
+    }
+    // fallback: get all text and remove the heading
+    var txt = (cell.textContent || '').trim();
+    var heading = cell.querySelector('.nhsuk-table-responsive__heading');
+    if (heading) {
+      txt = txt.replace(heading.textContent, '').trim();
+    }
+    return txt;
+  }
+
+  function uniqueSorted(values) {
+    return Array.from(new Set(values.filter(Boolean))).sort(function(a, b) {
+      return a.localeCompare(b, undefined, { sensitivity: 'base' });
+    });
+  }
+
+  function initTableFilters(opts) {
+    var table = document.getElementById(opts.tableId);
+    var form = document.getElementById(opts.formId);
+    var yearSel = document.getElementById('performance-year');
+    if (!table || !form || !table.tBodies.length) return;
+
+    // Locate inputs
+    var statusSel = form.querySelector('#filter-status');
+    var periodInput = form.querySelector('#filter-period');
+    var clearBtn = form.querySelector('[data-clear-filters]');
+    var countEl = document.getElementById('results-count');
+    var applyBtn = form.querySelector('button[type="submit"]');
+    var chipsEl = document.getElementById('selected-chips');
+    var paginationNav = document.getElementById('submissions-pagination');
+    var paginationList = document.getElementById('pagination-list');
+    var pageSize = 10;
+    var currentPage = 1;
+
+    // Map headers by data-key to column index
+    var keyIndex = {};
+    var i = 0;
+    [].slice.call(table.tHead.rows[0].cells).forEach(function(th) {
+      var span = th.colSpan || 1;
+      var key = th.getAttribute('data-key');
+      for (var k = 0; k < span; k++) {
+        if (key && k === 0) keyIndex[key] = i;
+        i++;
+      }
+    });
+
+    var rows = [].slice.call(table.tBodies[0].rows);
+    var data = rows.map(function(row) {
+      var c = row.cells;
+      return {
+        row: row,
+        period: cellValue(c[keyIndex.period]),
+        status: cellValue(c[keyIndex.status])
+      };
+    });
+
+    // --- Period autocomplete dropdown ---
+    var suggestionBox = document.getElementById('period-suggestions');
+    if (periodInput && suggestionBox) {
+      periodInput.addEventListener('input', function() {
+        var val = periodInput.value.trim().toLowerCase();
+        if (val.length < 3) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+
+        var selectedYear = yearSel ? yearSel.value : '';
+        var periods = uniqueSorted(data.filter(function(r) {
+          var periodYear = (r.period.match(/(\d{4})$/) || [])[1] || '';
+          return !selectedYear || periodYear === selectedYear;
+        }).map(function(r) { return r.period; }).filter(Boolean));
+        var matches = periods.filter(function(p) { return p.toLowerCase().startsWith(val); });
+        if (matches.length === 0) {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          return;
+        }
+
+        suggestionBox.style.display = 'block';
+        suggestionBox.style.background = '#fff';
+        suggestionBox.style.color = '#000';
+        suggestionBox.style.fontSize = '1.1875rem';
+        suggestionBox.style.width = periodInput.offsetWidth + 'px';
+        suggestionBox.style.border = '1px solid #b1b4b6';
+        suggestionBox.style.borderTop = 'none';
+        suggestionBox.style.maxHeight = '200px';
+        suggestionBox.style.overflowY = 'auto';
+        suggestionBox.innerHTML = matches.map(function(m) {
+          return '<div class="period-suggestion" style="padding:8px 12px;cursor:pointer;">' + m + '</div>';
+        }).join('');
+      });
+
+      suggestionBox.addEventListener('mousedown', function(e) {
+        if (e.target.classList.contains('period-suggestion')) {
+          periodInput.value = e.target.textContent;
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+          periodInput.focus();
+        }
+      });
+
+      periodInput.addEventListener('blur', function() {
+        setTimeout(function() {
+          suggestionBox.style.display = 'none';
+          suggestionBox.innerHTML = '';
+        }, 200);
+      });
+    }
+
+    function matches(rec) {
+      var selectedYear = yearSel ? yearSel.value : '';
+      var statusQ = (statusSel && statusSel.value) || '';
+      var periodQ = (periodInput && periodInput.value ? periodInput.value : '').trim().toLowerCase();
+      var periodYear = (rec.period.match(/(\d{4})$/) || [])[1] || '';
+
+      if (selectedYear && periodYear !== selectedYear) return false;
+      if (statusQ && rec.status !== statusQ) return false;
+      if (periodQ && !rec.period.toLowerCase().includes(periodQ)) return false;
+      return true;
+    }
+
+    function renderPagination(total, totalPages) {
+      if (!paginationNav || !paginationList) return;
+      paginationList.innerHTML = '';
+
+      if (totalPages <= 1) {
+        paginationNav.style.display = 'none';
+        return;
+      }
+
+      paginationNav.style.display = '';
+
+      function pageItem(label, targetPage, isCurrent, isNext, isPrev) {
+        var li = document.createElement('li');
+        li.className = isCurrent
+          ? 'nhsuk-pagination__item--current'
+          : 'nhsuk-pagination__item' + (isNext ? ' nhsuk-pagination__item--next' : '') + (isPrev ? ' nhsuk-pagination__item--prev' : '');
+
+        var link = document.createElement('a');
+        link.className = 'nhsuk-pagination__link';
+        link.href = '#';
+        link.textContent = label;
+
+        if (isCurrent) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentPage = targetPage;
+            render();
+          });
+        }
+
+        li.appendChild(link);
+        return li;
+      }
+
+      if (currentPage > 1) {
+        paginationList.appendChild(pageItem('Previous', currentPage - 1, false, false, true));
+      }
+
+      for (var p = 1; p <= totalPages; p++) {
+        paginationList.appendChild(pageItem(String(p), p, p === currentPage, false, false));
+      }
+
+      if (currentPage < totalPages) {
+        paginationList.appendChild(pageItem('Next', currentPage + 1, false, true, false));
+      }
+    }
+
+    function renderChips() {
+      if (!chipsEl) return;
+      var chips = [];
+
+      if (statusSel && statusSel.value) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="status" title="Clear Status filter">Status: ' + statusSel.options[statusSel.selectedIndex].text + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+      if (periodInput && periodInput.value.trim()) {
+        chips.push('<span class="nhsuk-tag nhsuk-tag--blue" style="margin-right:4px;cursor:pointer;display:inline-flex;align-items:center;" data-filter="period" title="Clear Period filter">Period: ' + periodInput.value.trim() + ' <span aria-hidden="true" style="margin-left:6px;font-weight:bold;">&times;</span></span>');
+      }
+
+      chipsEl.innerHTML = chips.join(' ');
+
+      var clearLink = form.querySelector('[data-clear-filters]');
+      if (clearLink) {
+        if (chips.length === 0) {
+          clearLink.style.display = 'none';
+          if (!document.getElementById('no-filters-msg')) {
+            var msg = document.createElement('span');
+            msg.id = 'no-filters-msg';
+            msg.textContent = 'No filters applied';
+            msg.style.color = '#4c6272';
+            msg.style.fontSize = '16px';
+            msg.style.display = 'block';
+            msg.style.textAlign = 'left';
+            clearLink.parentNode.appendChild(msg);
+          }
+        } else {
+          clearLink.style.display = '';
+          var msg = document.getElementById('no-filters-msg');
+          if (msg) msg.remove();
+        }
+      }
+
+      Array.from(chipsEl.querySelectorAll('.nhsuk-tag[data-filter]')).forEach(function(tag) {
+        tag.addEventListener('click', function() {
+          var filter = tag.getAttribute('data-filter');
+          if (filter === 'status' && statusSel) statusSel.value = '';
+          if (filter === 'period' && periodInput) periodInput.value = '';
+          currentPage = 1;
+          render();
+        });
+      });
+    }
+
+    function render() {
+      var filtered = data.filter(matches);
+      var total = filtered.length;
+      var totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      data.forEach(function(rec) {
+        rec.row.style.display = 'none';
+      });
+
+      var start = total === 0 ? 0 : ((currentPage - 1) * pageSize);
+      var end = Math.min(start + pageSize, total);
+      for (var i = start; i < end; i++) {
+        filtered[i].row.style.display = '';
+      }
+
+      if (countEl) {
+        var from = total === 0 ? 0 : start + 1;
+        countEl.textContent = 'Showing ' + from + ' to ' + end + ' of ' + total + ' results';
+      }
+
+      renderPagination(total, totalPages);
+      renderChips();
+    }
+
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        currentPage = 1;
+        render();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (statusSel) statusSel.value = '';
+        if (periodInput) periodInput.value = '';
+        currentPage = 1;
+        render();
+      });
+    }
+
+    if (yearSel) {
+      yearSel.addEventListener('change', function() {
+        if (periodInput) periodInput.value = '';
+        currentPage = 1;
+        render();
+      });
+    }
+
+    render();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initTableFilters({
+      tableId: 'submissions-table',
+      formId: 'table-filters2'
+    });
+  });
+})();
+</script>
+
+<script>
+// Click column headers to sort rows
+(function() {
+  function parseValue(text, type) {
+    var t = (text || '').trim();
+    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'date') {
+      var d = Date.parse(t);
+      return isNaN(d) ? t.toLowerCase() : d;
+    }
+    return t.toLowerCase();
+  }
+
+  function indexOfCell(th) {
+    var cells = Array.prototype.slice.call(th.parentElement.children);
+    var idx = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === th) return idx;
+      idx += cells[i].colSpan || 1;
+    }
+    return -1;
+  }
+
+  function sortTable(table, colIndex, type, direction) {
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.rows);
+
+    rows.sort(function(a, b) {
+      var av = parseValue(a.cells[colIndex] && a.cells[colIndex].innerText, type);
+      var bv = parseValue(b.cells[colIndex] && b.cells[colIndex].innerText, type);
+      if (av < bv) return direction === 'ascending' ? -1 : 1;
+      if (av > bv) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+
+    var frag = document.createDocumentFragment();
+    rows.forEach(function(r) { frag.appendChild(r); });
+    tbody.appendChild(frag);
+  }
+
+  document.querySelectorAll('table.nhsuk-table--sortable').forEach(function(table) {
+    var ths = table.tHead ? table.tHead.querySelectorAll('th') : [];
+    ths.forEach(function(th) {
+      var type = th.getAttribute('data-sort') || 'string';
+      if (type === 'none') return;
+      th.setAttribute('aria-sort', 'none');
+      var label = th.textContent.trim();
+      if (!th.querySelector('button')) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nhsuk-table-sort__button';
+        btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>';
+        th.textContent = '';
+        th.appendChild(btn);
+      }
+      th.querySelector('button').addEventListener('click', function() {
+        var current = th.getAttribute('aria-sort');
+        var next = current === 'ascending' ? 'descending' : 'ascending';
+        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function(t) { t.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', next);
+        var colIndex = indexOfCell(th);
+        sortTable(table, colIndex, type, next);
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+(function() {
+  // Toggle visibility for metrics columns
+  document.addEventListener('DOMContentLoaded', function() {
+    var table = document.getElementById('submissions-table');
+    var btn = document.getElementById('toggle-metrics-columns');
+    if (!table || !btn || !table.tBodies.length) return;
+
+    var metricKeys = ['submitted-count', 'total', 'missed', 'rejections'];
+    var colIndexes = [];
+
+    if (table.tHead && table.tHead.rows.length) {
+      var headerCells = Array.prototype.slice.call(table.tHead.rows[0].cells);
+      var logicalIndex = 0;
+      headerCells.forEach(function(cell) {
+        var key = cell.getAttribute('data-key');
+        if (metricKeys.indexOf(key) !== -1) {
+          colIndexes.push(logicalIndex);
+        }
+        logicalIndex += cell.colSpan || 1;
+      });
+    }
+
+    var hidden = false;
+
+    function setVisibility(hide) {
+      var display = hide ? 'none' : '';
+      var heads = table.tHead ? Array.prototype.slice.call(table.tHead.rows) : [];
+      var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+      heads.concat(rows).forEach(function(row) {
+        colIndexes.forEach(function(idx) {
+          if (row.cells[idx]) row.cells[idx].style.display = display;
+        });
+      });
+      btn.textContent = hide ? 'No reporting period' : 'Only submission windows';
+      btn.setAttribute('aria-pressed', hide ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      hidden = !hidden;
+      setVisibility(hidden);
+    });
+
+    setVisibility(hidden);
+  });
+})();
+</script>
+
+<script>
+// Collection filter — swap table rows between DIDS and LCS datasets
+(function() {
+  var didsData = [
+    { period: 'October 2026',   status: 'Open',   total: '357', orgsSuccess: '221/235', orgsNot: '14', resubmissions: '118/357', fileRej: '96/357 (26%)',  recRej: 'N/A', link: 'organisation-breakdown' },
+    { period: 'September 2026', status: 'Open',   total: '278', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/278', fileRej: '42/278 (15%)',  recRej: 'N/A', link: '#' },
+    { period: 'August 2026',    status: 'Open',   total: '218', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/218', fileRej: '22/218 (10%)',  recRej: 'N/A', link: '#' },
+    { period: 'July 2026',      status: 'Open',   total: '199', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/199', fileRej: '28/199 (14%)',  recRej: 'N/A', link: '#' },
+    { period: 'June 2026',      status: 'Open',   total: '195', orgsSuccess: '233/235', orgsNot: '2',  resubmissions: '133/195', fileRej: '39/195 (20%)',  recRej: 'N/A', link: '#' },
+    { period: 'May 2026',       status: 'Open',   total: '209', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '132/209', fileRej: '33/209 (16%)',  recRej: 'N/A', link: '#' },
+    { period: 'April 2026',     status: 'Closed', total: '199', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '134/199', fileRej: '20/199 (10%)',  recRej: 'N/A', link: '#' },
+    { period: 'March 2026',     status: 'Closed', total: '278', orgsSuccess: '231/235', orgsNot: '4',  resubmissions: '134/278', fileRej: '39/278 (14%)',  recRej: 'N/A', link: '#' },
+    { period: 'February 2026',  status: 'Closed', total: '222', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '130/222', fileRej: '51/222 (23%)',  recRej: 'N/A', link: '#' },
+    { period: 'January 2026',   status: 'Closed', total: '195', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '133/195', fileRej: '29/195 (15%)',  recRej: 'N/A', link: '#' },
+    { period: 'December 2025',  status: 'Closed', total: '184', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '121/184', fileRej: '33/184 (18%)',  recRej: 'N/A', link: '#' },
+    { period: 'November 2025',  status: 'Closed', total: '176', orgsSuccess: '235/235', orgsNot: '0',  resubmissions: '120/176', fileRej: '28/176 (16%)',  recRej: 'N/A', link: '#' }
+  ];
+
+  var lcsData = [
+    { period: 'October 2026',   status: 'Open',   total: '38', orgsSuccess: '3/5', orgsNot: '2', resubmissions: '8/38',  fileRej: '6/38 (15%)',  recRej: '32', link: 'organisation-breakdown0LCS' },
+    { period: 'September 2026', status: 'Open',   total: '31', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '6/31',  fileRej: '5/31 (16%)',  recRej: '28', link: '#' },
+    { period: 'August 2026',    status: 'Open',   total: '27', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/27',  fileRej: '3/27 (10%)',  recRej: '35', link: '#' },
+    { period: 'July 2026',      status: 'Open',   total: '24', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '5/24',  fileRej: '3/24 (14%)',  recRej: '40', link: '#' },
+    { period: 'June 2026',      status: 'Open',   total: '22', orgsSuccess: '4/5', orgsNot: '1', resubmissions: '4/22',  fileRej: '4/22 (20%)',  recRej: '27', link: '#' },
+    { period: 'May 2026',       status: 'Open',   total: '19', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/19',  fileRej: '3/19 (16%)',  recRej: '33', link: '#' },
+    { period: 'April 2026',     status: 'Closed', total: '21', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/21',  fileRej: '2/21 (10%)',  recRej: '38', link: '#' },
+    { period: 'March 2026',     status: 'Closed', total: '25', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '5/25',  fileRej: '4/25 (14%)',  recRej: '29', link: '#' },
+    { period: 'February 2026',  status: 'Closed', total: '18', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/18',  fileRej: '4/18 (23%)',  recRej: '36', link: '#' },
+    { period: 'January 2026',   status: 'Closed', total: '20', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '4/20',  fileRej: '3/20 (15%)',  recRej: '31', link: '#' },
+    { period: 'December 2025',  status: 'Closed', total: '17', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '3/17',  fileRej: '3/17 (18%)',  recRej: '25', link: '#' },
+    { period: 'November 2025',  status: 'Closed', total: '15', orgsSuccess: '5/5', orgsNot: '0', resubmissions: '2/15',  fileRej: '2/15 (16%)',  recRej: '22', link: '#' }
+  ];
+
+  function makeTag(status) {
+    return status === 'Open'
+      ? '<strong class="nhsuk-tag nhsuk-tag--green">Open</strong>'
+      : '<strong class="nhsuk-tag nhsuk-tag--grey">Closed</strong>';
+  }
+
+  function buildRows(data) {
+    return data.map(function(d) {
+      return '<tr class="nhsuk-table__row" role="row">' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>' + d.period + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>' + makeTag(d.status) + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Total No. of submissions</span>' + d.total + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations with successful submission</span>' + d.orgsSuccess + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations not submitted</span>' + d.orgsNot + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Number of resubmissions</span>' + d.resubmissions + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File rejection</span>' + d.fileRej + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Record rejection</span>' + d.recRej + '</td>' +
+        '<td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation breakdown</span><a href="' + d.link + '">View</a></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function updateTable(isLCS) {
+    var tbody = document.querySelector('#submissions-table tbody');
+    if (!tbody) return;
+    tbody.innerHTML = buildRows(isLCS ? lcsData : didsData);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var sel = document.getElementById('collection-select');
+    if (!sel) return;
+    updateTable(sel.value === 'Lung Cancer Screening (LCS)');
+    sel.addEventListener('change', function() {
+      updateTable(sel.value === 'Lung Cancer Screening (LCS)');
+    });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var timeSel = document.getElementById('time-period-select');
+    var paginationRow = document.getElementById('time-period-pagination-row');
+    if (!timeSel || !paginationRow) return;
+
+    function update() {
+      if (timeSel.value === 'last-2-years') {
+        paginationRow.style.display = 'flex';
+      } else {
+        paginationRow.style.display = 'none';
+      }
+    }
+
+    timeSel.addEventListener('change', update);
+    update();
+  });
+})();
+</script>
+{% endblock %}

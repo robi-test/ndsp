@@ -18,22 +18,6 @@
           To continue your request, choose the roles you are applying for, your request will go through the appropriate approval process.
         </div>
 
-        <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-2">
-          <summary class="nhsuk-details__summary">
-            <span class="nhsuk-details__summary-text">What do these roles mean?</span>
-          </summary>
-          <div class="nhsuk-details__text">
-            <p>Before requesting access, you should already have agreed within your team which role or roles you need. Different roles provide different levels of access and may follow different approval routes.<br>Read the guidance to understand which role is appropriate for your responsibilities.</p>
-            <p><a href="#">[Read guidance about NDSP roles and permissions]</a></p>
-            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Submitter</h3>
-            <p>Submitters can upload and manage data submissions for a specific organisation and collection. This role may also allow access to submission history, validation feedback and related submission activity.</p>
-            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Local Administrator</h3>
-            <p>Local Administrators manage user access for their organisation. They can review and manage permission requests and help ensure the right users have access to the correct collections and roles.</p>
-            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Monitoring role</h3>
-            <p>Monitoring users can view submission and performance information to support organisations with their submissions. This may include monitoring deadlines, submission progress, validation outcomes and performance for organisations within an overseer group, depending on the permissions granted.</p>
-          </div>
-        </details>
-
         <div class="nhsuk-radios nhsuk-u-margin-top-5" data-module="nhsuk-radios">
           <div class="nhsuk-radios__item">
             <input class="nhsuk-radios__input" id="role-submitter" name="role" type="radio" value="submitter">
@@ -56,6 +40,23 @@
         </div>
       </fieldset>
     </div>
+
+    <details class="nhsuk-details nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-2">
+          <summary class="nhsuk-details__summary">
+            <span class="nhsuk-details__summary-text">What do these roles mean?</span>
+          </summary>
+          <div class="nhsuk-details__text">
+            <p>Before requesting access, you should already have agreed within your team which role or roles you need. Different roles provide different levels of access and may follow different approval routes.<br>Read the <a href="https://future.nhs.uk/NDSP/view?objectID=69910256">guidance about roles and permissions</a> to understand which role is appropriate for your responsibilities.</p>
+            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Submitter</h3>
+            <p>Submitters can upload and manage data submissions for a specific organisation and collection. This role may also allow access to submission history, validation feedback and related submission activity.</p>
+            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Local Administrator</h3>
+            <p>Local Administrators manage user access for their organisation. They can review and manage permission requests and help ensure the right users have access to the correct collections and roles.</p>
+            <h3 class="nhsuk-heading-s nhsuk-u-margin-bottom-1">Monitoring role</h3>
+            <p>Monitoring users can view submission and performance information for organisations assigned to their overseer group. This role supports oversight activities by allowing users to monitor submission progress, identify organisations that have not submitted data, review validation errors and warnings, and track data quality and performance trends.
+
+             <br>Monitoring users cannot submit data, manage user permissions, approve access requests, or change collection configuration settings.</p>
+          </div>
+        </details>
 
     <button id="continue-to-ig-contact" type="button" class="nhsuk-button nhsuk-u-margin-top-3">
       Continue
@@ -102,9 +103,14 @@ document.addEventListener('DOMContentLoaded', function () {
       target = 'select-group';
     } else if (selected && selected.value === 'submitter') {
       target = 'select-organisation-submitter-lcs';
-    } else if (orgCode || orgName) {
-      target += `?orgCode=${encodeURIComponent(orgCode)}&orgName=${encodeURIComponent(orgName)}`;
     }
+
+    const qs = new URLSearchParams();
+    if (orgCode) qs.set('orgCode', orgCode);
+    if (orgName) qs.set('orgName', orgName);
+    if (selected && selected.value) qs.set('role', selected.value);
+    const queryString = qs.toString();
+    if (queryString) target += `?${queryString}`;
 
     window.location.href = target;
   });

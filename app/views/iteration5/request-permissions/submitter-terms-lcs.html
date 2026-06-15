@@ -9,6 +9,9 @@
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <div id="error-summary-container"></div>
+
        <h1>
          {{ pageName }}
       </h1>
@@ -21,39 +24,39 @@ These terms apply to users requesting submitter permissions and explain:
 <li>The rules for accessing data on behalf of your organisation</li>
 <li>What to do if your role or responsibilities change</li>
 </ul>
-Please take the time to review the full document.
-
 </p>
+<p>Please take the time to review the full document.</p>
+<p>If you have any questions about these Terms and Conditions, or believe there is a reason why you cannot agree to them, please contact the NDSP support team before submitting your access request.</p>
+
 </div>
 
 
 {% from 'action-link/macro.njk' import actionLink %}
       {{ actionLink({
-        text: "Read terms and conditions",
+        text: "Read terms and conditions (opens in a new tab)",
         href: "submitter-terms-and-conditions",
         openInNewWindow: "true"
       }) }}
-{% from 'checkboxes/macro.njk' import checkboxes %}
+<div id="terms-form-group" class="nhsuk-form-group">
+  <fieldset class="nhsuk-fieldset">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+      <h2 class="nhsuk-fieldset__heading">Do you agree to the terms and conditions?</h2>
+    </legend>
+    <div id="terms-error-message" class="nhsuk-error-message" style="display:none;">
+      <span class="nhsuk-u-visually-hidden">Error:</span> Select if you agree to the terms and conditions
+    </div>
+    <div class="nhsuk-checkboxes">
+      <div class="nhsuk-checkboxes__item">
+        <input class="nhsuk-checkboxes__input" id="term" name="terms" type="checkbox" value="yes">
+        <label class="nhsuk-label nhsuk-checkboxes__label" for="term">
+          Yes, I agree to the terms and conditions
+        </label>
+      </div>
+    </div>
+  </fieldset>
+</div>
 
-{{ checkboxes({
-  idPrefix: "term",
-  name: "terms",
-  fieldset: {
-    legend: {
-      text: "Do you agree to the terms and conditions?",
-      classes: "nhsuk-fieldset__legend--m",
-      isPageHeading: true
-    }
-  },
-  items: [
-    {
-      value: "yes",
-      text: "Yes, I agree to the terms and conditions"
-    }
-  ]
-}) }}
-
- <button id="continue-to-summary" onclick="location='submitter-details-lcs'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button id="continue-to-summary" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
@@ -78,7 +81,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   continueButton.addEventListener('click', function () {
     const agreed = document.querySelector('input[name="terms"]:checked');
-    sessionStorage.setItem('summary.terms', agreed ? 'yes' : 'no');
+
+    if (!agreed) {
+      const formGroup = document.getElementById('terms-form-group');
+      const errorMessage = document.getElementById('terms-error-message');
+      formGroup.classList.add('nhsuk-form-group--error');
+      errorMessage.style.display = 'block';
+
+      const summaryContainer = document.getElementById('error-summary-container');
+      summaryContainer.innerHTML = `
+        <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" id="error-summary">
+          <h2 class="nhsuk-error-summary__title" id="error-summary-title">
+            There is a problem
+          </h2>
+          <div class="nhsuk-error-summary__body">
+            <ul class="nhsuk-list nhsuk-error-summary__list">
+              <li><a href="#term">Select if you agree to the terms and conditions</a></li>
+            </ul>
+          </div>
+        </div>`;
+      document.getElementById('error-summary').focus();
+      return;
+    }
+
+    document.getElementById('terms-form-group').classList.remove('nhsuk-form-group--error');
+    document.getElementById('terms-error-message').style.display = 'none';
+    document.getElementById('error-summary-container').innerHTML = '';
+
+    sessionStorage.setItem('summary.terms', 'yes');
+    window.location.href = 'submitter-details-lcs';
   });
 });
 </script>

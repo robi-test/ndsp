@@ -14,18 +14,15 @@
           There is a problem
         </h2>
         <div class="nhsuk-error-summary__body">
-          <ul class="nhsuk-list nhsuk-error-summary__list">
-            <li>
-              The selected contact does not have an email address on ODS. The contact details must be complete.
-            </li>
+          <ul class="nhsuk-list nhsuk-error-summary__list" id="ig-error-list">
           </ul>
         </div>
       </div>
        <h1>
          {{ pageName }}
       </h1>
-      <p>To request permissions, you must provide the contact details of your organisation's Information Governance (IG) lead. They will receive an email from NDSP asking them to approve your request by replying to that email.<br>
-    The name and email address you add in the form below must be registered on the ODS registers, so they can appear below. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="#">public registers</a>.<br>
+      <p>To request permissions, you must provide the contact details of the organisation's Information Governance (IG) lead. They will receive an email from NDSP asking them to approve your request by replying to that email.<br>
+    The name and email address you add in the form below must be registered on the ODS registers, so they can appear below. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="https://digital.nhs.uk/services/organisation-data-service/view-or-update-registers">public registers</a>.<br>
     If registration happened recently, the details may not be available yet. This can take up to 2 weeks.
       </p>
 
@@ -40,8 +37,9 @@
 
 <div id="ig-contact-list-group" class="nhsuk-form-group" style="display:none;">
   <label class="nhsuk-label nhsuk-label--m">Available IG contacts</label>
-  <p class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
-    NDSP searched the ODS portal and found the following IG management contact(s). Select the one you find relevant.
+  <p class="nhsuk-body nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">NDSP searched the ODS portal and found the following IG management contact(s).</p>
+  <p id="ig-contact-select-hint" class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2" style="display:none;">
+    Select the one you find relevant.
   </p>
   <div id="ig-contact-list"></div>
 </div>
@@ -140,7 +138,9 @@
       const selectedSummary = document.getElementById('selected-organisation-summary')
       const contactListGroup = document.getElementById('ig-contact-list-group')
       const contactList = document.getElementById('ig-contact-list')
+      const contactSelectHint = document.getElementById('ig-contact-select-hint')
       const errorSummary = document.getElementById('ig-contact-error-summary')
+      const errorList = document.getElementById('ig-error-list')
       const continueButton = document.getElementById('continue-to-context')
       let selectedContactHasNoEmail = false
 
@@ -153,6 +153,7 @@
       const params = new URLSearchParams(window.location.search)
       const orgCodeParam = (params.get('orgCode') || '').trim()
       const orgNameParam = (params.get('orgName') || '').trim()
+      const roleParam = (params.get('role') || '').trim()
 
       if (orgCodeParam) {
         queryInput.value = orgCodeParam
@@ -173,18 +174,27 @@
 
       if (continueButton) {
         continueButton.addEventListener('click', function () {
-          hideErrorSummary()
+          clearErrors()
 
           const igName = igNameInput ? igNameInput.value.trim() : ''
           const igEmail = igEmailInput ? igEmailInput.value.trim() : ''
+          const errors = []
 
-          if (selectedContactHasNoEmail && igName && !igEmail) {
-            showErrorSummary()
-            return
+          if (!igName) {
+            errors.push({ text: 'Enter the full name of the IG lead', href: '#ig-name' })
+            showFieldError(igNameInput, 'Enter the full name of the IG lead')
           }
 
-          if (!igName || !igEmail) {
-            window.location.href = 'add-ig-contact-error'
+          if (!igEmail && selectedContactHasNoEmail) {
+            errors.push({ text: 'The selected contact does not have an email address on ODS. The contact details must be complete.', href: '#email-address-field' })
+            showFieldError(igEmailInput, 'The selected contact does not have an email address on ODS. The contact details must be complete.')
+          } else if (!igEmail) {
+            errors.push({ text: 'Enter the IG lead email address', href: '#email-address-field' })
+            showFieldError(igEmailInput, 'Enter the IG lead email address')
+          }
+
+          if (errors.length) {
+            showErrorSummary(errors)
             return
           }
 
@@ -200,7 +210,7 @@
             sessionStorage.setItem('summary.ods', selectedOds)
           }
 
-          window.location.href = 'add-ig-context'
+          window.location.href = `add-ig-context?orgCode=${encodeURIComponent(orgCodeParam)}&orgName=${encodeURIComponent(orgNameParam)}&role=${encodeURIComponent(roleParam)}`
         })
       }
 
@@ -221,7 +231,10 @@
           if (!matches.length) {
             if (contactListGroup && contactList) {
               contactListGroup.style.display = 'block'
-              contactList.innerHTML = '<div style="display:flex; align-items:center; gap:12px; margin-top:16px; margin-bottom:16px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; background-color:#ffb81c; color:#fff; font-size:1.2rem; font-weight:700; flex-shrink:0;" aria-hidden="true">!</span><strong style="font-size:1.1875rem;">No results found.</strong></div><p class="nhsuk-body-s">If you can see the IG lead\'s details on the <a href="https://www.odsdatasearchandexport.nhs.uk/" target="_blank">ODS portal</a>, you can enter their name and email address manually in the fields below.</p>'
+              contactList.innerHTML = '<div style="display:flex; align-items:center; gap:12px; margin-top:16px; margin-bottom:16px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; background-color:#ffb81c; color:#fff; font-size:1.2rem; font-weight:700; flex-shrink:0;" aria-hidden="true">!</span><strong style="font-size:1.1875rem;">No results found.</strong></div><p class="nhsuk-body-s">We could not find any Information Governance (IG) contact details for the organisation you selected. This may be because:</p><p> <ul><li>the details are not available on NDSP yet,</li> <li>because the organisation selected is operated by a parent organisation that manages Information Governance on its behalf.</li></ul><p>If IG contact details are available in the  <a href="https://www.odsdatasearchandexport.nhs.uk/" target="_blank">ODS portal</a>, either for this organisation or for the organisation listed in the Operated by section, you can enter the IG lead name and email address manually in the fields below.</p>'
+            }
+            if (contactSelectHint) {
+              contactSelectHint.style.display = 'none'
             }
             if (igNameInput) {
               igNameInput.removeAttribute('readonly')
@@ -241,6 +254,9 @@
           if (selectedMatch && selectedMatch.igContacts && selectedMatch.igContacts.length > 0) {
             if (contactListGroup && contactList) {
               contactListGroup.style.display = 'block'
+              if (contactSelectHint) {
+                contactSelectHint.style.display = 'block'
+              }
               contactList.innerHTML = selectedMatch.igContacts
                 .map((contact, index) => {
                   const role = contact.igManagementRole ? `<p class="nhsuk-body-s nhsuk-u-margin-bottom-1"><strong>Role:</strong> ${escapeHtml(contact.igManagementRole)}</p>` : ''
@@ -318,10 +334,13 @@
           .replace(/'/g, '&#39;')
       }
 
-      function showErrorSummary() {
-        if (!errorSummary) {
+      function showErrorSummary(errors) {
+        if (!errorSummary || !errorList) {
           return
         }
+        errorList.innerHTML = errors
+          .map((e) => `<li><a href="${escapeHtml(e.href)}">${escapeHtml(e.text)}</a></li>`)
+          .join('')
         errorSummary.style.display = 'block'
         errorSummary.focus()
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -332,6 +351,35 @@
           return
         }
         errorSummary.style.display = 'none'
+        if (errorList) errorList.innerHTML = ''
+      }
+
+      function showFieldError(input, message) {
+        if (!input) return
+        const formGroup = input.closest('.nhsuk-form-group')
+        if (!formGroup) return
+        formGroup.classList.add('nhsuk-form-group--error')
+        input.classList.add('nhsuk-input--error')
+        const existing = formGroup.querySelector('.nhsuk-error-message')
+        if (!existing) {
+          const errorMsg = document.createElement('span')
+          errorMsg.className = 'nhsuk-error-message'
+          errorMsg.innerHTML = `<span class="nhsuk-u-visually-hidden">Error:</span> ${escapeHtml(message)}`
+          input.insertAdjacentElement('beforebegin', errorMsg)
+        }
+      }
+
+      function clearErrors() {
+        hideErrorSummary()
+        ;[igNameInput, igEmailInput].forEach((input) => {
+          if (!input) return
+          const formGroup = input.closest('.nhsuk-form-group')
+          if (!formGroup) return
+          formGroup.classList.remove('nhsuk-form-group--error')
+          input.classList.remove('nhsuk-input--error')
+          const msg = formGroup.querySelector('.nhsuk-error-message')
+          if (msg) msg.remove()
+        })
       }
     })()
   </script>

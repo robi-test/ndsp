@@ -1,0 +1,43 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Remove user permissions" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Revoke user permissions</h1>
+    <p>You are about to revoke permissions for <strong>Marcus Deeney</strong> (marcus.deeney@mft.nhs.uk).</p>
+    <p>This will revoke their Monitoring role permissions for Northern Cancer Alliance.</p>
+
+    <p class="nhsuk-hint nhsuk-u-margin-top-4">This action cannot be undone. The user will need to submit a new request to regain permissions.</p>
+
+    <div class="nhsuk-u-margin-top-6">
+      <a href="javascript:history.back()" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3">
+        Cancel
+      </a>
+      <a id="remove-btn" href="lcs-group-northern" class="nhsuk-button nhsuk-button--warning">
+        Revoke permissions
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('remove-btn').addEventListener('click', function () {
+    sessionStorage.setItem('marcus.permissionsRevoked', 'true');
+  });
+</script>
+{% endblock %}

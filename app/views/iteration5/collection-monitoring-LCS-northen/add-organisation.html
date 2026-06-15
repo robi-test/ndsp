@@ -1,0 +1,148 @@
+{% extends "iteration5/collection-monitoring-LCS-northen/layout-collection-monitoring.html" %}
+
+{% set pageName = "Add organisation" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Add organisation</h1>
+      <p>Use this page to add an organisation to the selected collection. Mark an organisation as Active when it is expected to submit data for the collection.</p>
+
+      <form action="lcs-organisations" method="get">
+
+      <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="ods-code">
+            <strong>ODS code</strong>
+          </label>
+          <div class="nhsuk-hint" id="ods-code-hint" style="margin-bottom:-8px">
+            Enter the Organisation Data Service (ODS) code.
+          </div>
+          <input class="nhsuk-input nhsuk-input--width-10" id="ods-code" name="ods-code" type="text" autocomplete="off" aria-describedby="ods-code-hint">
+          <button class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" type="button" id="ods-search-btn" style="margin-left:8px;margin-top:22px; vertical-align:middle;">Search</button>
+          <p id="ods-not-found" style="display:none;" class="nhsuk-error-message nhsuk-u-margin-top-2">No organisation found for this ODS code.</p>
+      </div>
+
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="org-name">
+            <strong>Organisation name</strong>
+          </label>
+          <div class="nhsuk-hint" id="org-name-hint">
+            This organisation name appears based on the ODS code you entered.
+          </div>
+          <input class="nhsuk-input" id="org-name" name="org-name"
+                 type="text" autocomplete="off" aria-describedby="org-name-hint" disabled>
+        </div>
+
+       
+
+        <!-- <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="region">
+            <strong>Group (optional)</strong>
+          </label>
+          <div class="nhsuk-hint" id="region-hint">
+            Select the group this organisation belongs to. 
+          </div>
+          <select class="nhsuk-select" id="region" name="region" aria-describedby="region-hint">
+            <option value="">Select a group</option>
+            <option value="lancashire-south-cumbria">Lancashire South Cumbria</option>
+            <option value="greater-manchester">Greater Manchester</option>
+            <option value="cheshire-merseyside">Cheshire &amp; Merseyside</option>
+            <option value="northern">Northern</option>
+            <option value="west-yorkshire-harrogate">West Yorkshire &amp; Harrogate</option>
+            <option value="humber-north-yorkshire">Humber &amp; North Yorkshire</option>
+            <option value="south-yorkshire-bassetlaw">South Yorkshire &amp; Bassetlaw</option>
+            <option value="east-midlands">East Midlands</option>
+            <option value="west-midlands">West Midlands</option>
+            <option value="east-of-england">East of England</option>
+            <option value="wessex">Wessex</option>
+            <option value="kent-medway">Kent and Medway</option>
+            <option value="thames-valley">Thames Valley</option>
+            <option value="swag">SWAG</option>
+            <option value="peninsula">Peninsula</option>
+            <option value="west-london">West London</option>
+            <option value="north-central-london">North Central London</option>
+            <option value="north-east-london">North East London</option>
+            <option value="south-east-london">South East London</option> 
+          </select>
+        </div>-->
+
+        <div class="nhsuk-form-group nhsuk-u-margin-top-8"> 
+          <label class="nhsuk-label" for="status">
+            <strong>Status</strong>
+          </label>
+          <div class="nhsuk-hint" id="status-hint">
+            Select the status of this organisation.
+          </div>
+          <select class="nhsuk-select" id="status" name="status" aria-describedby="status-hint">
+            <option value="">Select a status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <button class="nhsuk-button nhsuk-u-margin-top-6" type="submit"> 
+          Save
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var odsLookup = {
+    /* Verified from NHS ODS portal */
+    'NT9':   'Alliance Medical',
+    '8HC62': 'InHealth Group',
+    'RTX':   'University Hospitals of Morecambe Bay NHS Foundation Trust',
+    'RXN':   'Lancashire Teaching Hospitals NHS Foundation Trust',
+    'RXL':   'Blackpool Teaching Hospitals NHS Foundation Trust',
+    'RXR':   'East Lancashire Hospitals NHS Trust',
+    'RRF':   'Wrightington, Wigan and Leigh Teaching Hospitals NHS Foundation Trust',
+    'RBN':   'Mersey and West Lancashire Teaching Hospitals NHS Trust',
+    'RVY':   'Southport and Ormskirk Hospital NHS Trust',
+    'RY2':   'Bridgewater Community Healthcare NHS Foundation Trust',
+    'RX4':   'Cumbria, Northumberland, Tyne and Wear NHS Foundation Trust',
+    /* Other NHS trusts */
+    'R0A':   'Manchester University NHS Foundation Trust',
+    'R0B':   'South Tyneside and Sunderland NHS Foundation Trust',
+    'R0D':   'University Hospitals Dorset NHS Foundation Trust',
+    'R1F':   'Isle of Wight NHS Trust',
+    'R1H':   'Barts Health NHS Trust',
+    'R1K':   'London North West University Healthcare NHS Trust',
+    'RA2':   'Royal Surrey NHS Foundation Trust'
+  };
+
+  var odsInput = document.getElementById('ods-code');
+  var orgNameInput = document.getElementById('org-name');
+  var searchBtn = document.getElementById('ods-search-btn');
+  var notFound = document.getElementById('ods-not-found');
+
+  function doLookup() {
+    var code = odsInput.value.trim().toUpperCase();
+    var match = odsLookup[code];
+    if (match) {
+      orgNameInput.value = match;
+      notFound.style.display = 'none';
+    } else {
+      orgNameInput.value = '';
+      notFound.style.display = odsInput.value.trim() ? 'block' : 'none';
+    }
+  }
+
+  odsInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doLookup(); } });
+  if (searchBtn) { searchBtn.addEventListener('click', doLookup); }
+</script>
+{% endblock %}

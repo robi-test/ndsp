@@ -1,0 +1,97 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Review permission request" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+{% from "summary-list/macro.njk" import summaryList %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Review permission request</h1>
+
+    <p>Review the details of this access request before approving or rejecting it.</p>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: "Claire Okafor" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "claire.okafor@mft.nhs.uk" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set" }
+        },
+        {
+          key: { text: "Organisation" },
+          value: { text: "	Northern Cancer Alliance" }
+        },
+        {
+          key: { text: "ODS code" },
+          value: { text: "N69" }
+        },
+        
+        {
+          key: { text: "Role requested" },
+          value: { text: "Monitoring role" }
+        },
+        {
+          key: { text: "Request status" },
+          value: { html: tag({ text: "Pending", classes: "nhsuk-tag--yellow" }) }
+        },
+        {
+          key: { text: "Date submitted" },
+          value: { text: "27 May 2026" }
+        }
+      ]
+    }) }}
+
+    <form action="accept-permission-confirmed" method="get">
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <fieldset class="nhsuk-fieldset" aria-describedby="decision-hint">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+            <h2 class="nhsuk-fieldset__heading">What do you want to do with this request?</h2>
+          </legend>
+          <div class="nhsuk-hint" id="decision-hint">
+            Select an option to approve or reject this access request.
+          </div>
+          <div class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="decision-approve" name="decision" type="radio" value="approve">
+              <label class="nhsuk-label nhsuk-radios__label" for="decision-approve">
+                Approve request
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="decision-reject" name="decision" type="radio" value="reject">
+              <label class="nhsuk-label nhsuk-radios__label" for="decision-reject">
+                Reject request
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <button class="nhsuk-button nhsuk-u-margin-top-4" type="submit">
+        Confirm
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
