@@ -13,10 +13,10 @@
     },
     {
       href: "../configuration-collections",
-      text: "Collections setup"
+      text: "Collections configuration"
     },
     {
-      href: "../configuration-dids",
+      href: "../dids-configuration",
       text: "Diagnostic Imaging Data Set (V2.0)"
     }
   ]
@@ -28,9 +28,14 @@
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
+
+    
+
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
-        <p class="nhsuk-u-margin-bottom-8">Only reporting periods with no active or past submission windows can be edited or deleted.</p>
-          {% from "action-link/macro.njk" import actionLink %}
+        <p class="nhsuk-u-margin-bottom-4">Only reporting periods with no active or past submission windows can be edited or deleted.</p>
+        <p>Note: to add or manage submission windows for a reporting period, go to the <a href="submission-windows">submission windows page</a>.</p>
+        
+        {% from "action-link/macro.njk" import actionLink %}
 
 {{ actionLink({
   text: "Create a new reporting period",

@@ -18,6 +18,11 @@
 
 <p class="nhsuk-u-margin-bottom-8"> </p>
 
+{% from "inset-text/macro.njk" import insetText %}
+{{ insetText({
+  text: "If you work for a different organisation to the one you are requesting permissions for, include your organisation name alongside the team or department."
+}) }}
+
 <!-- Add form wrapper -->
 <form action="/iteration1/permission-management/no-existing-local-admin/add-ig-context" method="post">
 
@@ -28,9 +33,6 @@
     text: "Your team or department",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
-  },
-  hint: {
-    text: "If you work for a different organisation to the one you are requesting permissions for, include your organisation name as well. This is free text."
   },
   id: "team",
   name: "team",

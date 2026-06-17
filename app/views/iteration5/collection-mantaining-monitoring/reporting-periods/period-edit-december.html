@@ -226,16 +226,13 @@
 
       {% endcall %}
 
-    <div class="">
+    <div style="display:flex; align-items:center; gap:16px;">
       {{ button({
         text: "Cancel",
         href: "periods",
-        classes: "nhsuk-button--secondary nhsuk-u-margin-right-4"
+        classes: "nhsuk-button--secondary nhsuk-u-margin-bottom-0"
       }) }}
-      {{ button({
-        text: "Continue",
-        href: "edit-confirm-december"
-      }) }}
+      <button id="continue-btn" type="button" class="nhsuk-button nhsuk-u-margin-bottom-0">Continue</button>
     </div>
 
     </form>
@@ -246,6 +243,46 @@
 
 {% block scripts %}
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('continue-btn');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var name       = document.getElementById('reporting-period-name') ? document.getElementById('reporting-period-name').value : '';
+    var startDay   = document.getElementById('reporting-period-start-day');
+    var startMonth = document.getElementById('reporting-period-start-month');
+    var startYear  = document.getElementById('reporting-period-start-year');
+    var endDay     = document.getElementById('reporting-period-end-day');
+    var endMonth   = document.getElementById('reporting-period-end-month');
+    var endYear    = document.getElementById('reporting-period-end-year');
+    var startTimeType = document.querySelector('[name="start-time-type"]:checked');
+    var endTimeType   = document.querySelector('[name="end-time-type"]:checked');
+    var startHour   = document.getElementById('submission-window-start-hour');
+    var startMinute = document.getElementById('submission-window-start-minute');
+    var startSecond = document.getElementById('submission-window-start-second');
+    var endHour     = document.getElementById('submission-window-end-hour');
+    var endMinute   = document.getElementById('submission-window-end-minute');
+    var endSecond   = document.getElementById('submission-window-end-second');
 
+    var startTimeVal = (startTimeType && startTimeType.value === 'start-of-day')
+      ? '00:00:00'
+      : [(startHour ? startHour.value || '00' : '00'), (startMinute ? startMinute.value || '00' : '00'), (startSecond ? startSecond.value || '00' : '00')].join(':');
+    var endTimeVal = (endTimeType && endTimeType.value === 'end-of-day')
+      ? '23:59:59'
+      : [(endHour ? endHour.value || '23' : '23'), (endMinute ? endMinute.value || '59' : '59'), (endSecond ? endSecond.value || '59' : '59')].join(':');
+
+    var qs = new URLSearchParams();
+    qs.set('name',       name);
+    qs.set('startDay',   startDay   ? startDay.value   : '');
+    qs.set('startMonth', startMonth ? startMonth.value : '');
+    qs.set('startYear',  startYear  ? startYear.value  : '');
+    qs.set('endDay',     endDay     ? endDay.value     : '');
+    qs.set('endMonth',   endMonth   ? endMonth.value   : '');
+    qs.set('endYear',    endYear    ? endYear.value    : '');
+    qs.set('startTime',  startTimeVal);
+    qs.set('endTime',    endTimeVal);
+
+    window.location.href = 'edit-confirm-december?' + qs.toString();
+  });
+});
 </script>
 {% endblock %}

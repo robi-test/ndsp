@@ -22,20 +22,17 @@
         <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Reporting period</dt>
-            <dd class="nhsuk-summary-list__value">December 2026 </dd>
+            <dd class="nhsuk-summary-list__value" id="summary-name">December 2026 </dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">Start date</dt>
-            <dd class="nhsuk-summary-list__value">1 Dec 2026, 00:00:00</dd>
+            <dd class="nhsuk-summary-list__value" id="summary-start">1 Dec 2026, 00:00:00</dd>
           </div>
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">End date</dt>
-            <dd class="nhsuk-summary-list__value">31 Dec 2026, 23:59:59</dd>
+            <dd class="nhsuk-summary-list__value" id="summary-end">31 Dec 2026, 23:59:59</dd>
           </div>
-          <div class="nhsuk-summary-list__row">
-            <dt class="nhsuk-summary-list__key">Submission windows</dt>
-            <dd class="nhsuk-summary-list__value">2 windows</dd>
-          </div>
+        
         
         </dl>
 
@@ -45,7 +42,7 @@
           <p>This action cannot be undone.</p>
         </div>
 
-        <form method="post" action="periods-dec-edited">
+        <form method="get" action="periods-dec-edited" id="save-form">
           <input type="hidden" name="action" value="edit">
           <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="periods">Cancel</a>
           <button class="nhsuk-button nhsuk-button" type="submit">
@@ -60,5 +57,51 @@
 
 {% block scripts %}
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+  var params     = new URLSearchParams(window.location.search);
+  var name       = params.get('name');
+  var startDay   = params.get('startDay');
+  var startMonth = params.get('startMonth');
+  var startYear  = params.get('startYear');
+  var endDay     = params.get('endDay');
+  var endMonth   = params.get('endMonth');
+  var endYear    = params.get('endYear');
+  var startTime  = params.get('startTime');
+  var endTime    = params.get('endTime');
+
+  var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function formatDate(d, m, y, time) {
+    var mName = monthNames[(parseInt(m, 10) || 1) - 1] || m;
+    return parseInt(d, 10) + ' ' + mName + ' ' + y + ', ' + time;
+  }
+
+  if (name) {
+    var nameEl = document.getElementById('summary-name');
+    if (nameEl) nameEl.textContent = name;
+  }
+  if (startDay && startMonth && startYear && startTime) {
+    var startEl = document.getElementById('summary-start');
+    if (startEl) startEl.textContent = formatDate(startDay, startMonth, startYear, startTime);
+  }
+  if (endDay && endMonth && endYear && endTime) {
+    var endEl = document.getElementById('summary-end');
+    if (endEl) endEl.textContent = formatDate(endDay, endMonth, endYear, endTime);
+  }
+  // Inject incoming query params as hidden fields into the save form
+  var form = document.getElementById('save-form');
+  if (form) {
+    ['name','startDay','startMonth','startYear','endDay','endMonth','endYear','startTime','endTime'].forEach(function (key) {
+      var val = params.get(key);
+      if (val !== null) {
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = val;
+        form.appendChild(input);
+      }
+    });
+  }
+});
 </script>
 {% endblock %}

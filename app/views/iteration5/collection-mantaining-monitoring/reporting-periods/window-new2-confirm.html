@@ -1,0 +1,116 @@
+{% extends "iteration5/collection-management/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Check your answers before saving</h1>
+
+      <p>Review the submission window details below before confirming.</p>
+
+      <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Window name</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-window-name">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Reporting period</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-reporting-period">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Start date and time</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-start">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">End date and time</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-end">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Organisations</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-organisations">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Test submissions only</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-test-only">&mdash;</dd>
+        </div>
+        <div class="nhsuk-summary-list__row">
+          <dt class="nhsuk-summary-list__key">Notify when window opens</dt>
+          <dd class="nhsuk-summary-list__value" id="summary-notification">&mdash;</dd>
+        </div>
+      </dl>
+
+      <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="javascript:history.back()">Change answers</a>
+      <a class="nhsuk-button" href="submission-windows">Confirm and save</a>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var params = new URLSearchParams(window.location.search);
+
+  var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function formatDate(d, m, y, time) {
+    if (!d || !m || !y) return '';
+    var mName = monthNames[(parseInt(m, 10) || 1) - 1] || m;
+    return parseInt(d, 10) + ' ' + mName + ' ' + y + (time ? ', ' + time : '');
+  }
+
+  function set(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value || '—';
+  }
+
+  // Window name
+  set('summary-window-name', params.get('windowName'));
+
+  // Reporting period
+  set('summary-reporting-period', params.get('reportingPeriod'));
+
+  // Start date
+  var startFormatted = formatDate(
+    params.get('startDay'), params.get('startMonth'), params.get('startYear'), params.get('startTime')
+  );
+  set('summary-start', startFormatted);
+
+  // End date
+  var endFormatted = formatDate(
+    params.get('endDay'), params.get('endMonth'), params.get('endYear'), params.get('endTime')
+  );
+  set('summary-end', endFormatted);
+
+  // Organisations
+  var orgScope = params.get('orgScope');
+  var orgText = '';
+  if (orgScope === 'all') {
+    orgText = 'All organisations';
+  } else if (orgScope === 'specific') {
+    var orgs = params.get('organisations') || '';
+    var orgList = orgs ? orgs.split('|').filter(Boolean) : [];
+    orgText = orgList.length ? orgList.join(', ') : '—';
+  }
+  set('summary-organisations', orgText);
+
+  // Test only
+  set('summary-test-only', params.get('testOnly') === 'yes' ? 'Yes' : 'No');
+
+  // Notification
+  var notif = params.get('notification');
+  set('summary-notification', notif === 'yes' ? 'Yes' : notif === 'no' ? 'No' : '—');
+});
+</script>
+{% endblock %}

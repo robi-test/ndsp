@@ -104,7 +104,7 @@
             </div>
           </div>
 
-          <a class="nhsuk-button" href="notification-settings" role="button">Save</a>
+          <button id="save-notification-settings" type="button" class="nhsuk-button">Save</button>
 
 
         </div>
@@ -120,4 +120,38 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const saveButton = document.getElementById('save-notification-settings');
+  if (!saveButton) return;
+
+  const settings = [
+    'submission-window-opened',
+    'submission-deadline-approaching',
+    'submission-deadline-changed',
+    'validation-completed'
+  ];
+
+  // Pre-select radios from incoming query params or sessionStorage
+  const params = new URLSearchParams(window.location.search);
+  settings.forEach(function (name) {
+    const value = params.get(name) || sessionStorage.getItem('notification.' + name);
+    if (!value) return;
+    const radio = document.querySelector('input[name="' + name + '"][value="' + value + '"]');
+    if (radio) radio.checked = true;
+  });
+
+  saveButton.addEventListener('click', function () {
+    const qs = new URLSearchParams();
+    settings.forEach(function (name) {
+      const checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (checked) {
+        sessionStorage.setItem('notification.' + name, checked.value);
+        qs.set(name, checked.value);
+      }
+    });
+    window.location.href = 'notification-settings?' + qs.toString();
+  });
+});
+</script>
 {% endblock %}

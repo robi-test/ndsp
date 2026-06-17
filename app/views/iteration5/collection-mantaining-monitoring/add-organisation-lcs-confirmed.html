@@ -38,7 +38,7 @@
     </div>
 
    <p>Go back to 
-    <a href="lcs-organisations" class="nhsuk-u-margin-top-4">
+    <a id="back-to-orgs-link" href="lcs-organisations" class="nhsuk-u-margin-top-4">
       organisations list
     </a>
    </p>
@@ -47,4 +47,19 @@
 
 {% endblock %}
 
-{% block scripts %}{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var orgName = params.get('org-name') || '';
+  var odsCode = params.get('ods-code') || '';
+  var link = document.getElementById('back-to-orgs-link');
+  if (link && (orgName || odsCode)) {
+    var qs = new URLSearchParams();
+    if (orgName) qs.set('new-org-name', orgName);
+    if (odsCode) qs.set('new-ods-code', odsCode);
+    link.href = 'lcs-organisations?' + qs.toString();
+  }
+})();
+</script>
+{% endblock %}

@@ -16,7 +16,7 @@
       text: "Collections configurations"
     },
     {
-      href: "../configuration-dids",
+      href: "../dids-configuration",
       text: "Diagnostic Imaging Data Set (V2.0)"
     }
   ]
@@ -209,6 +209,55 @@ th[aria-sort="descending"] .nhsuk-table-sort__indicator::after {
 {% endblock %}
 
 {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var params     = new URLSearchParams(window.location.search);
+  var name       = params.get('name');
+  var startDay   = params.get('startDay');
+  var startMonth = params.get('startMonth');
+  var startYear  = params.get('startYear');
+  var endDay     = params.get('endDay');
+  var endMonth   = params.get('endMonth');
+  var endYear    = params.get('endYear');
+  var startTime  = params.get('startTime');
+  var endTime    = params.get('endTime');
+
+  var monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function formatDate(d, m, y, time) {
+    var mName = monthNames[(parseInt(m, 10) || 1) - 1] || m;
+    return parseInt(d, 10) + ' ' + mName + ' ' + y + ', ' + time;
+  }
+
+  if (name || startDay || endDay) {
+    var rows = document.querySelectorAll('tbody .nhsuk-table__row');
+    rows.forEach(function (row) {
+      var periodCell = row.cells[0];
+      var cellText = periodCell ? periodCell.textContent.replace('Reporting period', '').trim() : '';
+      if (cellText === 'December 2026' || (name && cellText === name)) {
+        if (name && row.cells[0]) {
+          var heading0 = row.cells[0].querySelector('.nhsuk-table-responsive__heading');
+          row.cells[0].textContent = '';
+          if (heading0) row.cells[0].appendChild(heading0);
+          row.cells[0].appendChild(document.createTextNode(name));
+        }
+        if (startDay && startMonth && startYear && startTime && row.cells[1]) {
+          var heading1 = row.cells[1].querySelector('.nhsuk-table-responsive__heading');
+          row.cells[1].textContent = '';
+          if (heading1) row.cells[1].appendChild(heading1);
+          row.cells[1].appendChild(document.createTextNode(formatDate(startDay, startMonth, startYear, startTime)));
+        }
+        if (endDay && endMonth && endYear && endTime && row.cells[2]) {
+          var heading2 = row.cells[2].querySelector('.nhsuk-table-responsive__heading');
+          row.cells[2].textContent = '';
+          if (heading2) row.cells[2].appendChild(heading2);
+          row.cells[2].appendChild(document.createTextNode(formatDate(endDay, endMonth, endYear, endTime)));
+        }
+      }
+    });
+  }
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   function getCellValue(cell) {

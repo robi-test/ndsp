@@ -24,6 +24,28 @@
         )
         .slice(0, maxCandidates);
 
+      // If not found in trust report, try a direct ODS lookup by code
+      if (!candidates.length && isThreeCharacterCodeQuery) {
+        const directDetail = await this.fetchOrganisationDetail(trimmed);
+        if (directDetail && this.isActiveNhsFoundationTrust(directDetail.main)) {
+          return [{
+            code: directDetail.main.id,
+            name: directDetail.main.name,
+            status: directDetail.main.status,
+            primaryRoleName: directDetail.main.primaryRoleName,
+            roleNames: directDetail.main.roleName || [],
+            igContacts: (directDetail.igManagement || [])
+              .filter((item) => item.name || item.email || item.igManagementRole)
+              .map((item) => ({
+                igManagementRole: item.igManagementRole || '',
+                name: item.name || '',
+                email: item.email || ''
+              }))
+          }];
+        }
+        return [];
+      }
+
       const details = await Promise.all(
         candidates.map((candidate) => this.fetchOrganisationDetail(candidate.code))
       );
@@ -138,8 +160,9 @@
       const isNhsTrust = (main.primaryRoleName || '').toUpperCase() === 'NHS TRUST';
       const roleNames = main.roleName || [];
       const isFoundationTrust = roleNames.some((role) => (role || '').toUpperCase().includes('FOUNDATION TRUST'));
+      const isIndependentSector = (main.primaryRoleName || '').toUpperCase() === 'INDEPENDENT SECTOR HEALTHCARE PROVIDER';
 
-      return isActive && isNhsTrust && isFoundationTrust;
+      return isActive && ((isNhsTrust && isFoundationTrust) || isIndependentSector);
     }
   }
 

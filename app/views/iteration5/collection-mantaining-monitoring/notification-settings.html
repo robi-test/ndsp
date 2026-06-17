@@ -34,7 +34,7 @@
           {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
             <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
+            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
           {{ summaryList({
             classes: "notification-summary-list",
@@ -87,6 +87,59 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+
+  const settingMap = {
+    'submission-window-opened': 0,
+    'submission-deadline-approaching': 1,
+    'submission-deadline-changed': 2,
+    'validation-completed': 3
+  };
+
+  const rows = document.querySelectorAll('.nhsuk-summary-list__row');
+
+  Object.keys(settingMap).forEach(function (name) {
+    const value = params.get(name) || sessionStorage.getItem('notification.' + name);
+    if (!value) return;
+
+    const row = rows[settingMap[name]];
+    if (!row) return;
+
+    const tagEl = row.querySelector('.nhsuk-tag');
+    if (!tagEl) return;
+
+    if (value === 'yes') {
+      tagEl.textContent = 'Active';
+      tagEl.className = 'nhsuk-tag nhsuk-tag--green';
+    } else {
+      tagEl.textContent = 'Not active';
+      tagEl.className = 'nhsuk-tag nhsuk-tag--red';
+    }
+  });
+
+  // Build query string from current tag states and update the Change link
+  const changeLink = document.getElementById('change-notification-link');
+  if (changeLink) {
+    const qs = new URLSearchParams();
+    Object.keys(settingMap).forEach(function (name) {
+      const row = rows[settingMap[name]];
+      if (!row) return;
+      const tagEl = row.querySelector('.nhsuk-tag');
+      if (!tagEl) return;
+      // Read from params/sessionStorage first, fall back to current tag text
+      const stored = params.get(name) || sessionStorage.getItem('notification.' + name);
+      if (stored) {
+        qs.set(name, stored);
+      } else {
+        qs.set(name, tagEl.textContent.trim() === 'Active' ? 'yes' : 'no');
+      }
+    });
+    changeLink.href = 'notification-settings-edit?' + qs.toString();
+  }
+});
+</script>
 <style>
   .notification-summary-header {
     display: flex;

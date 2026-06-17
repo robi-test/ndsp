@@ -16,7 +16,7 @@
       text: "Collections setup"
     },
     {
-      href: "../configuration-dids",
+      href: "../dids-configuration",
       text: "Diagnostic Imaging Data Set (V2.0)"
     }
   ]
@@ -29,8 +29,11 @@
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
-        <p class="nhsuk-u-margin-bottom-8">You can only delete submission windows that are not open and have not already occurred. <br> You can edit open submission windows, for example to grant extensions.<br>
+        <p class="nhsuk-u-margin-bottom-4">You can only delete submission windows that are not open and have not already occurred. <br> You can edit open submission windows, for example to grant extensions.<br>
         </p>
+
+        <p>Note: you must create a reporting period before you can add submission windows. Go to the <a href="periods">reporting periods page</a> to create one.</p>
+
           {% from "action-link/macro.njk" import actionLink %}
 
 {{ actionLink({
@@ -288,6 +291,11 @@
 {% block head %}
 {{ super() }}
 <style>
+  @media (min-width: 40.0625em) {
+    .nhsuk-inset-text {
+        margin-top: 18px;
+    }
+}
 .nhsuk-table-sort__button {
   background: none;
   border: none;

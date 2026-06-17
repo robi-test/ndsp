@@ -32,7 +32,7 @@
     </label>
   </h1>
   <div class="nhsuk-hint">
-    Enter a name for the submission window. You can choose from common names or create a new one.
+    Enter a name for this submission window. You can use an existing name or create a new one.
   </div>
   <div class="submission-window-name-container">
     <input class="nhsuk-input" id="submission-window-name" style="width:520px" name="submissionWindowName" type="text" autocomplete="off">
@@ -849,9 +849,7 @@
 </fieldset>
   {% from "button/macro.njk" import button %}
 <div class="nhsuk-u-margin-top-8">
-{{ button({
-  text: "Save"
-}) }}
+<button class="nhsuk-button" type="button" id="save-window-btn">Save</button>
 </div>
       </div>
     </div>
@@ -1426,6 +1424,80 @@
         }
       }
     })
+
+    // Save button — collect values and navigate to confirmation page
+    document.getElementById('save-window-btn').addEventListener('click', function () {
+      var qs = new URLSearchParams();
+
+      // Window name
+      var windowName = (document.getElementById('submission-window-name') || {}).value || '';
+      qs.set('windowName', windowName.trim());
+
+      // Reporting period
+      var rpLabel = (document.getElementById('reporting-period-multiselect-label') || {}).textContent || '';
+      if (rpLabel === 'Choose reporting period') rpLabel = '';
+      qs.set('reportingPeriod', rpLabel.trim());
+
+      // Start date
+      qs.set('startDay',   (document.getElementById('submission-window-start-day')   || {}).value || '');
+      qs.set('startMonth', (document.getElementById('submission-window-start-month') || {}).value || '');
+      qs.set('startYear',  (document.getElementById('submission-window-start-year')  || {}).value || '');
+
+      // Start time
+      var startTimeRadio = document.querySelector('input[name="start-time-type"]:checked');
+      var startTimeVal = '';
+      if (startTimeRadio) {
+        if (startTimeRadio.value === 'start-of-day') {
+          startTimeVal = '00:00:00';
+        } else {
+          var sh = (document.getElementById('submission-window-start-hour')   || {}).value || '00';
+          var sm = (document.getElementById('submission-window-start-minute') || {}).value || '00';
+          var ss = (document.getElementById('submission-window-start-second') || {}).value || '00';
+          startTimeVal = sh.padStart(2,'0') + ':' + sm.padStart(2,'0') + ':' + ss.padStart(2,'0');
+        }
+      }
+      qs.set('startTime', startTimeVal);
+
+      // End date
+      qs.set('endDay',   (document.getElementById('submission-window-end-day')   || {}).value || '');
+      qs.set('endMonth', (document.getElementById('submission-window-end-month') || {}).value || '');
+      qs.set('endYear',  (document.getElementById('submission-window-end-year')  || {}).value || '');
+
+      // End time
+      var endTimeRadio = document.querySelector('input[name="end-time-type"]:checked');
+      var endTimeVal = '';
+      if (endTimeRadio) {
+        if (endTimeRadio.value === 'end-of-day') {
+          endTimeVal = '23:59:59';
+        } else {
+          var eh = (document.getElementById('submission-window-end-hour')   || {}).value || '00';
+          var em = (document.getElementById('submission-window-end-minute') || {}).value || '00';
+          var es = (document.getElementById('submission-window-end-second') || {}).value || '00';
+          endTimeVal = eh.padStart(2,'0') + ':' + em.padStart(2,'0') + ':' + es.padStart(2,'0');
+        }
+      }
+      qs.set('endTime', endTimeVal);
+
+      // Organisations
+      var orgRadio = document.querySelector('input[name="organisation-scope"]:checked');
+      var orgScope = orgRadio ? orgRadio.value : '';
+      qs.set('orgScope', orgScope);
+      if (orgScope === 'specific') {
+        var orgListEl = document.getElementById('organisation-list');
+        var orgItems = orgListEl ? Array.from(orgListEl.querySelectorAll('.organisation-selected-item__name')).map(function(el){ return el.textContent.trim(); }) : [];
+        qs.set('organisations', orgItems.join('|'));
+      }
+
+      // Submission type
+      var testOnly = document.getElementById('example') && document.getElementById('example').checked ? 'yes' : 'no';
+      qs.set('testOnly', testOnly);
+
+      // Notification
+      var notifRadio = document.querySelector('input[name="notification-window-opened"]:checked');
+      qs.set('notification', notifRadio ? notifRadio.value : '');
+
+      window.location.href = 'window-new2-confirm?' + qs.toString();
+    });
 
     </script>
 {% endblock %}
