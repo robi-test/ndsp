@@ -1,0 +1,53 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "You cannot request local administrator permissions for this organisation" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from 'warning-callout/macro.njk' import warningCallout %}
+    {{ warningCallout({
+      label: "Important",
+      HTML: "<p>Local administrator permissions for this organisation are managed centrally and cannot be requested through this service.</p>"
+    }) }}
+
+    <h1>{{ pageName }}</h1>
+
+    <p>The organisation you selected is part of a diagnostic programme that manages its own local administrator access centrally.</p>
+
+    <p>If you need local administrator access for this organisation, you should:</p>
+
+    <ul>
+      <li>Contact your organisation's existing local administrator, or</li>
+      <li>Contact the <a href="mailto:ssd.nationalservicedesk@nhs.net">NDSP support team</a> for further guidance.</li>
+    </ul>
+
+    <p>If you need to request a different role or select a different organisation, you can go back and change your selection.</p>
+
+    <a href="javascript:history.back()" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-4">
+      Go back and change selection
+    </a>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+  const orgName = params.get('orgName');
+  if (orgName) {
+    const heading = document.querySelector('h1');
+    if (heading) {
+      heading.textContent = 'You cannot request local administrator permissions for ' + orgName;
+    }
+  }
+});
+</script>
+{% endblock %}

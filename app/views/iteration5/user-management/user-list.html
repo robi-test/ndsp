@@ -1,0 +1,90 @@
+{% extends "iteration5/user-management/layout.html" %}
+
+{% set pageName = "User management" %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-4">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+    <p class="nhsuk-u-margin-bottom-6">You can view, approve, and manage users for your organisation.</p>
+
+    <div class="nhsuk-card nhsuk-u-padding-4">
+      <table class="nhsuk-table" role="table">
+        <thead class="nhsuk-table__head" role="rowgroup">
+          <tr class="nhsuk-table__row" role="row">
+            <th class="nhsuk-table__header" scope="col">Email address</th>
+            <th class="nhsuk-table__header" scope="col">Full name</th>
+            <th class="nhsuk-table__header" scope="col">Collection</th>
+            <th class="nhsuk-table__header" scope="col">Organisation</th>
+            <th class="nhsuk-table__header" scope="col">Role</th>
+            <th class="nhsuk-table__header" scope="col">Status</th>
+            <th class="nhsuk-table__header" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell">cleo.jacobbs@nhs.net</td>
+            <td class="nhsuk-table__cell">Cleo Jacobs</td>
+            <td class="nhsuk-table__cell">Diagnostic Imaging Data Set (DIDS)</td>
+            <td class="nhsuk-table__cell">Milton Keynes Hospital</td>
+            <td class="nhsuk-table__cell">Submitter</td>
+            <td class="nhsuk-table__cell">
+              {{ tag({ text: "Pending", classes: "nhsuk-tag--yellow" }) }}
+            </td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell">laura.smith@nhs.net</td>
+            <td class="nhsuk-table__cell">Laura Smith</td>
+            <td class="nhsuk-table__cell">Diagnostic Imaging Data Set (DIDS)</td>
+            <td class="nhsuk-table__cell">Milton Keynes Hospital</td>
+            <td class="nhsuk-table__cell">Submitter</td>
+            <td class="nhsuk-table__cell">
+              {{ tag({ text: "Active", classes: "nhsuk-tag--green" }) }}
+            </td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell">laura.smith@nhs.net</td>
+            <td class="nhsuk-table__cell">Laura Smith</td>
+            <td class="nhsuk-table__cell">Diagnostic Imaging Data Set (DIDS)</td>
+            <td class="nhsuk-table__cell">Bedford Teaching Hospital</td>
+            <td class="nhsuk-table__cell">Submitter</td>
+            <td class="nhsuk-table__cell">
+              {{ tag({ text: "Active", classes: "nhsuk-tag--green" }) }}
+            </td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell">jayson.gonzales@nhs.net</td>
+            <td class="nhsuk-table__cell">Jayson Gonzales</td>
+            <td class="nhsuk-table__cell">Diagnostic Imaging Data Set (DIDS)</td>
+            <td class="nhsuk-table__cell">Milton Keynes Hospital</td>
+            <td class="nhsuk-table__cell">Local administrator</td>
+            <td class="nhsuk-table__cell">
+              {{ tag({ text: "Active", classes: "nhsuk-tag--green" }) }}
+            </td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row" role="row">
+            <td class="nhsuk-table__cell">john.brown@nhs.net</td>
+            <td class="nhsuk-table__cell">John Brown</td>
+            <td class="nhsuk-table__cell">Diagnostic Imaging Data Set (DIDS)</td>
+            <td class="nhsuk-table__cell">Milton Keynes Hospital</td>
+            <td class="nhsuk-table__cell">Local administrator</td>
+            <td class="nhsuk-table__cell">
+              {{ tag({ text: "Active", classes: "nhsuk-tag--green" }) }}
+            </td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

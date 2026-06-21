@@ -173,6 +173,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 250);
         });
 
+        const localAdminAlertCodes = ['L3X7K', 'S9M2P', 'W4T1N', 'G8R5C', 'B2F6Q', 'Y7K4D'];
+
         continueButton.addEventListener('click', function() {
           const orgName = searchInput.value.trim();
           const orgCode = odsCodeField.value.trim();
@@ -189,8 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
           qs.set('orgCode', orgCode);
           qs.set('orgName', orgName);
           if (incomingRole) qs.set('role', incomingRole);
-          const target = `add-ig-contact?${qs.toString()}`;
-            window.location.href = target;
+
+          if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
+            window.location.href = `local-admin-alert?${qs.toString()}`;
+          } else {
+            window.location.href = `add-ig-contact?${qs.toString()}`;
+          }
         });
 
         document.addEventListener('click', function(event) {

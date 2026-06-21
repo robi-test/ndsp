@@ -1,5 +1,5 @@
 {% extends "iteration5/request-permissions/layout.html" %}
-{% set pageName = "IG lead contact details" %}
+{% set pageName = "IG manager contact details" %}
 {% block beforeContent %}
   {{ backLink({
     href: "javascript:history.back()",
@@ -21,7 +21,7 @@
        <h1>
          {{ pageName }}
       </h1>
-      <p>To request permissions, you must provide the contact details of the organisation's Information Governance (IG) lead. They will receive an email from NDSP asking them to approve your request by replying to that email.<br>
+      <p>To request permissions, you must provide the contact details of the organisation's Information Governance (IG) manager. They will receive an email from NDSP asking them to approve your request by replying to that email.<br>
     The name and email address you add in the form below must be registered on the ODS registers, so they can appear below. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="https://digital.nhs.uk/services/organisation-data-service/view-or-update-registers">public registers</a>.<br>
     If registration happened recently, the details may not be available yet. This can take up to 2 weeks.
       </p>
@@ -69,7 +69,7 @@
 
 {{ input({
   label: {
-    text: "IG lead full name",
+    text: "IG manager full name",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
@@ -83,7 +83,7 @@
 <p class="nhsuk-u-margin-bottom-8"> </p>
 {{ input({
   label: {
-    text: "IG lead email address",
+    text: "IG manager email address",
     classes: "nhsuk-label--m",
     isPageHeading: "true"
   },
@@ -181,16 +181,16 @@
           const errors = []
 
           if (!igName) {
-            errors.push({ text: 'Enter the full name of the IG lead', href: '#ig-name' })
-            showFieldError(igNameInput, 'Enter the full name of the IG lead')
+            errors.push({ text: 'Enter the full name of the IG manager', href: '#ig-name' })
+            showFieldError(igNameInput, 'Enter the full name of the IG manager')
           }
 
           if (!igEmail && selectedContactHasNoEmail) {
             errors.push({ text: 'The selected contact does not have an email address on ODS. The contact details must be complete.', href: '#email-address-field' })
             showFieldError(igEmailInput, 'The selected contact does not have an email address on ODS. The contact details must be complete.')
           } else if (!igEmail) {
-            errors.push({ text: 'Enter the IG lead email address', href: '#email-address-field' })
-            showFieldError(igEmailInput, 'Enter the IG lead email address')
+            errors.push({ text: 'Enter the IG manager email address', href: '#email-address-field' })
+            showFieldError(igEmailInput, 'Enter the IG manager email address')
           }
 
           if (errors.length) {
@@ -231,7 +231,7 @@
           if (!matches.length) {
             if (contactListGroup && contactList) {
               contactListGroup.style.display = 'block'
-              contactList.innerHTML = '<div style="display:flex; align-items:center; gap:12px; margin-top:16px; margin-bottom:16px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; background-color:#ffb81c; color:#fff; font-size:1.2rem; font-weight:700; flex-shrink:0;" aria-hidden="true">!</span><strong style="font-size:1.1875rem;">No results found.</strong></div><p class="nhsuk-body-s">We could not find any Information Governance (IG) contact details for the organisation you selected. This may be because:</p><p> <ul><li>the details are not available on NDSP yet,</li> <li>because the organisation selected is operated by a parent organisation that manages Information Governance on its behalf.</li></ul><p>If IG contact details are available in the  <a href="https://www.odsdatasearchandexport.nhs.uk/" target="_blank">ODS portal</a>, either for this organisation or for the organisation listed in the Operated by section, you can enter the IG lead name and email address manually in the fields below.</p>'
+              contactList.innerHTML = '<div style="display:flex; align-items:center; gap:12px; margin-top:16px; margin-bottom:16px;"><span style="display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; border-radius:50%; background-color:#ffb81c; color:#fff; font-size:1.2rem; font-weight:700; flex-shrink:0;" aria-hidden="true">!</span><strong style="font-size:1.1875rem;">No results found.</strong></div><p class="nhsuk-body-s">We could not find any Information Governance (IG) contact details for the organisation you selected. This may be because:</p><p> <ul><li>the details are not available on NDSP yet,</li> <li>because the organisation selected is operated by a parent organisation that manages Information Governance on its behalf.</li></ul><p>If IG contact details are available in the  <a href="https://www.odsdatasearchandexport.nhs.uk/" target="_blank">ODS portal</a>, either for this organisation or for the organisation listed in the Operated by section, you can enter the IG manager name and email address manually in the fields below.</p>'
             }
             if (contactSelectHint) {
               contactSelectHint.style.display = 'none'

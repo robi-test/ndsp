@@ -122,7 +122,7 @@ The name and email address shown are taken from the account you used to sign in.
     },
     {
       key: {
-        text: "IG Lead full name"
+        text: "IG manager full name"
       },
      value: {
         html: '<span id="summary-ig-name">' + (data['ig-name'] or 'Not provided') + '</span>'
@@ -132,14 +132,14 @@ The name and email address shown are taken from the account you used to sign in.
           {
             href: "add-ig-contact",
             text: "Change",
-            visuallyHiddenText: "role"
+            visuallyHiddenText: "IG manager full name"
           }
         ]
       }
     },
     {
       key: {
-        text: "IG Lead email address"
+        text: "IG manager email address"
       },
       value: {
         html: '<span id="summary-ig-email">' + (data['email-address-field'] or 'Not provided') + '</span>'
