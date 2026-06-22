@@ -287,5 +287,22 @@ router.post("/iteration1/permission-management/no-existing-local-admin/add-ig-co
 });
 
 
- 
+
+router.post('/iteration5/request-permissions/local-admin-alert', (req, res) => {
+  const choice = req.session.data['continueChoice'];
+  if (choice === 'no') {
+    res.redirect('/iteration5/request-permissions/home-no-permission');
+  } else {
+    const orgCode = req.session.data['orgCode'] || '';
+    const orgName = req.session.data['orgName'] || '';
+    const role = req.session.data['role'] || '';
+    const qs = new URLSearchParams({ orgCode, orgName, role }).toString();
+    res.redirect('/iteration5/request-permissions/add-ig-contact?' + qs);
+  }
+});
+
+router.post('/iteration5/request-permissions/withdraw-request', (req, res) => {
+  res.redirect('/iteration5/request-permissions/your-permissions-withdrawn');
+});
+
 module.exports = router;

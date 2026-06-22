@@ -1,4 +1,4 @@
-{% extends "iteration5/request-permissions/layout.html" %}
+{% extends "iteration5/request-permissions/layout-pending.html" %}
 {% set pageName = "You cannot request local administrator permissions for this organisation" %}
 {% block beforeContent %}
   {{ backLink({
@@ -12,42 +12,32 @@
 
     {% from 'warning-callout/macro.njk' import warningCallout %}
     {{ warningCallout({
-      label: "Important",
-      HTML: "<p>Local administrator permissions for this organisation are managed centrally and cannot be requested through this service.</p>"
+      heading: "Important",
+      HTML: "<p>A local administrator is already assigned for this collection and organisation. If you need to know who holds this role, contact the <a href=\"mailto:ssd.nationalservicedesk@nhs.net\">service desk</a>.</p><p>You can still continue requesting local administrator permissions if needed.</p>"
     }) }}
 
-    <h1>{{ pageName }}</h1>
-
-    <p>The organisation you selected is part of a diagnostic programme that manages its own local administrator access centrally.</p>
-
-    <p>If you need local administrator access for this organisation, you should:</p>
-
-    <ul>
-      <li>Contact your organisation's existing local administrator, or</li>
-      <li>Contact the <a href="mailto:ssd.nationalservicedesk@nhs.net">NDSP support team</a> for further guidance.</li>
-    </ul>
-
-    <p>If you need to request a different role or select a different organisation, you can go back and change your selection.</p>
-
-    <a href="javascript:history.back()" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-4">
-      Go back and change selection
-    </a>
+    {% from 'radios/macro.njk' import radios %}
+    <form action="/iteration5/request-permissions/local-admin-alert" method="post" class="form">
+      <input type="hidden" name="orgCode" value="{{ data['orgCode'] or (query.orgCode if query else '') }}">
+      <input type="hidden" name="orgName" value="{{ data['orgName'] or (query.orgName if query else '') }}">
+      <input type="hidden" name="role" value="{{ data['role'] or (query.role if query else '') }}">
+      {{ radios({
+        idPrefix: "continue-choice",
+        name: "continueChoice",
+        items: [
+          {
+            value: "yes",
+            text: "Yes, continue"
+          },
+          {
+            value: "no",
+            text: "No, I don't want to continue"
+          }
+        ]
+      }) }}
+      <button class="nhsuk-button" type="submit">Continue</button>
+    </form>
 
   </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const params = new URLSearchParams(window.location.search);
-  const orgName = params.get('orgName');
-  if (orgName) {
-    const heading = document.querySelector('h1');
-    if (heading) {
-      heading.textContent = 'You cannot request local administrator permissions for ' + orgName;
-    }
-  }
-});
-</script>
 {% endblock %}

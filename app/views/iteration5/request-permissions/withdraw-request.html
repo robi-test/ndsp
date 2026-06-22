@@ -1,0 +1,56 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "Withdraw permission request" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "your-permissions-pending",
+    text: "Back"
+  }) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1>{{ pageName }}</h1>
+
+      {% from 'warning-callout/macro.njk' import warningCallout %}
+    {{ warningCallout({
+      heading: "Important",
+      HTML: "<p>Withdrawing this request will cancel it permanently. You will need to submit a new request if you change your mind. Your IG manager and the service desk will be notified that the request has been withdrawn.</p>"
+    }) }}
+
+
+    <p>You are about to withdraw the following permission request:</p>
+
+    <dl class="nhsuk-summary-list">
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Data collection</dt>
+        <dd class="nhsuk-summary-list__value">Lung Cancer Screening Data Set (LCSDS)</dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Role</dt>
+        <dd class="nhsuk-summary-list__value">Submitter</dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Organisation</dt>
+        <dd class="nhsuk-summary-list__value">Lambeth Diagnostic Programme (L3X7K)</dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Date requested</dt>
+        <dd class="nhsuk-summary-list__value">28 May 2026</dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Status</dt>
+        <dd class="nhsuk-summary-list__value"><strong class="nhsuk-tag nhsuk-tag--yellow">Pending</strong></dd>
+      </div>
+    </dl>
+
+  
+    <form class="nhsuk-u-margin-top-8" action="/iteration5/request-permissions/withdraw-request" method="post">
+           <button class="nhsuk-button nhsuk-button--secondary" type="submit" style="margin-right:20px">Cancel and go back</button>
+        <button class="nhsuk-button nhsuk-button--warning" type="submit">Withdraw request</button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
