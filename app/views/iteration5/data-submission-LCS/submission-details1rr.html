@@ -38,11 +38,11 @@
                 },
                 {
                   key: { text: "Reporting period" },
-                  value: { text: "August 2026" }
+                  value: { text: "May 2026" }
                 },
                 {
                   key: { text: "File submitted" },
-                  value: { text: "LCS_AugFinal2026_1.xml" },
+                  value: { text: "LCS_MayFinal2026_2.xml" },
                   actions: {
                     items: [
                       {
@@ -54,7 +54,7 @@
                   }
                 },{
                   key: { text: "Status" },
-                  value: { html: tag({text: "Rejected", classes: "nhsuk-tag--red"}) }
+                  value: { html: tag({text: "Successful with error rejections", classes: "nhsuk-tag--yellow"}) }
                 }
               ]
             }) }}
@@ -82,7 +82,7 @@
                 
                 {
                   key: { text: "Submitted on" },
-                  value: { text: "	12 Oct 2026, 14:10" }
+                  value: { text: "	7 Oct 2026, 13.45" }
                 },
                 {
                   key: { text: "Submitted by" },
@@ -123,10 +123,20 @@
                     ]
                   }
                  },
-                {
+
+                   {
                   key: { text: "Record rejections" },
-                  value: { text: "3 Record rejection(s)" }
-                },
+                  value: { text: "3 Record rejection(s)" },
+                  actions: {
+                    items: [
+                      {
+                        href: "submission-errors-new",
+                        text: "",
+                        visuallyHiddenText: "collection"
+                      }
+                    ]
+                  }
+                 },
                 {
                   key: { text: "Warnings" },
                   value: { text: "2 Warning(s)" }
@@ -196,10 +206,10 @@
       </table>
     </div>
 
-    <div style="margin-top: 10px;">
+     <div style="margin-top: 10px;">
       <h2 class="nhsuk-heading-m">Record rejections summary</h2>
       <table class="nhsuk-table">
-        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Record rejections summary</caption>
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
         <thead class="nhsuk-table__head">
           <tr class="nhsuk-table__row">
             <th scope="col" class="nhsuk-table__header">Error code</th>
@@ -209,7 +219,6 @@
             <th scope="col" class="nhsuk-table__header">Count</th>
           </tr>
         </thead>
-        <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">LCS001002_01</td>
             <td class="nhsuk-table__cell">LCS001_PATIENT_DEMOGRAPHICS</td>
@@ -217,11 +226,13 @@
             <td class="nhsuk-table__cell">Bad value</td>
             <td class="nhsuk-table__cell">3</td>
           </tr>
+        
+          
         </tbody>
       </table>
     </div>
 
-     <div style="margin-top: 10px;">
+      <div style="margin-top: 10px;">
       <h2 class="nhsuk-heading-m">Warning summary</h2>
       <table class="nhsuk-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
@@ -234,18 +245,10 @@
             <th scope="col" class="nhsuk-table__header">Count</th>
           </tr>
         </thead>
-        <tbody class="nhsuk-table__body">
           <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell">LCS001003_05</td>
-            <td class="nhsuk-table__cell">LCS001_PATIENT_ACTIVITY</td>
-            <td class="nhsuk-table__cell">PERSON BIRTH DATE</td>
-            <td class="nhsuk-table__cell">Bad value</td>
-            <td class="nhsuk-table__cell">3</td>
-          </tr>
-          <tr class="nhsuk-table__row">
-            <td class="nhsuk-table__cell">LCS001002_05</td>
-            <td class="nhsuk-table__cell">LCS001_PATIENT_ACTIVITY</td>
-            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)</td>
+            <td class="nhsuk-table__cell">LCS10204_02</td>
+            <td class="nhsuk-table__cell">LCS102_ONWARD REFERRAL</td>
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (RECEIVING ORGANISATION)</td>
             <td class="nhsuk-table__cell">Bad value</td>
             <td class="nhsuk-table__cell">2</td>
           </tr>

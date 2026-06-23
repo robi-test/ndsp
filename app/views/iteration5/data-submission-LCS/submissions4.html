@@ -38,18 +38,67 @@
 
         <div class="nhsuk-grid-column-one-half">
           <div class="nhsuk-form-group">
-            <label class="nhsuk-label" for="time-period-select">
-              <strong>Time range</strong>
-            </label>
-            <div class="nhsuk-hint" id="time-period-select-hint">
-              Select a time range.
-            </div>
-            <select class="nhsuk-select" id="time-period-select" name="timePeriod" aria-describedby="time-period-select-hint">
-              <option value="last-2-weeks" selected>Last 2 weeks</option>
-              <option value="last-month">Last month</option>
-              <option value="last-2-months">Last 2 months</option>
-              <option value="">All</option>
-            </select>
+            <fieldset class="nhsuk-fieldset">
+              <legend class="nhsuk-fieldset__legend">
+                <strong>Show submissions by</strong>
+              </legend>
+              <div class="nhsuk-radios nhsuk-radios--small" id="time-range-radios">
+                <!-- Radio 1: number of submissions -->
+                <div class="nhsuk-radios__item">
+                  <input class="nhsuk-radios__input" id="time-range-predefined" name="time-range-type" type="radio" value="predefined" checked>
+                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-predefined">
+                    Select number of submissions
+                  </label>
+                  <div class="nhsuk-radios__conditional" id="time-range-predefined-conditional">
+                    <div class="nhsuk-form-group" style="margin-top:12px;">
+                      <select class="nhsuk-select" id="submissions-count-select" name="submissionsCount">
+                        <option value="200" selected>Last 200 submissions</option>
+                        <option value="500">Last 500 submissions</option>
+                        <option value="1000">Last 1000 submissions</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Radio 2: custom date range -->
+                <div class="nhsuk-radios__item">
+                  <input class="nhsuk-radios__input" id="time-range-custom" name="time-range-type" type="radio" value="custom">
+                  <label class="nhsuk-label nhsuk-radios__label" for="time-range-custom">
+                    Select a custom date range
+                  </label>
+                  <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="time-range-custom-conditional">
+                    <div class="nhsuk-grid-row" style="margin-top:12px;">
+                      <div class="nhsuk-grid-column-one-half">
+                        <div class="nhsuk-form-group">
+                          <label class="nhsuk-label" for="sub-date-from-input">From</label>
+                          <span class="nhsuk-hint">For example, 17/5/2026</span>
+                          <div style="display:flex;align-items:stretch;position:relative;">
+                            <input class="nhsuk-input" type="text" id="sub-date-from-input" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px;border-right:none;border-radius:0;">
+                            <button type="button" id="sub-date-from-cal-btn" aria-label="Open calendar for From date" style="background:#005eb8;border:2px solid #005eb8;padding:6px 10px;cursor:pointer;display:flex;align-items:center;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+                            </button>
+                            <div id="sub-date-from-cal-panel" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:white;border:2px solid #212b32;padding:12px;min-width:280px;box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="nhsuk-grid-column-one-half">
+                        <div class="nhsuk-form-group">
+                          <label class="nhsuk-label" for="sub-date-to-input">To</label>
+                          <span class="nhsuk-hint">For example, 17/5/2026</span>
+                          <span class="nhsuk-error-message" id="sub-date-to-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> 'To' date must be after the 'From' date</span>
+                          <div style="display:flex;align-items:stretch;position:relative;">
+                            <input class="nhsuk-input" type="text" id="sub-date-to-input" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px;border-right:none;border-radius:0;">
+                            <button type="button" id="sub-date-to-cal-btn" aria-label="Open calendar for To date" style="background:#005eb8;border:2px solid #005eb8;padding:6px 10px;cursor:pointer;display:flex;align-items:center;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+                            </button>
+                            <div id="sub-date-to-cal-panel" style="display:none;position:absolute;top:100%;left:0;z-index:200;background:white;border:2px solid #212b32;padding:12px;min-width:280px;box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
           </div>
         </div>
       </div>
@@ -148,6 +197,12 @@
 </div>
 </form>
 </div>
+
+        <div id="loading-indicator" class="loading-container" style="display: none;">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading results...</div>
+        </div>
+
       <table id="submissions-table" class="nhsuk-table-responsive nhsuk-table--sortable role="table">
         <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Past submissions for Diagnostic Imaging Dataset</caption>
         <thead class="nhsuk-table__head" role="rowgroup">
@@ -170,7 +225,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submission</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }}</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Pending validation", classes: "nhsuk-tag--grey"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1p">View</a></td>   
           </tr>
           <tr class="nhsuk-table__row" role="row">
@@ -210,8 +265,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Submission</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with errors", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1e">View</a></td> 
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with warnings", classes: "nhsuk-tag--green"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>LCS_SeptFinal2026_1.xml</td>         
@@ -239,9 +294,9 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>James Jackson</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>May 2026</td>
-             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submissions</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with record rejections", classes: "nhsuk-tag--yellow"}) }}</td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submission-details1rr">View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">File name</span>LCS_MayFinal2026_1.xml</td>            
@@ -259,8 +314,8 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Submitted by</span>Anne Williams</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>June 2026</td>
-             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful", classes: "nhsuk-tag--green"}) }}</td>
+             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Re-submissions</td> 
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Successful with record rejections", classes: "nhsuk-tag--yellow"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
         </tbody>
@@ -389,6 +444,7 @@
       var rec = {
         row: row,
         id: cellValue(c[keyIndex.id]),
+        submittedOn: cellValue(c[1]),
         org: cellValue(c[keyIndex.organisation]),
         by: cellValue(c[keyIndex.submittedBy]),
         type: cellValue(c[keyIndex.type]),
@@ -451,7 +507,40 @@
   }
   populateSelect(typeSel, data.map(r=>extractType(r.type)));
 
+    function parseSubmittedDate(str) {
+      // Parses "15 Oct 2026, 09:30" style dates
+      var months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+      var m = (str || '').match(/(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})/);
+      if (!m) return null;
+      var d = new Date(+m[3], months[m[2]], +m[1]);
+      return isNaN(d) ? null : d;
+    }
+
     function matches(rec){
+      // Time range filter (radio + predefined dropdown / custom date range)
+      var timeRangeType = 'predefined';
+      var timeRangeRadios = document.querySelectorAll('input[name="time-range-type"]');
+      timeRangeRadios.forEach(function(r) { if (r.checked) timeRangeType = r.value; });
+      if (timeRangeType === 'custom') {
+        var fromInput = document.getElementById('sub-date-from-input');
+        var toInput   = document.getElementById('sub-date-to-input');
+        var fromVal = fromInput ? fromInput.value.trim() : '';
+        var toVal   = toInput   ? toInput.value.trim()   : '';
+        var parseDMY2 = function(s) {
+          var m = (s || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+          if (!m) return null;
+          var d = new Date(+m[3], +m[2]-1, +m[1]);
+          return isNaN(d) ? null : d;
+        };
+        var fromDate = parseDMY2(fromVal);
+        var toDate   = parseDMY2(toVal);
+        var submittedDateObj = parseSubmittedDate(rec.submittedOn);
+        if (fromDate && submittedDateObj && submittedDateObj < fromDate) return false;
+        if (toDate   && submittedDateObj) {
+          var toEnd = new Date(toDate); toEnd.setHours(23,59,59,999);
+          if (submittedDateObj > toEnd) return false;
+        }
+      }
       var idQ = (idInput?.value || '').trim().toLowerCase()
       var orgQ = (orgSel?.value || '')
       var byQ = (bySel?.value || '')
@@ -537,24 +626,48 @@
     }
 
     function render(){
-      var shown = 0
+      // Determine count limit when radio 1 (by count) is selected
+      var activeRadio = document.querySelector('input[name="time-range-type"]:checked');
+      var usingCount  = activeRadio && activeRadio.value === 'predefined';
+      var countSel    = document.getElementById('submissions-count-select');
+      var countLimit  = usingCount && countSel ? parseInt(countSel.value, 10) : Infinity;
+
+      // First pass: collect all rows that pass the non-count filters
+      var matching = [];
       data.forEach(function(rec){
-        if (matches(rec)) {
-          rec.row.style.display = ''
-          shown++
+        if (matches(rec)) matching.push(rec);
+        else rec.row.style.display = 'none';
+      });
+
+      // Second pass: apply count limit then show/hide
+      var shown = 0;
+      matching.forEach(function(rec, idx){
+        if (idx < countLimit) {
+          rec.row.style.display = '';
+          shown++;
         } else {
-          rec.row.style.display = 'none'
+          rec.row.style.display = 'none';
         }
-      })
+      });
+
       if (countEl) countEl.textContent = shown + ' result' + (shown === 1 ? '' : 's')
       renderChips();
     }
 
-    // Only apply filters on button click
+    // Only apply filters on button click — show loading indicator before updating the table
     if (applyBtn) {
       applyBtn.addEventListener('click', function(e){
         e.preventDefault();
-        render();
+        var loadingIndicator = document.getElementById('loading-indicator');
+        var submissionsTable = document.getElementById('submissions-table');
+        if (loadingIndicator) loadingIndicator.style.display = 'flex';
+        if (submissionsTable) submissionsTable.style.display = 'none';
+        var loadingTime = Math.random() * 500 + 800;
+        setTimeout(function() {
+          render();
+          if (loadingIndicator) loadingIndicator.style.display = 'none';
+          if (submissionsTable) submissionsTable.style.display = '';
+        }, loadingTime);
       });
     }
   // Remove live filtering for period; only filter on Apply
@@ -668,6 +781,37 @@
         padding: 0px;
     }
     `
+    style.textContent += `
+/* Loading indicator styles */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f0f4f5;
+  border-radius: 4px;
+  margin: 24px 0;
+}
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d8dde0;
+  border-top: 4px solid #005eb8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.loading-text {
+  font-size: 16px;
+  color: #212b32;
+  font-weight: 600;
+}
+    `
     document.head.appendChild(style)
 
     // Initial render to show all
@@ -758,52 +902,232 @@ sortTable(table, colIndex, type, next)
 </script>
 
 <script>
-(function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    var timeSel = document.getElementById('time-period-select');
-    var tableWrapper = document.getElementById('submissions-table');
-    if (!timeSel || !tableWrapper) return;
+// ── Time range radios: show/hide conditional panels + re-filter ──────────────
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var radios = document.querySelectorAll('input[name="time-range-type"]');
+    var predefinedConditional = document.getElementById('time-range-predefined-conditional');
+    var customConditional     = document.getElementById('time-range-custom-conditional');
 
-    // Inject keyframes once
-    if (!document.getElementById('spinner-keyframes-sub4')) {
-      var style = document.createElement('style');
-      style.id = 'spinner-keyframes-sub4';
-      style.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
-      document.head.appendChild(style);
+    function applyRadioState() {
+      var selected = document.querySelector('input[name="time-range-type"]:checked');
+      if (!selected) return;
+      if (selected.value === 'predefined') {
+        if (predefinedConditional) predefinedConditional.classList.remove('nhsuk-radios__conditional--hidden');
+        if (customConditional)     customConditional.classList.add('nhsuk-radios__conditional--hidden');
+      } else {
+        if (predefinedConditional) predefinedConditional.classList.add('nhsuk-radios__conditional--hidden');
+        if (customConditional)     customConditional.classList.remove('nhsuk-radios__conditional--hidden');
+      }
     }
 
-    // Create spinner
-    var spinner = document.createElement('div');
-    spinner.setAttribute('aria-live', 'polite');
-    spinner.setAttribute('aria-label', 'Loading');
-    spinner.style.cssText = 'display:none;text-align:center;padding:32px 0;';
-    spinner.innerHTML = '<div role="status" style="display:inline-block;width:40px;height:40px;border:4px solid #d8dde0;border-top-color:#005eb8;border-radius:50%;animation:spin 0.7s linear infinite;"></div>';
-    tableWrapper.parentNode.insertBefore(spinner, tableWrapper);
-
-    var paginationRow = document.getElementById('submissions4-pagination');
-
-    function applyTimeRange() {
-      var val = timeSel.value;
-      var isLast2Weeks = val === 'last-2-weeks';
-      var rows = tableWrapper.tBodies[0] ? Array.from(tableWrapper.tBodies[0].rows) : [];
-      rows.forEach(function(row, i) {
-        row.style.display = (isLast2Weeks && i >= 8) ? 'none' : '';
+    radios.forEach(function(r) {
+      r.addEventListener('change', function() {
+        applyRadioState();
       });
-      if (paginationRow) paginationRow.style.display = isLast2Weeks ? 'none' : 'flex';
+    });
+
+    applyRadioState();
+
+    // ── Date picker for From / To ─────────────────────────────────────────────
+    (function() {
+      var MONTH_NAMES = ['January','February','March','April','May','June',
+                         'July','August','September','October','November','December'];
+      var DAY_LABELS  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+      function parseDMY(str) {
+        var m = (str || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (!m) return null;
+        var d = new Date(+m[3], +m[2]-1, +m[1]);
+        return isNaN(d) ? null : d;
+      }
+
+      function renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect) {
+        var today    = new Date();
+        var firstDay = new Date(viewYear, viewMonth, 1);
+        var startDow = firstDay.getDay();
+        startDow = (startDow === 0) ? 6 : startDow - 1;
+        var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        var prevMonth = viewMonth === 0  ? { y: viewYear-1, m: 11 } : { y: viewYear, m: viewMonth-1 };
+        var nextMonth = viewMonth === 11 ? { y: viewYear+1, m: 0  } : { y: viewYear, m: viewMonth+1 };
+
+        var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:4px;">'
+          + '<button type="button" data-cal-prev-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous year">&#171;</button>'
+          + '<button type="button" data-cal-prev-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous month">&#8249;</button>'
+          + '<span style="font-weight:600;font-size:14px;flex:1;text-align:center;">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</span>'
+          + '<button type="button" data-cal-next-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next month">&#8250;</button>'
+          + '<button type="button" data-cal-next-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next year">&#187;</button>'
+          + '</div>'
+          + '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr>';
+        DAY_LABELS.forEach(function(d) {
+          html += '<th style="padding:4px 2px;text-align:center;font-weight:600;color:#425563;">' + d + '</th>';
+        });
+        html += '</tr></thead><tbody><tr>';
+        for (var i = 0; i < startDow; i++) html += '<td></td>';
+        for (var day = 1; day <= daysInMonth; day++) {
+          var dow    = (startDow + day - 1) % 7;
+          var isToday = (day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear());
+          var isSel   = selectedDate && (day === selectedDate.getDate() && viewMonth === selectedDate.getMonth() && viewYear === selectedDate.getFullYear());
+          var bg = isSel ? '#335c9b' : (isToday ? '#f0b400' : 'transparent');
+          var color = isSel ? 'white' : '#212b32';
+          var fw = (isSel || isToday) ? '600' : 'normal';
+          html += '<td style="padding:2px;"><button type="button" data-cal-day="' + day + '" style="width:32px;height:32px;border:none;background:' + bg + ';color:' + color + ';font-weight:' + fw + ';cursor:pointer;border-radius:2px;font-size:13px;">' + day + '</button></td>';
+          if (dow === 6 && day < daysInMonth) html += '</tr><tr>';
+        }
+        html += '</tr></tbody></table>';
+        panel.innerHTML = html;
+
+        panel.querySelector('[data-cal-prev-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, prevMonth.y-1, viewMonth); });
+        panel.querySelector('[data-cal-prev-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, prevMonth.y, prevMonth.m); });
+        panel.querySelector('[data-cal-next-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, nextMonth.y, nextMonth.m); });
+        panel.querySelector('[data-cal-next-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, nextMonth.y+1, viewMonth); });
+        panel.querySelectorAll('[data-cal-day]').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var picked = new Date(viewYear, viewMonth, +this.dataset.calDay);
+            onSelect(picked, viewYear, viewMonth);
+          });
+        });
+      }
+
+      function initDatePicker(inputId, calBtnId, panelId) {
+        var input  = document.getElementById(inputId);
+        var calBtn = document.getElementById(calBtnId);
+        var panel  = document.getElementById(panelId);
+        if (!input || !calBtn || !panel) return;
+
+        var today = new Date();
+        var viewYear  = today.getFullYear();
+        var viewMonth = today.getMonth();
+        var selectedDate = null;
+
+        function onSelect(date, y, m) {
+          if (date) {
+            selectedDate = date;
+            var dd = date.getDate(), mm = date.getMonth()+1;
+            input.value = dd + '/' + mm + '/' + date.getFullYear();
+            panel.style.display = 'none';
+            // Validate to > from
+            var toErrEl = document.getElementById('sub-date-to-error');
+            if (toErrEl) {
+              var fromD = parseDMY(document.getElementById('sub-date-from-input') ? document.getElementById('sub-date-from-input').value : '');
+              var toD   = parseDMY(document.getElementById('sub-date-to-input')   ? document.getElementById('sub-date-to-input').value   : '');
+              toErrEl.style.display = (fromD && toD && toD <= fromD) ? 'block' : 'none';
+            }
+          }
+          viewYear  = y;
+          viewMonth = m;
+          if (panel.style.display !== 'none') renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+        }
+
+        calBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          ['sub-date-from-cal-panel','sub-date-to-cal-panel'].forEach(function(pid) {
+            if (pid !== panelId) { var p = document.getElementById(pid); if (p) p.style.display = 'none'; }
+          });
+          if (panel.style.display === 'block') {
+            panel.style.display = 'none';
+          } else {
+            renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+            panel.style.display = 'block';
+          }
+        });
+
+        input.addEventListener('blur', function() {
+          var d = parseDMY(this.value);
+          selectedDate = d || null;
+          if (d) { viewYear = d.getFullYear(); viewMonth = d.getMonth(); }
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !calBtn.contains(e.target) && !panel.contains(e.target)) {
+            panel.style.display = 'none';
+          }
+        });
+      }
+
+      initDatePicker('sub-date-from-input', 'sub-date-from-cal-btn', 'sub-date-from-cal-panel');
+      initDatePicker('sub-date-to-input',   'sub-date-to-cal-btn',   'sub-date-to-cal-panel');
+    })();
+  });
+})();
+</script>
+
+<script>
+// ── Pagination: update page count when submissions count changes ─────────────
+(function() {
+  var ROWS_PER_PAGE = 10;
+
+  function buildPaginationHTML(totalCount) {
+    var totalPages = Math.ceil(totalCount / ROWS_PER_PAGE);
+    var items = '';
+
+    // Page 1 (current/active)
+    items += '<li class="nhsuk-pagination__item--current">'
+           + '<a class="nhsuk-pagination__link" href="?page=1">1</a>'
+           + '</li>';
+
+    if (totalPages >= 2) {
+      items += '<li class="nhsuk-pagination__item">'
+             + '<a class="nhsuk-pagination__link" href="?page=2">2</a>'
+             + '</li>';
     }
+    if (totalPages >= 3) {
+      items += '<li class="nhsuk-pagination__item">'
+             + '<a class="nhsuk-pagination__link" href="?page=3">3</a>'
+             + '</li>';
+    }
+
+    // Ellipsis + last page for larger sets
+    if (totalPages > 4) {
+      items += '<li class="nhsuk-pagination__item nhsuk-pagination__item--ellipsis" aria-hidden="true">'
+             + '<span>...</span>'
+             + '</li>';
+    }
+    if (totalPages > 3) {
+      items += '<li class="nhsuk-pagination__item">'
+             + '<a class="nhsuk-pagination__link" href="?page=' + totalPages + '">' + totalPages + '</a>'
+             + '</li>';
+    }
+
+    // Next arrow
+    if (totalPages > 1) {
+      items += '<li class="nhsuk-pagination__item nhsuk-pagination__item--next">'
+             + '<a class="nhsuk-pagination__link" href="?page=2" aria-label="Next page">'
+             + '<span class="nhsuk-pagination__title">Next \u2192</span>'
+             + '</a></li>';
+    }
+
+    return items;
+  }
+
+  function updatePagination(totalCount) {
+    var paginationList = document.querySelector('#submissions4-pagination .nhsuk-pagination__list');
+    var summaryEl = document.querySelector('#submissions4-pagination p');
+    if (paginationList) {
+      paginationList.innerHTML = buildPaginationHTML(totalCount);
+    }
+    if (summaryEl) {
+      summaryEl.innerHTML = 'Showing <strong>1</strong> to <strong>' + ROWS_PER_PAGE + '</strong> of <strong>' + totalCount + '</strong> results';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var countSel = document.getElementById('submissions-count-select');
+    var applyBtn = document.querySelector('#table-filters2 .nhsuk-button');
+
+    function onCountChange() {
+      var activeRadio = document.querySelector('input[name="time-range-type"]:checked');
+      if (activeRadio && activeRadio.value === 'predefined' && countSel) {
+        updatePagination(parseInt(countSel.value, 10));
+      }
+    }
+
+    if (countSel) countSel.addEventListener('change', onCountChange);
+    if (applyBtn) applyBtn.addEventListener('click', onCountChange);
 
     // Apply on load
-    applyTimeRange();
-
-    timeSel.addEventListener('change', function(){
-      tableWrapper.style.display = 'none';
-      spinner.style.display = 'block';
-      setTimeout(function(){
-        spinner.style.display = 'none';
-        tableWrapper.style.display = '';
-        applyTimeRange();
-      }, 600);
-    });
+    onCountChange();
   });
 })();
 </script>

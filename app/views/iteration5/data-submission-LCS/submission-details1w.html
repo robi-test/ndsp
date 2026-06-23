@@ -123,6 +123,10 @@
                   value: { text: "0 Error(s)" }
                 },
                 {
+                  key: { text: "Record rejections" },
+                  value: { text: "0 Record rejection(s)" }
+                },
+                {
                   key: { text: "Warnings" },
                   value: { text: "5 Warning(s)" }
                 }
@@ -135,6 +139,27 @@
   text: "Download validation report",
   href: "#"
 }) }}     
+    </div>
+
+    <div style="margin-top: 10px;">
+      <h2 class="nhsuk-heading-m">Record rejections summary</h2>
+      <table class="nhsuk-table">
+        <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Record rejections summary</caption>
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" class="nhsuk-table__header">Error code</th>
+            <th scope="col" class="nhsuk-table__header">Group</th>
+            <th scope="col" class="nhsuk-table__header">Field name</th>
+            <th scope="col" class="nhsuk-table__header">Category</th>
+            <th scope="col" class="nhsuk-table__header">Count</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell" colspan="5">No record rejections.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
       <div>
