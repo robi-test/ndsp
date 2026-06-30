@@ -9,7 +9,7 @@
 
     {% if data['decision'] == 'approve' %}
 
-      <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
         <div class="nhsuk-notification-banner__header">
           <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
             Success
@@ -17,34 +17,34 @@
         </div>
         <div class="nhsuk-notification-banner__content">
           <h3 class="nhsuk-notification-banner__heading">
-            Access request approved
+            Permission request approved
           </h3>
           <p>Claire Okafor (claire.okafor@mft.nhs.uk) has been granted the Monitoring role for Lung Cancer Screening Data Set.</p>
         </div>
       </div>
 
       <h2>What happens next?</h2>
-      <p>Claire Okafor will receive an email notification confirming their access has been approved.</p>
-      <p>Their account will now have Monitoring role access for the Lung Cancer Screening Data Set.</p>
+      <p>Claire Okafor will receive an email notification confirming their permission request has been approved.</p>
+      <p>Their account will now have Monitoring role permissions for the Lung Cancer Screening Data Set.</p>
 
     {% else %}
 
       <div class="nhsuk-notification-banner " role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
         <div class="nhsuk-notification-banner__header">
           <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
-            Success
+            Rejected
           </h2>
         </div>
         <div class="nhsuk-notification-banner__content">
           <h3 class="nhsuk-notification-banner__heading">
-            Access request rejected
+            Permission request rejected
           </h3>
-          <p>The access request from Claire Okafor (claire.okafor@mft.nhs.uk) has been rejected.</p>
+          <p>The permission request from Claire Okafor (claire.okafor@mft.nhs.uk) has been rejected.</p>
         </div>
       </div>
 
       <h2>What happens next?</h2>
-      <p>Claire Okafor will receive an email notification informing them that their request has been unsuccessful.</p>
+      <p>Claire Okafor will receive an email notification informing them that their permission request has been unsuccessful.</p>
 
     {% endif %}
 
