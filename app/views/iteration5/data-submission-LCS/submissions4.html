@@ -177,8 +177,16 @@
           <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-warnings">Successful with warnings</label>
         </div>
         <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-successful-record-rejections" name="status" type="checkbox" value="Successful with record rejections">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-successful-record-rejections">Successful with record rejections</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
           <input class="nhsuk-checkboxes__input" id="status-rejected" name="status" type="checkbox" value="Rejected">
           <label class="nhsuk-label nhsuk-checkboxes__label" for="status-rejected">Rejected</label>
+        </div>
+        <div class="nhsuk-checkboxes__item">
+          <input class="nhsuk-checkboxes__input" id="status-system-error" name="status" type="checkbox" value="System error">
+          <label class="nhsuk-label nhsuk-checkboxes__label" for="status-system-error">System error</label>
         </div>
       </div>
     </div>
@@ -275,7 +283,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>North Cumbria Integrated Care (RNN)</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Period</span>September 2026</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Type</span>Test</td> 
-           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "Rejected", classes: "nhsuk-tag--red"}) }}</td>
+           <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span>{{ tag({text: "System error", classes: "nhsuk-tag--red"}) }}</td>
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a>View</a></td> 
           </tr>
           <tr class="nhsuk-table__row" role="row">

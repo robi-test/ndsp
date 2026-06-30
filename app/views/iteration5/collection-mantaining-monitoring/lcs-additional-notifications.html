@@ -1,5 +1,5 @@
 {% extends "iteration5/collection-management/layout-collection-management.html" %}
-{% set pageName = "Email notification settings" %}
+{% set pageName = "Additional email notifications" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
@@ -11,11 +11,15 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections configuration"
+      text: "Collections setup"
     },
     {
-      href: "dids-configuration",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "lcs-configuration",
+      text: "LCSDS configuration"
+    },
+    {
+      href: "lcs-notification-configuration",
+      text: "Email notification settings"
     }
   ]
 }) }}
@@ -32,46 +36,53 @@
 
           {% from "summary-list/macro.njk" import summaryList %}
           {% from "tag/macro.njk" import tag %}
-          <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
-          </div>
+
+          <p class="nhsuk-body">These are custom notifications added outside of the standard set. You can delete a notification only if it is not in use.</p>
+
           {{ summaryList({
-            classes: "notification-summary-list",
+            classes: "bespoke-notification-summary-list",
             rows: [
               {
                 key: {
-                  text: "Submission window opened"
+                  text: "First cut of data"
                 },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                actions: {
+                  items: [
+                    {
+                      href: "lcs-notification-edit",
+                      text: "Edit",
+                      visuallyHiddenText: "notification 1"
+                    }
+                  ]
                 }
               },
               {
                 key: {
-                  text: "Submission deadline approaching"
+                  text: "1 day to final deadline"
                 },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              },
-              {
-                key: {
-                  text: "Submission deadline changed"
-                },
-                value: {
-                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
-                }
-              },
-              {
-                key: {
-                  text: "Validation completed"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit",
+                      visuallyHiddenText: "notification 2"
+                    },
+                    {
+                      href: "#",
+                      text: "Delete",
+                      visuallyHiddenText: "notification 1"
+                    }
+                  
+                  ]
                 }
               }
             ]
+          }) }}
+
+          {{ button({
+            text: "Add another notification",
+            classes: "nhsuk-button--secondary nhsuk-u-margin-top-4",
+            href: "lcs-notification-add"
           }) }}
 
         </div>
@@ -143,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
   .notification-summary-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 16px;
   }
@@ -172,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 
 a {
+
   font-size: 20px;
 }
 </style>

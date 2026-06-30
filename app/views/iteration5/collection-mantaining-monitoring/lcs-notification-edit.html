@@ -1,0 +1,77 @@
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% set pageName = "Edit notification" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "button/macro.njk" import button %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+    <p class="nhsuk-body">Edit the details of this notification. Changes will be applied when you save.</p>
+
+    <form method="post" action="#">
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <label class="nhsuk-label nhsuk-label--m" for="notification-name">
+          Notification name
+        </label>
+        <div class="nhsuk-hint">
+          A short internal name to identify this notification.
+        </div>
+        <input class="nhsuk-input" id="notification-name" name="notificationName" type="text" value="First cut of data">
+      </div>
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <label class="nhsuk-label nhsuk-label--m" for="notification-subject">
+          Email subject
+        </label>
+        <div class="nhsuk-hint">
+          The subject line that recipients will see in their inbox. Maximum 100 characters.
+        </div>
+        <input class="nhsuk-input" id="notification-subject" name="notificationSubject" type="text" maxlength="100" value="Your submission deadline is in 5 days">
+      </div>
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <label class="nhsuk-label nhsuk-label--m" for="notification-content">
+          Email content
+        </label>
+        <div class="nhsuk-hint">
+          The body text of the notification email. Maximum 1,000 characters.
+        </div>
+        <textarea class="nhsuk-textarea" id="notification-content" name="notificationContent" rows="8" maxlength="1000">Dear colleague,
+
+This is a reminder that your data submission deadline is in 5 days. Please log in to the National Data Submission Portal and ensure your submission is complete before the deadline.
+
+If you have already submitted your data, you can ignore this message.
+
+If you have any questions, please contact the helpdesk.
+
+Thank you,
+The NDSP Team</textarea>
+      </div>
+
+      <div class="nhsuk-u-margin-top-6">
+
+        {{ button({
+          text: "Cancel",
+          classes: "nhsuk-button--secondary",
+          href: "javascript:history.back()"
+        }) }}
+        {{ button({
+          text: "Save notification",
+          classes: "nhsuk-u-margin-left-3",
+          href: "lcs-notification-settings"
+        }) }}
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

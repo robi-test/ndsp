@@ -3,31 +3,14 @@
 {% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
 
 {% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
-{{ breadcrumb({
-  classes: "nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4",
-  items: [
-    {
-      href: "home",
-      text: "Home"
-    },
-    {
-      href: "setup",
-      text: "Set up"
-    },
-    {
-      href: "periods",
-      text: "Reporting periods"
-    }
-  ],
-  href: "windows",
-  text: "Reporting period: April 2026"
-}) }}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
 {% endblock %}
 
 {% block content %}
 {% from 'tag/macro.njk' import tag %}
-{% from "checkboxes/macro.njk" import checkboxes %}
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
@@ -35,20 +18,83 @@
 <fieldset class="nhsuk-fieldset">
   <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
     <h1 class="nhsuk-fieldset__heading">
-      Submission window
+      Edit submission window
     </h1>
   </legend>
 
+  <p class="nhsuk-body">
+    Edit the details of this submission window. Make changes to the dates, organisations, or other settings as needed.
+  </p>
 <div class="nhsuk-form-group nhsuk-u-margin-top-8">
   <h1 class="nhsuk-label-wrapper">
     <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
       Submission window name
     </label>
   </h1>
-  <input class="nhsuk-input" id="submission-window-name" name="submissionWindowName" type="text" value="Submission closes">
+  <div class="nhsuk-hint">
+    Enter a name for the submission window. You can choose from common names or create a new one.
+  </div>
+  <div class="submission-window-name-container">
+    <input class="nhsuk-input" id="submission-window-name" style="width:520px" name="submissionWindowName" type="text" autocomplete="off" value="Window closes">
+    <div class="submission-window-name__suggestions" id="window-name-suggestions" style="display: none;">
+      <div class="submission-window-name__suggestion" data-value="Provisional processing">Provisional processing</div>
+      <div class="submission-window-name__suggestion" data-value="Window closes">Window closes</div>
+      <div class="submission-window-name__suggestion" data-value="Extension deadlines">Extension deadlines</div>
+
+
+    </div>
+  </div>
 </div>
 
-
+<div class="nhsuk-form-group nhsuk-u-margin-top-8">
+  <label class="nhsuk-label nhsuk-label--m" for="reporting-period-multiselect">
+    Reporting period
+  </label>
+  <div class="nhsuk-hint">
+    Select the reporting period for this submission window
+  </div>
+  
+  <div class="organisation-multiselect">
+    <div class="organisation-multiselect__trigger" id="reporting-period-multiselect-trigger">
+      <span id="reporting-period-multiselect-label">April 2026</span>
+      <div class="organisation-multiselect__arrow"></div>
+    </div>
+    <div class="organisation-multiselect__dropdown" id="reporting-period-multiselect-dropdown" style="display: none;">
+      <div class="organisation-multiselect__search">
+        <input type="text" class="nhsuk-input organisation-multiselect__search-input" id="reporting-period-search" placeholder="Search">
+      </div>
+      <div class="organisation-multiselect__options" id="reporting-period-multiselect-options">
+        <div class="organisation-multiselect__option organisation-multiselect__option--selected" data-value="april-2026">
+          <label class="nhsuk-checkboxes__label">April 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="may-2026">
+          <label class="nhsuk-checkboxes__label">May 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="june-2026">
+          <label class="nhsuk-checkboxes__label">June 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="july-2026">
+          <label class="nhsuk-checkboxes__label">July 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="august-2026">
+          <label class="nhsuk-checkboxes__label">August 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="september-2026">
+          <label class="nhsuk-checkboxes__label">September 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="october-2026">
+          <label class="nhsuk-checkboxes__label">October 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="november-2026">
+          <label class="nhsuk-checkboxes__label">November 2026</label>
+        </div>
+        <div class="organisation-multiselect__option" data-value="december-2026">
+          <label class="nhsuk-checkboxes__label">December 2026</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
   <div class="nhsuk-form-group nhsuk-u-margin-top-8">
@@ -62,9 +108,9 @@
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group">
             <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
-              Dayx
+              Day
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric" value="01">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric" value="1">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -72,7 +118,7 @@
             <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
               Month
             </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric" value="06">
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric" value="6">
           </div>
         </div>
         <div class="nhsuk-date-input__item">
@@ -92,7 +138,7 @@
       <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-hour">
         Hour
       </label>
-      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric" value="00">
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric">
     </div>
   </div>
   <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
@@ -130,7 +176,7 @@
   items: [
     {
       value: "start-of-day",
-      text: "Start of the day (00:00:00)",
+      text: "Start of the day (12:00:00 am)",
       checked: true
     },
     {
@@ -753,69 +799,154 @@
     }
   ]
 }) }}
-
-<div class="nhsuk-u-margin-top-8">
-{{ checkboxes({
-  idPrefix: "submission-type",
-  name: "submission-type",
-  fieldset: {
-    legend: {
-      text: "Submission type",
-      classes: "nhsuk-fieldset__legend--m",
-      isPageHeading: false
-    }
-  },
-  items: [
-    {
-      value: "test-only",
-      hint: {
-        text: "If selected, this submission window will only accept test data and will not be included in live reporting."
-      },
-      text: "Allow only test submissions"
-    }
-  ]
-}) }}
+<div class="nhsuk-u-margin-top-8"></div>
+ <div class="nhsuk-form-group">
+  <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
+    <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+      <h1 class="nhsuk-fieldset__heading">
+       Submission type (optional)
+      </h1>
+    </legend>
+    <div class="" data-module="nhsuk-checkboxes">
+      <div class="nhsuk-checkboxes__item">
+        <input class="nhsuk-checkboxes__input" id="example" name="example" type="checkbox" value="email">
+        <label class="nhsuk-label nhsuk-checkboxes__label" for="example">
+         Allow only test submissions
+        </label>
+        
+      </div>
+    </div>
+  </fieldset>
 </div>
+<div class="nhsuk-u-margin-top-8">
+<!-- <h2 class="nhsuk-heading-m">Notifications</h2>
 
-<div class="nhsuk-u-margin-top-6">
-{{ checkboxes({
-  idPrefix: "notifications",
-  name: "notifications",
+{{ radios({
+  idPrefix: "notification-window-opened",
+  name: "notification-window-opened",
   fieldset: {
     legend: {
-      text: "Notifications",
-      classes: "nhsuk-fieldset__legend--m",
+      text: "Send a notification when this submission window opened",
+      classes: "nhsuk-fieldset__legend--s",
       isPageHeading: false
     }
   },
+  hint: {
+    text: "Users will receive an email notification when the submission window becomes available."
+  },
   items: [
     {
-      value: "notify-opened",
-      text: "Send a notification when this submission window opened",
-      hint: {
-        text: "Users will receive an email notification when the submission window becomes available."
-      }
+      value: "yes",
+      text: "Yes"
     },
     {
-      value: "notify-deadline",
-      text: "Submission deadline approaching",
-      checked: true,
-      hint: {
-        text: "Users will receive reminder notifications as the submission deadline approaches."
-      }
+      value: "no",
+      text: "No",
+      checked: true
     }
   ]
-}) }}
+}) }} -->
+<h2 class="nhsuk-heading-m">Additional notifications</h2>
+
+<p class="nhsuk-body">You can add extra notifications in addition to the standard ones, such as reminders at the start and end of the submission window.</p>
+
+<!-- Hidden template for a single notification entry -->
+<template id="notification-entry-template">
+  <div class="notification-entry nhsuk-u-margin-bottom-6" style="border-left: 4px solid #d8dde0; padding-left: 16px;">
+
+    <div class="nhsuk-form-group nhsuk-u-margin-top-4">
+      <label class="nhsuk-label">
+        <strong>Date</strong>
+      </label>
+      <div class="nhsuk-hint">Enter the date when the notification will be received.</div>
+      <div class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-day-__index__">Day</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-day-__index__" name="notifications[__index__][day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-month-__index__">Month</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-month-__index__" name="notifications[__index__][month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-year-__index__">Year</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="notification-date-year-__index__" name="notifications[__index__][year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label" for="notification-template-__index__">
+        <strong>Template</strong>
+      </label>
+      <div class="nhsuk-hint">Select the email template to use for this notification.</div>
+      <select class="nhsuk-select" id="notification-template-__index__" name="notifications[__index__][template]">
+        <option value="">Select a template</option>
+        <option value="template-1">First cut of data</option>
+        <option value="template-2">1 day to final deadline</option>
+       <!--  <option value="template-3">Template 3</option>
+        <option value="template-4">Template 4</option> -->
+      </select>
+    </div>
+
+    <button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-top-6 remove-notification-btn">
+      Remove notification
+    </button>
+
+  </div>
+</template>
+
+<div id="notifications-list"></div>
+
+<button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2" id="add-notification-btn">
+  Add notification
+</button>
+
+<script>
+  (function () {
+    var list = document.getElementById('notifications-list');
+    var addBtn = document.getElementById('add-notification-btn');
+    var tmpl = document.getElementById('notification-entry-template');
+    var counter = 0;
+
+    function updateAddButtonLabel() {
+      addBtn.textContent = list.children.length > 0 ? 'Add another notification' : 'Add notification';
+    }
+
+    addBtn.addEventListener('click', function () {
+      var html = tmpl.innerHTML.replace(/__index__/g, counter++);
+      var div = document.createElement('div');
+      div.innerHTML = html;
+      var entry = div.firstElementChild;
+      entry.querySelector('.remove-notification-btn').addEventListener('click', function () {
+        entry.remove();
+        updateAddButtonLabel();
+      });
+      list.appendChild(entry);
+      updateAddButtonLabel();
+    });
+  })();
+</script>
+
 </div>
-
-
 
 </fieldset>
   {% from "button/macro.njk" import button %}
 <div class="nhsuk-u-margin-top-8">
 {{ button({
-  text: "Save",
-  href: "edit-confirm0"
+  text: "Cancel",
+  classes: "nhsuk-button--secondary nhsuk-u-margin-right-3",
+  href: "javascript:history.back()"
+}) }}
+{{ button({
+  text: "Continue",
+  href: "edit-banner"
 }) }}
 </div>
       </div>
@@ -924,6 +1055,60 @@
         padding-top: 32px;
         padding-left: 4px;
         padding-right: 4px;
+      }
+
+      /* Submission Window Name Suggestions - Google Style */
+      .submission-window-name-container {
+        position: relative;
+      }
+
+      .submission-window-name__suggestions {
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        max-width: 400px;
+        background: #ffffff;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px 1px rgba(64, 60, 67, 0.16);
+        z-index: 1000;
+        max-height: 300px;
+        overflow-y: auto;
+        font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      }
+
+      .submission-window-name__suggestion {
+        padding: 12px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 20px;
+        color: #202124;
+        border-bottom: none;
+        transition: background-color 0.1s ease-in-out;
+        display: flex;
+        align-items: center;
+      }
+
+      .submission-window-name__suggestion:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+
+      .submission-window-name__suggestion:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+
+      .submission-window-name__suggestion:only-child {
+        border-radius: 8px;
+      }
+
+      .submission-window-name__suggestion:hover {
+        background-color: #f8f9fa;
+      }
+
+      .submission-window-name__suggestion--highlighted {
+        background-color: #e8f0fe;
+        color: #1a73e8;
       }
     </style>
     <script>
@@ -1134,6 +1319,209 @@
           initializeMultiselect()
         })
       }
+
+      // Reporting Period Multiselect (Single Selection) - Initialize with April 2026
+      let selectedReportingPeriod = 'april-2026'
+      let reportingPeriodMultiselectInitialized = false
+
+      function initializeReportingPeriodMultiselect() {
+        if (reportingPeriodMultiselectInitialized) return
+        
+        const multiselectTrigger = document.getElementById('reporting-period-multiselect-trigger')
+        const multiselectDropdown = document.getElementById('reporting-period-multiselect-dropdown')
+        const multiselectLabel = document.getElementById('reporting-period-multiselect-label')
+        const searchInput = document.getElementById('reporting-period-search')
+        const reportingPeriodOptions = document.querySelectorAll('#reporting-period-multiselect-options .organisation-multiselect__option')
+
+        if (!multiselectTrigger || !multiselectDropdown || !multiselectLabel || reportingPeriodOptions.length === 0) {
+          return
+        }
+
+        reportingPeriodMultiselectInitialized = true
+
+        // Toggle dropdown
+        multiselectTrigger.addEventListener('click', function(e) {
+          e.stopPropagation()
+          const isVisible = multiselectDropdown.style.display === 'block'
+          multiselectDropdown.style.display = isVisible ? 'none' : 'block'
+          if (!isVisible && searchInput) {
+            searchInput.focus()
+          }
+        })
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('#reporting-period-multiselect-trigger') && !e.target.closest('#reporting-period-multiselect-dropdown')) {
+            multiselectDropdown.style.display = 'none'
+          }
+        })
+
+        // Search functionality
+        if (searchInput) {
+          searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase()
+            reportingPeriodOptions.forEach(option => {
+              const text = option.textContent.toLowerCase()
+              if (text.includes(searchTerm)) {
+                option.style.display = 'block'
+              } else {
+                option.style.display = 'none'
+              }
+            })
+          })
+        }
+
+        // Handle option clicks (single selection)
+        reportingPeriodOptions.forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.stopPropagation()
+            const value = this.dataset.value
+            const text = this.textContent.trim()
+            
+            // Clear all previous selections
+            reportingPeriodOptions.forEach(opt => {
+              opt.classList.remove('organisation-multiselect__option--selected')
+            })
+            
+            // Select the clicked option
+            selectedReportingPeriod = value
+            this.classList.add('organisation-multiselect__option--selected')
+            
+            // Update label with selected period
+            multiselectLabel.textContent = text
+            
+            // Close dropdown after selection
+            multiselectDropdown.style.display = 'none'
+            
+            // Clear search
+            if (searchInput) {
+              searchInput.value = ''
+              // Reset all options visibility
+              reportingPeriodOptions.forEach(opt => {
+                opt.style.display = 'block'
+              })
+            }
+          })
+        })
+
+        function updateReportingPeriodLabel() {
+          if (!multiselectLabel) return
+          if (!selectedReportingPeriod) {
+            multiselectLabel.textContent = 'Choose reporting period'
+          }
+        }
+      }
+
+      // Initialize reporting period multiselect immediately
+      waitForElement('#reporting-period-multiselect-trigger', () => {
+        initializeReportingPeriodMultiselect()
+      })
+
+      // Submission Window Name Suggestions
+      const windowNameInput = document.getElementById('submission-window-name')
+      const windowNameSuggestions = document.getElementById('window-name-suggestions')
+      const suggestions = document.querySelectorAll('.submission-window-name__suggestion')
+      let highlightedIndex = -1
+
+      if (windowNameInput && windowNameSuggestions && suggestions.length > 0) {
+        
+        // Show suggestions on input focus or click
+        windowNameInput.addEventListener('focus', showSuggestions)
+        windowNameInput.addEventListener('click', showSuggestions)
+
+        // Filter suggestions as user types
+        windowNameInput.addEventListener('input', function() {
+          const value = this.value.toLowerCase()
+          let visibleCount = 0
+          
+          suggestions.forEach((suggestion, index) => {
+            const suggestionText = suggestion.textContent.toLowerCase()
+            if (suggestionText.includes(value) || value === '') {
+              suggestion.style.display = 'block'
+              visibleCount++
+            } else {
+              suggestion.style.display = 'none'
+            }
+          })
+          
+          if (visibleCount > 0) {
+            showSuggestions()
+          } else {
+            hideSuggestions()
+          }
+          
+          highlightedIndex = -1
+          clearHighlight()
+        })
+
+        // Handle keyboard navigation
+        windowNameInput.addEventListener('keydown', function(e) {
+          const visibleSuggestions = Array.from(suggestions).filter(s => s.style.display !== 'none')
+          
+          if (e.key === 'ArrowDown') {
+            e.preventDefault()
+            highlightedIndex = Math.min(highlightedIndex + 1, visibleSuggestions.length - 1)
+            updateHighlight(visibleSuggestions)
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault()
+            highlightedIndex = Math.max(highlightedIndex - 1, -1)
+            updateHighlight(visibleSuggestions)
+          } else if (e.key === 'Enter') {
+            e.preventDefault()
+            if (highlightedIndex >= 0 && highlightedIndex < visibleSuggestions.length) {
+              selectSuggestion(visibleSuggestions[highlightedIndex])
+            }
+          } else if (e.key === 'Escape') {
+            hideSuggestions()
+            highlightedIndex = -1
+          }
+        })
+
+        // Handle suggestion clicks
+        suggestions.forEach(suggestion => {
+          suggestion.addEventListener('click', function(e) {
+            e.stopPropagation()
+            selectSuggestion(this)
+          })
+        })
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.submission-window-name-container')) {
+            hideSuggestions()
+          }
+        })
+
+        function showSuggestions() {
+          windowNameSuggestions.style.display = 'block'
+        }
+
+        function hideSuggestions() {
+          windowNameSuggestions.style.display = 'none'
+          highlightedIndex = -1
+          clearHighlight()
+        }
+
+        function selectSuggestion(suggestion) {
+          windowNameInput.value = suggestion.dataset.value
+          hideSuggestions()
+          windowNameInput.focus()
+        }
+
+        function updateHighlight(visibleSuggestions) {
+          clearHighlight()
+          if (highlightedIndex >= 0 && highlightedIndex < visibleSuggestions.length) {
+            visibleSuggestions[highlightedIndex].classList.add('submission-window-name__suggestion--highlighted')
+          }
+        }
+
+        function clearHighlight() {
+          suggestions.forEach(suggestion => {
+            suggestion.classList.remove('submission-window-name__suggestion--highlighted')
+          })
+        }
+      }
     })
+
     </script>
 {% endblock %}

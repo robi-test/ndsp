@@ -1,5 +1,5 @@
 {% extends "iteration5/request-permissions/layout.html" %}
-{% set pageName = "Choose your role" %}
+{% set pageName = "What role are you requesting access for?" %}
 {% block beforeContent %}
   {{ backLink({
     href: "javascript:history.back()",
@@ -31,11 +31,10 @@
               Local Administrator
             </label>
           </div>
-           <div class="nhsuk-radios__divider">or</div>
           <div class="nhsuk-radios__item">
             <input class="nhsuk-radios__input" id="role-monitoring" name="role" type="radio" value="monitoring">
             <label class="nhsuk-label nhsuk-radios__label" for="role-monitoring">
-              Monitoring role
+              Group monitoring role
             </label>
           </div>
         </div>

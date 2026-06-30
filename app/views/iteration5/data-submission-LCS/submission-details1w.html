@@ -24,7 +24,6 @@
       <div class="nhsuk-width-container">
         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
             <h1 class="nhsuk-heading-l"><span class="nhsuk-caption-l"></span>Submission details</h1>
-            <p>Your submission details:</p>
             {% from "summary-list/macro.njk" import summaryList %}
             
             {{ summaryList({
@@ -119,16 +118,16 @@
                   value: { text: "1,734" }
                 },
                 {
-                  key: { text: "Errors" },
-                  value: { text: "0 Error(s)" }
+                  key: { text: "File rejection errors" },
+                  value: { text: "0 File rejection error(s)" }
                 },
                 {
-                  key: { text: "Record rejections" },
-                  value: { text: "0 Record rejection(s)" }
+                  key: { text: "Record rejection errors" },
+                  value: { text: "0 Record rejection error(s)" }
                 },
                 {
-                  key: { text: "Warnings" },
-                  value: { text: "5 Warning(s)" }
+                  key: { text: "Warning errors" },
+                  value: { text: "5 Warning error(s)" }
                 }
               ]
             }) }}
@@ -142,7 +141,7 @@
     </div>
 
     <div style="margin-top: 10px;">
-      <h2 class="nhsuk-heading-m">Record rejections summary</h2>
+      <h2 class="nhsuk-heading-m">Record rejection error summary</h2>
       <table class="nhsuk-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Record rejections summary</caption>
         <thead class="nhsuk-table__head">
@@ -163,7 +162,7 @@
     </div>
 
       <div>
-      <h2 class="nhsuk-heading-m">Warning summary</h2>
+      <h2 class="nhsuk-heading-m">Warning error summary</h2>
       <table class="nhsuk-table">
         <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Top validation warnings for the period</caption>
         <thead class="nhsuk-table__head">

@@ -13,11 +13,11 @@
     },
     {
       href: "../configuration-collections",
-      text: "Collections configurations"
+      text: "Collections setup"
     },
     {
-      href: "../dids-configuration",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "../lcs-configuration",
+      text: "Lung Cancer Screening Data Set"
     }
   ]
 }) }}
@@ -29,35 +29,44 @@
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
-        <p class="nhsuk-u-margin-bottom-8">You can only delete submission windows that are not open and have not already occurred. <br> You can edit open submission windows, for example to grant extensions.<br>
-        </p>
-{% from "inset-text/macro.njk" import insetText %}
-      
-      {{ insetText({
-        "text": "You have successfully deleted the submission window: Extension deadlines - April 2026",
-        "classes": "nhsuk-u-margin-bottom-8"
-      }) }}
 
-{% from "action-link/macro.njk" import actionLink %}
+        <details class="nhsuk-details">
+          <summary class="nhsuk-details__summary">
+            <span class="nhsuk-details__summary-text">How to manage submission windows</span>
+          </summary>
+          <div class="nhsuk-details__text">
+             <p>You must create a reporting period before you can add submission windows. Go to the <a href="periods">reporting periods page</a> to create one.</p>
+            <p>You can only delete submission windows that are not open and have not already occurred.</p>
+            <p>You can edit open submission windows, for example to grant extensions.</p>
+           
+          </div>
+        </details>
+
+          {% from "action-link/macro.njk" import actionLink %}
 
 {{ actionLink({
   text: "Create a new submission window",
   href: "window-new2"
 }) }}
 
-<table class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
+<table id="windows-table" class="nhsuk-table-responsive nhsuk-table--sortable" role="table">
   <thead class="nhsuk-table__head" role="rowgroup">
     <tr class="nhsuk-table__row" role="row">
       <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="none">Window name</th>
-      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="none">Reporting period</th>
-      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date">
-        <button class="nhsuk-table-sort__button" aria-sort="ascending">
+      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date" aria-sort="none">
+        <button class="nhsuk-table-sort__button">
+          <span class="nhsuk-table-sort__label">Reporting period</span>
+          <span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>
+        </button>
+      </th>
+      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date" aria-sort="ascending">
+        <button class="nhsuk-table-sort__button">
           <span class="nhsuk-table-sort__label">Open on</span>
           <span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>
         </button>
       </th>
-      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date">
-        <button class="nhsuk-table-sort__button" aria-sort="none">
+      <th class="nhsuk-table__header" scope="col" role="columnheader" data-sort="date" aria-sort="none">
+        <button class="nhsuk-table-sort__button">
           <span class="nhsuk-table-sort__label">Close on</span>
           <span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>
         </button>
@@ -68,23 +77,15 @@
   </thead>
   <tbody class="nhsuk-table__body">
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 May 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 May 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jun 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Oct 2026, 23:59:59</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="april-edit">Edit</a></td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="lcs-april-edit">Edit</a></td>
     </tr>
         <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Extension deadlines</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>April 2026 extension</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>April 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Nov 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Nov 2026, 23:59:59</td>
@@ -92,15 +93,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="extension-edit">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="delete-confirm2">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jun 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Jun 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>May 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jul 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Nov 2026, 23:59:59</td>
@@ -108,15 +101,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jul 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Jul 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>June 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Aug 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Dec 2026, 23:59:59</td>
@@ -124,15 +109,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Aug 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Aug 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>July 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Sep 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Jan 2027, 23:59:59</td>
@@ -140,15 +117,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Sep 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Sep 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>August 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Oct 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>28 Feb 2027, 23:59:59</td>
@@ -156,15 +125,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Oct 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Oct 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span>No actions available</td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>September 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Nov 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Mar 2027, 23:59:59</td>
@@ -172,15 +133,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Nov 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Nov 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>October 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Dec 2026, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Apr 2027, 23:59:59</td>
@@ -188,15 +141,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Dec 2026, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Dec 2026, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>November 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jan 2027, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 May 2027, 23:59:59</td>
@@ -204,15 +149,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2026</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Jan 2027, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Jan 2027, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>December 2026</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Feb 2027, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Jun 2027, 23:59:59</td>
@@ -220,15 +157,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2027</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Feb 2027, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>28 Feb 2027, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>January 2027</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Mar 2027, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Jul 2027, 23:59:59</td>
@@ -236,15 +165,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2027</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Mar 2027, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Mar 2027, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>February 2027</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Apr 2027, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>31 Aug 2027, 23:59:59</td>
@@ -252,15 +173,7 @@
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
     </tr>
     <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Provisional processing</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2027</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 Apr 2027, 00:00:00</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Apr 2027, 23:59:59</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisations</span>All</td>
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
-    </tr>
-    <tr class="nhsuk-table__row" role="row">
-      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Window closes</td>
+      <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Window name</span>Final deadline</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Reporting period</span>March 2027</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Open on</span>1 May 2027, 00:00:00</td>
       <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Close on</span>30 Sep 2027, 23:59:59</td>
@@ -269,6 +182,15 @@
     </tr>
   </tbody>
 </table>
+
+<div id="windows-pagination" style="display:none; margin-top: 24px; margin-bottom: 24px;">
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <nav class="nhsuk-pagination" role="navigation" aria-label="Pagination" style="margin: 0;">
+      <ul id="windows-pagination-list" class="nhsuk-list nhsuk-pagination__list"></ul>
+    </nav>
+    <p id="windows-pagination-summary" style="margin: 0; color: #425563;"></p>
+  </div>
+</div>
 
 <!-- Organisations Modal -->
 <div id="organisations-modal" class="nhsuk-modal">
@@ -292,8 +214,14 @@
 
 {% endblock %}
 
-{% block headerStyles %}
+{% block head %}
+{{ super() }}
 <style>
+  @media (min-width: 40.0625em) {
+    .nhsuk-inset-text {
+        margin-top: 18px;
+    }
+}
 .nhsuk-table-sort__button {
   background: none;
   border: none;
@@ -305,6 +233,7 @@
   margin: -12px -16px;
   width: calc(100% + 32px);
   display: flex;
+  pointer-events: auto;
   align-items: center;
   justify-content: space-between;
   position: relative;
@@ -337,10 +266,10 @@
   pointer-events: none;
 }
 
-/* Default state - show both arrows */
+/* Default state - show faint triangle */
 th[aria-sort="none"] .nhsuk-table-sort__indicator::after {
-  content: "⇅";
-  color: #768692;
+  content: "▲";
+  color: #adb5bd;
 }
 
 /* Ascending state */
@@ -452,7 +381,6 @@ th[aria-sort="descending"] .nhsuk-table-sort__indicator::after {
 
 
 </style>
-
 {% endblock %}
 
 {% block scripts %}
@@ -548,6 +476,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var trimmed = value.trim()
     
     if (type === 'date') {
+      // Handle "Month YYYY" format e.g. "April 2026"
+      var monthYearMatch = trimmed.match(/^([A-Za-z]+)\s+(\d{4})$/)
+      if (monthYearMatch) {
+        var fullMonths = {
+          'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5,
+          'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11
+        }
+        var mIdx = fullMonths[monthYearMatch[1]]
+        if (mIdx !== undefined) {
+          return new Date(parseInt(monthYearMatch[2]), mIdx, 1).getTime()
+        }
+      }
       // Handle date formats like "1 Apr 2026, 00:00:00"
       var dateMatch = trimmed.match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/)
       if (dateMatch) {
@@ -620,8 +560,10 @@ document.addEventListener('DOMContentLoaded', function() {
     ths.forEach(function (th) {
       var type = th.getAttribute('data-sort') || 'string'
       if (type === 'none') return
-      
-      th.setAttribute('aria-sort', 'none')
+
+      if (!th.getAttribute('aria-sort')) {
+        th.setAttribute('aria-sort', 'none')
+      }
       var label = th.textContent.trim()
       
       if (!th.querySelector('button')) {
@@ -635,13 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
       th.querySelector('button').addEventListener('click', function (event) {
         event.preventDefault()
-        event.stopPropagation()
         
         var current = th.getAttribute('aria-sort')
         var next = current === 'ascending' ? 'descending' : 'ascending'
         
-        // Reset all other columns
-        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { 
+        // Reset all other sortable columns
+        th.closest('thead').querySelectorAll('th[aria-sort]').forEach(function (t) { 
           t.setAttribute('aria-sort', 'none') 
         })
         
@@ -652,18 +593,95 @@ document.addEventListener('DOMContentLoaded', function() {
         sortTable(table, colIndex, type, next)
       })
       
-      // Also add click handler to the entire th element for better UX
-      th.addEventListener('click', function(event) {
-        var button = th.querySelector('button')
-        if (button && event.target !== button && !button.contains(event.target)) {
-          button.click()
-        }
-      })
-      
-      // Make the entire header cell focusable and keyboard accessible
       th.style.cursor = 'pointer'
     })
   })
 });
+</script>
+
+<script>
+// ── Table pagination (20 rows per page) ──────────────────────────────────────
+(function () {
+  var ROWS_PER_PAGE = 20;
+  var currentPage = 1;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var table      = document.getElementById('windows-table');
+    var paginationWrapper = document.getElementById('windows-pagination');
+    var paginationList    = document.getElementById('windows-pagination-list');
+    var summary           = document.getElementById('windows-pagination-summary');
+    if (!table) return;
+
+    function getRows() {
+      return Array.from(table.tBodies[0].rows);
+    }
+
+    function goToPage(page) {
+      var rows = getRows();
+      var totalRows  = rows.length;
+      var totalPages = Math.ceil(totalRows / ROWS_PER_PAGE);
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPage = page;
+
+      var start = (page - 1) * ROWS_PER_PAGE;
+      var end   = start + ROWS_PER_PAGE;
+      rows.forEach(function (row, i) {
+        row.style.display = (i >= start && i < end) ? '' : 'none';
+      });
+
+      // Show/hide pagination wrapper
+      if (totalRows <= ROWS_PER_PAGE) {
+        paginationWrapper.style.display = 'none';
+        return;
+      }
+      paginationWrapper.style.display = '';
+
+      // Build page list
+      var items = '';
+      if (page > 1) {
+        items += '<li class="nhsuk-pagination__item nhsuk-pagination__item--prev">'
+               + '<a class="nhsuk-pagination__link" href="#" data-page="' + (page - 1) + '" aria-label="Previous page">'
+               + '<span class="nhsuk-pagination__title">&larr; Previous</span></a></li>';
+      }
+      for (var p = 1; p <= totalPages; p++) {
+        if (p === page) {
+          items += '<li class="nhsuk-pagination__item--current"><a class="nhsuk-pagination__link" href="#" data-page="' + p + '">' + p + '</a></li>';
+        } else if (p === 1 || p === totalPages || Math.abs(p - page) <= 1) {
+          items += '<li class="nhsuk-pagination__item"><a class="nhsuk-pagination__link" href="#" data-page="' + p + '">' + p + '</a></li>';
+        } else if (Math.abs(p - page) === 2) {
+          items += '<li class="nhsuk-pagination__item nhsuk-pagination__item--ellipsis" aria-hidden="true"><span>&hellip;</span></li>';
+        }
+      }
+      if (page < totalPages) {
+        items += '<li class="nhsuk-pagination__item nhsuk-pagination__item--next">'
+               + '<a class="nhsuk-pagination__link" href="#" data-page="' + (page + 1) + '" aria-label="Next page">'
+               + '<span class="nhsuk-pagination__title">Next &rarr;</span></a></li>';
+      }
+      paginationList.innerHTML = items;
+
+      // Summary text
+      summary.textContent = 'Showing ' + (start + 1) + ' to ' + Math.min(end, totalRows) + ' of ' + totalRows + ' results';
+
+      // Click handlers
+      paginationList.querySelectorAll('a[data-page]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          goToPage(parseInt(this.getAttribute('data-page'), 10));
+          table.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+
+    goToPage(1);
+
+    // Re-paginate after sort (sort script changes row order)
+    table.addEventListener('click', function (e) {
+      if (e.target.closest('.nhsuk-table-sort__button')) {
+        setTimeout(function () { goToPage(1); }, 50);
+      }
+    });
+  });
+})();
 </script>
 {% endblock %}

@@ -11,11 +11,11 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections configuration"
+      text: "Collections setup"
     },
     {
-      href: "dids-configuration",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "lcs-configuration",
+      text: "LCSDS configuration"
     }
   ]
 }) }}
@@ -28,53 +28,19 @@
       <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
         <div class="nhsuk-u-margin-bottom-8"> 
            <div class="nhsuk-u-margin-bottom-8"> 
+<div class="nhsuk-u-margin-top-6">
+      <a class="nhsuk-action-link nhsuk-u-margin-bottom-3" href="lcs-notification-settings" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Standard notifications</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+      
+      <a class="nhsuk-action-link" href="lcs-additional-notifications" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Additional notifications</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+    </div>
 
-
-          {% from "summary-list/macro.njk" import summaryList %}
-          {% from "tag/macro.njk" import tag %}
-          <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
-          {{ summaryList({
-            classes: "notification-summary-list",
-            rows: [
-              {
-                key: {
-                  text: "Submission window opened"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              },
-              {
-                key: {
-                  text: "Submission deadline approaching"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              },
-              {
-                key: {
-                  text: "Submission deadline changed"
-                },
-                value: {
-                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
-                }
-              },
-              {
-                key: {
-                  text: "Validation completed"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              }
-            ]
-          }) }}
-
-        </div>
 
 
 

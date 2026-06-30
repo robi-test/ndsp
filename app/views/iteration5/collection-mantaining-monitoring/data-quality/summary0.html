@@ -416,13 +416,19 @@
                           <div class="nhsuk-radios__item">
                             <input class="nhsuk-radios__input" id="type-warnings" name="type-filter" type="radio" value="warnings">
                             <label class="nhsuk-label nhsuk-radios__label" for="type-warnings">
-                              Warnings only
+                              Warnings errors only
                             </label>
                           </div>
                           <div class="nhsuk-radios__item">
                             <input class="nhsuk-radios__input" id="type-failures" name="type-filter" type="radio" value="failures">
                             <label class="nhsuk-label nhsuk-radios__label" for="type-failures">
-                              Submission failures only
+                              Record rejection errors only
+                            </label>
+                          </div>
+                          <div class="nhsuk-radios__item" id="type-file-rejection-item" style="display: none;">
+                            <input class="nhsuk-radios__input" id="type-file-rejection" name="type-filter" type="radio" value="file-rejection">
+                            <label class="nhsuk-label nhsuk-radios__label" for="type-file-rejection">
+                              File rejection errors only
                             </label>
                           </div>
                         </div>
@@ -896,13 +902,19 @@
               <div class="nhsuk-radios__item">
                 <input class="nhsuk-radios__input" id="type-warnings-2" name="type-filter-2" type="radio" value="warnings">
                 <label class="nhsuk-label nhsuk-radios__label" for="type-warnings-2">
-                  Warnings only
+                  Warnings errorsonly
                 </label>
               </div>
               <div class="nhsuk-radios__item">
                 <input class="nhsuk-radios__input" id="type-failures-2" name="type-filter-2" type="radio" value="failures">
                 <label class="nhsuk-label nhsuk-radios__label" for="type-failures-2">
-                  Submission failures only
+                  Record rejection only
+                </label>
+              </div>
+              <div class="nhsuk-radios__item" id="type-file-rejection-item-2" style="display: none;">
+                <input class="nhsuk-radios__input" id="type-file-rejection-2" name="type-filter-2" type="radio" value="file-rejection">
+                <label class="nhsuk-label nhsuk-radios__label" for="type-file-rejection-2">
+                  File rejection errors only
                 </label>
               </div>
             </div>
@@ -2879,6 +2891,39 @@
           });
         });
       </script>
+
+      <script>
+        (function() {
+          function updateFileRejectionRadios() {
+            var collectionEl = document.getElementById('collection-select');
+            var isLCS = collectionEl && collectionEl.value === 'Lung Cancer Screening (LCS)';
+            var items = [
+              document.getElementById('type-file-rejection-item'),
+              document.getElementById('type-file-rejection-item-2')
+            ];
+            items.forEach(function(item) {
+              if (!item) return;
+              if (isLCS) {
+                item.style.display = '';
+              } else {
+                item.style.display = 'none';
+                // Reset radio if it was selected
+                var radio = item.querySelector('input[type="radio"]');
+                if (radio && radio.checked) {
+                  var allRadio = document.querySelector('input[name="' + radio.name + '"][value="all"]');
+                  if (allRadio) allRadio.checked = true;
+                }
+              }
+            });
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            updateFileRejectionRadios();
+            var collectionEl = document.getElementById('collection-select');
+            if (collectionEl) collectionEl.addEventListener('change', updateFileRejectionRadios);
+          });
+        })();
+      </script>
       
       <div class="nhsuk-form-group">
         <fieldset class="nhsuk-fieldset">
@@ -3881,8 +3926,8 @@ window.handleShowResults = function(button) {
 
   let typeText = '';
   if (typeFilter === 'all') typeText = 'All error types';
-  else if (typeFilter === 'warnings') typeText = 'Warnings only';
-  else if (typeFilter === 'failures') typeText = 'Submission failures only';
+  else if (typeFilter === 'warnings') typeText = 'Warnings errorsonly';
+  else if (typeFilter === 'failures') typeText = 'Record rejection only';
 
   // Filter table rows based on selected filters
   setTimeout(() => {
@@ -3951,8 +3996,8 @@ window.handleShowResultsOrg = function(button) {
   
   // Build filter text for display
   let typeText = 'All error types';
-  if (typeFilter === 'warnings') typeText = 'Warnings only';
-  if (typeFilter === 'failures') typeText = 'Submission failures only';
+  if (typeFilter === 'warnings') typeText = 'Warnings errors only';
+  if (typeFilter === 'failures') typeText = 'Record rejection only';
   
   let orgText = 'All organisations';
   if (orgFilter === 'specific' && selectedOrg) {
@@ -4928,7 +4973,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const typeWarningsRadio = document.getElementById('type-warnings');
     const typeSubmission failuresRadio = document.getElementById('type-failures');
     if (typeWarningsRadio.checked) {
-      typeText = capitalizeFirst('warnings only');
+      typeText = capitalizeFirst('warnings errors only');
     } else if (typeSubmission failuresRadio.checked) {
       typeText = capitalizeFirst('failures only');
     } else {

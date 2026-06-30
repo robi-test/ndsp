@@ -1,5 +1,5 @@
 {% extends "iteration5/collection-management/layout-collection-management.html" %}
-{% set pageName = "Email notification settings" %}
+{% set pageName = "Standard email notification" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
 
@@ -11,11 +11,11 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections configuration"
+      text: "Collections setup"
     },
     {
-      href: "dids-configuration",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "lcs-configuration",
+      text: "LCSDS configuration"
     }
   ]
 }) }}
@@ -32,9 +32,11 @@
 
           {% from "summary-list/macro.njk" import summaryList %}
           {% from "tag/macro.njk" import tag %}
+
+          <p class="nhsuk-body">These are the default notifications sent automatically at key points. You can change these settings if needed.</p>
+
           <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
+            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification settings</a>
           </div>
           {{ summaryList({
             classes: "notification-summary-list",
@@ -72,6 +74,59 @@
                 }
               }
             ]
+          }) }}
+
+          <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8">Additional notifications</h2>
+          <p class="nhsuk-body">These are custom notifications added outside of the standard set. </p>
+
+          {{ summaryList({
+            classes: "bespoke-notification-summary-list",
+            rows: [
+              {
+                key: {
+                  text: "Notification 1"
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit",
+                      visuallyHiddenText: "notification 1"
+                    },
+                    {
+                      href: "#",
+                      text: "Delete",
+                      visuallyHiddenText: "notification 1"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "Notification 2"
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "#",
+                      text: "Edit",
+                      visuallyHiddenText: "notification 2"
+                    },
+                    {
+                      href: "#",
+                      text: "Delete",
+                      visuallyHiddenText: "notification 2"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+
+          {{ button({
+            text: "Add another notification",
+            classes: "nhsuk-button--secondary nhsuk-u-margin-top-4",
+            href: "#"
           }) }}
 
         </div>
@@ -143,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <style>
   .notification-summary-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 16px;
   }
