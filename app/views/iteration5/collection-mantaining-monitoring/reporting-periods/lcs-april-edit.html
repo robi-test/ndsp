@@ -846,9 +846,9 @@
     }
   ]
 }) }} -->
-<h2 class="nhsuk-heading-m">Additional notifications</h2>
+<h2 class="nhsuk-heading-m">Additional schedule dates</h2>
 
-<p class="nhsuk-body">You can add extra notifications in addition to the standard ones, such as reminders at the start and end of the submission window.</p>
+<p class="nhsuk-body">You can add extra dates to support the management of this submission window. These dates can be used for notifications, reminders, or to display key submission window information in the service.</p>
 
 <!-- Hidden template for a single notification entry -->
 <template id="notification-entry-template">
@@ -858,7 +858,7 @@
       <label class="nhsuk-label">
         <strong>Date</strong>
       </label>
-      <div class="nhsuk-hint">Enter the date when the notification will be received.</div>
+      <div class="nhsuk-hint">Enter the date to use for additional submission window event.</div>
       <div class="nhsuk-date-input">
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group">
@@ -883,11 +883,11 @@
 
     <div class="nhsuk-form-group">
       <label class="nhsuk-label" for="notification-template-__index__">
-        <strong>Template</strong>
+        <strong>Notification</strong>
       </label>
-      <div class="nhsuk-hint">Select the email template to use for this notification.</div>
+      <div class="nhsuk-hint">Select the email to send on this date.</div>
       <select class="nhsuk-select" id="notification-template-__index__" name="notifications[__index__][template]">
-        <option value="">Select a template</option>
+        <option value="">Select an email template</option>
         <option value="template-1">First cut of data</option>
         <option value="template-2">1 day to final deadline</option>
        <!--  <option value="template-3">Template 3</option>
@@ -896,7 +896,7 @@
     </div>
 
     <button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-top-6 remove-notification-btn">
-      Remove notification
+      Remove date
     </button>
 
   </div>
@@ -905,7 +905,7 @@
 <div id="notifications-list"></div>
 
 <button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2" id="add-notification-btn">
-  Add notification
+  Add date
 </button>
 
 <script>

@@ -40,16 +40,24 @@
           values: data.period,
           items: [
           {
-              value: "September 2026",
-              text: "September 2026"
-            },
-             {
-              value: "August 2026",
-              text: "August 2026"
-            },
-             {
               value: "July 2026",
-              text: "July 2026"
+              text: "July 2026",
+              checked: query.change and data.period == "July 2026"
+            },
+             {
+              value: "June 2026",
+              text: "June 2026",
+              checked: query.change and data.period == "June 2026"
+            },
+             {
+              value: "May 2026",
+              text: "May 2026",
+              checked: query.change and data.period == "May 2026"
+            },
+             {
+              value: "April 2026",
+              text: "April 2026",
+              checked: query.change and data.period == "April 2026"
             }
           ]
         }) }}

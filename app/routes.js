@@ -116,6 +116,25 @@ router.post('/iteration4/data-submission-LCS/choose-period', (req, res) => {
   res.redirect('/iteration4/data-submission-LCS/upload-file1');
 });
 
+router.get('/iteration5/data-submission-LCS/choose-organisation', (req, res, next) => {
+  if (req.query.period) {
+    req.session.data['period'] = req.query.period;
+    req.session.data['collection'] = 'Lung Cancer Screening Data Set (LCSDS)';
+  }
+  next();
+});
+
+router.post('/iteration5/data-submission-LCS/choose-organisation', (req, res) => {
+  req.session.data['organisation'] = req.session.data['organisation'];
+  res.redirect('/iteration5/data-submission-LCS/upload-file1');
+});
+
+router.post('/iteration5/data-submission-LCS/choose-period', (req, res) => {
+  req.session.data['collection'] = 'Lung Cancer Screening Data Set (LCSDS)';
+  req.session.data['period'] = req.session.data['period'];
+  res.redirect('/iteration5/data-submission-LCS/choose-organisation');
+});
+
 router.post("/iteration1/permission-management/existing-local-admin/select-role", (req, res) => {
   const role = req.session.data.role;
 

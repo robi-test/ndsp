@@ -18,28 +18,33 @@
 {% endblock %}
 {% block content %}
 <div class="nhsuk-grid-row">
-  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+  <div class="nhsuk-grid-column-two-thirds  nhsuk-u-margin-bottom-4 nhsuk-u-margin-top-2">
     <h1>{{ pageName }}</h1>
 
 
     <p>Currently you have permissions for the following collection(s):</p>
-    {% from "card/macro.njk" import card %}
+    {% from "summary-list/macro.njk" import summaryList %}
 
-    <ul class="nhsuk-grid-row nhsuk-card-group">
-      <li class="nhsuk-grid-column-two-thirds nhsuk-card-group__item">
-      {{ card({
-        href: "lcs",
-        primary: "true",
-        clickable: "true",
-        heading: "Lung Cancer Screening Data Set (LCSDS)",
-        headingClasses: "nhsuk-heading-m",
-        description: "See guidance and permissions"
-      }) }}
-      </li>
-    </ul>
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Lung Cancer Screening Data Set (LCSDS)" },
+          value: { text: "" },
+          actions: {
+            items: [
+              {
+                href: "lcs",
+                text: "View",
+                visuallyHiddenText: "Lung Cancer Screening Data Set (LCSDS)"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
 
-    
-    <h2 class="nhsuk-heading-l">Pending requests</h2>
+    <p><br></p>
+    <h2 class="nhsuk-heading-l nhsuk-u-margin-top-4">Pending requests</h2>
     <p>No pending requests.</p>
     <hr>  
 

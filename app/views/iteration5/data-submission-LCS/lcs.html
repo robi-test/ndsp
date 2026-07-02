@@ -69,7 +69,7 @@
           text: "Organisation"
         },
         value: {
-          text: "Milton Keynes University Hospital"
+          html: "Lambeth Diagnostic Programme<br>Southwark Diagnostic Programme<br>Lewisham Diagnostic Programme<br>Greenwich Diagnostic Programme<br>Bexley Diagnostic Programme<br>Bromley Diagnostic Programme"
         }
       }
       
@@ -78,28 +78,7 @@
   {% from "button/macro.njk" import button %}
 
 
-<hr>
-{{ summaryList({
-  rows: [
-    {
-      key: {
-        text: "Organisation"
-      },
-      value: {
-        text: "Luton and Dunstable University Hospital"
-      }
-    },
-    {
-      key: {
-        text: "Your role"
-      },
-      value: {
-        text: "Submitter"
-      }
-    
-    }
-  ]
-}) }}
+
 
 
 
@@ -109,7 +88,7 @@
  </div>
 
    <!-- Custom Modal Popup -->
-                <div id="api-token-modal" class="nhsuk-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+           <!--      <div id="api-token-modal" class="nhsuk-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
                   <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;margin:auto;border-radius:8px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
                     <h2 id="api-token-title" style="margin-top:0;font-size:1.3rem;">Get an API token</h2>
                     <p id="api-token-description" style="margin-bottom:2rem;">Clicking Continue will take you to the application used to manage API access.<br>
@@ -120,7 +99,7 @@ From there, go to the 'OAuth & permissions' tab and select 'Rotate secret' to ge
                 </div>
 
 
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

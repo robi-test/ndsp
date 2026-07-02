@@ -47,13 +47,13 @@
                     text: "Organisation"
                   },
                   value: {
-                    text: "North Cumbria Integrated Care (RNN)"
+                    text: data.organisation
                   },
                   actions: {
                     items: [
                       {
-                        href: "/iteration0/choose-organisation2",
-                        text: " ",
+                        href: "/iteration5/data-submission-LCS/choose-organisation?change=true",
+                        text: "Change",
                         visuallyHiddenText: "organisation"
                       }
                     ]
@@ -69,7 +69,7 @@
                   actions: {
                     items: [
                       {
-                        href: "/iteration5/data-submission-LCS/choose-period",
+                        href: "/iteration5/data-submission-LCS/choose-period?change=true",
                         text: "Change",
                         visuallyHiddenText: "period"
                       }
@@ -80,7 +80,7 @@
               ]
             }) }}
 
-            {% if "September 2026" not in data.period %}
+            {% if "July 2026" not in data.period %}
             {% from "inset-text/macro.njk" import insetText %}
 
             {% set insetTextHtml %}
@@ -101,7 +101,7 @@
             </div>-->
 
             {% endif %}
-            {% if "September 2026" in data.period %}
+            {% if "July 2026" in data.period %}
             <details class="nhsuk-details">
             <summary class="nhsuk-details__summary">
               <span class="nhsuk-details__summary-text">

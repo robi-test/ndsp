@@ -68,7 +68,7 @@
           <div class="nhsuk-hint" id="decision-hint">
             Select an option to approve or reject this access request.
           </div>
-          <div class="nhsuk-radios">
+          <div class="nhsuk-radios" data-module="nhsuk-radios">
             <div class="nhsuk-radios__item">
               <input class="nhsuk-radios__input" id="decision-approve" name="decision" type="radio" value="approve">
               <label class="nhsuk-label nhsuk-radios__label" for="decision-approve">
@@ -76,10 +76,21 @@
               </label>
             </div>
             <div class="nhsuk-radios__item">
-              <input class="nhsuk-radios__input" id="decision-reject" name="decision" type="radio" value="reject">
+              <input class="nhsuk-radios__input" id="decision-reject" name="decision" type="radio" value="reject" aria-controls="reject-reason-conditional" aria-expanded="false">
               <label class="nhsuk-label nhsuk-radios__label" for="decision-reject">
                 Reject request
               </label>
+            </div>
+            <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="reject-reason-conditional">
+              <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="reject-reason">
+                  Reason for rejection
+                </label>
+                <div class="nhsuk-hint" id="reject-reason-hint">
+                  Provide a reason why this request is being rejected. This will be shared with the requester.
+                </div>
+                <textarea class="nhsuk-textarea" id="reject-reason" name="reject-reason" rows="5" aria-describedby="reject-reason-hint"></textarea>
+              </div>
             </div>
           </div>
         </fieldset>
@@ -93,5 +104,27 @@
 
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var radios = document.querySelectorAll('input[name="decision"]');
+    var conditional = document.getElementById('reject-reason-conditional');
+
+    function updateVisibility() {
+      var rejectRadio = document.getElementById('decision-reject');
+      if (rejectRadio && rejectRadio.checked) {
+        conditional.classList.remove('nhsuk-radios__conditional--hidden');
+      } else {
+        conditional.classList.add('nhsuk-radios__conditional--hidden');
+      }
+    }
+
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', updateVisibility);
+    });
+
+    updateVisibility();
+  });
+</script>
 
 {% endblock %}
