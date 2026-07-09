@@ -15,6 +15,13 @@
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-two-thirds">
        
+<div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" id="error-summary" style="display:none;">
+  <h2 class="nhsuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+  <div class="nhsuk-error-summary__body">
+    <ul class="nhsuk-list nhsuk-error-summary__list" id="error-summary-list"></ul>
+  </div>
+</div>
+
 <fieldset class="nhsuk-fieldset">
   <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
     <h1 class="nhsuk-fieldset__heading">
@@ -25,7 +32,7 @@
   <p class="nhsuk-body">
     Use this form to create a new submission window. A submission window defines when organisations can submit their data for a specific reporting period.
   </p>
-<div class="nhsuk-form-group nhsuk-u-margin-top-8">
+<div class="nhsuk-form-group nhsuk-u-margin-top-8" id="window-name-group">
   <h1 class="nhsuk-label-wrapper">
     <label class="nhsuk-label nhsuk-label--m" for="submission-window-name">
       Submission window name
@@ -34,6 +41,7 @@
   <div class="nhsuk-hint">
     Enter a name for this submission window. You can use an existing name or create a new one.
   </div>
+  <span class="nhsuk-error-message" id="window-name-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a submission window name</span>
   <div class="submission-window-name-container">
     <input class="nhsuk-input" id="submission-window-name" style="width:520px" name="submissionWindowName" type="text" autocomplete="off">
     <div class="submission-window-name__suggestions" id="window-name-suggestions" style="display: none;">
@@ -97,13 +105,15 @@
 </div>
 
 <div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
-  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
-    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-start-hint">
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8" id="start-date-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-start-hint start-date-error">
       <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
         <h1 class="nhsuk-fieldset__heading">
           Submission window start
         </h1>
       </legend>
+      <div id="date-of-start-hint" class="nhsuk-hint">For example, 18 09 2026</div>
+      <span class="nhsuk-error-message" id="start-date-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a submission window start date</span>
       <div id="submission-window-start" class="nhsuk-date-input nhsuk-u-margin-bottom-6 ">
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group">
@@ -132,6 +142,7 @@
       </div>
 
 {% set startTimeHtml %}
+<div class="nhsuk-hint">For example, 08 30 00</div>
 <div id="submission-window-start-time" class="nhsuk-date-input ">
   <div class="nhsuk-date-input__item">
     <div class="nhsuk-form-group">
@@ -162,6 +173,7 @@
 </div>
 {% endset -%}
 
+<div id="start-time-group">
 {{ radios({
   idPrefix: "start-time-type",
   name: "start-time-type",
@@ -176,7 +188,8 @@
   items: [
     {
       value: "start-of-day",
-      text: "Start of the day (12:00:00 am)"
+      text: "Start of the day (12:00:00 am)",
+      checked: true
     },
     {
       value: "specific-time",
@@ -187,16 +200,20 @@
     }
   ]
 }) }}
+<span class="nhsuk-error-message" id="start-time-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter the specific time for the submission window start</span>
+</div>
     </fieldset>
   </div>
 
-  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
-    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint">
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8" id="end-date-group">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="date-of-birth-hint end-date-error">
       <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
         <h1 class="nhsuk-fieldset__heading">
           Submission window end
         </h1>
       </legend>
+      <div id="date-of-birth-hint" class="nhsuk-hint">For example, 18 09 2026</div>
+      <span class="nhsuk-error-message" id="end-date-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a submission window end date</span>
       <div id="submission-window-end" class="nhsuk-date-input nhsuk-u-margin-bottom-6 bottom">
         <div class="nhsuk-date-input__item">
           <div class="nhsuk-form-group">
@@ -225,6 +242,7 @@
       </div>
 
 {% set endTimeHtml %}
+<div class="nhsuk-hint">For example, 08 30 00</div>
 <div id="submission-window-end-time" class="nhsuk-date-input">
   <div class="nhsuk-date-input__item">
     <div class="nhsuk-form-group">
@@ -255,6 +273,7 @@
 </div>
 {% endset -%}
 
+<div id="end-time-group">
 {{ radios({
   idPrefix: "end-time-type",
   name: "end-time-type",
@@ -269,7 +288,8 @@
   items: [
     {
       value: "end-of-day",
-      text: "End of the day (23:59:59)"
+      text: "End of the day (23:59:59)",
+      checked: true
     },
     {
       value: "specific-time",
@@ -280,6 +300,8 @@
     }
   ]
 }) }}
+<span class="nhsuk-error-message" id="end-time-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter the specific time for the submission window end</span>
+</div>
     </fieldset>
   </div>
 
@@ -772,6 +794,7 @@
   </div>
 {% endset -%}
 
+<div id="org-scope-group">
 {{ radios({
   idPrefix: "organisation-scope",
   name: "organisation-scope",
@@ -796,6 +819,8 @@
     }
   ]
 }) }}
+<span class="nhsuk-error-message" id="org-scope-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Select at least one organisation</span>
+</div>
 <div class="nhsuk-u-margin-top-8"></div>
  <div class="nhsuk-form-group">
   <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
@@ -816,7 +841,7 @@
   </fieldset>
 </div>
 <div class="nhsuk-u-margin-top-8">
-<h2 class="nhsuk-heading-m">Notifications</h2>
+<!-- <h2 class="nhsuk-heading-m">Notifications</h2>
 
 {{ radios({
   idPrefix: "notification-window-opened",
@@ -841,10 +866,130 @@
       text: "No"
     }
   ]
-}) }}
+}) }} -->
 
 
 </div>
+
+
+<h2 class="nhsuk-heading-m nhsuk-u-margin-top-8">Additional schedule dates (optional)</h2>
+
+<p class="nhsuk-body">You can add extra dates to support the management of this submission window. These dates can be used for notifications, reminders, or to display key submission window information in the service. Enter the date to use for additional submission window event.</p>
+
+<!-- Hidden template for a single notification entry -->
+<template id="notification-entry-template">
+  <div class="notification-entry nhsuk-u-margin-bottom-0">
+
+    <hr style="margin-top: 0; margin-bottom: 16px;">
+
+    <div class="nhsuk-form-group nhsuk-u-margin-top-4" id="notification-date-group-__index__">
+      <div style="display: flex; align-items: center; justify-content: space-between;">
+        <label class="nhsuk-label nhsuk-u-margin-bottom-0"><strong>Date</strong></label>
+        <button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small nhsuk-u-margin-bottom-0 remove-notification-btn">
+          Remove
+        </button>
+      </div>
+      <div class="nhsuk-hint nhsuk-u-margin-top-1">For example, 18 3 2026.</div>
+      <span class="nhsuk-error-message" id="notification-date-error-__index__" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a date for this additional schedule entry</span>
+      <div class="nhsuk-date-input">
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-day-__index__">Day</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-day-__index__" name="notifications[__index__][day]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-month-__index__">Month</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-month-__index__" name="notifications[__index__][month]" type="text" inputmode="numeric">
+          </div>
+        </div>
+        <div class="nhsuk-date-input__item">
+          <div class="nhsuk-form-group">
+            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-year-__index__">Year</label>
+            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="notification-date-year-__index__" name="notifications[__index__][year]" type="text" inputmode="numeric">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nhsuk-form-group nhsuk-u-margin-top-4">
+      <fieldset class="nhsuk-fieldset">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">What time?</legend>
+        <div class="nhsuk-radios nhsuk-radios--conditional">
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="notification-time-type-__index__-1" name="notifications[__index__][time-type]" type="radio" value="start-of-day" checked data-aria-controls="">
+            <label class="nhsuk-label nhsuk-radios__label" for="notification-time-type-__index__-1">Start of the day (12:00:00 am)</label>
+          </div>
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="notification-time-type-__index__-2" name="notifications[__index__][time-type]" type="radio" value="specific-time" data-aria-controls="conditional-notification-time-__index__">
+            <label class="nhsuk-label nhsuk-radios__label" for="notification-time-type-__index__-2">Add a specific time</label>
+          </div>
+          <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="conditional-notification-time-__index__">
+            <div class="nhsuk-hint">For example, 08 30 00</div>
+            <div class="nhsuk-date-input">
+              <div class="nhsuk-date-input__item"><div class="nhsuk-form-group"><label class="nhsuk-label nhsuk-date-input__label" for="notification-hour-__index__">Hour</label><input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-hour-__index__" name="notifications[__index__][hour]" type="text" inputmode="numeric"></div></div>
+              <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+              <div class="nhsuk-date-input__item"><div class="nhsuk-form-group"><label class="nhsuk-label nhsuk-date-input__label" for="notification-minute-__index__">Minute</label><input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-minute-__index__" name="notifications[__index__][minute]" type="text" inputmode="numeric"></div></div>
+              <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+              <div class="nhsuk-date-input__item"><div class="nhsuk-form-group"><label class="nhsuk-label nhsuk-date-input__label" for="notification-second-__index__">Seconds</label><input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-second-__index__" name="notifications[__index__][second]" type="text" inputmode="numeric"></div></div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <span class="nhsuk-error-message" id="notification-time-error-__index__" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter the specific time for this additional schedule entry</span>
+    </div>
+
+    <div class="nhsuk-form-group" id="notification-template-group-__index__">
+      <label class="nhsuk-label" for="notification-template-__index__"><strong>Notification</strong></label>
+      <div class="nhsuk-hint">Select the email to send on this date.</div>
+      <span class="nhsuk-error-message" id="notification-template-error-__index__" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Select a notification template</span>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <select class="nhsuk-select nhsuk-u-margin-bottom-0" id="notification-template-__index__" name="notifications[__index__][template]">
+          <option value="">Select an email template</option>
+          <option value="template-1">First cut of data</option>
+          <option value="template-2">1 day to final deadline</option>
+        </select>
+      </div>
+    </div>
+    <hr style="margin-top: 16px; margin-bottom: 16px;">
+
+  </div>
+</template>
+
+<div id="notifications-list"></div>
+
+<button type="button" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2" id="add-notification-btn">
+  Add date
+</button>
+
+
+
+<script>
+  (function () {
+    var list = document.getElementById('notifications-list');
+    var addBtn = document.getElementById('add-notification-btn');
+    var tmpl = document.getElementById('notification-entry-template');
+    var counter = 0;
+    addBtn.addEventListener('click', function () {
+      var html = tmpl.innerHTML.replace(/__index__/g, counter++);
+      var div = document.createElement('div');
+      div.innerHTML = html;
+      var entry = div.firstElementChild;
+      entry.querySelector('.remove-notification-btn').addEventListener('click', function () { entry.remove(); });
+      list.appendChild(entry);
+      entry.querySelectorAll('.nhsuk-radios__input').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          var radiosGroup = radio.closest('.nhsuk-radios');
+          if (!radiosGroup) return;
+          radiosGroup.querySelectorAll('.nhsuk-radios__conditional').forEach(function (cond) { cond.classList.add('nhsuk-radios__conditional--hidden'); });
+          var targetId = radio.getAttribute('data-aria-controls');
+          if (targetId) { var target = document.getElementById(targetId); if (target) target.classList.remove('nhsuk-radios__conditional--hidden'); }
+        });
+      });
+    });
+  })();
+</script>
 
 </fieldset>
   {% from "button/macro.njk" import button %}
@@ -1427,7 +1572,147 @@
 
     // Save button — collect values and navigate to confirmation page
     document.getElementById('save-window-btn').addEventListener('click', function () {
-      var qs = new URLSearchParams();
+      // --- Validation ---
+      var errors = [];
+
+      function showError(groupId, errorId, message, inputIds) {
+        var group = document.getElementById(groupId);
+        var errorEl = document.getElementById(errorId);
+        if (group) group.classList.add('nhsuk-form-group--error');
+        if (errorEl) {
+          var hiddenSpan = errorEl.querySelector('.nhsuk-u-visually-hidden');
+          errorEl.textContent = '';
+          if (hiddenSpan) errorEl.appendChild(hiddenSpan);
+          errorEl.appendChild(document.createTextNode(' ' + message));
+          errorEl.style.display = '';
+        }
+        if (inputIds) inputIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.add('nhsuk-input--error'); });
+        errors.push({ message: message, href: '#' + (inputIds ? inputIds[0] : groupId) });
+      }
+      function clearError(groupId, errorId, inputIds) {
+        var group = document.getElementById(groupId);
+        var errorEl = document.getElementById(errorId);
+        if (group) group.classList.remove('nhsuk-form-group--error');
+        if (errorEl) errorEl.style.display = 'none';
+        if (inputIds) inputIds.forEach(function(id){ var el=document.getElementById(id); if(el) el.classList.remove('nhsuk-input--error'); });
+      }
+
+      // 1. Window name
+      var nameVal = (document.getElementById('submission-window-name')||{}).value||'';
+      clearError('window-name-group','window-name-error',['submission-window-name']);
+      if (!nameVal.trim()) showError('window-name-group','window-name-error','Enter a submission window name',['submission-window-name']);
+
+      // 2. Start date
+      var startDay=(document.getElementById('submission-window-start-day')||{}).value||'';
+      var startMonth=(document.getElementById('submission-window-start-month')||{}).value||'';
+      var startYear=(document.getElementById('submission-window-start-year')||{}).value||'';
+      clearError('start-date-group','start-date-error',['submission-window-start-day','submission-window-start-month','submission-window-start-year']);
+      if (!startDay.trim()||!startMonth.trim()||!startYear.trim()) showError('start-date-group','start-date-error','Enter a submission window start date',['submission-window-start-day','submission-window-start-month','submission-window-start-year']);
+
+      // 3. End date
+      var endDay=(document.getElementById('submission-window-end-day')||{}).value||'';
+      var endMonth=(document.getElementById('submission-window-end-month')||{}).value||'';
+      var endYear=(document.getElementById('submission-window-end-year')||{}).value||'';
+      clearError('end-date-group','end-date-error',['submission-window-end-day','submission-window-end-month','submission-window-end-year']);
+      if (!endDay.trim()||!endMonth.trim()||!endYear.trim()) {
+        showError('end-date-group','end-date-error','Enter a submission window end date',['submission-window-end-day','submission-window-end-month','submission-window-end-year']);
+      } else if (startDay.trim()&&startMonth.trim()&&startYear.trim()) {
+        var sDateV=new Date(parseInt(startYear),parseInt(startMonth)-1,parseInt(startDay));
+        var eDateV=new Date(parseInt(endYear),parseInt(endMonth)-1,parseInt(endDay));
+        if (eDateV<=sDateV) showError('end-date-group','end-date-error','The submission window end date must be after the start date',['submission-window-end-day','submission-window-end-month','submission-window-end-year']);
+      }
+
+      // 4. Start specific time
+      var stSel=document.querySelector('input[name="start-time-type"]:checked');
+      var stGrp=document.getElementById('start-time-group'); var stErr=document.getElementById('start-time-error');
+      if(stErr) stErr.style.display='none'; if(stGrp) stGrp.classList.remove('nhsuk-form-group--error');
+      if(stSel&&stSel.value==='specific-time'){
+        var sH=(document.getElementById('submission-window-start-hour')||{}).value||'';
+        var sM=(document.getElementById('submission-window-start-minute')||{}).value||'';
+        var sS=(document.getElementById('submission-window-start-second')||{}).value||'';
+        if(!sH.trim()||!sM.trim()||!sS.trim()){if(stErr)stErr.style.display='';if(stGrp)stGrp.classList.add('nhsuk-form-group--error');errors.push({message:'Enter the specific time for the submission window start',href:'#submission-window-start-hour'});}
+      }
+
+      // 5. End specific time
+      var etSel=document.querySelector('input[name="end-time-type"]:checked');
+      var etGrp=document.getElementById('end-time-group'); var etErr=document.getElementById('end-time-error');
+      if(etErr) etErr.style.display='none'; if(etGrp) etGrp.classList.remove('nhsuk-form-group--error');
+      if(etSel&&etSel.value==='specific-time'){
+        var eH=(document.getElementById('submission-window-end-hour')||{}).value||'';
+        var eM=(document.getElementById('submission-window-end-minute')||{}).value||'';
+        var eS=(document.getElementById('submission-window-end-second')||{}).value||'';
+        if(!eH.trim()||!eM.trim()||!eS.trim()){if(etErr)etErr.style.display='';if(etGrp)etGrp.classList.add('nhsuk-form-group--error');errors.push({message:'Enter the specific time for the submission window end',href:'#submission-window-end-hour'});}
+      }
+
+      // 6. Additional schedule entries
+      document.querySelectorAll('#notifications-list .notification-entry').forEach(function(entry,i){
+        var entryIndex=entry.querySelector('[id^="notification-date-day-"]');
+        var idx=entryIndex?entryIndex.id.replace('notification-date-day-',''):i;
+        var nDay=(entry.querySelector('#notification-date-day-'+idx)||{}).value||'';
+        var nMonth=(entry.querySelector('#notification-date-month-'+idx)||{}).value||'';
+        var nYear=(entry.querySelector('#notification-date-year-'+idx)||{}).value||'';
+        var dErr=entry.querySelector('#notification-date-error-'+idx);
+        var dGrp=entry.querySelector('#notification-date-group-'+idx);
+        var dInputs=entry.querySelectorAll('[id^="notification-date-day-"],[id^="notification-date-month-"],[id^="notification-date-year-"]');
+        if(dErr)dErr.style.display='none'; if(dGrp)dGrp.classList.remove('nhsuk-form-group--error');
+        dInputs.forEach(function(el){el.classList.remove('nhsuk-input--error');});
+        if(!nDay.trim()||!nMonth.trim()||!nYear.trim()){
+          if(dErr)dErr.style.display=''; if(dGrp)dGrp.classList.add('nhsuk-form-group--error');
+          dInputs.forEach(function(el){el.classList.add('nhsuk-input--error');});
+          errors.push({message:'Enter a date for additional schedule entry '+(i+1),href:'#notification-date-day-'+idx});
+        } else {
+          var nDate=new Date(parseInt(nYear),parseInt(nMonth)-1,parseInt(nDay));
+          var wStart=new Date(parseInt(startYear),parseInt(startMonth)-1,parseInt(startDay));
+          var wEnd=new Date(parseInt(endYear),parseInt(endMonth)-1,parseInt(endDay));
+          var ok=true;
+          if(startDay.trim()&&startMonth.trim()&&startYear.trim()&&nDate<wStart) ok=false;
+          if(endDay.trim()&&endMonth.trim()&&endYear.trim()&&nDate>wEnd) ok=false;
+          if(!ok){
+            if(dErr){dErr.style.display='';} if(dGrp)dGrp.classList.add('nhsuk-form-group--error');
+            dInputs.forEach(function(el){el.classList.add('nhsuk-input--error');});
+            errors.push({message:'Additional schedule entry '+(i+1)+': date must be within the submission window start and end dates',href:'#notification-date-day-'+idx});
+          }
+        }
+        var ntSel=entry.querySelector('input[name="notifications['+idx+'][time-type]"]:checked');
+        var ntErr=entry.querySelector('#notification-time-error-'+idx);
+        if(ntErr)ntErr.style.display='none';
+        if(ntSel&&ntSel.value==='specific-time'){
+          var nH=(entry.querySelector('#notification-hour-'+idx)||{}).value||'';
+          var nM=(entry.querySelector('#notification-minute-'+idx)||{}).value||'';
+          var nS=(entry.querySelector('#notification-second-'+idx)||{}).value||'';
+          if(!nH.trim()||!nM.trim()||!nS.trim()){if(ntErr)ntErr.style.display='';errors.push({message:'Enter the specific time for additional schedule entry '+(i+1),href:'#notification-hour-'+idx});}
+        }
+        var tSel=entry.querySelector('#notification-template-'+idx);
+        var tGrp=entry.querySelector('#notification-template-group-'+idx);
+        var tErr=entry.querySelector('#notification-template-error-'+idx);
+        if(tErr)tErr.style.display='none'; if(tGrp)tGrp.classList.remove('nhsuk-form-group--error');
+        if(tSel)tSel.classList.remove('nhsuk-select--error');
+        if(tSel&&!tSel.value){if(tErr)tErr.style.display='';if(tGrp)tGrp.classList.add('nhsuk-form-group--error');if(tSel)tSel.classList.add('nhsuk-select--error');errors.push({message:'Select a notification template for additional schedule entry '+(i+1),href:'#notification-template-'+idx});}
+      });
+
+      // 7. Specific organisations
+      var orgSel=document.querySelector('input[name="organisation-scope"]:checked');
+      var orgGrp=document.getElementById('org-scope-group'); var orgErr=document.getElementById('org-scope-error');
+      if(orgErr)orgErr.style.display='none'; if(orgGrp)orgGrp.classList.remove('nhsuk-form-group--error');
+      if(orgSel&&orgSel.value==='specific'){
+        var orgList=document.getElementById('organisation-list');
+        if(!orgList||orgList.children.length===0){if(orgErr)orgErr.style.display='';if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');errors.push({message:'Select at least one organisation',href:'#organisation-scope-2'});}
+      }
+
+      // Show/hide error summary
+      var summary=document.getElementById('error-summary');
+      var summaryList=document.getElementById('error-summary-list');
+      if(errors.length>0){
+        summaryList.innerHTML=errors.map(function(err){return '<li><a href="'+err.href+'">'+err.message+'</a></li>';}).join('');
+        summary.style.display='';
+        summary.focus();
+        window.scrollTo({top:summary.getBoundingClientRect().top+window.scrollY-20,behavior:'smooth'});
+        return; // stop navigation
+      } else {
+        summary.style.display='none';
+      }
+      // --- End validation ---
+
 
       // Window name
       var windowName = (document.getElementById('submission-window-name') || {}).value || '';
