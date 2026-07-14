@@ -324,4 +324,16 @@ router.post('/iteration5/request-permissions/withdraw-request', (req, res) => {
   res.redirect('/iteration5/request-permissions/your-permissions-withdrawn');
 });
 
+router.post('/iteration5/collection-mantaining-monitoring/announcement-banners', (req, res) => {
+  res.redirect('/iteration5/collection-mantaining-monitoring/announcement-banners-confirm');
+});
+
+router.post('/iteration5/collection-mantaining-monitoring/announcement-banners-saved', (req, res) => {
+  res.redirect('/iteration5/collection-mantaining-monitoring/announcement-banners-saved');
+});
+
+router.post('/iteration5/collection-mantaining-monitoring/announcement-banners-deleted', (req, res) => {
+  res.redirect('/iteration5/collection-mantaining-monitoring/announcement-banners-deleted');
+});
+
 module.exports = router;

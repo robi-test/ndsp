@@ -1,0 +1,86 @@
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Check your answers" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <h2 class="nhsuk-heading-m">Banner details</h2>
+      <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Change</a>
+    </div>
+
+    <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-8">
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Announcement title</dt>
+        <dd class="nhsuk-summary-list__value">Additional submission window now open</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Announcement content</dt>
+        <dd class="nhsuk-summary-list__value">The additional submission window for July 2026 repoorting period is now open. Please ensure all data is submitted by the deadline.</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Portal(s)</dt>
+        <dd class="nhsuk-summary-list__value">Submitter Portal</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Collection(s)</dt>
+        <dd class="nhsuk-summary-list__value">Diagnostic Imaging Data Set </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Display from</dt>
+        <dd class="nhsuk-summary-list__value">14 July 2026 at 09:00</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Display until</dt>
+        <dd class="nhsuk-summary-list__value">31 August 2026 at 23:00</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Send email notification</dt>
+        <dd class="nhsuk-summary-list__value">Yes</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Email template</dt>
+        <dd class="nhsuk-summary-list__value">Template 1</dd>
+      </div>
+
+    </dl>
+
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-saved" method="post">
+      {% from 'button/macro.njk' import button %}
+      <div style="display: flex; gap: 16px; align-items: center;">
+        {{ button({
+          text: "Cancel",
+          classes: "nhsuk-button--secondary",
+          href: "/iteration5/collection-mantaining-monitoring/announcement-banners-saved"
+        }) }}
+        {{ button({
+          text: "Confirm and save"
+        }) }}
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

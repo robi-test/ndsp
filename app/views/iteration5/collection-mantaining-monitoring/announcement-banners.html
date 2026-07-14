@@ -1,0 +1,260 @@
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
+
+{% set pageName = "Create or edit announcement banner" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners" method="post">
+
+      <!-- Announcement title -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <label class="nhsuk-label nhsuk-label--m" for="announcement-title">
+          Announcement title
+        </label>
+        <div id="announcement-title-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the heading for the announcement banner.</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+        </div>
+        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" aria-describedby="announcement-title-hint">
+      </div>
+
+      <!-- Announcement content -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <label class="nhsuk-label nhsuk-label--m" for="announcement-content">
+          Announcement content
+        </label>
+        <div id="announcement-content-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the announcement banner.</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+        </div>
+        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" aria-describedby="announcement-content-hint"></textarea>
+      </div>
+
+      <!-- Which portal(s) -->
+      <div class="nhsuk-u-margin-top-8  nhsuk-u-margin-bottom-8">
+      {% from 'checkboxes/macro.njk' import checkboxes %}
+      {{ checkboxes({
+        idPrefix: "portals",
+        name: "portals",
+        fieldset: {
+          legend: {
+            text: "Which portal(s) should this be displayed on?",
+            classes: "nhsuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "submitter-portal",
+            text: "Submitter Portal",
+            checked: false
+          },
+          {
+            value: "management-portal",
+            text: "Management Portal",
+            checked: false
+          }
+        ]
+      }) }}
+      </div>
+
+      <!-- Which collection(s) -->
+      <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+      {% from 'select/macro.njk' import select %}
+      {{ select({
+        id: "collections",
+        name: "collections",
+        label: {
+          text: "Which collection(s) should this banner be displayed for?",
+          classes: "nhsuk-label--m"
+        },
+        hint: {
+          text: "Select a collection or choose 'All collections' to display the banner across all collections."
+        },
+        items: [
+          {
+            value: "",
+            text: "Select a collection"
+          },
+          {
+            value: "all",
+            text: "All collections"
+          },
+          {
+            value: "dids",
+            text: "Diagnostic Imaging Data Set (V2.0)"
+          },
+          {
+            value: "lcsds",
+            text: "Lung Cancer Screening Data Set"
+          }
+        ]
+      }) }}
+      </div>
+      <!-- When should this announcement be displayed? -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+            When should this announcement be displayed?
+          </legend>
+          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+              <label class="nhsuk-label" for="display-date">Date</label>
+              <input class="nhsuk-input" id="display-date" name="display-date" type="date" style="width: 280px;">
+            </div>
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+              <label class="nhsuk-label" for="display-time">Time</label>
+              <select class="nhsuk-select" id="display-time" name="display-time" style="width: 60px;">
+                <option value="">--:--</option>
+                <option value="00:00">00:00</option>
+                <option value="01:00">01:00</option>
+                <option value="02:00">02:00</option>
+                <option value="03:00">03:00</option>
+                <option value="04:00">04:00</option>
+                <option value="05:00">05:00</option>
+                <option value="06:00">06:00</option>
+                <option value="07:00">07:00</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="21:00">21:00</option>
+                <option value="22:00">22:00</option>
+                <option value="23:00">23:00</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- When should this announcement end? -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+            When should this announcement end?
+          </legend>
+          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
+              <label class="nhsuk-label" for="end-date">Date</label>
+              <input class="nhsuk-input" id="end-date" name="end-date" type="date" style="width: 280px;">
+            </div>
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
+              <label class="nhsuk-label" for="end-time">Time</label>
+              <select class="nhsuk-select" id="end-time" name="end-time" style="width: 90px;">
+                <option value="">--:--</option>
+                <option value="00:00">00:00</option>
+                <option value="01:00">01:00</option>
+                <option value="02:00">02:00</option>
+                <option value="03:00">03:00</option>
+                <option value="04:00">04:00</option>
+                <option value="05:00">05:00</option>
+                <option value="06:00">06:00</option>
+                <option value="07:00">07:00</option>
+                <option value="08:00">08:00</option>
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+                <option value="20:00">20:00</option>
+                <option value="21:00">21:00</option>
+                <option value="22:00">22:00</option>
+                <option value="23:00">23:00</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  <div class="nhsuk-u-margin-bottom-8">
+      <!-- Email notification -->
+      {% from 'radios/macro.njk' import radios %}
+
+      {% set emailTemplateHtml %}
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label nhsuk-label--m" for="email-template">Which email template should be used?</label>
+          <div class="nhsuk-hint">Select the template for the email notification sent to users.</div>
+          <select class="nhsuk-select" id="email-template" name="email-template">
+            <option value="">Select a template</option>
+            <option value="template-1">Template 1</option>
+            <option value="template-2">Template 2</option>
+            <option value="template-3">Template 3</option>
+          </select>
+        </div>
+      {% endset %}
+
+      {{ radios({
+        idPrefix: "email-notification",
+        name: "email-notification",
+        fieldset: {
+          legend: {
+            text: "Should an email notification be sent to all users?",
+            classes: "nhsuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "If yes, the email will be sent to all users at the same date and time as when the announcement banner is set to display."
+        },
+        items: [
+          {
+            value: "no",
+            text: "No",
+            checked: false
+          },
+          {
+            value: "yes",
+            text: "Yes",
+            conditional: {
+              html: emailTemplateHtml
+            }
+          }
+        ]
+      }) }}
+
+      {% from 'button/macro.njk' import button %}
+
+      <div style="display: flex; gap: 16px; align-items: center;" class="nhsuk-u-margin-top-8">
+        {{ button({
+          text: "Cancel",
+          classes: "nhsuk-button--secondary",
+          href: "configuration-collections"
+        }) }}
+        {{ button({
+          text: "Continue"
+        }) }}
+      </div>
+
+    </form>
+
+   
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
