@@ -1,0 +1,49 @@
+{% extends "iteration5/data-submission-LCS/layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Get an API token" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <form action="/iteration5/data-submission-LCS/api-token-org-dids" method="post" class="form">
+
+      <h1 class="nhsuk-heading-l">Which organisation do you want an API token for?</h1>
+
+      <p class="nhsuk-hint">API tokens are organisation-specific. Select the organisation you want to generate a token for. You can only get an API token for organisations you have permissions for.</p>
+
+      <div class="nhsuk-form-group">
+        <div class="nhsuk-radios">
+          <div class="nhsuk-radios__item">
+            <input class="nhsuk-radios__input" id="api-token-org-dids" name="api-token-organisation" type="radio" value="lambeth" checked>
+            <label class="nhsuk-label nhsuk-radios__label" for="api-token-org-dids">
+              Lambeth Diagnostic Programme (L3X7K)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="nhsuk-inset-text nhsuk-u-margin-top-4">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <p class="nhsuk-u-margin-bottom-2">Clicking <strong>Continue</strong> will take you to the application used to manage API access.</p>
+        <p class="nhsuk-u-margin-bottom-0">From there, go to the <strong>OAuth &amp; permissions</strong> tab and select <strong>Rotate secret</strong> to generate a new client secret. This client secret is your API token.</p>
+      </div>
+
+      {% from 'button/macro.njk' import button %}
+      {{ button({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

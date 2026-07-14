@@ -1,0 +1,69 @@
+{% extends "iteration5/data-submission-LCS/layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Get an API token" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <form action="/iteration5/data-submission-LCS/api-token-select-collection" method="post" class="form">
+
+      {% from 'radios/macro.njk' import radios %}
+
+      {{ radios({
+        idPrefix: "api-token-organisation",
+        name: "api-token-organisation",
+        fieldset: {
+          legend: {
+            text: "Which organisation do you want an API token for?",
+            classes: "nhsuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        hint: {
+          text: "API tokens are organisation-specific. Select the organisation you want to generate a token for. You can only get an API token for organisations you have permissions for."
+        },
+        items: [
+          {
+            value: "lambeth",
+            text: "Lambeth Diagnostic Programme (L3X7K)"
+          },
+          {
+            value: "southwark",
+            text: "Southwark Diagnostic Programme (S2X4P)"
+          },
+          {
+            value: "lewisham",
+            text: "Lewisham Diagnostic Programme (L8X2M)"
+          },
+          {
+            value: "greenwich",
+            text: "Greenwich Diagnostic Programme (G5X9R)"
+          }
+        ]
+      }) }}
+
+      <div class="nhsuk-inset-text nhsuk-u-margin-top-4">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <p class="nhsuk-u-margin-bottom-2">Clicking <strong>Continue</strong> will take you to the application used to manage API access.</p>
+        <p class="nhsuk-u-margin-bottom-0">From there, go to the <strong>OAuth &amp; permissions</strong> tab and select <strong>Rotate secret</strong> to generate a new client secret. This client secret is your API token.</p>
+      </div>
+
+      {% from 'button/macro.njk' import button %}
+      {{ button({
+        text: "Continue"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}
