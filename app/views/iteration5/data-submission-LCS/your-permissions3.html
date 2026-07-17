@@ -1,0 +1,107 @@
+{% extends "iteration5/data-submission-LCS/layout.html" %}
+{% set pageName = "Your permissions" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home-no-permission",
+      text: "Home"
+    },
+    {
+      href: "account",
+      text: "Your account"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds  nhsuk-u-margin-bottom-4 nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+
+    <p>Currently you have permissions for the following collection(s):</p>
+    {% from "summary-list/macro.njk" import summaryList %}
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Lung Cancer Screening Data Set (LCSDS)" },
+          value: { text: "" },
+          actions: {
+            items: [
+              {
+                href: "permissions-lcs-local-admin",
+                text: "View",
+                visuallyHiddenText: "Lung Cancer Screening Data Set (LCSDS)"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+
+      {{ summaryList({
+      rows: [
+        {
+          key: { text: "Diagnostic Imaging Data Set (DIDS)" },
+          value: { text: "" },
+          actions: {
+            items: [
+              {
+                href: "permissions-dids",
+                text: "View",
+                visuallyHiddenText: "Diagnostic Imaging Data Set V2.0 (DIDS)"
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+
+
+    {% from 'action-link/macro.njk' import actionLink %}
+    <div class="nhsuk-u-margin-top-8">
+    {{ actionLink({
+      text: "Start a permission request",
+      href: "../request-permissions/permission-request-start"
+    }) }}
+    </div>
+ <p>Access is not granted automatically, each request is reviewed to ensure data security and confirm that your role is appropriate.</p>
+    <hr>
+
+
+     <h2 class="nhsuk-heading-l">Your pending permission requests</h2>
+
+    <p>The following permission requests are under review. Further details about your request can be found in the confirmation email sent to you.<br>
+    You will be notified by email once a decision has been made.</p>
+<hr>
+    <table class="nhsuk-table">
+      <thead class="nhsuk-table__head">
+        <tr class="nhsuk-table__row">
+          <th class="nhsuk-table__header" scope="col">Data collection</th>
+          <th class="nhsuk-table__header" scope="col">Role</th>
+          <th class="nhsuk-table__header" scope="col">Organisation</th>
+          <th class="nhsuk-table__header" scope="col">Date requested</th>
+          <th class="nhsuk-table__header" scope="col">Status</th>
+          <th class="nhsuk-table__header" scope="col" style="display:none">Action</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">Lung Cancer Screening Data Set (LCSDS)</td>
+          <td class="nhsuk-table__cell">Submitter</td>
+          <td class="nhsuk-table__cell">Lambeth Diagnostic Programme (L3X7K)</td>
+          <td class="nhsuk-table__cell">28 May 2026</td>
+          <td class="nhsuk-table__cell"><strong class="nhsuk-tag nhsuk-tag--yellow">Pending</strong></td>
+          <td class="nhsuk-table__cell" style="display:none"><a href="withdraw-request">Withdraw</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+ </div>
+</div>
+{% endblock %}

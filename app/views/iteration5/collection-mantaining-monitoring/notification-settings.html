@@ -1,8 +1,7 @@
 {% extends "iteration5/collection-management/layout-collection-management.html" %}
 {% set pageName = "Email notification settings" %}
-{% block beforeContent %}
-{% from "breadcrumb/macro.njk" import breadcrumb %}
 
+{% block content %}
 {{ breadcrumb({
   items: [
     {
@@ -10,69 +9,37 @@
       text: "Home"
     },
     {
-      href: "configuration-collections",
-      text: "Collections configuration"
-    },
-    {
-      href: "dids-configuration",
-      text: "Diagnostic Imaging Data Set (V2.0)"
+      href: "account",
+      text: "Your account"
     }
   ]
 }) }}
-{% endblock %}
-{% block content %}
-{% from "button/macro.njk" import button %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-       
-      <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
-        <div class="nhsuk-u-margin-bottom-8"> 
-           <div class="nhsuk-u-margin-bottom-8"> 
+       <h1>
+         {{ pageName }}
+      </h1>
+        <div class="nhsuk-u-margin-bottom-6"> 
+          <p>Turn email notifications on or off for the National Data Submission Portal.
+You can change this setting at any time. <br>Important service emails, such as account and security messages, will still be sent.
+          </p>
 
-
-          {% from "summary-list/macro.njk" import summaryList %}
-          {% from "tag/macro.njk" import tag %}
-          <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
+          <div id="settings-change-message" class="nhsuk-inset-text" style="display: none;">
+            <p>A change has been made in your setting.</p>
           </div>
-          {{ summaryList({
-            classes: "notification-summary-list",
-            rows: [
-              {
-                key: {
-                  text: "Submission window opened"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              },
-              {
-                key: {
-                  text: "Submission deadline approaching"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              },
-              {
-                key: {
-                  text: "Submission deadline changed"
-                },
-                value: {
-                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
-                }
-              },
-              {
-                key: {
-                  text: "Validation completed"
-                },
-                value: {
-                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
-                }
-              }
-            ]
-          }) }}
+
+          <div class="notification-setting-item" style="background-color: #ffffff; border: 1px solid #d8dde0; padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="flex: 1;">
+              <h3 class="nhsuk-heading-s" style="margin-bottom: 8px;">Email notifications</h3>
+              <p class="nhsuk-body-s" style="margin-bottom: 0;">Switch on to receive all notifications about submissions and activity. Switch off to stop non-essential notifications. Important service emails will still be sent.</p>
+            </div>
+            <div style="margin-left: 20px;">
+              <label class="toggle-switch">
+                <input type="checkbox" id="validation-toggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
 
         </div>
 
@@ -87,92 +54,120 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const params = new URLSearchParams(window.location.search);
-
-  const settingMap = {
-    'submission-window-opened': 0,
-    'submission-deadline-approaching': 1,
-    'submission-deadline-changed': 2,
-    'validation-completed': 3
-  };
-
-  const rows = document.querySelectorAll('.nhsuk-summary-list__row');
-
-  Object.keys(settingMap).forEach(function (name) {
-    const value = params.get(name) || sessionStorage.getItem('notification.' + name);
-    if (!value) return;
-
-    const row = rows[settingMap[name]];
-    if (!row) return;
-
-    const tagEl = row.querySelector('.nhsuk-tag');
-    if (!tagEl) return;
-
-    if (value === 'yes') {
-      tagEl.textContent = 'Active';
-      tagEl.className = 'nhsuk-tag nhsuk-tag--green';
-    } else {
-      tagEl.textContent = 'Not active';
-      tagEl.className = 'nhsuk-tag nhsuk-tag--red';
-    }
-  });
-
-  // Build query string from current tag states and update the Change link
-  const changeLink = document.getElementById('change-notification-link');
-  if (changeLink) {
-    const qs = new URLSearchParams();
-    Object.keys(settingMap).forEach(function (name) {
-      const row = rows[settingMap[name]];
-      if (!row) return;
-      const tagEl = row.querySelector('.nhsuk-tag');
-      if (!tagEl) return;
-      // Read from params/sessionStorage first, fall back to current tag text
-      const stored = params.get(name) || sessionStorage.getItem('notification.' + name);
-      if (stored) {
-        qs.set(name, stored);
-      } else {
-        qs.set(name, tagEl.textContent.trim() === 'Active' ? 'yes' : 'no');
-      }
-    });
-    changeLink.href = 'notification-settings-edit?' + qs.toString();
-  }
-});
-</script>
 <style>
-  .notification-summary-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .notification-summary-list .nhsuk-summary-list__key {
-    width: 72%;
-  }
-
-  .notification-summary-list .nhsuk-summary-list__value {
-    width: 28%;
-    text-align: right;
-    white-space: nowrap;
-  }
-  .nhsuk-summary-list__key {
-    margin-bottom: 10px;
-    font-weight: 400;
+/* Toggle Switch Styles */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
 }
 
-@media (min-width: 40.0625em) {
-    .nhsuk-summary-list__key, .nhsuk-summary-list__value, .nhsuk-summary-list__actions {
-        display: table-cell;
-        padding-bottom: 14px;
-        padding-right: 24px;
-        padding-top: 14px;
-    }
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-a {
-  font-size: 20px;
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #768692;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #007f3b;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 0 4px #ffeb3b;
+}
+
+/* Spinner animation for refresh effect */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
+
+<script>
+// Toggle functionality with page refresh simulation
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('validation-toggle');
+  const message = document.getElementById('settings-change-message');
+  
+  toggle.addEventListener('change', function() {
+    const isChecked = this.checked;
+    console.log('Validation notifications:', isChecked ? 'ON' : 'OFF');
+
+    if (message) {
+      message.style.display = 'block';
+    }
+    
+    // Create overlay for refresh effect
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.2s;
+    `;
+    
+    const spinner = document.createElement('div');
+    spinner.style.cssText = `
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #005eb8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    `;
+    
+    overlay.appendChild(spinner);
+    document.body.appendChild(overlay);
+    
+    // Fade in overlay
+    setTimeout(() => overlay.style.opacity = '1', 10);
+    
+    // Show spinner for 0.5 seconds
+    setTimeout(() => {
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.remove();
+        // Settings saved successfully
+      }, 200);
+    }, 500);
+  });
+});
+</script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "iteration5/data-submission-LCS/layout.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 {% set pageName = "Your details" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -6,7 +6,7 @@
 {{ breadcrumb({
   items: [
     {
-      href: "home-no-permission",
+      href: "home",
       text: "Home"
     },
     {
@@ -27,20 +27,20 @@
 
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Name</dt>
-        <dd class="nhsuk-summary-list__value">{{ data['username'] or 'James Jackson' }}</dd>
+        <dd class="nhsuk-summary-list__value">{{ data['username'] or 'Laura Jackson' }}</dd>
         <dd class="nhsuk-summary-list__actions"></dd>
       </div>
 
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Email address</dt>
-        <dd class="nhsuk-summary-list__value">{{ data['email'] or 'james.jackson@inhealthh.net' }}</dd>
+        <dd class="nhsuk-summary-list__value">{{ data['email'] or 'laura.jackson@nhs.net' }}</dd>
         <dd class="nhsuk-summary-list__actions">
         </dd>
       </div>
 
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Organisation</dt>
-        <dd class="nhsuk-summary-list__value">{{ data['organisation'] or 'InHealth' }}</dd>
+        <dd class="nhsuk-summary-list__value">{{ data['organisation'] or 'NHS England' }}</dd>
         <dd class="nhsuk-summary-list__actions"></dd>
       </div>
     </dl>

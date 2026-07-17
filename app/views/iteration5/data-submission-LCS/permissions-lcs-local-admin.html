@@ -20,6 +20,8 @@
 }) }}
 {% endblock %}
 {% block content %}
+
+
 <div class="nhsuk-grid-row ">
    <div class="nhsuk-u-margin-top-7">
     
@@ -52,8 +54,7 @@
   <h3>   
     Your permissions
   </h3>
-<p>Here are the organisation you’re submitting on behalf of and your assigned role.<br>
-    You can also generate an API token for the organisation, which is usually a one-off setup.
+<p>Here are the organisations your assigned role applies to.
     </p>
  <div class="nhsuk-u-margin-top-7">
   {% from "summary-list/macro.njk" import summaryList %}
@@ -73,13 +74,37 @@
           text: "Organisation"
         },
         value: {
-          html: "Lambeth Diagnostic Programme<br>Southwark Diagnostic Programme<br>Lewisham Diagnostic Programme<br>Greenwich Diagnostic Programme<br>Bexley Diagnostic Programme<br>Bromley Diagnostic Programme"
+          html: "Southwark Diagnostic Programme<br>Lewisham Diagnostic Programme<br>Greenwich Diagnostic Programme<br>Bexley Diagnostic Programme<br>Bromley Diagnostic Programme"
         }
       }
       
     ]
   }) }}
-  {% from "button/macro.njk" import button %}
+
+    <div class="nhsuk-u-margin-top-8">
+  {{ summaryList({
+    rows: [
+    {
+        key: {
+          text: "Your role"
+        },
+        value: {
+          text: "Local administrator"
+        }
+      },  
+    {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+           html: "Southwark Diagnostic Programme<br>Lewisham Diagnostic Programme<br>Greenwich Diagnostic Programme<br>Bexley Diagnostic Programme<br>Bromley Diagnostic Programme"
+        }
+      }
+      
+    ]
+  }) }}
+  </div>
+
 
 
 
