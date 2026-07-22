@@ -1,0 +1,29 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "Access revoked" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">Access revoked</h3>
+        <p>Claire Thompson's Submitter access for Plymouth Diagnostic (PD2) has been revoked.</p>
+      </div>
+    </div>
+
+    <h2>What happens next?</h2>
+    <p>Claire Thompson will receive an email notification confirming that their access has been revoked.</p>
+    <p>Their account will no longer have Submitter permissions for the Lung Cancer Screening Data Set at Plymouth Diagnostic (PD2).</p>
+
+    <p class="nhsuk-u-margin-top-4"><a href="user-management?revoked=claire-pd2" class="nhsuk-link">Return to user management</a></p>
+
+  </div>
+</div>
+
+{% endblock %}

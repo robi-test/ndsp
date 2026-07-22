@@ -1,0 +1,56 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "Request decision confirmed" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    {% if data['decision'] == 'approve' %}
+
+      <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+        <div class="nhsuk-notification-banner__header">
+          <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="nhsuk-notification-banner__content">
+          <h3 class="nhsuk-notification-banner__heading">
+            Permission request approved
+          </h3>
+          <p>David Okafor (d.okafor@alliancemedical.co.uk) has been granted the Submitter role for the Lung Cancer Screening Data Set (LCSDS).</p>
+        </div>
+      </div>
+
+      <h2>What happens next?</h2>
+      <p>David Okafor will receive an email notification confirming their permission request has been approved.</p>
+      <p>You will be able to see the updated permissions in the <a href="user-management" class="nhsuk-link">user management section</a>.</p>
+
+    {% else %}
+
+      <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+        <div class="nhsuk-notification-banner__header">
+          <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+            Rejected
+          </h2>
+        </div>
+        <div class="nhsuk-notification-banner__content">
+          <h3 class="nhsuk-notification-banner__heading">
+            Permission request rejected
+          </h3>
+          <p>The permission request from David Okafor (d.okafor@alliancemedical.co.uk) has been rejected.</p>
+        </div>
+      </div>
+
+      <h2>What happens next?</h2>
+      <p>David Okafor will receive an email notification informing them that their permission request has been unsuccessful.</p>
+   <p>You will be able to see the rejected permission request in the <a href="permission-requests" class="nhsuk-link">permission requests section</a>.</p>
+    {% endif %}
+
+  
+
+  </div>
+</div>
+
+{% endblock %}

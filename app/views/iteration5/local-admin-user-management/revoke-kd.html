@@ -1,0 +1,92 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "Revoke access" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "claire-thompson-permissions",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Revoke access</h1>
+    <p>Review the permission details below before revoking access.</p>
+          <div class="nhsuk-warning-callout nhsuk-u-margin-top-4">
+        <h3 class="nhsuk-warning-callout__label">Before you continue</h3>
+        <p>Ensure you have verified that revoking access is appropriate and that the user has been informed where possible.</p>
+      </div>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: "Claire Thompson" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "c.thompson@inhealthgroup.com" }
+        },
+        {
+          key: { text: "Last login" },
+          value: { text: "18 Jul 2026, 11:40" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
+        },
+        {
+          key: { text: "Organisation" },
+          value: { text: "	Torbay and South Devon NHS Foundation Trust (RDE)" }
+        },
+        {
+          key: { text: "Role" },
+          value: { text: "Submitter" }
+        },
+                {
+          key: { text: "Permission granted" },
+          value: { text: "12 May 2026" }
+        },
+        {
+          key: { text: "Access status" },
+          value: { html: tag({ text: "Active", classes: "nhsuk-tag--green" }) }
+        }
+
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">Reason for revoking access</h2>
+    <p>Revoking access will immediately remove this user's ability to submit data for Kernow Diagnostic (KD1). The user will be notified by email.</p>
+
+    <form action="revoke-kd-confirmed" method="get">
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-4">
+        <fieldset class="nhsuk-fieldset" aria-describedby="revoke-reason-hint">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+            <h3 class="nhsuk-fieldset__heading">Reason for revoking access</h3>
+          </legend>
+          <div class="nhsuk-hint" id="revoke-reason-hint">
+            This will be shared with the user in their notification email.
+          </div>
+          <textarea class="nhsuk-textarea" id="revoke-reason" name="revoke-reason" rows="4" aria-describedby="revoke-reason-hint"></textarea>
+        </fieldset>
+      </div>
+
+
+
+      <div class="nhsuk-u-margin-top-2" style="display: flex; align-items: center; gap: 16px;">
+        <a href="claire-thompson-permissions" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-bottom-0">Cancel</a>
+        <button class="nhsuk-button nhsuk-button--warning nhsuk-u-margin-bottom-0" type="submit">Revoke access</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "User permissions" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "user-management",
+    text: "Back to user management"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">User permissions</h1>
+    <p>Review the permissions assigned to this user. You can revoke access if it is no longer appropriate.</p>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: "Claire Thompson" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "c.thompson@torbayandsouthdevon.nhs.uk" }
+        },
+        {
+          key: { text: "Last login" },
+          value: { text: "18 Jul 2026, 11:40" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
+        },
+        {
+          key: { text: "Organisation" },
+          value: { text: "Plymouth Diagnostic" }
+        },
+        {
+          key: { text: "ODS code" },
+          value: { text: "PD2" }
+        },
+        {
+          key: { text: "Role" },
+          value: { text: "Submitter" }
+        },
+        {
+          key: { text: "Access status" },
+          value: { html: tag({ text: "Active", classes: "nhsuk-tag--green" }) }
+        },
+        {
+          key: { text: "Permission granted" },
+          value: { text: "3 Jun 2026" }
+        }
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">Revoke access</h2>
+    <p>Revoking access will immediately remove this user's ability to submit data for Plymouth Diagnostic (PD2). The user will be notified by email.</p>
+
+    <form action="revoke-permission-confirmed" method="get">
+
+      <div class="nhsuk-form-group nhsuk-u-margin-top-4">
+        <fieldset class="nhsuk-fieldset" aria-describedby="revoke-reason-hint">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+            <h3 class="nhsuk-fieldset__heading">Reason for revoking access</h3>
+          </legend>
+          <div class="nhsuk-hint" id="revoke-reason-hint">
+            This will be shared with the user in their notification email.
+          </div>
+          <textarea class="nhsuk-textarea" id="revoke-reason" name="revoke-reason" rows="4" aria-describedby="revoke-reason-hint"></textarea>
+        </fieldset>
+      </div>
+<!-- 
+      <div class="nhsuk-warning-callout nhsuk-u-margin-top-4">
+        <h3 class="nhsuk-warning-callout__label">Before you continue</h3>
+        <p>Ensure you have verified that revoking access is appropriate and that the user has been informed where possible.</p>
+      </div> -->
+
+      <button class="nhsuk-button nhsuk-button--warning nhsuk-u-margin-top-2" type="submit">
+        Revoke access
+      </button>
+      <p><a href="user-management" class="nhsuk-link">Cancel</a></p>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

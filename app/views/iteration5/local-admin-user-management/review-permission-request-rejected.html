@@ -1,0 +1,95 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "Review permission request" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Review permission request</h1>
+    <p>Review the details of this access request before approving or rejecting it.</p>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: "Tom Brennan" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "t.brennan@inhealthgroup.com" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
+        },
+        {
+          key: { text: "Organisation" },
+          value: { text: "Torbay and South Devon Diagnostic" }
+        },
+        {
+          key: { text: "ODS code" },
+          value: { text: "TS4" }
+        },
+        {
+          key: { text: "Role requested" },
+          value: { text: "Submitter" }
+        },
+           {
+          key: { text: "Request submitted" },
+          value: { text: "15 Jul 2026" }
+        },
+           {
+          key: { text: "Request rejected" },
+          value: { text: "18 Jul 2026" }
+        },
+           {
+          key: { text: "Reason for rejection" },
+          value: { text: "Insufficient information provided" }
+        },
+        {
+          key: { text: "Request status" },
+          value: { html: tag({ text: "Rejected", classes: "nhsuk-tag--red" }) }
+        }
+     
+      ]
+    }) }}
+
+    
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var radios = document.querySelectorAll('input[name="decision"]');
+    var conditional = document.getElementById('reject-reason-conditional');
+
+    function updateVisibility() {
+      var rejectRadio = document.getElementById('decision-reject');
+      if (rejectRadio && rejectRadio.checked) {
+        conditional.classList.remove('nhsuk-radios__conditional--hidden');
+      } else {
+        conditional.classList.add('nhsuk-radios__conditional--hidden');
+      }
+    }
+
+    radios.forEach(function (radio) {
+      radio.addEventListener('change', updateVisibility);
+    });
+
+    updateVisibility();
+  });
+</script>
+
+{% endblock %}

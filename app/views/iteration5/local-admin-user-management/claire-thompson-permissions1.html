@@ -1,0 +1,106 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set pageName = "User details" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "user-management2",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+{% from "summary-list/macro.njk" import summaryList %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Name" },
+          value: { text: "Claire Thompson" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "c.thompson@torbayandsouthdevon.nhs.uk" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set (LCSDS)" }
+        }
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">Permissions</h2>
+
+    <table class="nhsuk-table-responsive nhsuk-u-margin-top-6" role="table">
+      <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Permissions for Claire Thompson</caption>
+      <thead class="nhsuk-table__head" role="rowgroup">
+        <tr role="row" class="nhsuk-table__row">
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Organisation (ODS)</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Role</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Granted</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Last login</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Status</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader">Action</th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>Kernow Diagnostic (KD1)</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Granted</span>12 May 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last login</span>18 Jul 2026, 11:40</td>
+          <td class="nhsuk-table__cell" role="cell" id="claire-kd1-status-cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="revoke-kd1">Revoke</a></td>
+        </tr>
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>North Devon Diagnostic (ND3)</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Granted</span>12 May 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last login</span>18 Jul 2026, 11:40</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Revoke</a></td>
+        </tr>
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>Plymouth Diagnostic (PD2)</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Granted</span>3 Jun 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last login</span>18 Jul 2026, 11:40</td>
+          <td class="nhsuk-table__cell" role="cell" id="claire-pd2-status-cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="view-user-permissions">Revoke</a></td>
+        </tr>
+        <tr role="row" class="nhsuk-table__row">
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>Torbay and South Devon Diagnostic (TS4)</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Granted</span>12 May 2026</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last login</span>18 Jul 2026, 11:40</td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong></td>
+          <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#">Revoke</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<script>
+;(function () {
+  var params = new URLSearchParams(window.location.search);
+  function revokeCell(id) {
+    var cell = document.getElementById(id);
+    if (cell) {
+      var t = cell.querySelector('.nhsuk-tag');
+      if (t) { t.className = 'nhsuk-tag nhsuk-tag--red'; t.textContent = 'Revoked'; }
+    }
+  }
+  if (params.get('revoked') === 'claire-pd2') revokeCell('claire-pd2-status-cell');
+  if (params.get('revoked') === 'kd1') revokeCell('claire-kd1-status-cell');
+}());
+</script>
+
+{% endblock %}

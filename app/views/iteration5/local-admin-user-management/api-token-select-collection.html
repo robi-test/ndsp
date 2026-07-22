@@ -1,0 +1,127 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% set pageName = "Get an API token" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <form action="/iteration5/data-submission-LCS/api-token-select-collection" method="post" class="form">
+
+      {% from 'radios/macro.njk' import radios %}
+
+      {{ radios({
+        idPrefix: "api-token-organisation",
+        name: "api-token-organisation",
+        fieldset: {
+          legend: {
+            text: "Which organisation do you want an API token for?",
+            classes: "nhsuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        },
+        hint: {
+          text: "API tokens are organisation-specific. Select the organisation you want to generate a token for. You can only get an API token for organisations you have permissions for."
+        },
+        items: [
+          {
+            value: "lambeth",
+            text: "Lambeth Diagnostic Programme (L3X7K)"
+          },
+          {
+            value: "southwark",
+            text: "Southwark Diagnostic Programme (S2X4P)"
+          },
+          {
+            value: "lewisham",
+            text: "Lewisham Diagnostic Programme (L8X2M)"
+          },
+          {
+            value: "greenwich",
+            text: "Greenwich Diagnostic Programme (G5X9R)"
+          }
+        ]
+      }) }}
+
+      <!-- <div class="nhsuk-inset-text nhsuk-u-margin-top-4">
+        <span class="nhsuk-u-visually-hidden">Information: </span>
+        <p class="nhsuk-u-margin-bottom-2">Clicking <strong>Continue</strong> will take you to the application used to manage API access.</p>
+        <p class="nhsuk-u-margin-bottom-0">From there, go to the <strong>OAuth &amp; permissions</strong> tab and select <strong>Rotate secret</strong> to generate a new client secret. This client secret is your API token.</p>
+      </div> -->
+
+      {% from 'button/macro.njk' import button %}
+      {{ button({
+        text: "Continue",
+        classes: "js-api-token-button"
+      }) }}
+
+    </form>
+
+  </div>
+</div>
+
+<!-- Modal Popup -->
+<div id="api-token-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;width:90%;margin:auto;border-radius:4px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
+    <h2 id="api-token-title" style="margin-top:0;">Get an API token</h2>
+    <p id="api-token-description">Clicking <strong>Continue</strong> will take you to the application used to manage API access.</p>
+    <p>From there, go to the <strong>OAuth &amp; permissions</strong> tab and select <strong>Rotate secret</strong> to generate a new client secret. This client secret is your API token.</p>
+    <div style="display:flex;gap:1rem;align-items:center;justify-content:flex-end;margin-top:2rem;">
+      <button id="cancel-api-token" class="nhsuk-button nhsuk-button--secondary" type="button" style="margin-bottom:0;">Cancel</button>
+      <button id="continue-api-token" class="nhsuk-button" type="button" style="margin-bottom:0;">Continue</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var modal = document.getElementById('api-token-modal');
+    if (!modal) return;
+
+    var triggerButtons = document.querySelectorAll('.js-api-token-button');
+    var cancelButton = document.getElementById('cancel-api-token');
+    var continueButton = document.getElementById('continue-api-token');
+    var form = document.querySelector('form');
+
+    function openModal() {
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    triggerButtons.forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    if (cancelButton) {
+      cancelButton.addEventListener('click', closeModal);
+    }
+
+    if (continueButton) {
+      continueButton.addEventListener('click', function () {
+        closeModal();
+        if (form) form.submit();
+      });
+    }
+
+    modal.addEventListener('click', function (event) {
+      if (event.target === modal) closeModal();
+    });
+  })();
+</script>
+{% endblock %}
