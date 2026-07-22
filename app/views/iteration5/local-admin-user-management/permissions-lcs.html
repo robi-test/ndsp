@@ -64,6 +64,41 @@
           text: "Your role"
         },
         value: {
+          text: "Local administrator"
+        }
+      },  
+    {
+        key: {
+          text: "Organisation"
+        },
+        value: {
+          html: "Kernow Diagnostic (KD1)<br>	Plymouth Diagnostic (PD2)<br>North Devon Diagnostic (ND3)<br>	Torbay and South Devon Diagnostic (TS4)"
+        }
+      }
+      
+    ]
+  }) }}
+
+
+ </div>
+
+
+<div class="nhsuk-u-margin-top-7">
+  <h3>   
+    Your permissions
+  </h3>
+<p>Here are the organisations your assigned role applies to.
+    </p>
+ <div class="nhsuk-u-margin-top-7">
+  {% from "summary-list/macro.njk" import summaryList %}
+
+  {{ summaryList({
+    rows: [
+    {
+        key: {
+          text: "Your role"
+        },
+        value: {
           text: "Submitter"
         }
       },  
@@ -72,20 +107,12 @@
           text: "Organisation"
         },
         value: {
-          html: "Southwark Diagnostic Programme<br>Lewisham Diagnostic Programme<br>Greenwich Diagnostic Programme<br>Bexley Diagnostic Programme<br>Bromley Diagnostic Programme"
+          html: "Kernow Diagnostic (KD1)<br>	Plymouth Diagnostic (PD2)<br>North Devon Diagnostic (ND3)<br>	Torbay and South Devon Diagnostic (TS4)"
         }
       }
       
     ]
   }) }}
-  {% from "button/macro.njk" import button %}
-
-
-
-
-
-
-
 
 
  </div>
