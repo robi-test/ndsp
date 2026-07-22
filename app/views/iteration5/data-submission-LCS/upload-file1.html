@@ -158,7 +158,21 @@
               </div>
             </div>            
             <p><br></p>
-          
+
+<div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-bottom-6">
+  <div class="nhsuk-form-group" id="note-group">
+    <fieldset class="nhsuk-fieldset">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h2 class="nhsuk-fieldset__heading">Add a note to this submission <span style="font-weight:400;">(optional)</span></h2>
+      </legend>
+      <div class="nhsuk-hint" id="submission-note-hint">
+        Use this to provide additional context about this submission. Notes are visible to collection managers and will be associated with this file.
+      </div>
+      <textarea class="nhsuk-textarea" id="submission-note" name="submission-note" rows="4" aria-describedby="submission-note-hint"></textarea>
+    </fieldset>
+  </div>
+</div>
+
 <div class="nhsuk-grid-column-two-thirds ">
           {% from 'checkboxes/macro.njk' import checkboxes %}
 
