@@ -1,0 +1,64 @@
+{% extends "ndsp-design-system/layout.html" %}
+{% set activeSection = "home" %}
+{% set pageName = "NDSP Design System" %}
+{% from "inset-text/macro.njk" import insetText %}
+
+{% block main %}
+<main id="maincontent" class="nhsuk-main-wrapper" role="main">
+  <div style="max-width:1200px; margin:0 auto; padding:24px 24px 48px;">
+
+
+    <h1 class="nhsuk-heading-xl">NDSP Design System</h1>
+    <p class="nhsuk-lede-text">Use the NDSP Design System to design and build consistent, accessible experiences across the National Data Submission Portal.</p>
+    <h2 class="nhsuk-heading-m">Use the NHS Design System first</h2>
+    <p>Use the <a href="https://service-manual.nhs.uk/design-system" class="nhsuk-link">NHS Design System</a> for standard styles, components and patterns.</p>
+    <p>Use the NDSP Design System where a specific NDSP user need is not covered by existing NHS guidance.</p>
+
+    {{ insetText({
+      html: "<p>The NDSP Design System is being developed. Some components and patterns are still being tested and may change as we gather more evidence.</p>"
+    }) }}
+
+    <hr class="nhsuk-section-break nhsuk-section-break--l nhsuk-section-break--visible">
+
+    <ul class="nhsuk-grid-row nhsuk-card-group nhsuk-u-margin-top-6">
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+        {{ card({
+          clickable: true,
+          href: "/ndsp-design-system/principles",
+          heading: "Principles",
+          headingClasses: "nhsuk-heading-m",
+          description: "The design values that guide decisions across the NDSP."
+        }) }}
+      </li>
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+        {{ card({
+          clickable: true,
+          href: "/ndsp-design-system/components",
+          heading: "Components",
+          headingClasses: "nhsuk-heading-m",
+          description: "Reusable interface elements created or adapted for NDSP."
+        }) }}
+      </li>
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+        {{ card({
+          clickable: true,
+          href: "/ndsp-design-system/patterns",
+          heading: "Patterns",
+          headingClasses: "nhsuk-heading-m",
+          description: "How components and content work together to help users complete NDSP tasks."
+        }) }}
+      </li>
+       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+        {{ card({
+          clickable: true,
+          href: "/ndsp-design-system/accessibility",
+          heading: "Accessibility",
+          headingClasses: "nhsuk-heading-m",
+          description: "Guidance on making NDSP components and content accessible to all users."
+        }) }}
+      </li>
+    </ul>
+
+  </div>
+</main>
+{% endblock %}

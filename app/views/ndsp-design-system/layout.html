@@ -1,0 +1,114 @@
+{% extends "prototype-kit-template.njk" %}
+
+{% block head %}
+  <link href="/css/main.css" rel="stylesheet">
+  <script src="/nhsuk-frontend/nhsuk.min.js" defer></script>
+  <style>
+    /* Design system layout */
+    .ds-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+    }
+    .ds-layout--wide {
+      grid-template-columns: 1fr;
+    }
+    .ds-sidebar { }
+    .ds-sidebar__nav { }
+    .ds-sidebar__heading {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #425563;
+      padding: 8px 0 4px;
+      border-bottom: 1px solid #d8dde0;
+      margin-bottom: 4px;
+    }
+    .ds-sidebar__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ds-sidebar__item { border-bottom: 1px solid #f0f4f5; }
+    .ds-sidebar__link {
+      display: block;
+      padding: 8px 0 8px 12px;
+      color: #005eb8;
+      text-decoration: none;
+      font-size: 1rem;
+      border-left: 4px solid transparent;
+    }
+    .ds-sidebar__link:hover { background: #f0f4f5; text-decoration: underline; }
+    .ds-sidebar__link[aria-current="page"] {
+      border-left-color: #005eb8;
+      font-weight: 700;
+      color: #212b32;
+      background: #f0f4f5;
+    }
+    .ds-content { min-width: 0; }
+    .ds-content h1 { margin-top: 0; }
+    .ds-placeholder {
+      background: #f0f4f5;
+      border-left: 4px solid #aeb7bd;
+      padding: 16px 20px;
+      margin: 24px 0;
+      color: #425563;
+      font-style: italic;
+    }
+    @media (max-width: 768px) {
+      .ds-layout { grid-template-columns: 1fr; }
+      .ds-sidebar { order: 2; }
+      .ds-content { order: 1; }
+    }
+  </style>
+{% endblock %}
+
+{% block header %}
+  {{ header({
+    service: {
+      name: "NDSP Design System",
+      href: "/ndsp-design-system/home"
+    },
+    showNav: "true",
+    showSearch: "false",
+    searchAction: " ",
+    primaryLinks: [
+      {
+        url: "/ndsp-design-system/home",
+        label: "Home"
+      },
+      {
+        url: "/ndsp-design-system/principles",
+        label: "Principles"
+      },
+      {
+        url: "/ndsp-design-system/components",
+        label: "Components"
+      },
+      {
+        url: "/ndsp-design-system/patterns",
+        label: "Patterns"
+      },
+      {
+        url: "/ndsp-design-system/accessibility",
+        label: "Accessibility"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block footer %}
+  <footer role="contentinfo" style="background:#f0f4f5; border-top:1px solid #d8dde0; padding:24px; margin-top:48px;">
+    <div style="max-width:1200px; margin:0 auto; padding:0 24px;">
+      <p class="nhsuk-body-s nhsuk-u-margin-bottom-0" style="color:#425563;">NDSP Design System — NHS England</p>
+    </div>
+  </footer>
+{% endblock %}
+
+{% block bodyEnd %}
+  {% block scripts %}{% endblock %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "ndsp-design-system/layout.html" %}
+{% set activeSection = "accessibility" %}
+{% set pageName = "Accessibility – NDSP Design System" %}
+
+{% block main %}
+<main id="maincontent" class="nhsuk-main-wrapper" role="main">
+  <div style="max-width:1200px; margin:0 auto; padding:24px 24px 48px;">
+
+    <nav aria-label="Breadcrumb" class="nhsuk-breadcrumb" style="margin-bottom:24px;">
+      <ol class="nhsuk-breadcrumb__list">
+        <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/ndsp-design-system/home">Home</a></li>
+        <li class="nhsuk-breadcrumb__item">Accessibility</li>
+      </ol>
+    </nav>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar" aria-label="Page contents">
+        <nav aria-label="Accessibility sections">
+          <p class="ds-sidebar__heading">On this page</p>
+          <ul class="ds-sidebar__list">
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#approach">Our approach to accessibility testing</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#minimum-standard">Minimum audit standard for NDSP</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-content">
+        <h1 class="nhsuk-heading-xl">Accessibility</h1>
+
+        <h2 class="nhsuk-heading-l" id="approach">Our approach to accessibility testing</h2>
+
+        <p>Automated tools such as WAVE, browser accessibility checkers, and DevTools can quickly identify common issues such as missing alternative text, insufficient colour contrast, and certain structural problems. However, automated testing alone can only detect a proportion of accessibility issues and cannot determine whether a user can successfully complete tasks.</p>
+
+        <p>The majority of WCAG compliance still relies on manual testing, semantic review, screen-reader testing, and understanding whether real users can successfully complete their tasks.</p>
+
+        <ul class="nhsuk-list nhsuk-list--bullet">
+          <li>20% automated tools (WAVE, Axe, Lighthouse)</li>
+          <li>40% manual WCAG walkthrough</li>
+          <li>20% screen-reader testing</li>
+          <li>20% user research and real-user validation</li>
+        </ul>
+
+        <p>To achieve a comprehensive assessment, we combine automated checks with manual testing. This includes:</p>
+
+        <ul class="nhsuk-list nhsuk-list--bullet">
+          <li>Reviewing semantic HTML, ARIA roles, landmarks, and programmatically determined relationships.</li>
+          <li>Exploring the Accessibility Tree using browser developer tools.</li>
+          <li>Testing keyboard-only navigation and focus management.</li>
+          <li>Conducting criterion-by-criterion walkthroughs against WCAG 2.2 success criteria.</li>
+          <li>Using screen readers such as NVDA, Narrator, and VoiceOver to understand the actual user experience.</li>
+          <li>Reviewing code where necessary to verify accessibility implementation.</li>
+        </ul>
+
+        <p>Finally, no accessibility audit is complete without involving real users. User research with people who have a range of access needs provides insights that automated tools and heuristic reviews cannot uncover, helping teams understand how accessibility issues affect real-world task completion, comprehension, and user confidence.</p>
+
+        <h2 class="nhsuk-heading-l" id="minimum-standard">Minimum audit standard for NDSP</h2>
+
+        <p>A page should only be considered "tested" when it has been:</p>
+
+        <ul class="nhsuk-list nhsuk-list--bullet">
+          <li>Reviewed against every WCAG 2.2 criterion</li>
+          <li>Tested with keyboard only</li>
+          <li>Run through WAVE/Axe</li>
+          <li>Checked in the accessibility tree</li>
+          <li>Spot-checked with a screen reader</li>
+          <li>Logged in the audit register with evidence and recommendations</li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

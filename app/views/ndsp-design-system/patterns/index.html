@@ -1,0 +1,66 @@
+{% extends "ndsp-design-system/layout.html" %}
+{% set activeSection = "patterns" %}
+{% set pageName = "Patterns – NDSP Design System" %}
+
+{% set patterns = [
+  { name: "Colour consistency", slug: "colour-consistency", description: "How NDSP ensures consistent use of colour." },
+  { name: "Submit a file", slug: "submit-a-file", description: "How users upload and submit a data file for a collection." },
+  { name: "Filter a table", slug: "filter-a-list", description: "How users narrow down large sets of records in a table using filters." },
+  { name: "Review and act on a permission request", slug: "review-permission-request", description: "How super users review and approve or reject permissions requests." },
+  { name: "Add one or more organisations", slug: "choose-organisations", description: "How users select one or multiple organisations to add to a list." },
+  { name: "Configure reporting periods and submission windows", slug: "configure-periods-windows", description: "How collection managers set up the date windows for data collection." },
+  { name: "Monitor and investigate submissions", slug: "monitor-submissions", description: "How users track submission status and investigate validation output." }
+] %}
+
+{% block main %}
+<main id="maincontent" class="nhsuk-main-wrapper" role="main">
+  <div style="max-width:1200px; margin:0 auto; padding:24px 24px 48px;">
+
+    <nav aria-label="Breadcrumb" class="nhsuk-breadcrumb" style="margin-bottom:24px;">
+      <ol class="nhsuk-breadcrumb__list">
+        <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/ndsp-design-system/home">Home</a></li>
+        <li class="nhsuk-breadcrumb__item">Patterns</li>
+      </ol>
+    </nav>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar" aria-label="Patterns navigation">
+        <nav aria-label="Patterns list">
+          <p class="ds-sidebar__heading">Patterns</p>
+          <ul class="ds-sidebar__list">
+            {% for pattern in patterns %}
+            <li class="ds-sidebar__item">
+              <a class="ds-sidebar__link" href="/ndsp-design-system/patterns/{{ pattern.slug }}">{{ pattern.name }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-content">
+        <h1 class="nhsuk-heading-xl">Patterns</h1>
+        <p>Patterns describe how components and content work together to help users complete an NDSP task.</p>
+
+        <table class="nhsuk-table nhsuk-u-margin-top-6">
+          <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">All patterns</caption>
+          <thead class="nhsuk-table__head">
+            <tr class="nhsuk-table__row">
+              <th class="nhsuk-table__header" scope="col">Pattern</th>
+              <th class="nhsuk-table__header" scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody class="nhsuk-table__body">
+            {% for pattern in patterns %}
+            <tr class="nhsuk-table__row">
+              <td class="nhsuk-table__cell"><a class="nhsuk-link" href="/ndsp-design-system/patterns/{{ pattern.slug }}">{{ pattern.name }}</a></td>
+              <td class="nhsuk-table__cell">{{ pattern.description }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

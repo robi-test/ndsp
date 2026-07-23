@@ -1,0 +1,62 @@
+{% extends "ndsp-design-system/layout.html" %}
+{% set activeSection = "principles" %}
+{% set pageName = "Principles – NDSP Design System" %}
+
+{% block main %}
+<main id="maincontent" class="nhsuk-main-wrapper" role="main">
+  <div style="max-width:1200px; margin:0 auto; padding:24px 24px 28px;">
+
+    <nav aria-label="Breadcrumb" class="nhsuk-breadcrumb" style="margin-bottom:14px;">
+      <ol class="nhsuk-breadcrumb__list">
+        <li class="nhsuk-breadcrumb__item"><a class="nhsuk-breadcrumb__link" href="/ndsp-design-system/home">Home</a></li>
+        <li class="nhsuk-breadcrumb__item">Principles</li>
+      </ol>
+    </nav>
+
+    <div class="ds-layout">
+      <aside class="ds-sidebar" aria-label="Page contents">
+        <nav aria-label="Principles sections">
+          <p class="ds-sidebar__heading">On this page</p>
+          <ul class="ds-sidebar__list">
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#nhs-standards">1. Start with established NHS standards</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#complex-data">2. Make complex data tasks understandable</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#context-visible">3. Keep the user's context visible</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#mistakes">4. Prevent mistakes and support recovery</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#status">5. Make status and consequences explicit</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#frequent-users">6. Support both frequent and occasional users</a></li>
+            <li class="ds-sidebar__item"><a class="ds-sidebar__link" href="#evidence">7. Standardise through evidence</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <div class="ds-content">
+        <h1>Principles</h1>
+        <p>The NHS already has <a href="https://service-manual.nhs.uk/design-system" class="nhsuk-link">ten design principles</a>, including designing for trust, being inclusive, testing assumptions and doing the hard work to make complex services simple.</p>
+        <p>Rather than repeating those, the NDSP principles make them specific to the portal.</p>
+
+        <h2 id="nhs-standards">1. Start with established NHS standards</h2>
+        <p>Use NHS styles, components and patterns before creating something new. Extend them only where there is a clear NDSP user need.</p>
+
+        <h2 id="complex-data">2. Make complex data tasks understandable</h2>
+        <p>Do not expose unnecessary technical, organisational or collection complexity to users. Explain what is happening using familiar language and clear steps.</p>
+
+        <h2 id="context-visible">3. Keep the user's context visible</h2>
+        <p>Make it clear which collection, organisation, reporting period and submission window the user is viewing or changing.</p>
+
+        <h2 id="mistakes">4. Prevent mistakes and support recovery</h2>
+        <p>Use constraints, validation and confirmation at the right time. When something goes wrong, explain what happened, what was affected and what the user needs to do next.</p>
+
+        <h2 id="status">5. Make status and consequences explicit</h2>
+        <p>Clearly communicate whether something is pending, processing, accepted, rejected, closed or unavailable. Do not rely on colour alone.</p>
+
+        <h2 id="frequent-users">6. Support both frequent and occasional users</h2>
+        <p>Provide efficient interactions for experienced operational users without assuming everyone remembers the process, terminology or previous decisions.</p>
+
+        <h2 id="evidence">7. Standardise through evidence</h2>
+        <p>Do not turn a one-off solution into a standard component until it has been reviewed, tested and shown to be reusable.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

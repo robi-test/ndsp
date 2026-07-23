@@ -37,6 +37,32 @@ router.get('/tools/ig-search', (req, res) => {
   res.render('tools/ig-search');
 });
 
+// NDSP Design System routes
+router.get('/ndsp-design-system', (req, res) => res.redirect('/ndsp-design-system/home'));
+router.get('/ndsp-design-system/home', (req, res) => res.render('ndsp-design-system/home'));
+router.get('/ndsp-design-system/principles', (req, res) => res.render('ndsp-design-system/principles'));
+router.get('/ndsp-design-system/components', (req, res) => res.render('ndsp-design-system/components/index'));
+router.get('/ndsp-design-system/components/:slug', (req, res) => {
+  const slug = req.params.slug;
+  const allowed = ['autocomplete', 'multi-select', 'searchable-multi-select', 'sortable-table', 'date-picker'];
+  if (allowed.includes(slug)) {
+    res.render(`ndsp-design-system/components/${slug}`);
+  } else {
+    res.status(404).render('ndsp-design-system/components/index');
+  }
+});
+router.get('/ndsp-design-system/patterns', (req, res) => res.render('ndsp-design-system/patterns/index'));
+router.get('/ndsp-design-system/accessibility', (req, res) => res.render('ndsp-design-system/accessibility'));
+router.get('/ndsp-design-system/patterns/:slug', (req, res) => {
+  const slug = req.params.slug;
+  const allowed = ['submit-a-file', 'filter-a-list', 'review-permission-request', 'choose-organisations', 'configure-periods-windows', 'monitor-submissions'];
+  if (allowed.includes(slug)) {
+    res.render(`ndsp-design-system/patterns/${slug}`);
+  } else {
+    res.status(404).render('ndsp-design-system/patterns/index');
+  }
+});
+
 router.post('/iteration0/choose-collection2', (req, res) => {
   const collection = req.session.data['collection'];
   const organisation = req.session.data['organisation'];
