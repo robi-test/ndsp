@@ -54,11 +54,6 @@
           }
         },
         items: [
-           {
-            value: "permission-request-portal",
-            text: "Permission request Portal",
-            checked: false
-          },
           {
             value: "submitter-portal",
             text: "Submitter Portal",
@@ -363,63 +358,6 @@
 
   initTimePicker('display-time-picker');
   initTimePicker('end-time-picker');
-
-  // Pre-fill form from query params when editing an existing banner
-  ;(function () {
-    var params = new URLSearchParams(window.location.search);
-    if (!params.get('edit')) return;
-
-    // Text fields
-    var titleEl = document.getElementById('announcement-title');
-    var contentEl = document.getElementById('announcement-content');
-    if (titleEl && params.get('title')) titleEl.value = params.get('title');
-    if (contentEl && params.get('content')) contentEl.value = params.get('content');
-
-    // Checkboxes: portals
-    var portalValues = (params.get('portals') || '').split(',').filter(Boolean);
-    portalValues.forEach(function (v) {
-      var cb = document.querySelector('input[name="portals"][value="' + v + '"]');
-      if (cb) cb.checked = true;
-    });
-
-    // Checkboxes: collections
-    var collectionValues = (params.get('collections') || '').split(',').filter(Boolean);
-    collectionValues.forEach(function (v) {
-      var cb = document.querySelector('input[name="collections"][value="' + v + '"]');
-      if (cb) cb.checked = true;
-    });
-
-    // Date inputs
-    var displayDate = document.getElementById('display-date');
-    var endDate = document.getElementById('end-date');
-    if (displayDate && params.get('display-date')) displayDate.value = params.get('display-date');
-    if (endDate && params.get('end-date')) endDate.value = params.get('end-date');
-
-    // Time pickers — set the hidden input value and update the trigger label
-    function prefillTimePicker(pickerId, inputId, timeValue) {
-      if (!timeValue) return;
-      var hidden = document.getElementById(inputId);
-      if (hidden) hidden.value = timeValue;
-      var trigger = document.querySelector('#' + pickerId + ' .time-picker__value');
-      if (trigger) trigger.textContent = timeValue;
-    }
-    prefillTimePicker('display-time-picker', 'display-time-input', params.get('display-time'));
-    prefillTimePicker('end-time-picker',     'end-time-input',     params.get('end-time'));
-
-    // Radios: email-notification
-    var emailNotif = params.get('email-notification');
-    if (emailNotif) {
-      var radio = document.querySelector('input[name="email-notification"][value="' + emailNotif + '"]');
-      if (radio) {
-        radio.checked = true;
-        radio.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    }
-
-    // Select: email-template
-    var templateSel = document.getElementById('email-template');
-    if (templateSel && params.get('email-template')) templateSel.value = params.get('email-template');
-  }());
 }());
 </script>
 {% endblock %}

@@ -41,8 +41,8 @@
     {% set banners = [
       {
         title: "System maintenance – 20 July",
-        portals: "Submitter Portal, Management Portal",
-        collections: "All collections",
+        portals: "Permission request Portal, Submitter Portal, Management Portal",
+        collections: "Diagnostic Imaging Data Set (V2.0), Lung Cancer Screening Data Set",
         displayFrom: "20 Jul 2026, 06:00",
         displayUntil: "20 Jul 2026, 23:00",
         status: "Scheduled"
@@ -96,7 +96,11 @@
             {% endif %}
           </td>
           <td class="nhsuk-table__cell" style="white-space: nowrap;">
-            <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Edit</a>
+            {% if loop.index === 1 %}
+              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners?edit=1&title=System+maintenance+%E2%80%93+20+July&content=Scheduled+system+maintenance+will+take+place+on+20+July+2026.+Some+portal+features+may+be+unavailable+during+this+time.&portals=submitter-portal,management-portal,permission-request-portal&collections=dids,lcsds&display-date=2026-07-20&display-time=06%3A00am&end-date=2026-07-20&end-time=11%3A00pm&email-notification=yes&email-template=template-1">Edit</a>
+            {% else %}
+              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Edit</a>
+            {% endif %}
             <span aria-hidden="true"> | </span>
             <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-delete">Delete</a>
           </td>
