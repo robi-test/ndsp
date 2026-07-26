@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "Announcement banners" %}
 
@@ -102,7 +102,7 @@
               <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Edit</a>
             {% endif %}
             <span aria-hidden="true"> | </span>
-            <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-delete">Delete</a>
+            <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-delete?title={{ banner.title | urlencode }}&portals={{ banner.portals | urlencode }}&collections={{ banner.collections | urlencode }}&displayFrom={{ banner.displayFrom | urlencode }}&displayUntil={{ banner.displayUntil | urlencode }}&status={{ banner.status | urlencode }}">Delete</a>
           </td>
         </tr>
         {% endfor %}

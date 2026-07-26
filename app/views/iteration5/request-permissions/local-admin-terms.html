@@ -9,6 +9,16 @@
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+      <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" id="terms-error-summary" style="display:none;">
+        <h2 class="nhsuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+        <div class="nhsuk-error-summary__body">
+          <ul class="nhsuk-list nhsuk-error-summary__list">
+            <li><a href="#term">You must agree to the terms and conditions to continue</a></li>
+          </ul>
+        </div>
+      </div>
+
        <h1>
          {{ pageName }}
       </h1>
@@ -57,7 +67,7 @@
   ]
 }) }}
 
- <button id="continue-to-summary" onclick="location='local-admin-details'" class="nhsuk-button nhsuk-u-margin-top-7">
+ <button id="continue-to-summary" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
                 Continue
               </button>
 
@@ -75,15 +85,63 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const continueButton = document.getElementById('continue-to-summary');
-  if (!continueButton) {
-    return;
-  }
+  var continueButton = document.getElementById('continue-to-summary');
+  var errorSummary   = document.getElementById('terms-error-summary');
+  var checkboxGroup  = document.querySelector('.nhsuk-checkboxes');
+  var formGroup      = checkboxGroup ? checkboxGroup.closest('.nhsuk-form-group') : null;
+
+  if (!continueButton) return;
 
   continueButton.addEventListener('click', function () {
-    const agreed = document.querySelector('input[name="terms"]:checked');
-    sessionStorage.setItem('summary.terms', agreed ? 'yes' : 'no');
+    var agreed = document.querySelector('input[name="terms"]:checked');
+
+    if (!agreed) {
+      if (errorSummary) {
+        errorSummary.style.display = 'block';
+        errorSummary.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      if (formGroup) {
+        formGroup.classList.add('nhsuk-form-group--error');
+        if (!formGroup.querySelector('.nhsuk-error-message')) {
+          var errorMsg = document.createElement('span');
+          errorMsg.className = 'nhsuk-error-message';
+          errorMsg.id = 'terms-error';
+          errorMsg.innerHTML = '<span class="nhsuk-u-visually-hidden">Error:</span> You must agree to the terms and conditions to continue';
+          var fieldset = formGroup.querySelector('fieldset');
+          if (fieldset) {
+            fieldset.insertBefore(errorMsg, fieldset.querySelector('.nhsuk-checkboxes'));
+          } else {
+            formGroup.insertBefore(errorMsg, checkboxGroup);
+          }
+        }
+      }
+      return;
+    }
+
+    if (errorSummary) errorSummary.style.display = 'none';
+    if (formGroup) {
+      formGroup.classList.remove('nhsuk-form-group--error');
+      var existing = formGroup.querySelector('.nhsuk-error-message');
+      if (existing) existing.remove();
+    }
+    sessionStorage.setItem('summary.terms', 'yes');
+    window.location.href = 'local-admin-details';
   });
+
+  var checkbox = document.querySelector('input[name="terms"]');
+  if (checkbox) {
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        if (errorSummary) errorSummary.style.display = 'none';
+        if (formGroup) {
+          formGroup.classList.remove('nhsuk-form-group--error');
+          var existing = formGroup.querySelector('.nhsuk-error-message');
+          if (existing) existing.remove();
+        }
+      }
+    });
+  }
 });
 </script>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "Create or edit announcement banner" %}
 
@@ -25,8 +25,10 @@
         <div id="announcement-title-hint" class="nhsuk-hint">
           <p class="nhsuk-u-margin-bottom-1">This will be the heading for the announcement banner.</p>
           <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 50 characters.</p>
         </div>
-        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" aria-describedby="announcement-title-hint">
+        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" maxlength="50" aria-describedby="announcement-title-hint announcement-title-count">
+        <p id="announcement-title-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">50 characters remaining</p>
       </div>
 
       <!-- Announcement content -->
@@ -37,8 +39,10 @@
         <div id="announcement-content-hint" class="nhsuk-hint">
           <p class="nhsuk-u-margin-bottom-1">This will be the body for the announcement banner.</p>
           <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 200 characters.</p>
         </div>
-        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" aria-describedby="announcement-content-hint"></textarea>
+        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" maxlength="200" aria-describedby="announcement-content-hint announcement-content-count"></textarea>
+        <p id="announcement-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">200 characters remaining</p>
       </div>
 
       <!-- Which portal(s) -->
@@ -363,6 +367,24 @@
 
   initTimePicker('display-time-picker');
   initTimePicker('end-time-picker');
+
+  // Character counters
+  ;(function () {
+    function initCounter(inputId, countId, max) {
+      var input = document.getElementById(inputId);
+      var counter = document.getElementById(countId);
+      if (!input || !counter) return;
+      function update() {
+        var remaining = max - input.value.length;
+        counter.textContent = remaining + ' character' + (remaining === 1 ? '' : 's') + ' remaining';
+        counter.style.color = remaining < 0 ? '#d5281b' : '';
+      }
+      input.addEventListener('input', update);
+      update();
+    }
+    initCounter('announcement-title',   'announcement-title-count',   50);
+    initCounter('announcement-content', 'announcement-content-count', 200);
+  }());
 
   // Pre-fill form from query params when editing an existing banner
   ;(function () {

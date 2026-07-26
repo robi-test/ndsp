@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-management/layout-collection-management.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 {% set pageName = "Email notification settings" %}
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -34,7 +34,7 @@
           {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
             <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
-            <a id="change-notification-link" href="notification-settings-edit" class="nhsuk-link-l">Change notification setting</a>
+            <a id="change-notification-link" href="notification-settings1-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
           {{ summaryList({
             classes: "notification-summary-list",
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
         qs.set(name, tagEl.textContent.trim() === 'Active' ? 'yes' : 'no');
       }
     });
-    changeLink.href = 'notification-settings-edit?' + qs.toString();
+    changeLink.href = 'notification-settings1-edit?' + qs.toString();
   }
 });
 </script>
