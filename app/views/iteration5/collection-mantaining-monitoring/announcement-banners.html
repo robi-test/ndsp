@@ -182,7 +182,7 @@
           }
         },
         hint: {
-          text: "If yes, the email will be sent to all users at the same date and time as when the announcement banner is set to display."
+          text: "If yes, the email will be sent to all users at the same date and time as when the announcement banner is set to display. The banner title and content will also be used for the email notification."
         },
         items: [
           {
@@ -193,9 +193,7 @@
           {
             value: "yes",
             text: "Yes",
-            conditional: {
-              html: emailTemplateHtml
-            }
+            checked: false
           }
         ]
       }) }}

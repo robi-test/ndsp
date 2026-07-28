@@ -29,7 +29,13 @@
       <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-0">{{ pageName }}</h1>
     </div>
 
-    <p class="nhsuk-u-margin-top-4">Manage announcement banners displayed across one or more collections.</p>
+    <p class="nhsuk-u-margin-top-4">Manage announcement banners displayed across one or more collections.<br> For a better user experience, avoid displaying multiple announcement banners at the same time. Where possible, schedule banners so that only one is visible at a time.</p>
+    {% from "details/macro.njk" import details %}
+
+{% set dummyNhsNumber = "999 123 4567" %}
+
+
+
 
     {% from 'button/macro.njk' import button %}
     {{ button({
