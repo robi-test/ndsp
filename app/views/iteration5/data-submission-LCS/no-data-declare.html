@@ -42,19 +42,37 @@
     {{ insetText({
     html: insetTextHtml
     }) }}
-    
+
+    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-bottom-6">
+  <div class="nhsuk-form-group" id="note-group">
+    <fieldset class="nhsuk-fieldset">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h2 class="nhsuk-fieldset__heading">Add a note to this submission (optional)</h2>
+      </legend>
+      <div class="nhsuk-hint" id="submission-note-hint">
+         Only add a note if circumstances have affected this submission or its data quality.
+        <br>Do not include any personal or patient-identifiable information.
+        <br>Maximum 300 characters.
+      </div>
+      <textarea class="nhsuk-textarea" id="submission-note" name="submission-note" rows="4" aria-describedby="submission-note-hint"></textarea>
+    </fieldset>
+  </div>
+</div>
+    <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-bottom-6">
     <form id="no-data-form">
       <fieldset class="nhsuk-fieldset">
         <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
           Are you sure you want to declare no-data for this period?
         </legend>
         <div class="nhsuk-u-margin-bottom-7">
-        <p>This will be recorded as a valid empty submission for this period, confirming your organisation had no activity to report.</p>
-        <p>A no-data declaration counts as a valid submission and it will appear in your submission history with a type of <strong>No-data</strong>.</p>
-    </div>
+        <p>This will be recorded as a valid empty submission for this period, confirming your organisation had no activity to report.
+        <br>A no-data declaration counts as a valid submission and it will appear in your submission history with a type of <strong>No-data</strong>.</p>
+        </div>
         <button class="nhsuk-button" type="submit">Proceed with no-data</button>
       </fieldset>
     </form>
+    </div>
+
     <script>
       document.getElementById('no-data-form').addEventListener('submit', function(e) {
         e.preventDefault();
