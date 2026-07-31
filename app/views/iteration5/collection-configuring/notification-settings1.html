@@ -1,0 +1,178 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+{% set pageName = "Email notification settings" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "dids-configuration",
+      text: "Diagnostic Imaging Data Set (V2.0)"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+{% from "button/macro.njk" import button %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+       
+      <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+        <div class="nhsuk-u-margin-bottom-8"> 
+           <div class="nhsuk-u-margin-bottom-8"> 
+
+
+          {% from "summary-list/macro.njk" import summaryList %}
+          {% from "tag/macro.njk" import tag %}
+          <div class="notification-summary-header">
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-8 nhsuk-u-margin-top-8">Notification summary</h2>
+            <a id="change-notification-link" href="notification-settings1-edit" class="nhsuk-link-l">Change notification setting</a>
+          </div>
+          {{ summaryList({
+            classes: "notification-summary-list",
+            rows: [
+              {
+                key: {
+                  text: "Submission window opened"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline approaching"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              },
+              {
+                key: {
+                  text: "Submission deadline changed"
+                },
+                value: {
+                  html: tag({text: "Not active", classes: "nhsuk-tag--red"})
+                }
+              },
+              {
+                key: {
+                  text: "Validation completed"
+                },
+                value: {
+                  html: tag({text: "Active", classes: "nhsuk-tag--green"})
+                }
+              }
+            ]
+          }) }}
+
+        </div>
+
+
+
+  </div>
+
+    </div>
+
+      
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+
+  const settingMap = {
+    'submission-window-opened': 0,
+    'submission-deadline-approaching': 1,
+    'submission-deadline-changed': 2,
+    'validation-completed': 3
+  };
+
+  const rows = document.querySelectorAll('.nhsuk-summary-list__row');
+
+  Object.keys(settingMap).forEach(function (name) {
+    const value = params.get(name) || sessionStorage.getItem('notification.' + name);
+    if (!value) return;
+
+    const row = rows[settingMap[name]];
+    if (!row) return;
+
+    const tagEl = row.querySelector('.nhsuk-tag');
+    if (!tagEl) return;
+
+    if (value === 'yes') {
+      tagEl.textContent = 'Active';
+      tagEl.className = 'nhsuk-tag nhsuk-tag--green';
+    } else {
+      tagEl.textContent = 'Not active';
+      tagEl.className = 'nhsuk-tag nhsuk-tag--red';
+    }
+  });
+
+  // Build query string from current tag states and update the Change link
+  const changeLink = document.getElementById('change-notification-link');
+  if (changeLink) {
+    const qs = new URLSearchParams();
+    Object.keys(settingMap).forEach(function (name) {
+      const row = rows[settingMap[name]];
+      if (!row) return;
+      const tagEl = row.querySelector('.nhsuk-tag');
+      if (!tagEl) return;
+      // Read from params/sessionStorage first, fall back to current tag text
+      const stored = params.get(name) || sessionStorage.getItem('notification.' + name);
+      if (stored) {
+        qs.set(name, stored);
+      } else {
+        qs.set(name, tagEl.textContent.trim() === 'Active' ? 'yes' : 'no');
+      }
+    });
+    changeLink.href = 'notification-settings1-edit?' + qs.toString();
+  }
+});
+</script>
+<style>
+  .notification-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__key {
+    width: 72%;
+  }
+
+  .notification-summary-list .nhsuk-summary-list__value {
+    width: 28%;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .nhsuk-summary-list__key {
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+@media (min-width: 40.0625em) {
+    .nhsuk-summary-list__key, .nhsuk-summary-list__value, .nhsuk-summary-list__actions {
+        display: table-cell;
+        padding-bottom: 14px;
+        padding-right: 24px;
+        padding-top: 14px;
+    }
+}
+
+a {
+  font-size: 20px;
+}
+</style>
+{% endblock %}

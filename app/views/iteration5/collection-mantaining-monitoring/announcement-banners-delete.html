@@ -69,11 +69,11 @@
     <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-deleted" method="post">
       {% from 'button/macro.njk' import button %}
       <div style="display: flex; gap: 16px; align-items: center;">
-        {{ button({
+          {{ button({
           text: "Cancel",
           classes: "nhsuk-button--secondary",
           href: "/iteration5/collection-mantaining-monitoring/announcement-banners-list"
-        }) }}
+        }) }},
         {{ button({
           text: "Delete banner",
           classes: "nhsuk-button--warning"

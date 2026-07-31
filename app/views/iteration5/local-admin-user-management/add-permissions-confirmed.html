@@ -1,0 +1,49 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+{% set pageName = "Permissions added" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">Permissions added</h3>
+        <p id="success-message">The permissions have been successfully added.</p>
+      </div>
+    </div>
+
+    <h2>What happens next?</h2>
+    <p>The user will receive an email notification confirming that their permissions have been added.</p>
+    <p>Their account will now have access to the selected collection and organisation with the assigned role.</p>
+
+    <p class="nhsuk-u-margin-top-4"><a href="user-management" class="nhsuk-link">Return to user management</a></p>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var params  = new URLSearchParams(window.location.search);
+  var orgName = params.get('orgName') || sessionStorage.getItem('summary.organisation') || '';
+  var role    = params.get('role')    || sessionStorage.getItem('summary.role') || '';
+  var user    = sessionStorage.getItem('summary.addPermissionsUser') || 'The user';
+
+  var roleLabels = {
+    'submitter':   'Submitter',
+    'local-admin': 'Local administrator',
+    'monitoring':  'Monitoring'
+  };
+
+  var msgEl = document.getElementById('success-message');
+  if (msgEl && orgName && role) {
+    msgEl.textContent = user + ' has been granted the ' + (roleLabels[role] || role) + ' role for ' + orgName + ' (Lung Cancer Screening Data Set).'
+  }
+}());
+</script>
+{% endblock %}

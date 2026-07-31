@@ -1,0 +1,840 @@
+
+   Data_Group_UID   Data_Group_Name   Validation_UID  Data_Item_U      Data_Item_Submission_Name                          Data_Item_Name                            Format          M/R/O/P  Data_Item_TypeNational_CoValidation_Leve
+      DIDS000     DIDS Header          DIDS000001_01  DIDS000001 data_set_version_number               DATA SET VERSION NUMBER                                  max n2.max n2          M         Number        n/a         File
+      DIDS000     DIDS Header          DIDS000001_02  DIDS000001 data_set_version_number               DATA SET VERSION NUMBER                                  max n2.max n2          M         Number        n/a         File
+      DIDS000     DIDS Header          DIDS000001_03  DIDS000001 data_set_version_number               DATA SET VERSION NUMBER                                  max n2.max n2          M         Number        n/a         File
+      DIDS000     DIDS Header          DIDS000002_01  DIDS000002 organisation_identifier_code_of_providORGANISATION IDENTIFIER (CODE OF PROVIDER)              min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000002_02  DIDS000002 organisation_identifier_code_of_providORGANISATION IDENTIFIER (CODE OF PROVIDER)              min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000002_03  DIDS000002 organisation_identifier_code_of_providORGANISATION IDENTIFIER (CODE OF PROVIDER)              min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000003_01  DIDS000003 organisation_identifier_code_of_submitORGANISATION IDENTIFIER (CODE OF SUBMITTING ORGANISAT   min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000003_02  DIDS000003 organisation_identifier_code_of_submitORGANISATION IDENTIFIER (CODE OF SUBMITTING ORGANISAT   min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000003_03  DIDS000003 organisation_identifier_code_of_submitORGANISATION IDENTIFIER (CODE OF SUBMITTING ORGANISAT   min an3 max an6         M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000004_01  DIDS000004 primary_data_collection_system_in_use PRIMARY DATA COLLECTION SYSTEM IN USE                       max an20            M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000004_02  DIDS000004 primary_data_collection_system_in_use PRIMARY DATA COLLECTION SYSTEM IN USE                       max an20            M         String        n/a         File
+      DIDS000     DIDS Header          DIDS000005_01  DIDS000005 reporting_period_start_date           REPORTING PERIOD START DATE                             an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000005_02  DIDS000005 reporting_period_start_date           REPORTING PERIOD START DATE                             an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000005_03  DIDS000005 reporting_period_start_date           REPORTING PERIOD START DATE                             an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000006_01  DIDS000006 reporting_period_end_date             REPORTING PERIOD END DATE                               an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000006_02  DIDS000006 reporting_period_end_date             REPORTING PERIOD END DATE                               an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000006_03  DIDS000006 reporting_period_end_date             REPORTING PERIOD END DATE                               an10 CCYY-MM-DD         M          Date         n/a         File
+      DIDS000     DIDS Header          DIDS000007_01  DIDS000007 date_and_time_data_set_created        DATE AND TIME DATA SET CREATED                       an19 YYYY-MM-DDTHH:MM:     M        DateTime       n/a         File
+      DIDS000     DIDS Header          DIDS000007_02  DIDS000007 date_and_time_data_set_created        DATE AND TIME DATA SET CREATED                       an19 YYYY-MM-DDTHH:MM:     M        DateTime       n/a         File
+      DIDS000     DIDS Header          DIDS000007_03  DIDS000007 date_and_time_data_set_created        DATE AND TIME DATA SET CREATED                       an19 YYYY-MM-DDTHH:MM:     M        DateTime       n/a         File
+      DIDS000     DIDS Header          DIDS000007_04  DIDS000007 date_and_time_data_set_created        DATE AND TIME DATA SET CREATED                       an19 YYYY-MM-DDTHH:MM:     M        DateTime       n/a         File
+      DIDS001     DIDS Master Patient  DIDS001001_01  DIDS001001 local_patient_identifier_extended     LOCAL PATIENT IDENTIFIER (EXTENDED)                         max an20            M         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001001_02  DIDS001001 local_patient_identifier_extended     LOCAL PATIENT IDENTIFIER (EXTENDED)                         max an20            M         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001002_01  DIDS001002 organisation_identifier_local_patient_ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)      min an3 max an5         M         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001002_02  DIDS001002 organisation_identifier_local_patient_ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)      min an3 max an5         M         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001002_03  DIDS001002 organisation_identifier_local_patient_ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)      min an3 max an5         M         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001003_01  DIDS001003 nhs_number                            NHS NUMBER                                                    n10               R         Number        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001004_01  DIDS001004 nhs_number_status_indicator_code      NHS NUMBER STATUS INDICATOR CODE                              an2               R         String      Regular       File
+      DIDS001     DIDS Master Patient  DIDS001004_02  DIDS001004 nhs_number_status_indicator_code      NHS NUMBER STATUS INDICATOR CODE                              an2               R         String      Regular      Record
+      DIDS001     DIDS Master Patient  DIDS001005_01  DIDS001005 person_birth_date                     PERSON BIRTH DATE                                       an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS001     DIDS Master Patient  DIDS001005_02  DIDS001005 person_birth_date                     PERSON BIRTH DATE                                       an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS001     DIDS Master Patient  DIDS001005_03  DIDS001005 person_birth_date                     PERSON BIRTH DATE                                       an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS001     DIDS Master Patient  DIDS001006_01  DIDS001006 ethnic_category                       ETHNIC CATEGORY                                             max an2             R         String      Regular       File
+      DIDS001     DIDS Master Patient  DIDS001006_02  DIDS001006 ethnic_category                       ETHNIC CATEGORY                                             max an2             R         String      Regular      Record
+      DIDS001     DIDS Master Patient  DIDS001007_01  DIDS001007 ethnic_category_2021                  ETHNIC CATEGORY 2021                                        max an3             P         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001008_01  DIDS001008 person_stated_gender_code             PERSON STATED GENDER CODE                                     an1               R         String      Regular       File
+      DIDS001     DIDS Master Patient  DIDS001008_02  DIDS001008 person_stated_gender_code             PERSON STATED GENDER CODE                                     an1               R         String      Regular      Record
+      DIDS001     DIDS Master Patient  DIDS001009_01  DIDS001009 postcode_of_usual_address             POSTCODE OF USUAL ADDRESS                                   max an8             R         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001010_01  DIDS001010 general_medical_practice_patient_regisGENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)         min an6 max an8         R         String        n/a         File
+      DIDS001     DIDS Master Patient  DIDS001010_02  DIDS001010 general_medical_practice_patient_regisGENERAL MEDICAL PRACTICE (PATIENT REGISTRATION)         min an6 max an8         R         String        n/a         File
+      DIDS002     DIDS Referral        DIDS002001_01  DIDS002001 patient_source_setting_type_diagnosticPATIENT SOURCE SETTING TYPE (DIAGNOSTIC IMAGING)              an2               M         String      Regular       File
+      DIDS002     DIDS Referral        DIDS002001_02  DIDS002001 patient_source_setting_type_diagnosticPATIENT SOURCE SETTING TYPE (DIAGNOSTIC IMAGING)              an2               M         String      Regular       File
+      DIDS002     DIDS Referral        DIDS002001_03  DIDS002001 patient_source_setting_type_diagnosticPATIENT SOURCE SETTING TYPE (DIAGNOSTIC IMAGING)              an2               M         String      Regular      Record
+      DIDS002     DIDS Referral        DIDS002002_01  DIDS002002 referrer_code_diagnostic_imaging      REFERRER CODE (DIAGNOSTIC IMAGING)                            an8               R         String        n/a         File
+      DIDS002     DIDS Referral        DIDS002003_01  DIDS002003 treatment_function_code_referral_for_dTREATMENT FUNCTION CODE (REFERRAL FOR DIAGNOSTIC IMAG         an3               R         String        n/a         File
+      DIDS002     DIDS Referral        DIDS002004_01  DIDS002004 organisation_identifier_referring_orgaORGANISATION IDENTIFIER (REFERRING ORGANISATION)        min an3 max an8         R         String        n/a         File
+      DIDS002     DIDS Referral        DIDS002004_02  DIDS002004 organisation_identifier_referring_orgaORGANISATION IDENTIFIER (REFERRING ORGANISATION)        min an3 max an8         R         String        n/a         File
+      DIDS002     DIDS Referral        DIDS002005_01  DIDS002005 service_request_priority_type         SERVICE REQUEST PRIORITY TYPE                                 an1               R         String      Regular       File
+      DIDS002     DIDS Referral        DIDS002005_02  DIDS002005 service_request_priority_type         SERVICE REQUEST PRIORITY TYPE                                 an1               R         String      Regular      Record
+      DIDS002     DIDS Referral        DIDS002006_01  DIDS002006 diagnostic_test_request_date          DIAGNOSTIC TEST REQUEST DATE                            an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002006_02  DIDS002006 diagnostic_test_request_date          DIAGNOSTIC TEST REQUEST DATE                            an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002006_03  DIDS002006 diagnostic_test_request_date          DIAGNOSTIC TEST REQUEST DATE                            an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002007_01  DIDS002007 diagnostic_test_request_time          DIAGNOSTIC TEST REQUEST TIME                              an8 HH:MM:SS          R          Time         n/a         File
+      DIDS002     DIDS Referral        DIDS002008_01  DIDS002008 diagnostic_test_request_received_date DIAGNOSTIC TEST REQUEST RECEIVED DATE                   an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002008_02  DIDS002008 diagnostic_test_request_received_date DIAGNOSTIC TEST REQUEST RECEIVED DATE                   an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002008_03  DIDS002008 diagnostic_test_request_received_date DIAGNOSTIC TEST REQUEST RECEIVED DATE                   an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002008_04  DIDS002008 diagnostic_test_request_received_date DIAGNOSTIC TEST REQUEST RECEIVED DATE                   an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS002     DIDS Referral        DIDS002009_01  DIDS002009 diagnostic_test_request_received_time DIAGNOSTIC TEST REQUEST RECEIVED TIME                     an8 HH:MM:SS          R          Time         n/a         File
+      DIDS003     DIDS Activity        DIDS003001_01  DIDS003001 radiological_accession_number         RADIOLOGICAL ACCESSION NUMBER                               max an20            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003001_02  DIDS003001 radiological_accession_number         RADIOLOGICAL ACCESSION NUMBER                               max an20            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003002_01  DIDS003002 organisation_site_identifier_of_imaginORGANISATION SITE IDENTIFIER (OF IMAGING)               min an5 max an9         M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003002_02  DIDS003002 organisation_site_identifier_of_imaginORGANISATION SITE IDENTIFIER (OF IMAGING)               min an5 max an9         M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003002_03  DIDS003002 organisation_site_identifier_of_imaginORGANISATION SITE IDENTIFIER (OF IMAGING)               min an5 max an9         M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003003_01  DIDS003003 coded_procedure_nicip                 CODED PROCEDURE (NICIP)                                     max an6             R         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003003_02  DIDS003003 coded_procedure_nicip                 CODED PROCEDURE (NICIP)                                     max an6             R         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003004_01  DIDS003004 coded_procedure_snomed_ct             CODED PROCEDURE (SNOMED CT)                              min n6 max n18         R         Number        n/a         File
+      DIDS003     DIDS Activity        DIDS003004_02  DIDS003004 coded_procedure_snomed_ct             CODED PROCEDURE (SNOMED CT)                              min n6 max n18         R         Number        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_01  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_02  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_03  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_04  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_05  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_06  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003005_07  DIDS003005 coded_procedure_start_timestamp       CODED PROCEDURE START TIMESTAMP                             max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_01  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_02  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_03  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_04  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_05  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_06  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003006_07  DIDS003006 coded_procedure_end_timestamp         CODED PROCEDURE END TIMESTAMP                               max an25            M         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003007_01  DIDS003007 service_report_issue_timestamp        SERVICE REPORT ISSUE TIMESTAMP                              max an25            R         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003007_02  DIDS003007 service_report_issue_timestamp        SERVICE REPORT ISSUE TIMESTAMP                              max an25            R         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003007_03  DIDS003007 service_report_issue_timestamp        SERVICE REPORT ISSUE TIMESTAMP                              max an25            R         String        n/a         File
+      DIDS003     DIDS Activity        DIDS003008_01  DIDS003008 diagnostic_imaging_cancer_indication_cDIAGNOSTIC IMAGING CANCER INDICATION CODE                     an2               P         String      Regular       File
+      DIDS003     DIDS Activity        DIDS003008_02  DIDS003008 diagnostic_imaging_cancer_indication_cDIAGNOSTIC IMAGING CANCER INDICATION CODE                     an2               P         String      Regular      Record
+      DIDS003     DIDS Activity        DIDS003009_01  DIDS003009 general_anaesthetic_administered_indicGENERAL ANAESTHETIC ADMINISTERED INDICATOR                    an1               R        Boolean      Regular       File
+      DIDS003     DIDS Activity        DIDS003009_02  DIDS003009 general_anaesthetic_administered_indicGENERAL ANAESTHETIC ADMINISTERED INDICATOR                    an1               R        Boolean      Regular      Record
+      DIDS003     DIDS Activity        DIDS003010_01  DIDS003010 referrer_radiology_procedure_evaluatioREFERRER RADIOLOGY PROCEDURE EVALUATION INDICATOR             an1               R        Boolean      Regular       File
+      DIDS003     DIDS Activity        DIDS003010_02  DIDS003010 referrer_radiology_procedure_evaluatioREFERRER RADIOLOGY PROCEDURE EVALUATION INDICATOR             an1               R        Boolean      Regular      Record
+      DIDS003     DIDS Activity        DIDS003011_01  DIDS003011 diagnostic_imaging_activity_category  DIAGNOSTIC IMAGING ACTIVITY CATEGORY                          an2               R         String      Regular       File
+      DIDS003     DIDS Activity        DIDS003011_02  DIDS003011 diagnostic_imaging_activity_category  DIAGNOSTIC IMAGING ACTIVITY CATEGORY                          an2               R         String      Regular      Record
+      DIDS003     DIDS Activity        DIDS003012_01  DIDS003012 diagnostic_imaging_waiting_list_clock_DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE        an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003012_02  DIDS003012 diagnostic_imaging_waiting_list_clock_DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE        an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003012_03  DIDS003012 diagnostic_imaging_waiting_list_clock_DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE        an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003012_04  DIDS003012 diagnostic_imaging_waiting_list_clock_DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE        an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003012_05  DIDS003012 diagnostic_imaging_waiting_list_clock_DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE        an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003013_01  DIDS003013 planned_diagnostic_due_date           PLANNED DIAGNOSTIC DUE DATE                             an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003013_02  DIDS003013 planned_diagnostic_due_date           PLANNED DIAGNOSTIC DUE DATE                             an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003013_03  DIDS003013 planned_diagnostic_due_date           PLANNED DIAGNOSTIC DUE DATE                             an10 CCYY-MM-DD         R          Date         n/a         File
+      DIDS003     DIDS Activity        DIDS003013_04  DIDS003013 planned_diagnostic_due_date           PLANNED DIAGNOSTIC DUE DATE                             an10 CCYY-MM-DD         R          Date         n/a         File
+
+Validation_Type     Blank         Format      National Code Additional Vali  Error_Level  Additional_Validation_Messag         Date_Range                  Date_1
+UID            Date_1
+Data_Item_Name    Date_1
+Data_Item_Submission_
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected Value should be set to the cshould be set to the current data set version in operation. E.g. '2.0' for version 2
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected ORGANISATION IDENTIFIER (CODnot a current (at time of activity) ODS Code (or a default value as defined in the N
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected ORGANISATION IDENTIFIER (CODnot a current (at time of activity) ODS Code (or a default value as defined in the N
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected REPORTING PERIOD START DATE does not match the start date of the reporting period selected by the user within Su
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected REPORTING PERIOD END DATE dodoes not match the end date of the reporting period selected by the user within Subm
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected DATE AND TIME DATA SET CREAT           Before                    DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+      AV                                                         TRUE       File Rejected DATE AND TIME DATA SET CREATafter the current date and time
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected ORGANISATION IDENTIFIER (LOCnot a current (at time of activity) ODS Code (or a default value as defined in the N
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected If PERSON BIRTH DATE is befo           Before                        -                       01/01/1904                  01/01/1904
+      AV                                                         TRUE       File Rejected If PERSON BIRTH DATE is afte           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected GENERAL MEDICAL PRACTICE (PAnot a current (at time of activity) ODS Code (or a default value as defined in the N
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected ORGANISATION IDENTIFIER (REFnot a current (at time of activity) ODS Code (or a default value as defined in the N
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC TEST REQUEST D           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC TEST REQUEST D           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+    Format                         TRUE                                     File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC TEST REQUEST R           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC TEST REQUEST R           Before                    DIDS002006         DIAGNOSTIC TEST REQUEST DATEdiagnostic_test_request_date
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC TEST REQUEST R           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+    Format                         TRUE                                     File Rejected
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected ORGANISATION IDENTIFIER (SITnot a current (at time of activity) ODS Code (or a default value as defined in the N
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected CODED PROCEDURE (NICIP) is nnot a current (at time of activity) code as defined in DIDS Reference data.
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected CODED PROCEDURE (SNOMED CT) not a current (at time of activity) code as defined in DIDS Reference data.
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected CODED PROCEDURE START TIMEST           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected CODED PROCEDURE START TIMEST           Before                    DIDS002006         DIAGNOSTIC TEST REQUEST DATEdiagnostic_test_request_date
+      AV                                                         TRUE       File Rejected CODED PROCEDURE START TIMEST           Before                    DIDS002008         DIAGNOSTIC TEST REQUEST RECEdiagnostic_test_request_rece
+      AV                                                         TRUE       File Rejected CODED PROCEDURE START TIMEST           After                     DIDS003006         CODED PROCEDURE END TIMESTAMcoded_procedure_end_timestam
+      AV                                                         TRUE       File Rejected CODED PROCEDURE START TIMEST           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+     Blank          TRUE                                                    File Rejected
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected CODED PROCEDURE END TIMESTAM           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected CODED PROCEDURE END TIMESTAM           Before                    DIDS002006         DIAGNOSTIC TEST REQUEST DATEdiagnostic_test_request_date
+      AV                                                         TRUE       File Rejected CODED PROCEDURE END TIMESTAM           Before                    DIDS002008         DIAGNOSTIC TEST REQUEST RECEdiagnostic_test_request_rece
+      AV                                                         TRUE       File Rejected CODED PROCEDURE END TIMESTAM           Before                    DIDS003005         CODED PROCEDURE START TIMESTcoded_procedure_start_timest
+      AV                                                         TRUE       File Rejected CODED PROCEDURE END TIMESTAM           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected SERVICE REPORT ISSUE TIMESTA           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected SERVICE REPORT ISSUE TIMESTA           Before                    DIDS003005         CODED PROCEDURE START TIMESTcoded_procedure_start_timest
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+ National Code                                    TRUE                         Warning
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected DIAGNOSTIC IMAGING WAITING LIST CLOCK START DATE should          DIDS003011         DIAGNOSTIC IMAGING ACTIVITY diagnostic_imaging_activity_
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC IMAGING WAITIN           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC IMAGING WAITIN           Before                    DIDS002008         DIAGNOSTIC TEST REQUEST RECEdiagnostic_test_request_rece
+      AV                                                         TRUE       File Rejected If DIAGNOSTIC IMAGING WAITIN           After                     DIDS000006          REPORTING PERIOD END DATE   reporting_period_end_date
+    Format                         TRUE                                     File Rejected
+      AV                                                         TRUE       File Rejected PLANNED DIAGNOSTIC DUE DATE should only be populated whe         DIDS003011         DIAGNOSTIC IMAGING ACTIVITY diagnostic_imaging_activity_
+      AV                                                         TRUE       File Rejected If PLANNED DIAGNOSTIC DUE DA           Before                    DIDS001005              PERSON BIRTH DATE           person_birth_date
+      AV                                                         TRUE       File Rejected If PLANNED DIAGNOSTIC DUE DA           Before                    DIDS002008         DIAGNOSTIC TEST REQUEST RECEdiagnostic_test_request_rece
+
+Additional_Validation_Messag     Validation_Message_Text        AV_Message_Count       Error_Code                           Error/Warning_Messages_(MAIN_BODY_ONLY)                               Item_To_Display_1           UID_1
+                             is blank.                                            DIDS00000101        File Rejected - [DIDS000001] data_set_version_number is blank.                      DATA SET VERSION NUMBER           DIDS000001
+                             has an incorrect data format.                        DIDS00000102        File Rejected - [DIDS000001] data_set_version_number has an incorrect data format.  DATA SET VERSION NUMBER           DIDS000001
+[DIDS000001] data_set_versio [DIDS000001] data_set_version_num01                  DIDS00000103        File Rejected - [DIDS000001] data_set_version_number should be set to the current daDATA SET VERSION NUMBER           DIDS000001
+                             is blank.                                            DIDS00000201        File Rejected - [DIDS000002] organisation_identifier_code_of_provider is blank.     ORGANISATION IDENTIFIER (CODE OF PDIDS000002
+                             has an incorrect data format.                        DIDS00000202        File Rejected - [DIDS000002] organisation_identifier_code_of_provider has an incorreORGANISATION IDENTIFIER (CODE OF PDIDS000002
+[DIDS000002] organisation_id [DIDS000002] organisation_identif01                  DIDS00000203        File Rejected - [DIDS000002] organisation_identifier_code_of_provider is not a curreORGANISATION IDENTIFIER (CODE OF PDIDS000002
+                             is blank.                                            DIDS00000301        File Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisationORGANISATION IDENTIFIER (CODE OF SDIDS000003
+                             has an incorrect data format.                        DIDS00000302        File Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisationORGANISATION IDENTIFIER (CODE OF SDIDS000003
+[DIDS000003] organisation_id [DIDS000003] organisation_identif01                  DIDS00000303        File Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisationORGANISATION IDENTIFIER (CODE OF SDIDS000003
+                             is blank.                                            DIDS00000401        File Rejected - [DIDS000004] primary_data_collection_system_in_use is blank.        PRIMARY DATA COLLECTION SYSTEM IN DIDS000004
+                             has an incorrect data format.                        DIDS00000402        File Rejected - [DIDS000004] primary_data_collection_system_in_use has an incorrect PRIMARY DATA COLLECTION SYSTEM IN DIDS000004
+                             is blank.                                            DIDS00000501        File Rejected - [DIDS000005] reporting_period_start_date is blank.                  REPORTING PERIOD START DATE       DIDS000005
+                             has an incorrect data format.                        DIDS00000502        File Rejected - [DIDS000005] reporting_period_start_date has an incorrect data formaREPORTING PERIOD START DATE       DIDS000005
+[DIDS000005] reporting_perio [DIDS000005] reporting_period_sta01                  DIDS00000503        File Rejected - [DIDS000005] reporting_period_start_date does not match the start daREPORTING PERIOD START DATE       DIDS000005
+                             is blank.                                            DIDS00000601        File Rejected - [DIDS000006] reporting_period_end_date is blank.                    REPORTING PERIOD END DATE         DIDS000006
+                             has an incorrect data format.                        DIDS00000602        File Rejected - [DIDS000006] reporting_period_end_date has an incorrect data format.REPORTING PERIOD END DATE         DIDS000006
+[DIDS000006] reporting_perio [DIDS000006] reporting_period_end01                  DIDS00000603        File Rejected - [DIDS000006] reporting_period_end_date does not match the end date oREPORTING PERIOD END DATE         DIDS000006
+                             is blank.                                            DIDS00000701        File Rejected - [DIDS000007] date_and_time_data_set_created is blank.               DATE AND TIME DATA SET CREATED    DIDS000007
+                             has an incorrect data format.                        DIDS00000702        File Rejected - [DIDS000007] date_and_time_data_set_created has an incorrect data foDATE AND TIME DATA SET CREATED    DIDS000007
+[DIDS000007] date_and_time_d [DIDS000007] date_and_time_data_s01                  DIDS00000703        File Rejected - [DIDS000007] date_and_time_data_set_created is before [DIDS000006] rDATE AND TIME DATA SET CREATED    DIDS000007
+[DIDS000007] date_and_time_d [DIDS000007] date_and_time_data_s02                  DIDS00000704        File Rejected - [DIDS000007] date_and_time_data_set_created is after the current datDATE AND TIME DATA SET CREATED    DIDS000007
+                             is blank.                                            DIDS00100101        File Rejected - [DIDS001001] local_patient_identifier_extended is blank.            LOCAL PATIENT IDENTIFIER (EXTENDEDDIDS001001
+                             has an incorrect data format.                        DIDS00100102        File Rejected - [DIDS001001] local_patient_identifier_extended has an incorrect dataLOCAL PATIENT IDENTIFIER (EXTENDEDDIDS001001
+                             is blank.                                            DIDS00100201        File Rejected - [DIDS001002] organisation_identifier_local_patient_identifier is blaORGANISATION IDENTIFIER (LOCAL PATDIDS001002
+                             has an incorrect data format.                        DIDS00100202        File Rejected - [DIDS001002] organisation_identifier_local_patient_identifier has anORGANISATION IDENTIFIER (LOCAL PATDIDS001002
+[DIDS001002] organisation_id [DIDS001002] organisation_identif01                  DIDS00100203        File Rejected - [DIDS001002] organisation_identifier_local_patient_identifier is notORGANISATION IDENTIFIER (LOCAL PATDIDS001002
+                             has an incorrect data format.                        DIDS00100301        File Rejected - [DIDS001003] nhs_number has an incorrect data format.               NHS NUMBER                        DIDS001003
+                             has an incorrect data format.                        DIDS00100401        File Rejected - [DIDS001004] nhs_number_status_indicator_code has an incorrect data NHS NUMBER STATUS INDICATOR CODE  DIDS001004
+                             contains an invalid value.                           DIDS00100402        Warning - [DIDS001004] nhs_number_status_indicator_code contains an invalid value.  NHS NUMBER STATUS INDICATOR CODE  DIDS001004
+                             has an incorrect data format.                        DIDS00100501        File Rejected - [DIDS001005] person_birth_date has an incorrect data format.        PERSON BIRTH DATE                 DIDS001005
+[DIDS001005] person_birth_da [DIDS001005] person_birth_date is01                  DIDS00100502        File Rejected - [DIDS001005] person_birth_date is before 01/01/1904.                PERSON BIRTH DATE                 DIDS001005
+[DIDS001005] person_birth_da [DIDS001005] person_birth_date is02                  DIDS00100503        File Rejected - [DIDS001005] person_birth_date is after [DIDS000006] reporting_perioPERSON BIRTH DATE                 DIDS001005
+                             has an incorrect data format.                        DIDS00100601        File Rejected - [DIDS001006] ethnic_category has an incorrect data format.          ETHNIC CATEGORY                   DIDS001006
+                             contains an invalid value.                           DIDS00100602        Warning - [DIDS001006] ethnic_category contains an invalid value.                   ETHNIC CATEGORY                   DIDS001006
+                            is a pilot item and should be left blank.             DIDS00100701        File Rejected - [DIDS001007] ethnic_category_2021is a pilot item and should be left ETHNIC CATEGORY 2021              DIDS001007
+                             has an incorrect data format.                        DIDS00100801        File Rejected - [DIDS001008] person_stated_gender_code has an incorrect data format.PERSON STATED GENDER CODE         DIDS001008
+                             contains an invalid value.                           DIDS00100802        Warning - [DIDS001008] person_stated_gender_code contains an invalid value.         PERSON STATED GENDER CODE         DIDS001008
+                             has an incorrect data format.                        DIDS00100901        File Rejected - [DIDS001009] postcode_of_usual_address has an incorrect data format.POSTCODE OF USUAL ADDRESS         DIDS001009
+                             has an incorrect data format.                        DIDS00101001        File Rejected - [DIDS001010] general_medical_practice_patient_registration has an inGENERAL MEDICAL PRACTICE (PATIENT DIDS001010
+[DIDS001010] general_medical [DIDS001010] general_medical_prac01                  DIDS00101002        File Rejected - [DIDS001010] general_medical_practice_patient_registration is not a GENERAL MEDICAL PRACTICE (PATIENT DIDS001010
+                             is blank.                                            DIDS00200101        File Rejected - [DIDS002001] patient_source_setting_type_diagnostic_imaging is blankPATIENT SOURCE SETTING TYPE (DIAGNDIDS002001
+                             has an incorrect data format.                        DIDS00200102        File Rejected - [DIDS002001] patient_source_setting_type_diagnostic_imaging has an iPATIENT SOURCE SETTING TYPE (DIAGNDIDS002001
+                             contains an invalid value.                           DIDS00200103        Warning - [DIDS002001] patient_source_setting_type_diagnostic_imaging contains an inPATIENT SOURCE SETTING TYPE (DIAGNDIDS002001
+                             has an incorrect data format.                        DIDS00200201        File Rejected - [DIDS002002] referrer_code_diagnostic_imaging has an incorrect data REFERRER CODE (DIAGNOSTIC IMAGING)DIDS002002
+                             has an incorrect data format.                        DIDS00200301        File Rejected - [DIDS002003] treatment_function_code_referral_for_diagnostic_imagingTREATMENT FUNCTION CODE (REFERRAL DIDS002003
+                             has an incorrect data format.                        DIDS00200401        File Rejected - [DIDS002004] organisation_identifier_referring_organisation has an iORGANISATION IDENTIFIER (REFERRINGDIDS002004
+[DIDS002004] organisation_id [DIDS002004] organisation_identif01                  DIDS00200402        File Rejected - [DIDS002004] organisation_identifier_referring_organisation is not aORGANISATION IDENTIFIER (REFERRINGDIDS002004
+                             has an incorrect data format.                        DIDS00200501        File Rejected - [DIDS002005] service_request_priority_type has an incorrect data forSERVICE REQUEST PRIORITY TYPE     DIDS002005
+                             contains an invalid value.                           DIDS00200502        Warning - [DIDS002005] service_request_priority_type contains an invalid value.     SERVICE REQUEST PRIORITY TYPE     DIDS002005
+                             has an incorrect data format.                        DIDS00200601        File Rejected - [DIDS002006] diagnostic_test_request_date has an incorrect data formDIAGNOSTIC TEST REQUEST DATE      DIDS002006
+[DIDS002006] diagnostic_test [DIDS002006] diagnostic_test_requ01                  DIDS00200602        File Rejected - [DIDS002006] diagnostic_test_request_date is before [DIDS001005] perDIAGNOSTIC TEST REQUEST DATE      DIDS002006
+[DIDS002006] diagnostic_test [DIDS002006] diagnostic_test_requ02                  DIDS00200603        File Rejected - [DIDS002006] diagnostic_test_request_date is after [DIDS000006] repoDIAGNOSTIC TEST REQUEST DATE      DIDS002006
+                             has an incorrect data format.                        DIDS00200701        File Rejected - [DIDS002007] diagnostic_test_request_time has an incorrect data formDIAGNOSTIC TEST REQUEST TIME      DIDS002007
+                             has an incorrect data format.                        DIDS00200801        File Rejected - [DIDS002008] diagnostic_test_request_received_date has an incorrect DIAGNOSTIC TEST REQUEST RECEIVED DDIDS002008
+[DIDS002008] diagnostic_test [DIDS002008] diagnostic_test_requ01                  DIDS00200802        File Rejected - [DIDS002008] diagnostic_test_request_received_date is before [DIDS00DIAGNOSTIC TEST REQUEST RECEIVED DDIDS002008
+[DIDS002008] diagnostic_test [DIDS002008] diagnostic_test_requ02                  DIDS00200803        File Rejected - [DIDS002008] diagnostic_test_request_received_date is before [DIDS00DIAGNOSTIC TEST REQUEST RECEIVED DDIDS002008
+[DIDS002008] diagnostic_test [DIDS002008] diagnostic_test_requ03                  DIDS00200804        File Rejected - [DIDS002008] diagnostic_test_request_received_date is after [DIDS000DIAGNOSTIC TEST REQUEST RECEIVED DDIDS002008
+                             has an incorrect data format.                        DIDS00200901        File Rejected - [DIDS002009] diagnostic_test_request_received_time has an incorrect DIAGNOSTIC TEST REQUEST RECEIVED TDIDS002009
+                             is blank.                                            DIDS00300101        File Rejected - [DIDS003001] radiological_accession_number is blank.                RADIOLOGICAL ACCESSION NUMBER     DIDS003001
+                             has an incorrect data format.                        DIDS00300102        File Rejected - [DIDS003001] radiological_accession_number has an incorrect data forRADIOLOGICAL ACCESSION NUMBER     DIDS003001
+                             is blank.                                            DIDS00300201        File Rejected - [DIDS003002] organisation_site_identifier_of_imaging is blank.      ORGANISATION SITE IDENTIFIER (OF IDIDS003002
+                             has an incorrect data format.                        DIDS00300202        File Rejected - [DIDS003002] organisation_site_identifier_of_imaging has an incorrecORGANISATION SITE IDENTIFIER (OF IDIDS003002
+[DIDS003002] organisation_si [DIDS003002] organisation_site_id01                  DIDS00300203        File Rejected - [DIDS003002] organisation_site_identifier_of_imaging is not a currenORGANISATION SITE IDENTIFIER (OF IDIDS003002
+                             has an incorrect data format.                        DIDS00300301        File Rejected - [DIDS003003] coded_procedure_nicip has an incorrect data format.    CODED PROCEDURE (NICIP)           DIDS003003
+[DIDS003003] coded_procedure [DIDS003003] coded_procedure_nici01                  DIDS00300302        File Rejected - [DIDS003003] coded_procedure_nicip is not a current (at time of actiCODED PROCEDURE (NICIP)           DIDS003003
+                             has an incorrect data format.                        DIDS00300401        File Rejected - [DIDS003004] coded_procedure_snomed_ct has an incorrect data format.CODED PROCEDURE (SNOMED CT)       DIDS003004
+[DIDS003004] coded_procedure [DIDS003004] coded_procedure_snom01                  DIDS00300402        File Rejected - [DIDS003004] coded_procedure_snomed_ct is not a current (at time of CODED PROCEDURE (SNOMED CT)       DIDS003004
+                             is blank.                                            DIDS00300501        File Rejected - [DIDS003005] coded_procedure_start_timestamp is blank.              CODED PROCEDURE START TIMESTAMP   DIDS003005
+                             has an incorrect data format.                        DIDS00300502        File Rejected - [DIDS003005] coded_procedure_start_timestamp has an incorrect data fCODED PROCEDURE START TIMESTAMP   DIDS003005
+[DIDS003005] coded_procedure [DIDS003005] coded_procedure_star01                  DIDS00300503        File Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS001005] CODED PROCEDURE START TIMESTAMP   DIDS003005
+[DIDS003005] coded_procedure [DIDS003005] coded_procedure_star02                  DIDS00300504        File Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS002006] CODED PROCEDURE START TIMESTAMP   DIDS003005
+[DIDS003005] coded_procedure [DIDS003005] coded_procedure_star03                  DIDS00300505        File Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS002008] CODED PROCEDURE START TIMESTAMP   DIDS003005
+[DIDS003005] coded_procedure [DIDS003005] coded_procedure_star04                  DIDS00300506        File Rejected - [DIDS003005] coded_procedure_start_timestamp is after [DIDS003006] cCODED PROCEDURE START TIMESTAMP   DIDS003005
+[DIDS003005] coded_procedure [DIDS003005] coded_procedure_star05                  DIDS00300507        File Rejected - [DIDS003005] coded_procedure_start_timestamp is after [DIDS000006] rCODED PROCEDURE START TIMESTAMP   DIDS003005
+                             is blank.                                            DIDS00300601        File Rejected - [DIDS003006] coded_procedure_end_timestamp is blank.                CODED PROCEDURE END TIMESTAMP     DIDS003006
+                             has an incorrect data format.                        DIDS00300602        File Rejected - [DIDS003006] coded_procedure_end_timestamp has an incorrect data forCODED PROCEDURE END TIMESTAMP     DIDS003006
+[DIDS003006] coded_procedure [DIDS003006] coded_procedure_end_01                  DIDS00300603        File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS001005] peCODED PROCEDURE END TIMESTAMP     DIDS003006
+[DIDS003006] coded_procedure [DIDS003006] coded_procedure_end_02                  DIDS00300604        File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS002006] diCODED PROCEDURE END TIMESTAMP     DIDS003006
+[DIDS003006] coded_procedure [DIDS003006] coded_procedure_end_03                  DIDS00300605        File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS002008] diCODED PROCEDURE END TIMESTAMP     DIDS003006
+[DIDS003006] coded_procedure [DIDS003006] coded_procedure_end_04                  DIDS00300606        File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS003005] coCODED PROCEDURE END TIMESTAMP     DIDS003006
+[DIDS003006] coded_procedure [DIDS003006] coded_procedure_end_05                  DIDS00300607        File Rejected - [DIDS003006] coded_procedure_end_timestamp is after [DIDS000006] repCODED PROCEDURE END TIMESTAMP     DIDS003006
+                             has an incorrect data format.                        DIDS00300701        File Rejected - [DIDS003007] service_report_issue_timestamp has an incorrect data foSERVICE REPORT ISSUE TIMESTAMP    DIDS003007
+[DIDS003007] service_report_ [DIDS003007] service_report_issue01                  DIDS00300702        File Rejected - [DIDS003007] service_report_issue_timestamp is before [DIDS001005] pSERVICE REPORT ISSUE TIMESTAMP    DIDS003007
+[DIDS003007] service_report_ [DIDS003007] service_report_issue02                  DIDS00300703        File Rejected - [DIDS003007] service_report_issue_timestamp is before [DIDS003005] cSERVICE REPORT ISSUE TIMESTAMP    DIDS003007
+                             has an incorrect data format.                        DIDS00300801        File Rejected - [DIDS003008] diagnostic_imaging_cancer_indication_code has an incorrDIAGNOSTIC IMAGING CANCER INDICATIDIDS003008
+                             contains an invalid value.                           DIDS00300802        Warning - [DIDS003008] diagnostic_imaging_cancer_indication_code contains an invalidDIAGNOSTIC IMAGING CANCER INDICATIDIDS003008
+                             has an incorrect data format.                        DIDS00300901        File Rejected - [DIDS003009] general_anaesthetic_administered_indicator has an incorGENERAL ANAESTHETIC ADMINISTERED IDIDS003009
+                             contains an invalid value.                           DIDS00300902        Warning - [DIDS003009] general_anaesthetic_administered_indicator contains an invaliGENERAL ANAESTHETIC ADMINISTERED IDIDS003009
+                             has an incorrect data format.                        DIDS00301001        File Rejected - [DIDS003010] referrer_radiology_procedure_evaluation_indicator has aREFERRER RADIOLOGY PROCEDURE EVALUDIDS003010
+                             contains an invalid value.                           DIDS00301002        Warning - [DIDS003010] referrer_radiology_procedure_evaluation_indicator contains anREFERRER RADIOLOGY PROCEDURE EVALUDIDS003010
+                             has an incorrect data format.                        DIDS00301101        File Rejected - [DIDS003011] diagnostic_imaging_activity_category has an incorrect dDIAGNOSTIC IMAGING ACTIVITY CATEGODIDS003011
+                             contains an invalid value.                           DIDS00301102        Warning - [DIDS003011] diagnostic_imaging_activity_category contains an invalid valuDIAGNOSTIC IMAGING ACTIVITY CATEGODIDS003011
+                             has an incorrect data format.                        DIDS00301201        File Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date has anDIAGNOSTIC IMAGING WAITING LIST CLDIDS003012
+[DIDS003012] diagnostic_imag [DIDS003012] diagnostic_imaging_w01                  DIDS00301202        File Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date shouldDIAGNOSTIC IMAGING WAITING LIST CLDIDS003012
+[DIDS003012] diagnostic_imag [DIDS003012] diagnostic_imaging_w02                  DIDS00301203        File Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is befDIAGNOSTIC IMAGING WAITING LIST CLDIDS003012
+[DIDS003012] diagnostic_imag [DIDS003012] diagnostic_imaging_w03                  DIDS00301204        File Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is befDIAGNOSTIC IMAGING WAITING LIST CLDIDS003012
+[DIDS003012] diagnostic_imag [DIDS003012] diagnostic_imaging_w04                  DIDS00301205        File Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is aftDIAGNOSTIC IMAGING WAITING LIST CLDIDS003012
+                             has an incorrect data format.                        DIDS00301301        File Rejected - [DIDS003013] planned_diagnostic_due_date has an incorrect data formaPLANNED DIAGNOSTIC DUE DATE       DIDS003013
+[DIDS003013] planned_diagnos [DIDS003013] planned_diagnostic_d01                  DIDS00301302        File Rejected - [DIDS003013] planned_diagnostic_due_date should only be populated ifPLANNED DIAGNOSTIC DUE DATE       DIDS003013
+[DIDS003013] planned_diagnos [DIDS003013] planned_diagnostic_d02                  DIDS00301303        File Rejected - [DIDS003013] planned_diagnostic_due_date is before [DIDS001005] persPLANNED DIAGNOSTIC DUE DATE       DIDS003013
+[DIDS003013] planned_diagnos [DIDS003013] planned_diagnostic_d03                  DIDS00301304        File Rejected - [DIDS003013] planned_diagnostic_due_date is before [DIDS002008] diagPLANNED DIAGNOSTIC DUE DATE       DIDS003013
+
+       XML_Element_Name_1                  Item_To_Display_2             UID_2        XML_Element_Name_2            Item_To_Display_3                 UID_3                 XML_Element_Name_3
+data_set_version_number
+data_set_version_number
+data_set_version_number
+organisation_identifier_code_of_provider
+organisation_identifier_code_of_provider
+organisation_identifier_code_of_provider
+organisation_identifier_code_of_submitting_organisation
+organisation_identifier_code_of_submitting_organisation
+organisation_identifier_code_of_submitting_organisation
+primary_data_collection_system_in_use
+primary_data_collection_system_in_use
+reporting_period_start_date
+reporting_period_start_date
+reporting_period_start_date
+reporting_period_end_date
+reporting_period_end_date
+reporting_period_end_date
+date_and_time_data_set_created
+date_and_time_data_set_created
+date_and_time_data_set_created
+date_and_time_data_set_created
+local_patient_identifier_extended                                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+local_patient_identifier_extended                                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_identifier_local_patient_identifier                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_identifier_local_patient_identifier                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_identifier_local_patient_identifier                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+nhs_number                                                                                                    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+nhs_number_status_indicator_code                                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+nhs_number_status_indicator_code                                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+person_birth_date                                                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+person_birth_date                                                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+person_birth_date                                                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+ethnic_category                                                                                               RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+ethnic_category                                                                                               RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+ethnic_category_2021                                                                                          RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+person_stated_gender_code                                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+person_stated_gender_code                                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+postcode_of_usual_address                                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+general_medical_practice_patient_registration                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+general_medical_practice_patient_registration                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+patient_source_setting_type_diagnostic_imaging                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+patient_source_setting_type_diagnostic_imaging                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+patient_source_setting_type_diagnostic_imaging                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+referrer_code_diagnostic_imaging                                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+treatment_function_code_referral_for_diagnostic_imaging                                                       RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_identifier_referring_organisation                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_identifier_referring_organisation                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+service_request_priority_type                                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+service_request_priority_type                                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_date                                                                                  RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_date     PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_date     REPORTING PERIOD END DATE             DIDS000006reporting_period_end_date    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_time                                                                                  RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_received_date                                                                         RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_received_PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_received_DIAGNOSTIC TEST REQUEST DATE          DIDS002006diagnostic_test_request_date RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_received_REPORTING PERIOD END DATE             DIDS000006reporting_period_end_date    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_test_request_received_time                                                                         RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+radiological_accession_number
+radiological_accession_number
+organisation_site_identifier_of_imaging                                                                       RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_site_identifier_of_imaging                                                                       RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+organisation_site_identifier_of_imaging                                                                       RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_nicip                                                                                         RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_nicip                                                                                         RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_snomed_ct                                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_snomed_ct                                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp                                                                               RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp                                                                               RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp  PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp  DIAGNOSTIC TEST REQUEST DATE          DIDS002006diagnostic_test_request_date RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp  DIAGNOSTIC TEST REQUEST RECEIVED DATE DIDS002008diagnostic_test_request_receiRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp  CODED PROCEDURE START TIMESTAMP       DIDS003005coded_procedure_start_timestaRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_start_timestamp  REPORTING PERIOD END DATE             DIDS000006reporting_period_end_date    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp                                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp                                                                                 RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp    PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp    DIAGNOSTIC TEST REQUEST DATE          DIDS002006diagnostic_test_request_date RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp    DIAGNOSTIC TEST REQUEST RECEIVED DATE DIDS002008diagnostic_test_request_receiRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp    CODED PROCEDURE (SNOMED CT)           DIDS003004coded_procedure_snomed_ct    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+coded_procedure_end_timestamp    REPORTING PERIOD END DATE             DIDS000006reporting_period_end_date    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+service_report_issue_timestamp                                                                                RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+service_report_issue_timestamp   PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+service_report_issue_timestamp   CODED PROCEDURE START TIMESTAMP       DIDS003005coded_procedure_start_timestaRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_cancer_indication_code                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_cancer_indication_code                                                                     RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+general_anaesthetic_administered_indicator                                                                    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+general_anaesthetic_administered_indicator                                                                    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+referrer_radiology_procedure_evaluation_indicator                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+referrer_radiology_procedure_evaluation_indicator                                                             RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_activity_category                                                                          RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_activity_category                                                                          RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_waiting_list_clock_start_date                                                              RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_waiting_list_cDIAGNOSTIC IMAGING ACTIVITY CATEGORY  DIDS003011diagnostic_imaging_activity_cRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_waiting_list_cPERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_waiting_list_cDIAGNOSTIC TEST REQUEST RECEIVED DATE DIDS002008diagnostic_test_request_receiRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+diagnostic_imaging_waiting_list_cREPORTING PERIOD END DATE             DIDS000006reporting_period_end_date    RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+planned_diagnostic_due_date                                                                                   RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+planned_diagnostic_due_date      DIAGNOSTIC IMAGING ACTIVITY CATEGORY  DIDS003011diagnostic_imaging_activity_cRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+planned_diagnostic_due_date      PERSON BIRTH DATE                     DIDS001005person_birth_date            RADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+planned_diagnostic_due_date      DIAGNOSTIC TEST REQUEST RECEIVED DATE DIDS002008diagnostic_test_request_receiRADIOLOGICAL ACCESSION NUMBER         DIDS003001         radiological_accession_number
+
+                      Data_Items_to_Display                                                        Error/Warning_Message                                                                     Validation_Notes
+
+[DIDS000001] data_set_version_number=<data_set_version_number>  File Rejected - [DIDS000001] data_set_version_number is blank. 
+
+[DIDS000001] data_set_version_number=<data_set_version_number>
+
+[DIDS000001] data_set_version_number=<data_set_version_number>  File Rejected - [DIDS000001] data_set_version_number has an incorrect data format. 
+
+[DIDS000001] data_set_version_number=<data_set_version_number>
+
+[DIDS000001] data_set_version_number=<data_set_version_number>  File Rejected - [DIDS000001] data_set_version_number should be set to the current data set version in operation. E.g. '2.0' for version 2.0. 
+
+[DIDS000001] data_set_version_n
+
+[DIDS000002] organisation_identifier_code_of_provider=<organisatFile Rejected - [DIDS000002] organisation_identifier_code_of_provider is blank. 
+
+[DIDS000002] organisation_identifier_code_of_provider=<organisation_identifier_code_of_provi
+
+[DIDS000002] organisation_identifier_code_of_provider=<organisatFile Rejected - [DIDS000002] organisation_identifier_code_of_provider has an incorrect data format. 
+
+[DIDS000002] organisation_identifier_code_of_provider=<organisation_iden
+
+[DIDS000002] organisation_identifier_code_of_provider=<organisatFile Rejected - [DIDS000002] organisation_identifier_code_of_provider is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and
+
+[DIDS000003] organisation_identifier_code_of_submitting_organisaFile Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisation is blank. 
+
+[DIDS000003] organisation_identifier_code_of_submitting_organisation=<organis
+
+[DIDS000003] organisation_identifier_code_of_submitting_organisaFile Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisation has an incorrect data format. 
+
+[DIDS000003] organisation_identifier_code_of_submitting_o
+
+[DIDS000003] organisation_identifier_code_of_submitting_organisaFile Rejected - [DIDS000003] organisation_identifier_code_of_submitting_organisation is not a current (at time of activity) ODS Code (or a default value as defined in the NHS
+
+[DIDS000004] primary_data_collection_system_in_use=<primary_dataFile Rejected - [DIDS000004] primary_data_collection_system_in_use is blank. 
+
+[DIDS000004] primary_data_collection_system_in_use=<primary_data_collection_system_in_use>
+
+[DIDS000004] primary_data_collection_system_in_use=<primary_dataFile Rejected - [DIDS000004] primary_data_collection_system_in_use has an incorrect data format. 
+
+[DIDS000004] primary_data_collection_system_in_use=<primary_data_collection
+
+[DIDS000005] reporting_period_start_date=<reporting_period_startFile Rejected - [DIDS000005] reporting_period_start_date is blank. 
+
+[DIDS000005] reporting_period_start_date=<reporting_period_start_date>
+
+[DIDS000005] reporting_period_start_date=<reporting_period_startFile Rejected - [DIDS000005] reporting_period_start_date has an incorrect data format. 
+
+[DIDS000005] reporting_period_start_date=<reporting_period_start_date>
+
+[DIDS000005] reporting_period_start_date=<reporting_period_startFile Rejected - [DIDS000005] reporting_period_start_date does not match the start date of the reporting period selected by the user within Submission Portal. 
+
+[DIDS000005] r
+
+[DIDS000006] reporting_period_end_date=<reporting_period_end_datFile Rejected - [DIDS000006] reporting_period_end_date is blank. 
+
+[DIDS000006] reporting_period_end_date=<reporting_period_end_date>
+
+[DIDS000006] reporting_period_end_date=<reporting_period_end_datFile Rejected - [DIDS000006] reporting_period_end_date has an incorrect data format. 
+
+[DIDS000006] reporting_period_end_date=<reporting_period_end_date>
+
+[DIDS000006] reporting_period_end_date=<reporting_period_end_datFile Rejected - [DIDS000006] reporting_period_end_date does not match the end date of the reporting period selected by the user within Submission Portal. 
+
+[DIDS000006] repor
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_File Rejected - [DIDS000007] date_and_time_data_set_created is blank. 
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_set_created>
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_File Rejected - [DIDS000007] date_and_time_data_set_created has an incorrect data format. 
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_set_created>
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_File Rejected - [DIDS000007] date_and_time_data_set_created is before [DIDS000006] reporting_period_end_date. 
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_dat
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_File Rejected - [DIDS000007] date_and_time_data_set_created is after the current date and time 
+
+[DIDS000007] date_and_time_data_set_created=<date_and_time_data_set_created>
+
+[DIDS001001] local_patient_identifier_extended=<local_patient_idFile Rejected - [DIDS001001] local_patient_identifier_extended is blank. 
+
+[DIDS001001] local_patient_identifier_extended=<local_patient_identifier_extended> 
+[DIDS003001] ra
+
+[DIDS001001] local_patient_identifier_extended=<local_patient_idFile Rejected - [DIDS001001] local_patient_identifier_extended has an incorrect data format. 
+
+[DIDS001001] local_patient_identifier_extended=<local_patient_identifier_extend
+
+[DIDS001002] organisation_identifier_local_patient_identifier=<oFile Rejected - [DIDS001002] organisation_identifier_local_patient_identifier is blank. 
+
+[DIDS001002] organisation_identifier_local_patient_identifier=<organisation_identifi
+
+[DIDS001002] organisation_identifier_local_patient_identifier=<oFile Rejected - [DIDS001002] organisation_identifier_local_patient_identifier has an incorrect data format. 
+
+[DIDS001002] organisation_identifier_local_patient_identifier=<o
+
+[DIDS001002] organisation_identifier_local_patient_identifier=<oFile Rejected - [DIDS001002] organisation_identifier_local_patient_identifier is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data M
+
+[DIDS001003] nhs_number=<nhs_number> 
+[DIDS003001] radiological_File Rejected - [DIDS001003] nhs_number has an incorrect data format. 
+
+[DIDS001003] nhs_nDigits that pass the Modulus 11 Algorithm check digit test
+
+[DIDS001004] nhs_number_status_indicator_code=<nhs_number_statusFile Rejected - [DIDS001004] nhs_number_status_indicator_code has an incorrect data format. 
+
+[DIDS001004] nhs_number_status_indicator_code=<nhs_number_status_indicator_code>
+
+[DIDS001004] nhs_number_status_indicator_code=<nhs_number_statusWarning - [DIDS001004] nhs_number_status_indicator_code contains an invalid value. 
+
+[DIDS001004] nhs_number_status_indicator_code=<nhs_number_status_indicator_code> 
+[DIDS00
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001]File Rejected - [DIDS001005] person_birth_date has an incorrect data format. 
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001] radiological_accession_number=
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001]File Rejected - [DIDS001005] person_birth_date is before 01/01/1904. 
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001] radiological_accession_number=<radiolo
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001]File Rejected - [DIDS001005] person_birth_date is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS001005] person_birth_date=<person_birth_date> 
+[DIDS003001] radiologica
+
+[DIDS001006] ethnic_category=<ethnic_category> 
+[DIDS003001] radFile Rejected - [DIDS001006] ethnic_category has an incorrect data format. 
+
+[DIDS001006] ethnic_category=<ethnic_category> 
+[DIDS003001] radiological_accession_number=<radio
+
+[DIDS001006] ethnic_category=<ethnic_category> 
+[DIDS003001] radWarning - [DIDS001006] ethnic_category contains an invalid value. 
+
+[DIDS001006] ethnic_category=<ethnic_category> 
+[DIDS003001] radiological_accession_number=<radiological_a
+
+[DIDS001007] ethnic_category_2021=<ethnic_category_2021> 
+[DIDS0File Rejected - [DIDS001007] ethnic_category_2021is a pilot item and should be left blank. 
+
+[DIDS001007] ethnic_category_2021=<ethnic_category_2021> 
+[DIDS003001] radiologic
+
+[DIDS001008] person_stated_gender_code=<person_stated_gender_codFile Rejected - [DIDS001008] person_stated_gender_code has an incorrect data format. 
+
+[DIDS001008] person_stated_gender_code=<person_stated_gender_code> 
+[DIDS003001] radiol
+
+[DIDS001008] person_stated_gender_code=<person_stated_gender_codWarning - [DIDS001008] person_stated_gender_code contains an invalid value. 
+
+[DIDS001008] person_stated_gender_code=<person_stated_gender_code> 
+[DIDS003001] radiological_ac
+
+[DIDS001009] postcode_of_usual_address=<postcode_of_usual_addresFile Rejected - [DIDS001009] postcode_of_usual_address has an incorrect data format. 
+
+[DIDS001009] postcode_of_usual_address=<postcode_of_usual_address> 
+[DIDS003001] radiol
+
+[DIDS001010] general_medical_practice_patient_registration=<geneFile Rejected - [DIDS001010] general_medical_practice_patient_registration has an incorrect data format. 
+
+[DIDS001010] general_medical_practice_patient_registration=<general
+
+[DIDS001010] general_medical_practice_patient_registration=<geneFile Rejected - [DIDS001010] general_medical_practice_patient_registration is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Mode
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patFile Rejected - [DIDS002001] patient_source_setting_type_diagnostic_imaging is blank. 
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patient_source_setting_ty
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patFile Rejected - [DIDS002001] patient_source_setting_type_diagnostic_imaging has an incorrect data format. 
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patie
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patWarning - [DIDS002001] patient_source_setting_type_diagnostic_imaging contains an invalid value. 
+
+[DIDS002001] patient_source_setting_type_diagnostic_imaging=<patient_source
+
+[DIDS002002] referrer_code_diagnostic_imaging=<referrer_code_diaFile Rejected - [DIDS002002] referrer_code_diagnostic_imaging has an incorrect data format. 
+
+[DIDS002002] referrer_code_diagnostic_imaging=<referrer_code_diagnostic_imaging>
+
+[DIDS002003] treatment_function_code_referral_for_diagnostic_imaFile Rejected - [DIDS002003] treatment_function_code_referral_for_diagnostic_imaging has an incorrect data format. 
+
+[DIDS002003] treatment_function_code_referral_for_diagnos
+
+[DIDS002004] organisation_identifier_referring_organisation=<orgFile Rejected - [DIDS002004] organisation_identifier_referring_organisation has an incorrect data format. 
+
+[DIDS002004] organisation_identifier_referring_organisation=<organ
+
+[DIDS002004] organisation_identifier_referring_organisation=<orgFile Rejected - [DIDS002004] organisation_identifier_referring_organisation is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Mod
+
+[DIDS002005] service_request_priority_type=<service_request_prioFile Rejected - [DIDS002005] service_request_priority_type has an incorrect data format. 
+
+[DIDS002005] service_request_priority_type=<service_request_priority_type> 
+[DIDS00
+
+[DIDS002005] service_request_priority_type=<service_request_prioWarning - [DIDS002005] service_request_priority_type contains an invalid value. 
+
+[DIDS002005] service_request_priority_type=<service_request_priority_type> 
+[DIDS003001] rad
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_requeFile Rejected - [DIDS002006] diagnostic_test_request_date has an incorrect data format. 
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_request_date> 
+[DIDS00300
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_requeFile Rejected - [DIDS002006] diagnostic_test_request_date is before [DIDS001005] person_birth_date. 
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_request_date>
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_requeFile Rejected - [DIDS002006] diagnostic_test_request_date is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS002006] diagnostic_test_request_date=<diagnostic_test_reques
+
+[DIDS002007] diagnostic_test_request_time=<diagnostic_test_requeFile Rejected - [DIDS002007] diagnostic_test_request_time has an incorrect data format. 
+
+[DIDS002007] diagnostic_test_request_time=<diagnostic_test_request_time> 
+[DIDS00300
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_tFile Rejected - [DIDS002008] diagnostic_test_request_received_date has an incorrect data format. 
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_test_request
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_tFile Rejected - [DIDS002008] diagnostic_test_request_received_date is before [DIDS001005] person_birth_date. 
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_tFile Rejected - [DIDS002008] diagnostic_test_request_received_date is before [DIDS002006] diagnostic_test_request_date. 
+
+[DIDS002008] diagnostic_test_request_received_date=<
+
+[DIDS002008] diagnostic_test_request_received_date=<diagnostic_tFile Rejected - [DIDS002008] diagnostic_test_request_received_date is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS002008] diagnostic_test_request_received_date=<diag
+
+[DIDS002009] diagnostic_test_request_received_time=<diagnostic_tFile Rejected - [DIDS002009] diagnostic_test_request_received_time has an incorrect data format. 
+
+[DIDS002009] diagnostic_test_request_received_time=<diagnostic_test_request
+
+[DIDS003001] radiological_accession_number=<radiological_accessiFile Rejected - [DIDS003001] radiological_accession_number is blank. 
+
+[DIDS003001] radiological_accession_number=<radiological_accession_number>
+
+[DIDS003001] radiological_accession_number=<radiological_accessiFile Rejected - [DIDS003001] radiological_accession_number has an incorrect data format. 
+
+[DIDS003001] radiological_accession_number=<radiological_accession_number>
+
+[DIDS003002] organisation_site_identifier_of_imaging=<organisatiFile Rejected - [DIDS003002] organisation_site_identifier_of_imaging is blank. 
+
+[DIDS003002] organisation_site_identifier_of_imaging=<organisation_site_identifier_of_imaging
+
+[DIDS003002] organisation_site_identifier_of_imaging=<organisatiFile Rejected - [DIDS003002] organisation_site_identifier_of_imaging has an incorrect data format. 
+
+[DIDS003002] organisation_site_identifier_of_imaging=<organisation_site_i
+
+[DIDS003002] organisation_site_identifier_of_imaging=<organisatiFile Rejected - [DIDS003002] organisation_site_identifier_of_imaging is not a current (at time of activity) ODS Code (or a default value as defined in the NHS Data Model and
+
+[DIDS003003] coded_procedure_nicip=<coded_procedure_nicip> 
+[DIDFile Rejected - [DIDS003003] coded_procedure_nicip has an incorrect data format. 
+
+[DIDS003003] coded_procedure_nicip=<coded_procedure_nicip> 
+[DIDS003001] radiological_acces
+
+[DIDS003003] coded_procedure_nicip=<coded_procedure_nicip> 
+[DIDFile Rejected - [DIDS003003] coded_procedure_nicip is not a current (at time of activity) code as defined in DIDS Reference data. 
+
+[DIDS003003] coded_procedure_nicip=<coded_
+
+[DIDS003004] coded_procedure_snomed_ct=<coded_procedure_snomed_cFile Rejected - [DIDS003004] coded_procedure_snomed_ct has an incorrect data format. 
+
+[DIDS003004] coded_procedure_snomed_ct=<coded_procedure_snomed_ct> 
+[DIDS003001] radiol
+
+[DIDS003004] coded_procedure_snomed_ct=<coded_procedure_snomed_cFile Rejected - [DIDS003004] coded_procedure_snomed_ct is not a current (at time of activity) code as defined in DIDS Reference data. 
+
+[DIDS003004] coded_procedure_snomed_ct
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is blank. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_start_timestamp> 
+[DIDS003001] radiolog
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp has an incorrect data format. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_start_timestamp> 
+[
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS001005] person_birth_date. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_start_t
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS002006] diagnostic_test_request_date. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_proced
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is before [DIDS002008] diagnostic_test_request_received_date. 
+
+[DIDS003005] coded_procedure_start_timestamp=<cod
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is after [DIDS003006] coded_procedure_end_timestamp. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_proced
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_stFile Rejected - [DIDS003005] coded_procedure_start_timestamp is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS003005] coded_procedure_start_timestamp=<coded_procedure_
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is blank. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_timestamp> 
+[DIDS003001] radiological_a
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp has an incorrect data format. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_timestamp> 
+[DIDS00
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS001005] person_birth_date. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_timesta
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS002006] diagnostic_test_request_date. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS002008] diagnostic_test_request_received_date. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_p
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is before [DIDS003005] coded_procedure_start_timestamp. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedu
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_File Rejected - [DIDS003006] coded_procedure_end_timestamp is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS003006] coded_procedure_end_timestamp=<coded_procedure_end_
+
+[DIDS003007] service_report_issue_timestamp=<service_report_issuFile Rejected - [DIDS003007] service_report_issue_timestamp has an incorrect data format. 
+
+[DIDS003007] service_report_issue_timestamp=<service_report_issue_timestamp> 
+[DID
+
+[DIDS003007] service_report_issue_timestamp=<service_report_issuFile Rejected - [DIDS003007] service_report_issue_timestamp is before [DIDS001005] person_birth_date. 
+
+[DIDS003007] service_report_issue_timestamp=<service_report_issue_time
+
+[DIDS003007] service_report_issue_timestamp=<service_report_issuFile Rejected - [DIDS003007] service_report_issue_timestamp is before [DIDS003005] coded_procedure_start_timestamp. 
+
+[DIDS003007] service_report_issue_timestamp=<service_rep
+
+[DIDS003008] diagnostic_imaging_cancer_indication_code=<diagnostFile Rejected - [DIDS003008] diagnostic_imaging_cancer_indication_code has an incorrect data format. 
+
+[DIDS003008] diagnostic_imaging_cancer_indication_code=<diagnostic_imag
+
+[DIDS003008] diagnostic_imaging_cancer_indication_code=<diagnostWarning - [DIDS003008] diagnostic_imaging_cancer_indication_code contains an invalid value. 
+
+[DIDS003008] diagnostic_imaging_cancer_indication_code=<diagnostic_imaging_cance
+
+[DIDS003009] general_anaesthetic_administered_indicator=<generalFile Rejected - [DIDS003009] general_anaesthetic_administered_indicator has an incorrect data format. 
+
+[DIDS003009] general_anaesthetic_administered_indicator=<general_anaes
+
+[DIDS003009] general_anaesthetic_administered_indicator=<generalWarning - [DIDS003009] general_anaesthetic_administered_indicator contains an invalid value. 
+
+[DIDS003009] general_anaesthetic_administered_indicator=<general_anaesthetic_ad
+
+[DIDS003010] referrer_radiology_procedure_evaluation_indicator=<File Rejected - [DIDS003010] referrer_radiology_procedure_evaluation_indicator has an incorrect data format. 
+
+[DIDS003010] referrer_radiology_procedure_evaluation_indicator=
+
+[DIDS003010] referrer_radiology_procedure_evaluation_indicator=<Warning - [DIDS003010] referrer_radiology_procedure_evaluation_indicator contains an invalid value. 
+
+[DIDS003010] referrer_radiology_procedure_evaluation_indicator=<referrer
+
+[DIDS003011] diagnostic_imaging_activity_category=<diagnostic_imFile Rejected - [DIDS003011] diagnostic_imaging_activity_category has an incorrect data format. 
+
+[DIDS003011] diagnostic_imaging_activity_category=<diagnostic_imaging_activi
+
+[DIDS003011] diagnostic_imaging_activity_category=<diagnostic_imWarning - [DIDS003011] diagnostic_imaging_activity_category contains an invalid value. 
+
+[DIDS003011] diagnostic_imaging_activity_category=<diagnostic_imaging_activity_catego
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<dFile Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date has an incorrect data format. 
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<d
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<dFile Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date should only be populated if [DIDS003011] diagnostic_imaging_activity_category is set to Diagnost
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<dFile Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is before [DIDS001005] person_birth_date. 
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_s
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<dFile Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is before [DIDS002008] diagnostic_test_request_received_date. 
+
+[DIDS003012] diagnostic_imaging_
+
+[DIDS003012] diagnostic_imaging_waiting_list_clock_start_date=<dFile Rejected - [DIDS003012] diagnostic_imaging_waiting_list_clock_start_date is after [DIDS000006] reporting_period_end_date. 
+
+[DIDS003012] diagnostic_imaging_waiting_list_
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_dueFile Rejected - [DIDS003013] planned_diagnostic_due_date has an incorrect data format. 
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_due_date> 
+[DIDS003001]
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_dueFile Rejected - [DIDS003013] planned_diagnostic_due_date should only be populated if [DIDS003011] diagnostic_imaging_activity_category is set to Planned Diagnostic 
+
+[DIDS003
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_dueFile Rejected - [DIDS003013] planned_diagnostic_due_date is before [DIDS001005] person_birth_date. 
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_due_date> 
+[
+
+[DIDS003013] planned_diagnostic_due_date=<planned_diagnostic_dueFile Rejected - [DIDS003013] planned_diagnostic_due_date is before [DIDS002008] diagnostic_test_request_received_date. 
+
+[DIDS003013] planned_diagnostic_due_date=<planned_dia

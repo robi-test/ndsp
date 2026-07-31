@@ -1,0 +1,213 @@
+{% extends "iteration5/collection-maintaining/layout.html" %}
+{% set pageName = "Terms and conditions" %}
+{% block beforeContent %}
+  {{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ],
+  href: "terms",
+  text: "Terms and conditions"
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1>{{ pageName }}</h1>
+
+    <div class="nhsuk-u-margin-bottom-6">
+
+      <h2>1. Introduction</h2>
+
+      <h3>1.1 Overview</h3>
+      <p>The National Data Submission Portal (NDSP) is a secure online service provided by NHS England for the submission, management and monitoring of national data collections. It supports organisations in meeting data submission requirements by providing a consistent, auditable and role-based approach to data submission, validation feedback, collection administration and operational monitoring.</p>
+      <p>The NDSP is part of the National Data Integration Tenant (NDIT), which provides the underlying technical platform and services used to support national data collection activities. Some functionality available through the NDSP may use connected tools and services within the NDIT environment, including the Data Validation Engine (DVE).</p>
+
+      <h3>1.2 Portal functionality</h3>
+      <p>The NDSP provides a single portal that supports a range of activities. The functionality available within the portal varies according to the permissions assigned to each user.</p>
+      <p>This means that users may have different views of the portal and different functionality available to them. The functionality available to each user is determined by the permissions assigned to their account.</p>
+
+      <h3>1.3 Retention of submitted files</h3>
+      <p>The retention and deletion of submitted files will be managed in accordance with NHS England operational, security and information governance requirements.</p>
+      <p>Raw submission files will be retained on NDSP until 90 days after the closure of the applicable submission window. This is to allow for the identification and rectification of any errors in the validation of the data. After this time, all raw files submitted to NDSP will be deleted.</p>
+
+      <h3>1.4 Acceptance of these terms</h3>
+      <p>These Terms and Conditions apply to all users of the NDSP. Certain sections apply only to users carrying out specific roles or holding particular permissions within the service.</p>
+      <p>By accessing and using the NDSP, you agree to comply with these Terms and Conditions. If you do not agree to these Terms and Conditions, you must not use the NDSP.</p>
+      <p>These Terms and Conditions apply in addition to any applicable NHS England policies, information governance requirements, collection-specific guidance and organisational obligations that may apply to your use of the service.</p>
+
+      <h2>2. Definitions</h2>
+      <p>The following terms have the following meanings in these Terms and Conditions:</p>
+      <p>"NDSP" means the National Data Submission Portal provided by NHS England.</p>
+      <p>"NDIT" means the National Data Integration Tenant, the platform through which the NDSP and associated services are delivered.</p>
+      <p>"DVE" means the Data Validation Engine, the service that is used to validate submitted data and provide validation feedback information.</p>
+      <p>"User" means any individual who has been granted access to the NDSP using CIS2.</p>
+      <p>"CIS2" means the Care Identity Service which is an NHS service for access management, including smartcards and authenticators, for health and social care workers.</p>
+      <p>"Authorised user" means any individual who has been granted permissions to the NDSP following appropriate authorisation.</p>
+      <p>"Collection" means a data set or collection managed through the NDSP.</p>
+      <p>"ODS Code" means an Organisation Data Service code used to uniquely identify an organisation.</p>
+      <p>"Organisation" means a service provider or other body authorised to submit data or access other functionality in the NDSP, usually identified by an ODS code.</p>
+      <p>"Organisation group" means an organisation whose authorised users are responsible for monitoring data submitted to the NDSP for one or more Organisations. An example of an organisation group could be a Cancer Alliance or an Integrated Care Board, both of which have responsibility to oversee a group of organisations.</p>
+      <p>"NDSP core team" means the NHS England team responsible for managing, administering and supporting the operation of the NDSP.</p>
+      <p>"Permission" means access granted to a user for a specific combination of organisation, collection and role.</p>
+      <p>"Role" means a set of permissions assigned to a user that determines the actions and information available to them within the NDSP.</p>
+      <p>"Terms" means these Terms and Conditions.</p>
+
+      <h2>3. Terms of use</h2>
+
+      <h3>3.1 Authorised use</h3>
+      <p>You may use the NDSP only for legitimate business purposes connected with your organisation's responsibilities and your assigned role. You must only access information and functionality that is necessary for carrying out your authorised duties.</p>
+
+      <h3>3.2 Compliance</h3>
+      <p>You must comply with all applicable legislation, NHS England policies, information governance requirements, collection-specific guidance and any reasonable instructions provided by NHS England regarding use of the NDSP.</p>
+
+      <h3>3.3 Prohibited activities</h3>
+      <p>You must not attempt to gain unauthorised access to the NDSP, access information beyond your authorised permissions, share access credentials, allow another individual to use your account, misuse or interfere with the operation of the service, or alter data, permissions or configurations outside your authorised role.</p>
+
+      <h3>3.4 Data handling</h3>
+      <p>Any information accessed through the NDSP must be handled securely and in accordance with applicable information governance, confidentiality and data protection requirements. Information obtained through the portal must be used only for legitimate and authorised purposes.</p>
+
+      <h2>4. Changes and updates</h2>
+
+      <h3>4.1 Changes to these terms</h3>
+      <p>NHS England may update these Terms and Conditions from time to time. Updates may be required to reflect changes to the service, the roles available in the portal, operational processes, security requirements, information governance arrangements or applicable policy and legal requirements.</p>
+
+      <h3>4.2 Publication of updates</h3>
+      <p>The current version of these Terms and Conditions will always be available within the NDSP and may be accessed through links provided in the portal footer.</p>
+
+      <h3>4.3 Notification of changes</h3>
+      <p>Where significant changes are made to these Terms and Conditions, NHS England will take reasonable steps to notify users using the contact details associated with their account or through notifications displayed within the portal. Continued use of the NDSP following publication of updated Terms constitutes acceptance of those revised Terms.</p>
+
+      <h2>5. Access, permissions and security</h2>
+
+      <h3>5.1 Access to NDSP and user accounts</h3>
+      <p>Access to the NDSP is available only to users who have successfully authenticated through Care Identity Service 2 (CIS2). Access to the NDSP is granted only to named individuals and accounts must not be shared, transferred or used by any other person.</p>
+      <p>Users are responsible for ensuring that information associated with their CIS2 identity remains accurate and up to date.</p>
+      <p>Authentication through CIS2 confirms a user's identity. Access to information and functionality within the NDSP is then determined through the permissions assigned to that user within the portal.</p>
+
+      <h3>5.2 Permissions</h3>
+      <p>Permissions are assigned using a combination of:</p>
+      <ul class="nhsuk-list nhsuk-list--bullet">
+        <li>Organisation (identified using an ODS Code)</li>
+        <li>Collection</li>
+        <li>Role</li>
+      </ul>
+      <p>This means that a user may hold different permissions for different organisations and collections. Users may therefore have access to different functionality, data and responsibilities depending on the permissions assigned to them.</p>
+      <p>Permissions assigned within the NDSP are linked to an individual's authenticated identity and may be modified, suspended or removed in accordance with these Terms and Conditions and applicable governance processes.</p>
+      <p>Permissions are granted only following appropriate authorisation. Depending on the role requested, approval may be provided by an Information Governance Manager, a delegated Local Administrator, or the NDSP Team. No permissions are granted automatically.</p>
+
+      <h3>5.3 Authentication security responsibilities</h3>
+      <p>Users are responsible for maintaining the security of the authentication methods and credentials used to access NDSP.</p>
+      <p>Users must take reasonable steps to protect their identity and prevent unauthorised access to their account. Authentication credentials, security devices, access codes, passcodes, authentication applications and any other authentication mechanisms must not be shared with another person or used by anyone other than the authorised user.</p>
+      <p>If a user becomes aware of, or suspects, any unauthorised use of their identity, authentication credentials or account, they must report this immediately to the National Service Desk and take any actions reasonably required to protect access to the service.</p>
+      <p>NHS England may investigate such incidents and take appropriate action to protect the security, integrity and availability of the service.</p>
+      <p>Users must comply with any security requirements, policies or guidance communicated by NHS England relating to the use of the NDSP and associated services.</p>
+
+      <h3>5.4 Monitoring and audit</h3>
+      <p>To protect the security, integrity and availability of the service, NHS England may monitor, log and audit access activity undertaken within the NDSP.</p>
+      <p>Information relating to the use of the service may be recorded and reviewed for operational, security, compliance, audit, service improvement and information governance purposes. By using the NDSP, users acknowledge that access activity carried out within the service may be subject to monitoring and audit in accordance with NHS England policies and applicable legal and regulatory requirements.</p>
+
+      <h2>6. Roles and responsibilities</h2>
+      <p>Permissions within the NDSP are assigned through roles. Each role provides access to specific functionality and information within the portal and carries associated responsibilities. Users may hold one or more roles depending on the activities they perform and the permissions granted to them. The following sections describe the purpose and responsibilities associated with each role.</p>
+
+      <h3>6.1 Submitter role</h3>
+
+      <h4>6.1.1 Purpose</h4>
+      <p>The Submitter role is for users who are responsible for providing data to NHS England through the NDSP. Submitters support the collection of national data by uploading information on behalf of authorised organisations and reviewing the outcome of those submissions.</p>
+
+      <h4>6.1.2 Responsibilities</h4>
+      <p>Submitters are responsible for ensuring that data submitted through the NDSP is complete, accurate and submitted in accordance with the requirements of the relevant collection. They must ensure that their organisation is authorised to provide the information being submitted and that submissions are made in accordance with any collection-specific guidance, deadlines or operational requirements.</p>
+      <p>Submitters are responsible for reviewing validation feedback provided through the NDSP and, where appropriate, through connected services such as the Data Validation Engine (DVE). Where validation errors or other issues are identified, Submitters should take reasonable steps to investigate and address these in accordance with local processes and collection guidance.</p>
+      <p>Submitters must ensure that information accessed through the NDSP is handled securely and lawfully and must immediately report any suspected unauthorised access, data breach or inappropriate use of the service through the appropriate support channels.</p>
+
+      <h3>6.2 Local administrator role</h3>
+
+      <h4>6.2.1 Purpose</h4>
+      <p>The Local administrator role supports the devolved management of access within the NDSP. Local administrators allow organisations to manage access for their own users while ensuring that access remains appropriately controlled and aligned with local information governance requirements. Access to this role is granted only following appropriate approval and is limited to the organisation and collection combinations for which the Local Administrator has been authorised.</p>
+      <p>The local administrator role does not provide access to Patient Identifiable Data (PID).</p>
+
+      <h4>6.2.2 Responsibilities</h4>
+      <p>Local administrators are responsible for managing permissions requests for users associated with their authorised organisations and collections. This includes reviewing requests, approving or rejecting access where appropriate, removing permissions that are no longer required and ensuring that access remains suitable for users' current responsibilities.</p>
+      <p>Before approving a request, Local Administrators must take reasonable steps to verify the user's identity, role, organisational affiliation and business need for access. By approving a request, a Local Administrator confirms that appropriate checks have been undertaken and that the permissions granted are appropriate for the user's responsibilities.</p>
+      <p>Local Administrators must ensure that users are granted only the permissions necessary to perform their role and must not grant a higher level of access than is required for a legitimate business purpose.</p>
+      <p>Local Administrators must ensure that permissions are assigned only to named individuals using their individual email address. Shared mailboxes, team mailboxes, distribution lists or other non-personal accounts must not be granted permissions, as access to the NDSP must remain attributable to an identifiable individual for audit, governance and security purposes.</p>
+      <p>Local Administrators are expected to periodically review access permissions to ensure they remain accurate and necessary, and to act as the primary point of contact within their organisation for questions relating to NDSP access and permissions with regards to their collection(s). Local Administrators are responsible for removing permissions when a user no longer requires access to the NDSP, including where a user has changed role, moved organisation or no longer has a legitimate business need for the permissions assigned to them.</p>
+      <p>The Local Administrator role doesn't include responsibilities applicable to the Submitter role. However, users may be assigned both Local Administrator and Submitter roles where appropriate.</p>
+
+      <h3>6.3 Collection management and monitoring roles</h3>
+
+      <h4>6.3.1 Purpose</h4>
+      <p>The collection management and monitoring roles are for users who are responsible for managing or overseeing one or more collections within the NDSP.</p>
+      <p>Collection management and monitoring permissions are granted on a collection-by-collection basis and may consist of one or more permission groups: configuring, maintaining and monitoring. Depending on the permissions assigned, a user may be responsible for defining how a collection operates, administering its day-to-day operation, monitoring collection performance, or a combination of these activities.</p>
+      <p>The Collection management and monitoring roles do not provide access to Patient Identifiable Data (PID).</p>
+
+      <h4>6.3.2 Responsibilities</h4>
+      <p>Users with configuring permissions are responsible for defining and controlling how a collection operates within the NDSP. This includes managing collection specifications, determining which functionality is available for a collection, configuring collection-level settings and ensuring that the collection remains aligned with agreed business requirements, operational processes and information governance requirements.</p>
+      <p>Users with maintaining permissions are responsible for the operational administration of a collection. This includes managing reporting periods, submission windows, participating organisations, organisation groupings, notifications and other operational settings required to support the ongoing management of a collection. When making changes, users must ensure that configurations remain accurate and consider the impact on submitting organisations and collection operations.</p>
+      <p>Users with monitoring permissions are responsible for reviewing and analysing collection activity. This includes monitoring submission progress, reviewing submission history and statuses, analysing validation outputs, errors resulting in file rejection or warnings, and using this information to support operational oversight, reporting and data quality activities. Monitoring permissions provide visibility of collection activity but do not permit users to modify collection configurations or operational settings unless additional permissions have been assigned.</p>
+      <p>All collection management and monitoring users must act only within the permissions granted to them and must not attempt to access, modify or administer collections beyond the scope of their assigned permissions. Users must ensure they have undergone all relevant approvals before making changes to a collection.</p>
+      <p>Information obtained through the NDSP must be handled in accordance with applicable information governance, confidentiality and data protection requirements and used only for legitimate business purposes. If a user believes they have been assigned inappropriate permissions, or no longer require access to a collection, they should contact the appropriate support or administration team so that permissions can be reviewed and amended where necessary.</p>
+
+      <h3>6.4 Group monitoring user</h3>
+
+      <h4>6.4.1 Purpose</h4>
+      <p>The Group Monitoring User role is for users who need to monitor and review collection activity for a defined group of organisations within a collection, rather than for all organisations participating in that collection. This role supports regional, programme and oversight teams that require visibility of submission activity, reporting information and data quality outcomes for organisations within their area of responsibility.</p>
+
+      <h4>6.4.2 Scope of access</h4>
+      <p>Access granted through the Group monitoring role is limited to organisations assigned to the relevant group for a collection. The role does not provide access to monitoring information for all organisations within the collection. Group monitoring permissions may therefore provide a subset of the information available to standard Monitoring users while maintaining the same read-only monitoring principles.</p>
+      <p>The Group monitoring role does not provide access to Patient Identifiable Data (PID).</p>
+
+      <h4>6.4.3 Responsibilities</h4>
+      <p>The role provides the same monitoring capabilities as the standard Monitoring role but limits visibility to the organisations associated with the relevant group.</p>
+      <p>The Group Monitoring role is a read-only role. Users assigned this role cannot configure collections, manage operational settings, administer user permissions or modify collection data unless they have been assigned additional permissions through another role.</p>
+      <p>Group Monitoring Users must ensure that information accessed through the NDSP is used only for legitimate business purposes and handled in accordance with applicable information governance, confidentiality and data protection requirements. Information obtained through the service must not be shared with individuals who do not have an authorised business need to access it.</p>
+      <p>Where a user believes that the organisations visible to them are incorrect, or that their access is no longer required, they should contact the appropriate collection administration team or support service so that permissions can be reviewed and amended where necessary. Approval arrangements for Group Monitoring permissions may vary between collections and may be managed through collection-specific governance processes.</p>
+
+      <h2>7. Termination of use</h2>
+
+      <h3>7.1 Suspension or removal of access</h3>
+      <p>NHS England may suspend, restrict or remove access where these Terms are breached, access is no longer required, security concerns arise, information governance concerns arise, access has been granted in error, or continued access presents an operational, security or compliance risk. Access may be amended or removed where a user's role changes, a collection changes, or the organisation and collection combination for which access was granted is no longer applicable.</p>
+
+      <h3>7.2 Inactive accounts</h3>
+      <p>Permissions may be removed where an account remains inactive for an extended period or where there is evidence that the account is no longer required.</p>
+      <p>Users will be notified in advance before permissions are removed due to inactivity and will be given an opportunity to maintain their permissions. This may include logging in to the NDSP.</p>
+      <p>If no action is taken by the user following the notification, permissions may be removed. Users whose permissions have been removed due to inactivity may be required to submit a new permission request if they subsequently require access to the service.</p>
+      <p>By default, if an account is inactive for 120 days, then all permissions will be removed. However, the allowed inactivity period may vary on a collection-by-collection basis.</p>
+
+      <h3>7.3 User departure or role change</h3>
+      <p>Users must notify their Local Administrator or the NDSP Team where access is no longer required due to a change in role, departure from an organisation or any other change affecting their need for access. Local Administrators and NDSP team may remove or amend permissions where they become aware that access is no longer appropriate.</p>
+
+      <h3>7.4 Effect of termination</h3>
+      <p>Removal of access does not remove responsibilities relating to confidentiality, information governance, data protection or lawful handling of information obtained while access was active. Users must continue to protect any information accessed through the NDSP in accordance with applicable obligations.</p>
+
+      <h2>8. How we may contact you</h2>
+
+      <h3>8.1 Service communications</h3>
+      <p>NHS England may contact users about access requests, account administration, security matters, service changes, operational incidents, collection-related notifications, updates to these Terms and Conditions, and other matters relating to the operation and governance of the NDSP.</p>
+      <p>NHS England may contact users to request feedback on the service or invite them to participate in user research, surveys, interviews, usability testing or other service improvement activities. Participation in these activities is voluntary and is used to help improve the NDSP and related services.</p>
+
+      <h3>8.2 Methods of communication</h3>
+      <p>Communications may be sent by email, portal notifications, system-generated alerts or service announcements. Users are responsible for ensuring that contact details associated with their account remain accurate and that they review relevant communications relating to use of the service.</p>
+
+      <h2>9. Contact us</h2>
+
+      <h3>9.1 Support</h3>
+      <p>If you require support relating to the NDSP, you should contact the NDSP Service Desk at <a href="mailto:ssd.nationalservicedesk@nhs.net">ssd.nationalservicedesk@nhs.net</a>.</p>
+
+      <h3>9.2 Security incidents</h3>
+      <p>Any suspected security incident, unauthorised access, credential compromise or misuse of the service must be reported immediately through the designated support channels.</p>
+
+      <h3>9.3 Questions about these terms</h3>
+      <p>Questions regarding these Terms and Conditions may be directed to the NDSP Team using the contact information published within the portal.</p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

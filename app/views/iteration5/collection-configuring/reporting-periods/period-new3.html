@@ -1,0 +1,304 @@
+{% extends "iteration5/collection-mantaining-monitoring/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Submission windows" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+       
+<fieldset class="nhsuk-fieldset">
+  <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--l">
+    <h1 class="nhsuk-fieldset__heading">
+      Create a reporting period
+    </h1>
+    
+  </legend>
+<p>Use this page to create a reporting period, also referred to as an activity period. This defines the time period that the submitted data relates to.</p>
+<div class="nhsuk-form-group nhsuk-u-margin-top-4">
+  <h1 class="nhsuk-label-wrapper">
+    <label class="nhsuk-label nhsuk-label--m" for="reporting-period-name">
+      Reporting period name
+    </label>
+  </h1>
+  <input class="nhsuk-input" id="reporting-period-name" name="reportingPeriodName" type="text">
+</div>
+
+
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="start-date-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          Start date
+        </h1>
+      </legend>
+      <div id="start-date-hint" class="nhsuk-hint">For example, 27/9/2026</div>
+      <div style="display:flex; align-items:stretch; position:relative; width:fit-content;" class="nhsuk-u-margin-bottom-6">
+        <input class="nhsuk-input" type="text" id="period-start-input" name="reportingPeriodStart" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px; border-right:none; border-radius:0;">
+        <button type="button" id="period-start-cal-btn" aria-label="Open calendar for start date" style="background:#005eb8; border:2px solid #005eb8; padding:6px 10px; cursor:pointer; display:flex; align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        </button>
+        <div id="period-start-cal-panel" style="display:none; position:absolute; top:100%; left:0; z-index:200; background:white; border:2px solid #212b32; padding:12px; min-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+      </div>
+      {% set startTimeHtml %}
+<div class="nhsuk-hint nhsuk-u-margin-bottom-3">
+  For example, 14 30 00
+</div>
+<div id="submission-window-start-time" class="nhsuk-date-input ">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-hour" name="submissionWindowStart[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-minute" name="submissionWindowStart[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-second" name="submissionWindowStart[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "start-time-type",
+  name: "start-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s nhsuk-u-margin-top-8",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "start-of-day",
+      text: "Start of the day (00:00:00)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: startTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+  <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+    <fieldset class="nhsuk-fieldset" role="group" aria-describedby="end-date-hint">
+      <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+        <h1 class="nhsuk-fieldset__heading">
+          End date
+        </h1>
+      </legend>
+      <div id="end-date-hint" class="nhsuk-hint">For example, 27/9/2026</div>
+      <div style="display:flex; align-items:stretch; position:relative; width:fit-content;" class="nhsuk-u-margin-bottom-6">
+        <input class="nhsuk-input" type="text" id="period-end-input" name="reportingPeriodEnd" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px; border-right:none; border-radius:0;">
+        <button type="button" id="period-end-cal-btn" aria-label="Open calendar for end date" style="background:#005eb8; border:2px solid #005eb8; padding:6px 10px; cursor:pointer; display:flex; align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        </button>
+        <div id="period-end-cal-panel" style="display:none; position:absolute; top:100%; left:0; z-index:200; background:white; border:2px solid #212b32; padding:12px; min-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+      </div>
+      {% set endTimeHtml %}
+<div class="nhsuk-hint nhsuk-u-margin-bottom-3">
+  For example, 14 30 00
+</div>
+<div id="submission-window-end-time" class="nhsuk-date-input ">
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label " for="submission-window-end-hour">
+        Hour
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-hour" name="submissionWindowEnd[hour]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-minute">
+        Minute
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-minute" name="submissionWindowEnd[minute]" type="text" inputmode="numeric">
+    </div>
+  </div>
+  <div class="nhsuk-date-input__item nhsuk-time-separator" aria-hidden="true">:</div>
+  <div class="nhsuk-date-input__item">
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-second">
+        Seconds
+      </label>
+      <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-second" name="submissionWindowEnd[second]" type="text" inputmode="numeric">
+    </div>
+  </div>
+</div>
+{% endset -%}
+
+{{ radios({
+  idPrefix: "end-time-type",
+  name: "end-time-type",
+  fieldset: {
+    legend: {
+      text: "What time?",
+      classes: "nhsuk-fieldset__legend--s",
+      size: "l",
+      isPageHeading: true
+    }
+  },
+  items: [
+    {
+      value: "end-of-day",
+      text: "End of the day (23:59:59)"
+    },
+    {
+      value: "specific-time",
+      text: "Add a specific time",
+      conditional: {
+        html: endTimeHtml
+      }
+    }
+  ]
+}) }}
+    </fieldset>
+  </div>
+
+</div>
+
+  {% from "button/macro.njk" import button %}
+
+
+
+</fieldset>
+<div class="nhsuk-u-margin-top-4">
+{{ button({
+  text: "Save",
+  href: "periods"
+}) }}
+</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAY_LABELS  = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+  function parseDMY(s) {
+    var m = (s || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (!m) return null;
+    var d = new Date(+m[3], +m[2]-1, +m[1]);
+    return isNaN(d) ? null : d;
+  }
+
+  function renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect) {
+    var today = new Date();
+    var firstDay = new Date(viewYear, viewMonth, 1);
+    var startDow = firstDay.getDay();
+    startDow = (startDow === 0) ? 6 : startDow - 1;
+    var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+    var prevMonth = viewMonth === 0  ? { y: viewYear-1, m: 11 } : { y: viewYear, m: viewMonth-1 };
+    var nextMonth = viewMonth === 11 ? { y: viewYear+1, m: 0  } : { y: viewYear, m: viewMonth+1 };
+    var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:4px;">'
+      + '<button type="button" data-cal-prev-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous year">&#171;</button>'
+      + '<button type="button" data-cal-prev-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous month">&#8249;</button>'
+      + '<span style="font-weight:600;font-size:14px;flex:1;text-align:center;">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</span>'
+      + '<button type="button" data-cal-next-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next month">&#8250;</button>'
+      + '<button type="button" data-cal-next-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next year">&#187;</button>'
+      + '</div><table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr>';
+    DAY_LABELS.forEach(function(d) { html += '<th style="padding:4px 2px;text-align:center;font-weight:600;color:#425563;">' + d + '</th>'; });
+    html += '</tr></thead><tbody><tr>';
+    for (var i = 0; i < startDow; i++) html += '<td></td>';
+    for (var day = 1; day <= daysInMonth; day++) {
+      var dow = (startDow + day - 1) % 7;
+      var isToday = (day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear());
+      var isSel   = selectedDate && (day === selectedDate.getDate() && viewMonth === selectedDate.getMonth() && viewYear === selectedDate.getFullYear());
+      var bg = isSel ? '#335c9b' : (isToday ? '#f0b400' : 'transparent');
+      var col = isSel ? 'white' : '#212b32';
+      var fw  = (isSel || isToday) ? '600' : 'normal';
+      html += '<td style="padding:2px;"><button type="button" data-cal-day="' + day + '" style="width:32px;height:32px;border:none;background:' + bg + ';color:' + col + ';font-weight:' + fw + ';cursor:pointer;border-radius:2px;font-size:13px;">' + day + '</button></td>';
+      if (dow === 6 && day < daysInMonth) html += '</tr><tr>';
+    }
+    html += '</tr></tbody></table>';
+    panel.innerHTML = html;
+    panel.querySelector('[data-cal-prev-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, prevMonth.y-1, viewMonth); });
+    panel.querySelector('[data-cal-prev-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, prevMonth.y, prevMonth.m); });
+    panel.querySelector('[data-cal-next-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, nextMonth.y, nextMonth.m); });
+    panel.querySelector('[data-cal-next-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, nextMonth.y+1, viewMonth); });
+    panel.querySelectorAll('[data-cal-day]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        onSelect(new Date(viewYear, viewMonth, +this.getAttribute('data-cal-day')), viewYear, viewMonth);
+      });
+    });
+  }
+
+  function initDatePicker(inputId, calBtnId, panelId, allPanelIds) {
+    var input  = document.getElementById(inputId);
+    var calBtn = document.getElementById(calBtnId);
+    var panel  = document.getElementById(panelId);
+    if (!input || !calBtn || !panel) return;
+    var today = new Date();
+    var viewYear = today.getFullYear(), viewMonth = today.getMonth(), selectedDate = null;
+    function onSelect(date, y, m) {
+      if (date) {
+        selectedDate = date;
+        input.value = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+        panel.style.display = 'none';
+      }
+      viewYear = y; viewMonth = m;
+      if (panel.style.display !== 'none') renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+    }
+    calBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      allPanelIds.forEach(function(pid) {
+        if (pid !== panelId) { var p = document.getElementById(pid); if (p) p.style.display = 'none'; }
+      });
+      if (panel.style.display === 'block') { panel.style.display = 'none'; }
+      else { renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect); panel.style.display = 'block'; }
+    });
+    input.addEventListener('blur', function() {
+      var d = parseDMY(this.value);
+      selectedDate = d || null;
+      if (d) { viewYear = d.getFullYear(); viewMonth = d.getMonth(); }
+    });
+    document.addEventListener('click', function(e) {
+      if (!input.contains(e.target) && !calBtn.contains(e.target) && !panel.contains(e.target)) panel.style.display = 'none';
+    });
+  }
+
+  var allPanels = ['period-start-cal-panel', 'period-end-cal-panel'];
+  initDatePicker('period-start-input', 'period-start-cal-btn', 'period-start-cal-panel', allPanels);
+  initDatePicker('period-end-input',   'period-end-cal-btn',   'period-end-cal-panel',   allPanels);
+})();
+</script>
+{% endblock %}

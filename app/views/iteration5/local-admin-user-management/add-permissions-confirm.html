@@ -1,0 +1,85 @@
+{% extends "iteration5/local-admin-user-management/layout.html" %}
+{% set pageName = "Check your answers" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+{% from 'tag/macro.njk' import tag %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+    <p>Review the permission details below before confirming.</p>
+
+    <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-8" id="confirm-summary">
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">User</dt>
+        <dd class="nhsuk-summary-list__value" id="confirm-user">—</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="user-management" class="nhsuk-link"> </a>
+        </dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Organisation</dt>
+        <dd class="nhsuk-summary-list__value" id="confirm-org">—</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="select-organisation" class="nhsuk-link">Change</a>
+        </dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">ODS code</dt>
+        <dd class="nhsuk-summary-list__value" id="confirm-ods">—</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Role</dt>
+        <dd class="nhsuk-summary-list__value" id="confirm-role">—</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="select-role" class="nhsuk-link">Change</a>
+        </dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Collection</dt>
+        <dd class="nhsuk-summary-list__value">Lung Cancer Screening Data Set (LCSDS)</dd>
+        <dd class="nhsuk-summary-list__actions"></dd>
+      </div>
+    </dl>
+
+    <div style="display:flex; align-items:center; gap:16px;">
+
+      <a href="add-permissions-confirmed" class="nhsuk-button nhsuk-u-margin-bottom-0">Confirm and add permissions</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var orgName = params.get('orgName') || sessionStorage.getItem('summary.organisation') || '—';
+  var orgCode = params.get('orgCode') || sessionStorage.getItem('summary.ods') || '—';
+  var role    = params.get('role')    || sessionStorage.getItem('summary.role') || '—';
+  var user    = sessionStorage.getItem('summary.addPermissionsUser') || 'Claire Thompson';
+
+  var roleLabels = {
+    'submitter':   'Submitter',
+    'local-admin': 'Local administrator',
+    'monitoring':  'Monitoring'
+  };
+
+  document.getElementById('confirm-user').textContent = user;
+  document.getElementById('confirm-org').textContent  = orgName;
+  document.getElementById('confirm-ods').textContent  = orgCode;
+  document.getElementById('confirm-role').textContent = roleLabels[role] || role;
+}());
+</script>
+{% endblock %}

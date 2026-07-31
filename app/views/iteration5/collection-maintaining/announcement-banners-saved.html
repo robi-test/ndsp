@@ -1,0 +1,32 @@
+{% extends "iteration5/collection-maintaining/layout.html" %}
+
+{% set pageName = "Announcement banner saved" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <div role="alert" aria-labelledby="nhsuk-notification-banner-title" style="border: 5px solid #007f3b; margin-bottom: 32px;">
+      <div style="background-color: #007f3b; padding: 12px 16px;">
+        <h2 id="nhsuk-notification-banner-title" style="color: #ffffff; font-size: 19px; font-weight: 600; margin: 0;">Success</h2>
+      </div>
+      <div style="padding: 16px;">
+        <h3 style="margin-top: 0;">Announcement banner saved</h3>
+        <p class="nhsuk-body">Your announcement banner has been created and scheduled to display.</p>
+      </div>
+    </div>
+
+   <!--  <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">What happens next</h2>
+    <p>The banner <strong>Additional submission window now open</strong> will be displayed on the Submitter Portal from <strong>14 July 2026 at 09:00</strong> until <strong>31 August 2026 at 23:00</strong>.</p>
+    <p>An email notification will be sent to all users at the time the banner goes live.</p>
+ -->
+    <p class="nhsuk-u-margin-top-6">
+      <a href="/iteration5/collection-maintaining/announcement-banners-list">Return to announcement banners</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

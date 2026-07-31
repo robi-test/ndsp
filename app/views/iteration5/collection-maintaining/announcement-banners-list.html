@@ -1,0 +1,126 @@
+{% extends "iteration5/collection-maintaining/layout.html" %}
+
+{% set pageName = "Announcement banners" %}
+
+{% block beforeContent %}
+  {% from 'breadcrumb/macro.njk' import breadcrumb %}
+  {{ breadcrumb({
+    items: [
+      {
+        href: "/iteration5/collection-maintaining/home",
+        text: "Home"
+      },
+      {
+        href: "/iteration5/collection-maintaining/configuration-collections",
+        text: "Collections configuration"
+      }
+    ],
+    item: {
+      text: "Announcement banners"
+    }
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-0">{{ pageName }}</h1>
+    </div>
+
+    <p class="nhsuk-u-margin-top-4">Manage announcement banners displayed across one or more collections.<br> For a better user experience, avoid displaying multiple announcement banners at the same time. Where possible, schedule banners so that only one is visible at a time.</p>
+    {% from "details/macro.njk" import details %}
+
+{% set dummyNhsNumber = "999 123 4567" %}
+
+
+
+
+    {% from 'button/macro.njk' import button %}
+    {{ button({
+      text: "Create new banner",
+      href: "announcement-banners",
+      classes: "nhsuk-button--small"
+    }) }}
+
+    {% set banners = [
+      {
+        title: "System maintenance – 20 July",
+        portals: "Permission request Portal, Submitter Portal, Management Portal",
+        collections: "Diagnostic Imaging Data Set (V2.0), Lung Cancer Screening Data Set",
+        displayFrom: "20 Jul 2026, 06:00",
+        displayUntil: "20 Jul 2026, 23:00",
+        status: "Scheduled"
+      },
+      {
+        title: "Additional DIDS submission window added",
+        portals: "Submitter Portal",
+        collections: "Diagnostic Imaging Data Set (V2.0)",
+        displayFrom: "14 Jul 2026, 09:00",
+        displayUntil: "31 Jul 2026, 23:00",
+        status: "Active"
+      },
+      {
+        title: "LCSDS specification updated",
+        portals: "Management Portal",
+        collections: "Lung Cancer Screening Data Set",
+        displayFrom: "01 Jul 2026, 08:00",
+        displayUntil: "10 Jul 2026, 18:00",
+        status: "Expired"
+      }
+    ] %}
+
+    {% if banners.length > 0 %}
+    <table class="nhsuk-table nhsuk-u-margin-top-4">
+      <thead class="nhsuk-table__head">
+        <tr class="nhsuk-table__row">
+          <th class="nhsuk-table__header" scope="col">Title</th>
+          <th class="nhsuk-table__header" scope="col">Portal(s)</th>
+          <th class="nhsuk-table__header" scope="col">Collection(s)</th>
+          <th class="nhsuk-table__header" scope="col">Display from</th>
+          <th class="nhsuk-table__header" scope="col">Display until</th>
+          <th class="nhsuk-table__header" scope="col">Status</th>
+          <th class="nhsuk-table__header" scope="col"><span class="nhsuk-u-visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        {% for banner in banners %}
+        <tr class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">{{ banner.title }}</td>
+          <td class="nhsuk-table__cell">{{ banner.portals }}</td>
+          <td class="nhsuk-table__cell">{{ banner.collections }}</td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ banner.displayFrom }}</td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ banner.displayUntil }}</td>
+          <td class="nhsuk-table__cell">
+            {% if banner.status === "Active" %}
+              <strong class="nhsuk-tag nhsuk-tag--green">Active</strong>
+            {% elif banner.status === "Scheduled" %}
+              <strong class="nhsuk-tag nhsuk-tag--blue">Scheduled</strong>
+            {% else %}
+              <strong class="nhsuk-tag nhsuk-tag--grey">Expired</strong>
+            {% endif %}
+          </td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">
+            {% if loop.index === 1 %}
+              <a href="/iteration5/collection-maintaining/announcement-banners?edit=1&title=System+maintenance+%E2%80%93+20+July&content=Scheduled+system+maintenance+will+take+place+on+20+July+2026.+Some+portal+features+may+be+unavailable+during+this+time.&portals=submitter-portal,management-portal,permission-request-portal&collections=dids,lcsds&display-date=2026-07-20&display-time=06%3A00am&end-date=2026-07-20&end-time=11%3A00pm&email-notification=yes&email-template=template-1">Edit</a>
+            {% else %}
+              <a href="/iteration5/collection-maintaining/announcement-banners">Edit</a>
+            {% endif %}
+            <span aria-hidden="true"> | </span>
+            <a href="/iteration5/collection-maintaining/announcement-banners-delete?title={{ banner.title | urlencode }}&portals={{ banner.portals | urlencode }}&collections={{ banner.collections | urlencode }}&displayFrom={{ banner.displayFrom | urlencode }}&displayUntil={{ banner.displayUntil | urlencode }}&status={{ banner.status | urlencode }}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="nhsuk-u-margin-top-4">No announcement banners have been created yet.</p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

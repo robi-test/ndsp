@@ -1,0 +1,78 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "DIDS Dashboard" %}
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    }
+  ]
+}) }}
+{% endblock %}
+{% block content %}
+<div class="nhsuk-grid-row">
+   <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+      <h1 class="nhsuk-heading-l">
+         Collections configuration
+      </h1>
+
+      <p>Use this area to configure settings that apply across collections, and to manage the specific configuration of individual collections you have permissions for.</p>
+
+    <div class="nhsuk-u-margin-top-6">
+
+      <h2 class="nhsuk-heading-m">General settings</h2>
+
+      <div class="nhsuk-grid-row nhsuk-u-margin-bottom-6">
+        <div class="nhsuk-grid-column-one-third">
+          <div class="nhsuk-card">
+            <div class="nhsuk-card__content">
+              <h2 class="nhsuk-card__heading nhsuk-heading-m">
+                <a class="nhsuk-card__link" href="announcement-banners-list">Announcement banners</a>
+              </h2>
+              <p class="nhsuk-card__description">Create and manage banners to display important messages or updates across one or more collections.</p>
+            </div>
+          </div>
+        </div>
+         <div class="nhsuk-grid-column-one-third">
+          <div class="nhsuk-card">
+            <div class="nhsuk-card__content">
+              <h2 class="nhsuk-card__heading nhsuk-heading-m">
+                <a class="nhsuk-card__link" href="email-notification-list">Email notifications</a>
+              </h2>
+              <p class="nhsuk-card__description">Create and manage targeted email notifications for specific organisations or events across one or more collections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+             <div class="nhsuk-grid-row">
+        <div class="nhsuk-grid-column-two-thirds">
+      
+      <h2 class="nhsuk-heading-m">Collection-specific configuration</h2>
+      <p>Select a collection to manage its configuration settings, including submission windows, participating organisations and collection specifications.</p>
+
+
+      <a class="nhsuk-action-link nhsuk-u-margin-bottom-3" href="dids-configuration" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Diagnostic Imaging Data Set (V2.0)</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+      
+      <a class="nhsuk-action-link" href="lcs-configuration" style="background-color: white; color: #005eb8; display: block; padding: 16px 20px; text-decoration: none; position: relative; border: 1px solid #d8dde0; border-bottom-width: 4px;">
+        <span style="font-size: 19px; font-weight: 400;">Lung Cancer Screening Data Set</span>
+        <span style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 24px; font-weight: bold;">›</span>
+      </a>
+    </div>
+     
+  </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
