@@ -51,11 +51,11 @@
         ]
       }) }}
 
-      <!-- <div class="nhsuk-inset-text nhsuk-u-margin-top-4">
+     <div class="nhsuk-inset-text nhsuk-u-margin-top-4">
         <span class="nhsuk-u-visually-hidden">Information: </span>
         <p class="nhsuk-u-margin-bottom-2">Clicking <strong>Continue</strong> will take you to the application used to manage API access.</p>
         <p class="nhsuk-u-margin-bottom-0">From there, go to the <strong>OAuth &amp; permissions</strong> tab and select <strong>Rotate secret</strong> to generate a new client secret. This client secret is your API token.</p>
-      </div> -->
+      </div> 
 
       {% from 'button/macro.njk' import button %}
       {{ button({
@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<!-- Modal Popup -->
+<!-- Modal Popup 
 <div id="api-token-modal" role="dialog" aria-modal="true" aria-labelledby="api-token-title" aria-describedby="api-token-description" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
   <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;width:90%;margin:auto;border-radius:4px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
     <h2 id="api-token-title" style="margin-top:0;">Get an API token</h2>
@@ -79,11 +79,11 @@
       <button id="continue-api-token" class="nhsuk-button" type="button" style="margin-bottom:0;">Continue</button>
     </div>
   </div>
-</div>
+</div> -->
 {% endblock %}
 
 {% block scripts %}
-<script>
+<!-- <script>
   (function () {
     var modal = document.getElementById('api-token-modal');
     if (!modal) return;
@@ -123,5 +123,5 @@
       if (event.target === modal) closeModal();
     });
   })();
-</script>
+</script> -->
 {% endblock %}
