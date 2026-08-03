@@ -1,0 +1,28 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Permissions revoked" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">Permissions revoked</h3>
+        <p class="nhsuk-body">Sarah Mitchell's monitoring permissions for Lancashire and South Cumbria Cancer Alliance have been revoked.</p>
+      </div>
+    </div>
+
+    <p>Sarah Mitchell (sarah.mitchell@lthtr.nhs.uk) will no longer have monitoring access to this overseer group.</p>
+    <p>They will need to submit a new permissions request if they require access in the future.</p>
+
+    <a href="lcs-group-lancashire" class="nhsuk-link">Return to Lancashire and South Cumbria Cancer Alliance</a>
+
+  </div>
+</div>
+
+{% endblock %}

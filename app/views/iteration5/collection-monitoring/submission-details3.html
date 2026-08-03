@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+{% extends "iteration5/collection-management/layout-collection-management.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
 {% set pageName = "Submission details" %}
@@ -54,9 +54,11 @@
                       }
                     ]
                   }
-                },{
+                },
+
+                {
                   key: { text: "Status" },
-                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--yellow"}) }
+                  value: { html: tag({text: "Pending validation", classes: "nhsuk-tag--white"}) }
                 }
               ]
             }) }}

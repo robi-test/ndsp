@@ -1,6 +1,6 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
-{% set pageName = "Lancashire South Cumbria – Overseer group" %}
+{% set pageName = "Lancashire South Cumbria – Organisation group" %}
 
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -13,7 +13,7 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections setup"
+      text: "Collections configuration"
     },
     {
       href: "configuration-lcs",
@@ -37,7 +37,7 @@
 
 <!--         <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
           <div class="nhsuk-summary-list__row">
-            <dt class="nhsuk-summary-list__key">Overseer group name</dt>
+            <dt class="nhsuk-summary-list__key">Organisation group name</dt>
             <dd class="nhsuk-summary-list__value">Lancashire and South Cumbria</dd>
             <dd class="nhsuk-summary-list__actions">
             </dd>
@@ -72,7 +72,7 @@
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">ODS code</span>L5Z4T
               </td>
               <td class="nhsuk-table__cell" role="cell">
-                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Active</strong>
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--green">Enabled</strong>
               </td>
               <td class="nhsuk-table__cell" role="cell">
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="#" class="nhsuk-link--no-visited-state nhsuk-u-color-red">Remove</a>
@@ -95,15 +95,16 @@
           </div>
         </div>
         <hr>
-        <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8">Monitoring users</h2>
+        <h2 class="nhsuk-heading-m nhsuk-u-margin-top-8">Users</h2>
 
         <table class="nhsuk-table-responsive" role="table">
-          <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Monitoring users assigned to the overseer group</caption>
-          <p>Monitoring users assigned to the overseer group</p>
+          <caption class="nhsuk-table__caption nhsuk-u-visually-hidden">Users assigned to the group</caption>
+          <p>Users assigned to the group. <br>Users must apply for permissions individually, once a request is submitted, it will be possible to review and approve it.</p>
           <thead class="nhsuk-table__head" role="rowgroup">
             <tr role="row" class="nhsuk-table__row">
               <th scope="col" class="nhsuk-table__header" role="columnheader">Name</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader">Email address</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader">Action</th>
             </tr>
           </thead>
           <tbody class="nhsuk-table__body">
@@ -114,6 +115,9 @@
               <td class="nhsuk-table__cell" role="cell">
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span><a href="mailto:claire.okafor@tlhc.nhs.uk">claire.okafor@tlhc.nhs.uk</a>
               </td>
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="">Revoke permissions</a>
+              </td>
             </tr>
             <tr role="row" class="nhsuk-table__row">
               <td class="nhsuk-table__cell" role="cell">
@@ -121,6 +125,9 @@
               </td>
               <td class="nhsuk-table__cell" role="cell">
                 <span class="nhsuk-table-responsive__heading" aria-hidden="true">Email address</span><a href="mailto:marcus.deeney@lhch.nhs.uk">marcus.deeney@lhch.nhs.uk</a>
+              </td>
+              <td class="nhsuk-table__cell" role="cell">
+                <span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="">Revoke permissions</a>
               </td>
             </tr>
           </tbody>

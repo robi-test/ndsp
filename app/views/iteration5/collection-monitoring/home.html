@@ -1,15 +1,19 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = serviceName %}
 
 {% block content %}
 <div class="nhsuk-grid-row">
    <div class="nhsuk-grid-column-full nhsuk-u-margin-top-7 ">
-      <h1 class="nhsuk-heading-m>
+
+      <h1>
          {{ pageName }}
       </h1>
-      <p class="class="nhsuk-u-margin-bottom-6">Welcome to the National Data Submission Portal monitoring and management area. 
+
+      <p class="nhsuk-u-margin-bottom-6">Welcome to the National Data Submission Portal monitoring and management area. 
       </p>
+
+
        <ul class="nhsuk-grid-row nhsuk-card-group ">
         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
         {{ card({
@@ -24,11 +28,6 @@
           '
         }) }}
         </li>
-
-  
-        
-
-        
        </ul>
 
   <ul class="nhsuk-grid-row nhsuk-card-group ">
@@ -57,10 +56,10 @@
 
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
-        href: "data-quality/summary",
+        href: "data-quality/summary0",
         primary: "true",
         clickable: "true",
-        heading: "Data quality",
+        heading: "Errors overview",
         headingClasses: "nhsuk-heading-s",
          descriptionHtml: '<br>Track how errors change over time.'
       }) }}

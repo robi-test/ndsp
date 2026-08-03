@@ -1,0 +1,442 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Create or edit announcement banner" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-confirm" method="post">
+
+      <!-- Announcement title -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <label class="nhsuk-label nhsuk-label--m" for="announcement-title">
+          Announcement title
+        </label>
+        <div id="announcement-title-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the heading for the announcement banner.</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 50 characters.</p>
+        </div>
+        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" maxlength="50" aria-describedby="announcement-title-hint announcement-title-count">
+        <p id="announcement-title-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">50 characters remaining</p>
+      </div>
+
+      <!-- Announcement content -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <label class="nhsuk-label nhsuk-label--m" for="announcement-content">
+          Announcement content
+        </label>
+        <div id="announcement-content-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the announcement banner.</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 200 characters.</p>
+        </div>
+        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" maxlength="200" aria-describedby="announcement-content-hint announcement-content-count"></textarea>
+        <p id="announcement-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">200 characters remaining</p>
+      </div>
+
+      <!-- Which portal(s) -->
+      <div class="nhsuk-u-margin-top-8  nhsuk-u-margin-bottom-8">
+      {% from 'checkboxes/macro.njk' import checkboxes %}
+      {{ checkboxes({
+        idPrefix: "portals",
+        name: "portals",
+        fieldset: {
+          legend: {
+            text: "Which portal(s) should this be displayed on?",
+            classes: "nhsuk-fieldset__legend--m"
+          }
+        },
+        items: [
+           {
+            value: "permission-request-portal",
+            text: "Permission request Portal",
+            checked: false
+          },
+          {
+            value: "submitter-portal",
+            text: "Submitter Portal",
+            checked: false
+          },
+          {
+            value: "management-portal",
+            text: "Management Portal",
+            checked: false
+          }
+        ]
+      }) }}
+      </div>
+
+      <!-- Which collection(s) -->
+      <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+      {% from 'checkboxes/macro.njk' import checkboxes %}
+      {{ checkboxes({
+        idPrefix: "collections",
+        name: "collections",
+        fieldset: {
+          legend: {
+            text: "Which collection(s) should this banner be displayed for?",
+            classes: "nhsuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "Select one or more collections. Only the collections that you have permissions for will be displayed in this list."
+        },
+        items: [
+          {
+            value: "dids",
+            text: "Diagnostic Imaging Data Set (V2.0)"
+          },
+          {
+            value: "lcsds",
+            text: "Lung Cancer Screening Data Set"
+          }
+        ]
+      }) }}
+      </div>
+      <!-- When should this announcement be displayed? -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+            When should this announcement be displayed?
+          </legend>
+          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+              <label class="nhsuk-label" for="display-date">Date</label>
+              <input class="nhsuk-input" id="display-date" name="display-date" type="date" style="width: 280px;">
+            </div>
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+              <label class="nhsuk-label" for="display-time-input">Time</label>
+              <div class="time-picker" id="display-time-picker">
+                <button type="button" class="time-picker__trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Select display time">
+                  <span class="time-picker__value">Select time</span>
+                  <span class="time-picker__arrow" aria-hidden="true">&#9660;</span>
+                </button>
+                <ul class="time-picker__list" role="listbox" aria-label="Display time options" tabindex="-1" style="display:none;"></ul>
+                <input type="hidden" id="display-time-input" name="display-time">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- When should this announcement end? -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
+            When should this announcement end?
+          </legend>
+          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
+              <label class="nhsuk-label" for="end-date">Date</label>
+              <input class="nhsuk-input" id="end-date" name="end-date" type="date" style="width: 280px;">
+            </div>
+            <div class="nhsuk-form-group nhsuk-u-margin-bottom-8">
+              <label class="nhsuk-label" for="end-time-input">Time</label>
+              <div class="time-picker" id="end-time-picker">
+                <button type="button" class="time-picker__trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Select end time">
+                  <span class="time-picker__value">Select time</span>
+                  <span class="time-picker__arrow" aria-hidden="true">&#9660;</span>
+                </button>
+                <ul class="time-picker__list" role="listbox" aria-label="End time options" tabindex="-1" style="display:none;"></ul>
+                <input type="hidden" id="end-time-input" name="end-time">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  <div class="nhsuk-u-margin-bottom-8">
+      <!-- Email notification -->
+      {% from 'radios/macro.njk' import radios %}
+
+      {% set emailTemplateHtml %}
+        <div class="nhsuk-form-group">
+          <label class="nhsuk-label nhsuk-label--m" for="email-template">Which email template should be used?</label>
+          <div class="nhsuk-hint">Select the template for the email notification sent to users.</div>
+          <select class="nhsuk-select" id="email-template" name="email-template">
+            <option value="">Select a template</option>
+            <option value="template-1">Template 1</option>
+            <option value="template-2">Template 2</option>
+            <option value="template-3">Template 3</option>
+          </select>
+        </div>
+      {% endset %}
+
+      {{ radios({
+        idPrefix: "email-notification",
+        name: "email-notification",
+        fieldset: {
+          legend: {
+            text: "Should an email notification be sent to all users?",
+            classes: "nhsuk-fieldset__legend--m"
+          }
+        },
+        hint: {
+          text: "If yes, the email will be sent to all users at the same date and time as when the announcement banner is set to display. The banner title and content will also be used for the email notification."
+        },
+        items: [
+          {
+            value: "no",
+            text: "No",
+            checked: false
+          },
+          {
+            value: "yes",
+            text: "Yes",
+            checked: false
+          }
+        ]
+      }) }}
+
+      {% from 'button/macro.njk' import button %}
+
+      <div style="display: flex; gap: 16px; align-items: center;" class="nhsuk-u-margin-top-8">
+      
+ 
+        {{ button({
+          text: "Continue"
+        }) }}
+      </div>
+
+    </form>
+
+   
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .time-picker {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+  }
+  .time-picker__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #fff;
+    border: 2px solid #4c2c92;
+    border-radius: 0;
+    font-size: 1rem;
+    color: #212b32;
+    cursor: pointer;
+    text-align: left;
+  }
+  .time-picker__trigger:focus {
+    outline: 4px solid #ffb81c;
+    outline-offset: 0;
+  }
+  .time-picker__arrow {
+    font-size: 0.75rem;
+    color: #212b32;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .time-picker__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    background: #fff;
+    border: 1px solid #b1b4b6;
+    border-top: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .time-picker__option {
+    padding: 10px 16px;
+    font-size: 1rem;
+    color: #212b32;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f4f5;
+  }
+  .time-picker__option:hover,
+  .time-picker__option:focus {
+    background: #f0f4f5;
+    outline: none;
+  }
+  .time-picker__option[aria-selected="true"] {
+    background: #005eb8;
+    color: #fff;
+  }
+</style>
+<script>
+(function () {
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function formatTime(h, m) {
+    var suffix = h < 12 ? 'am' : 'pm';
+    var h12 = h % 12 || 12;
+    return pad(h12) + ':' + pad(m) + suffix;
+  }
+
+  function buildTimes() {
+    var times = [{ value: '00:01', label: '00:01am' }];
+    for (var h = 1; h < 24; h++) {
+      times.push({ value: pad(h) + ':00', label: formatTime(h, 0) });
+    }
+    return times;
+  }
+
+  function initTimePicker(pickerId) {
+    var picker   = document.getElementById(pickerId);
+    if (!picker) return;
+    var trigger  = picker.querySelector('.time-picker__trigger');
+    var valueEl  = picker.querySelector('.time-picker__value');
+    var list     = picker.querySelector('.time-picker__list');
+    var hidden   = picker.querySelector('input[type="hidden"]');
+
+    // Populate options
+    buildTimes().forEach(function (t) {
+      var li = document.createElement('li');
+      li.className = 'time-picker__option';
+      li.setAttribute('role', 'option');
+      li.setAttribute('tabindex', '0');
+      li.setAttribute('data-value', t.value);
+      li.setAttribute('aria-selected', 'false');
+      li.textContent = t.label;
+      li.addEventListener('click', function () { selectOption(t.value, t.label, li); });
+      li.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectOption(t.value, t.label, li); }
+        if (e.key === 'ArrowDown') { e.preventDefault(); var next = li.nextElementSibling; if (next) next.focus(); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); var prev = li.previousElementSibling; if (prev) prev.focus(); else trigger.focus(); }
+        if (e.key === 'Escape') { closeList(); trigger.focus(); }
+      });
+      list.appendChild(li);
+    });
+
+    function selectOption(value, label, el) {
+      hidden.value = value;
+      valueEl.textContent = label;
+      list.querySelectorAll('.time-picker__option').forEach(function (o) { o.setAttribute('aria-selected', 'false'); });
+      el.setAttribute('aria-selected', 'true');
+      closeList();
+      trigger.focus();
+    }
+
+    function openList() {
+      list.style.display = 'block';
+      trigger.setAttribute('aria-expanded', 'true');
+      var selected = list.querySelector('[aria-selected="true"]') || list.firstElementChild;
+      if (selected) selected.focus();
+    }
+
+    function closeList() {
+      list.style.display = 'none';
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    trigger.addEventListener('click', function () {
+      list.style.display === 'block' ? closeList() : openList();
+    });
+
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openList(); }
+      if (e.key === 'Escape') closeList();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!picker.contains(e.target)) closeList();
+    });
+  }
+
+  initTimePicker('display-time-picker');
+  initTimePicker('end-time-picker');
+
+  // Character counters
+  ;(function () {
+    function initCounter(inputId, countId, max) {
+      var input = document.getElementById(inputId);
+      var counter = document.getElementById(countId);
+      if (!input || !counter) return;
+      function update() {
+        var remaining = max - input.value.length;
+        counter.textContent = remaining + ' character' + (remaining === 1 ? '' : 's') + ' remaining';
+        counter.style.color = remaining < 0 ? '#d5281b' : '';
+      }
+      input.addEventListener('input', update);
+      update();
+    }
+    initCounter('announcement-title',   'announcement-title-count',   50);
+    initCounter('announcement-content', 'announcement-content-count', 200);
+  }());
+
+  // Pre-fill form from query params when editing an existing banner
+  ;(function () {
+    var params = new URLSearchParams(window.location.search);
+    if (!params.get('edit')) return;
+
+    // Text fields
+    var titleEl = document.getElementById('announcement-title');
+    var contentEl = document.getElementById('announcement-content');
+    if (titleEl && params.get('title')) titleEl.value = params.get('title');
+    if (contentEl && params.get('content')) contentEl.value = params.get('content');
+
+    // Checkboxes: portals
+    var portalValues = (params.get('portals') || '').split(',').filter(Boolean);
+    portalValues.forEach(function (v) {
+      var cb = document.querySelector('input[name="portals"][value="' + v + '"]');
+      if (cb) cb.checked = true;
+    });
+
+    // Checkboxes: collections
+    var collectionValues = (params.get('collections') || '').split(',').filter(Boolean);
+    collectionValues.forEach(function (v) {
+      var cb = document.querySelector('input[name="collections"][value="' + v + '"]');
+      if (cb) cb.checked = true;
+    });
+
+    // Date inputs
+    var displayDate = document.getElementById('display-date');
+    var endDate = document.getElementById('end-date');
+    if (displayDate && params.get('display-date')) displayDate.value = params.get('display-date');
+    if (endDate && params.get('end-date')) endDate.value = params.get('end-date');
+
+    // Time pickers — set the hidden input value and update the trigger label
+    function prefillTimePicker(pickerId, inputId, timeValue) {
+      if (!timeValue) return;
+      var hidden = document.getElementById(inputId);
+      if (hidden) hidden.value = timeValue;
+      var trigger = document.querySelector('#' + pickerId + ' .time-picker__value');
+      if (trigger) trigger.textContent = timeValue;
+    }
+    prefillTimePicker('display-time-picker', 'display-time-input', params.get('display-time'));
+    prefillTimePicker('end-time-picker',     'end-time-input',     params.get('end-time'));
+
+    // Radios: email-notification
+    var emailNotif = params.get('email-notification');
+    if (emailNotif) {
+      var radio = document.querySelector('input[name="email-notification"][value="' + emailNotif + '"]');
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    // Select: email-template
+    var templateSel = document.getElementById('email-template');
+    if (templateSel && params.get('email-template')) templateSel.value = params.get('email-template');
+  }());
+}());
+</script>
+{% endblock %}

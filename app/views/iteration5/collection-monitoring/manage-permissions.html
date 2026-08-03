@@ -1,0 +1,87 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Manage user permissions" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+{% from "summary-list/macro.njk" import summaryList %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Manage user permissions</h1>
+    <p>Review and update the permissions for this user.</p>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Full name" },
+          value: { text: "Marcus Deeney" }
+        },
+        {
+          key: { text: "Email address" },
+          value: { text: "marcus.deeney@mft.nhs.uk" }
+        },
+        {
+          key: { text: "Organisation" },
+          value: { text: "Manchester University NHS Foundation Trust" }
+        },
+        {
+          key: { text: "ODS code" },
+          value: { text: "R0A" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Lung Cancer Screening Data Set" }
+        },
+        {
+          key: { text: "Role" },
+          value: { text: "Monitoring role" },
+          actions: {
+            items: [
+              {
+                href: "manage-permissions-marcus-change-role",
+                text: " ",
+                visuallyHiddenText: "role"
+              }
+            ]
+          }
+        },
+        {
+          key: { text: "Access status" },
+          value: { html: tag({ text: "Active access", classes: "nhsuk-tag--green" }) },
+          actions: {
+            items: [
+              {
+                href: "manage-permissions-change-status",
+                text: "Change",
+                visuallyHiddenText: "access status"
+              }
+            ]
+          }
+        },
+        {
+          key: { text: "Last login" },
+          value: { text: "21 May 2026, 10:42" }
+        }
+      ]
+    }) }}
+
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  sessionStorage.removeItem('marcus.permissionsRevoked');
+</script>
+{% endblock %}

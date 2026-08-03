@@ -1,0 +1,54 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Remove organisation from group" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Remove organisation from group</h1>
+    <p>You are about to remove <strong id="org-name">this organisation</strong> from <span id="group-name">this group</span>.</p>
+    <p>This will only remove the link between this organisation and the group. It will not remove the organisation from the list of submitters.</p>
+
+    <div class="nhsuk-u-margin-top-6">
+      <a href="javascript:history.back()" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3">
+        Cancel
+      </a>
+      <a id="confirm-remove-btn" href="lcs-group-northern" class="nhsuk-button nhsuk-button--warning">
+        Remove from group
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var orgName = params.get('org');
+    var groupName = params.get('group');
+    var returnUrl = params.get('return');
+
+    if (orgName) {
+      document.getElementById('org-name').textContent = orgName;
+    }
+    if (groupName) {
+      document.getElementById('group-name').textContent = groupName;
+    }
+    if (returnUrl) {
+      document.getElementById('confirm-remove-btn').href = returnUrl;
+    }
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Uploading organisations" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-4">
+
+    <h1 class="nhsuk-heading-l">Uploading your file</h1>
+
+    <div class="upload-card nhsuk-u-margin-bottom-4">
+      <div class="row">
+        <p class="filename">organisations.csv</p>
+        <p class="size">12KB</p>
+      </div>
+      <div class="status">
+        <p style="margin:0">30% uploaded…</p>
+        <a class="cancel" href="#" id="cancel-upload-link">Cancel</a>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30">
+        <div class="bar"></div>
+      </div>
+    </div>
+
+    <p class="nhsuk-body-m nhsuk-u-margin-bottom-8">Please do not leave or refresh the page until the upload finishes.<br>Leaving early may interrupt the upload.</p>
+
+    <details class="nhsuk-details nhsuk-u-margin-top-6" >
+      <summary class="nhsuk-details__summary">
+        <span class="nhsuk-details__summary-text" style="color: #d5281b; font-weight: bold;">Prototype navigation only</span>
+      </summary>
+      <div class="nhsuk-details__text">
+        <p class="nhsuk-body-s nhsuk-u-margin-bottom-2">These links are not part of the real service. They are here to help navigate the prototype.</p>
+        <p><a href="upload-organisations-confirmed-lcs" id="continue-link">Simulate: file uploaded successfully &gt; continue</a></p>
+        <p><a href="upload-organisations-rejected-lcs">Simulate: file rejected due to invalid ODS codes</a></p>
+        <p><a href="#" id="back-warning-link">Simulate: user tries to go back, leave the page or refresh</a></p>
+      </div>
+    </details>
+
+    <!-- Leave page modal -->
+    <div id="back-warning-modal" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+      <div style="background:#fff;padding:2rem 1.5rem 1.5rem 1.5rem;max-width:600px;margin:auto;border-radius:4px;box-shadow:0 2px 16px rgba(0,0,0,0.2);position:relative;">
+        <h2 class="nhsuk-heading-m" style="margin-top:0;">Upload not complete</h2>
+        <p>If you leave the page now, your upload may be interrupted and you may need to start again.</p>
+        <p>If the file finishes uploading successfully, you will see it in your organisations list.</p>
+        <div style="display:flex;gap:1rem;align-items:center;margin-top:1.5rem;">
+          <button id="cancel-back-warning" class="nhsuk-button nhsuk-button--secondary" type="button" style="margin-bottom:0;">Cancel</button>
+          <button id="leave-back-warning" class="nhsuk-button" type="button" style="margin-bottom:0;">Leave the page</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var backLink   = document.getElementById('back-warning-link');
+  var cancelLink = document.getElementById('cancel-upload-link');
+  var modal      = document.getElementById('back-warning-modal');
+  var leaveBtn   = document.getElementById('leave-back-warning');
+  var cancelBtn  = document.getElementById('cancel-back-warning');
+
+  function showModal(e) { if (e) e.preventDefault(); modal.style.display = 'flex'; }
+
+  if (backLink)   backLink.addEventListener('click', showModal);
+  if (cancelLink) cancelLink.addEventListener('click', showModal);
+  if (leaveBtn)   leaveBtn.addEventListener('click', function () { modal.style.display = 'none'; window.history.back(); });
+  if (cancelBtn)  cancelBtn.addEventListener('click', function () { modal.style.display = 'none'; });
+  if (modal)      modal.addEventListener('click', function (e) { if (e.target === modal) modal.style.display = 'none'; });
+});
+</script>
+{% endblock %}

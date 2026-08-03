@@ -18,6 +18,29 @@
         <p>There are <strong>8 pending permission requests</strong> for the Lung Cancer Screening Data Set (LCSDS). <a href="pending-permission-requests">Review requests</a></p>
       </div>
 
+          <p >Currently you can manage the following collection(s):
+      <ul>
+        <li style="font-size: 18px;"><strong>Diagnostic Imaging Data Set (DIDS v2.0)</strong></li>
+        <li style="font-size: 18px;"><strong>Lung Cancer Screening Data Set (LCSDS)</strong></li>
+      </ul>
+      </p>
+      {% from 'details/macro.njk' import details %}
+      {{ details({
+        text: "Do you need more permissions?",
+        html: "
+          <p>How to get permissions:
+              <ol>
+                <li>Decide what permissions you need by reviewing <a href='#'>the collection management roles</a> that are available on NDSP and the associated terms and conditions.</li>
+                <li>Agree with your line manager that these role(s) are right for you, and retain evidence of this agreement.</li>
+                <li>Complete <a href='#'>the ServiceNow form</a> to request access</li>
+                <li>Attach evidence of approval from your line manager and submit.</li>
+              </ol>
+                If everything is correct within your application, your permission request should be granted within a few days. 
+              </p>
+         
+              "
+        }) }}
+
        <ul class="nhsuk-grid-row nhsuk-card-group ">
         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
         {{ card({

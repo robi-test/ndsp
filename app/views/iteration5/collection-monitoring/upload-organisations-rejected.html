@@ -1,0 +1,42 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "File rejected" %}
+
+{% block content %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-error-summary" aria-labelledby="error-summary-title" role="alert">
+      <h2 class="nhsuk-error-summary__title" id="error-summary-title">
+        There is a problem with your file
+      </h2>
+      <div class="nhsuk-error-summary__body">
+        <p>The file <strong>organisations.csv</strong> has been rejected because it contains invalid ODS codes. No changes have been made to your organisations list.</p>
+        <p>The following ODS codes could not be recognised:</p>
+        <ul class="nhsuk-list nhsuk-list--bullet">
+          <li><strong>ABC123</strong> — not a valid ODS code</li>
+          <li><strong>XYZ999</strong> — not a valid ODS code</li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="nhsuk-heading-l">File rejected</h1>
+
+    <p>Your file could not be processed because it contains one or more ODS codes that are not recognised.</p>
+    <p>You can check valid ODS codes using the <a href="https://odsportal.nhs.uk/" rel="noreferrer noopener">ODS portal (opens in a new tab)</a>.</p>
+
+    <p>To fix this:</p>
+    <ol class="nhsuk-list nhsuk-list--number">
+      <li>Open your CSV file and check the ODS codes listed above.</li>
+      <li>Correct or remove any invalid ODS codes.</li>
+      <li>Save the file and upload it again.</li>
+    </ol>
+
+   
+    <p><a href="lcs-organisations">Go back to organisations list</a></p>
+
+  </div>
+</div>
+
+{% endblock %}

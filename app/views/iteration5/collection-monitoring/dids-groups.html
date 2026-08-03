@@ -1,6 +1,6 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
-{% set pageName = "Lung Cancer Screening Data Set Overseer groups" %}
+{% set pageName = "Lung Cancer Screening Data Set Organisation groups" %}
 
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -13,7 +13,7 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections setup"
+      text: "Collections configuration"
     },
     {
       href: "dids-configuration",
@@ -28,11 +28,11 @@
 
     <div class="nhsuk-grid-row">
       <div class="nhsuk-grid-column-full">
-        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Overseer groups</h1>
-        <p>Overseer groups can be used to organise submitting organisations into higher-level groups for permission management, monitoring, and reporting purposes.</p>
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-3">Organisation groups</h1>
+        <p>Organisation groups can be used to organise submitting organisations into higher-level groups for permission management, monitoring, and reporting purposes.</p>
 <div class=" nhsuk-u-margin-top-6 ">
             {{ actionLink({
-              text: "Add overseer group",
+              text: "Add organisation group",
               href: "#"
             }) }}
 </div>
@@ -42,7 +42,7 @@
           <caption class="nhsuk-table__caption nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-8 nhs-visually-hidden">Lung Cancer Screening Data Set Overseer Groups</caption>
           <thead class="nhsuk-table__head" role="rowgroup">
             <tr role="row" class="nhsuk-table__row">
-              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Overseer group name</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Organisation group name</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="number">Submitting organisations</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
             </tr>

@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set pageName = "DIDS Dashboard" %}
 {% block beforeContent %}
@@ -12,7 +12,7 @@
     },
     {
       href: "configuration-collections",
-      text: "Collections setup"
+      text: "Collections configuration"
     }
   ]
 }) }}
@@ -43,7 +43,7 @@
 
          <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
            {{ card({
-        href: "notification-settings",
+        href: "notification-settings1",
         primary: "true",
         clickable: "true",
         heading: "Manage notifications",
@@ -71,15 +71,6 @@
       }) }}
       </li>
 
-      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-       {{ card({
-        href: "dids-groups",
-        primary: "true",
-        clickable: "true",
-        heading: "Overseer groups",
-        headingClasses: "nhsuk-heading-s"
-      }) }}
-      </li>
       
       <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
        {{ card({
@@ -90,6 +81,17 @@
         headingClasses: "nhsuk-heading-s"
       }) }}
       </li>
+
+      <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
+       {{ card({
+        href: "dids-groups",
+        primary: "true",
+        clickable: "true",
+        heading: "Organisation groups",
+        headingClasses: "nhsuk-heading-s"
+      }) }}
+      </li>
+
 
 
     </ul>

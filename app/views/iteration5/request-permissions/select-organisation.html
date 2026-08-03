@@ -192,7 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
           qs.set('orgName', orgName);
           if (incomingRole) qs.set('role', incomingRole);
 
-          if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
+          if (orgName.toUpperCase() === 'NORTHGATE HEALTH CENTRE') {
+            window.location.href = `add-ig-contact?${qs.toString()}`;
+          } else if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
             window.location.href = `local-admin-alert?${qs.toString()}`;
           } else {
             window.location.href = `add-ig-contact1?${qs.toString()}`;

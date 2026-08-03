@@ -1,5 +1,4 @@
-{% extends "iteration5/collection-monitoring/layout-collection-monitoring.html" %}
-
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 {% set pageName = "Upload organisations" %}
 
 {% block beforeContent %}
@@ -21,7 +20,7 @@
       <p>Upload a CSV file to add multiple organisations at once.</p>
       <p class="nhsuk-hint">The file must be a CSV with one organisation per row, including columns for organisation name, ODS code, region and status. <a href="#">Download a template CSV</a>.</p>
 
-      <form action="lcs-organisations" method="get" enctype="multipart/form-data">
+      <form action="uploading-organisations" method="get" enctype="multipart/form-data">
 
         <div class="nhsuk-form-group">
           <label class="nhsuk-label" for="organisations-file">
@@ -38,10 +37,7 @@
           Upload file
         </button>
 
-        <p>
-          <a href="lcs-organisations">Cancel</a>
-        </p>
-
+     
       </form>
 
     </div>
