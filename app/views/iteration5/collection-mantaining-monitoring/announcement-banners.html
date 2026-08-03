@@ -53,24 +53,27 @@
         name: "portals",
         fieldset: {
           legend: {
-            text: "Which portal(s) should this be displayed on?",
+            text: "Where should this announcement be displayed?",
             classes: "nhsuk-fieldset__legend--m"
           }
+        },
+        hint: {
+          text: "Select all areas where users should see this announcement."
         },
         items: [
            {
             value: "permission-request-portal",
-            text: "Permission request Portal",
+            text: "Permission request",
             checked: false
           },
           {
             value: "submitter-portal",
-            text: "Submitter Portal",
+            text: "File submission",
             checked: false
           },
           {
             value: "management-portal",
-            text: "Management Portal",
+            text: "Collection management and monitoring",
             checked: false
           }
         ]
