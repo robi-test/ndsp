@@ -194,6 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (orgName.toUpperCase() === 'NORTHGATE HEALTH CENTRE') {
             window.location.href = `add-ig-contact?${qs.toString()}`;
+          } else if (orgName === 'Lambeth Diagnostic Programme') {
+            window.location.href = `local-admin-alert?${qs.toString()}`;
+          } else if (orgName.endsWith('Diagnostic Programme')) {
+            window.location.href = `add-ig-contact?${qs.toString()}`;
           } else if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
             window.location.href = `local-admin-alert?${qs.toString()}`;
           } else {
