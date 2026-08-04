@@ -1,0 +1,41 @@
+{% extends "iteration5/collection-mantaining-monitoring/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "Submission window saved" %}
+
+{% block beforeContent %}
+  {% from "breadcrumb/macro.njk" import breadcrumb %}
+  {{ breadcrumb({
+    items: [
+      { href: "../home", text: "Home" },
+      { href: "../configuration-collections", text: "Collections configuration" },
+      { href: "../dids-configuration", text: "Diagnostic Imaging Data Set (V2.0)" },
+      { href: "reporting-periods", text: "Submission windows" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">Submission window saved</h3>
+        <p>The submission window <strong>Extension deadlines — April 2026</strong> has been successfully saved.</p>
+      </div>
+    </div>
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">What happens next?</h2>
+    <p>The changes to this submission window are now active. Organisations assigned to this window will be able to submit data within the updated date range.</p>
+    <p>If a notification was configured, affected users will receive an email at the scheduled time.</p>
+
+    <p class="nhsuk-u-margin-top-6">
+      <a href="submission-windows2" class="nhsuk-link">Return to submission windows</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}
