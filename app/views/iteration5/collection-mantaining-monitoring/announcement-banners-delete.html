@@ -65,19 +65,23 @@
       </div>
 
     </dl>
+ <div style="display: flex; gap: 16px; align-items: flex-start;">
+  <form action="announcement-banners-list" method="post">
+    {% from 'button/macro.njk' import button %}
 
-    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-deleted" method="post">
-      {% from 'button/macro.njk' import button %}
-      <div style="display: flex; gap: 28px;">
-       
-        {{ button({
-          text: "Delete banner",
-          classes: "nhsuk-button--warning"
-        }) }}
-        <a style="margin-top: 16px;" href="/iteration5/collection-mantaining-monitoring/announcement-banners-list" class="nhsuk-link">Cancel</a>
-      </div>
-    </form>
+    {{ button({
+      text: "Cancel",
+      classes: "nhsuk-button--secondary"
+    }) }}
+  </form>
 
+  <form action="announcement-banners-deleted" method="post">
+    {{ button({
+      text: "Delete banner",
+      classes: "nhsuk-button--warning"
+    }) }}
+  </form>
+</div>
   </div>
 </div>
 {% endblock %}
