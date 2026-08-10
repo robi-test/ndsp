@@ -3,14 +3,9 @@
 {% set pageName = "December 2026 — Reporting period" %}
 
 {% block beforeContent %}
-  {% from "breadcrumb/macro.njk" import breadcrumb %}
-  {{ breadcrumb({
-    items: [
-      { href: "../home", text: "Home" },
-      { href: "../configuration-collections", text: "Collections configuration" },
-      { href: "../dids-configuration", text: "Diagnostic Imaging Data Set (V2.0)" },
-      { href: "periods2", text: "Reporting periods" }
-    ]
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
   }) }}
 {% endblock %}
 

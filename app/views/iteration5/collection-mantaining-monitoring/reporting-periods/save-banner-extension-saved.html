@@ -2,17 +2,7 @@
 
 {% set pageName = "Submission window saved" %}
 
-{% block beforeContent %}
-  {% from "breadcrumb/macro.njk" import breadcrumb %}
-  {{ breadcrumb({
-    items: [
-      { href: "../home", text: "Home" },
-      { href: "../configuration-collections", text: "Collections configuration" },
-      { href: "../dids-configuration", text: "Diagnostic Imaging Data Set (V2.0)" },
-      { href: "reporting-periods", text: "Submission windows" }
-    ]
-  }) }}
-{% endblock %}
+
 
 {% block content %}
 <div class="nhsuk-grid-row">
@@ -33,7 +23,7 @@
     <p>If a notification was configured, affected users will receive an email at the scheduled time.</p>
 
     <p class="nhsuk-u-margin-top-6">
-      <a href="submission-windows2" class="nhsuk-link">Return to submission windows</a>
+      <a href="submission-windows" class="nhsuk-link">Return to submission windows</a>
     </p>
 
   </div>

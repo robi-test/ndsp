@@ -1,0 +1,107 @@
+{% extends "iteration5/collection-maintaining/layout.html" %}
+
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Reporting periods" %}
+
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
+
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Are you sure you want to make changes to this submission window?</h1>
+         <!-- <div class="nhsuk-warning-callout">
+          <h3 class="nhsuk-warning-callout__label">
+            <span role="text">
+              <span class="nhsuk-u-visually-hidden">Important: </span>
+              Impact on submissions
+            </span>
+          </h3>
+          <p>This submission window is currently open and making changes will affect the ability of organisations to submit data. All affected submitters will be automatically notified of these changes.</p>
+        </div> -->
+
+        <p>You are about to make changes to the following submission window:</p>
+
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Submission window name" },
+          value: { text: "Extension deadlines" },
+          actions: { items: [{ href: "extension-edit#submission-window-name", text: " ", visuallyHiddenText: "submission window name" }] }
+        },
+        {
+          key: { text: "Reporting period" },
+          value: { text: "April 2026" },
+          actions: { items: [{ href: "extension-edit#reporting-period-multiselect", text: " ", visuallyHiddenText: "reporting period" }] }
+        },
+        {
+          key: { text: "Start date" },
+          value: { html: "1 November 2026, 00:00:00 " },
+          actions: { items: [{ href: "extension-edit#start-date-group", text: " ", visuallyHiddenText: "start date" }] }
+        },
+        {
+          key: { text: "End date" },
+          value: { html: "30 November 2026, 23:59:59" },
+          actions: { items: [{ href: "extension-edit#end-date-group", text: " ", visuallyHiddenText: "end date" }] }
+        },
+        {
+          key: { text: "Organisations" },
+          value: { html: "<p>Barts Health NHS Trust</p><p>Chelsea and Westminster Hospital NHS Foundation Trust</p>" },
+          actions: { items: [{ href: "extension-edit#org-settings-group", text: " ", visuallyHiddenText: "organisations" }] }
+        },
+        {
+          key: { text: "Submission type" },
+          value: { html: "<p>All</p>"  },
+          actions: { items: [{ href: "extension-edit#status-group", text: " ", visuallyHiddenText: "status" }] }
+        }
+      ]
+    }) }}
+
+       <h3 class="nhsuk-heading-m nhsuk-u-margin-top-8">Additional schedule date 1</h3>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Extension date" },
+          value: { html: "15 November 2026, 23:59:59" },
+          actions: { items: [{ href: "extension-edit#notifications-list", text: " ", visuallyHiddenText: "extension date" }] }
+        },
+        {
+          key: { text: "Template" },
+          value: { html: "Template 1" },
+          actions: { items: [{ href: "extension-edit#notifications-list", text: " ", visuallyHiddenText: "final deadline" }] }
+        }
+      ]
+    }) }}
+       
+
+        <div class="nhsuk-inset-text">
+          <span class="nhsuk-u-visually-hidden">Information: </span>
+          <p>This action cannot be undone.</p>
+        </div>
+
+        <form method="post" action="save-banner-extension-saved">
+          <input type="hidden" name="action" value="edit">
+        
+          <button class="nhsuk-button" type="submit">
+            Save changes
+          </button>
+        </form>
+
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock %}

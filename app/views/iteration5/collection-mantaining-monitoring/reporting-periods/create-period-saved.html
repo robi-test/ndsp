@@ -2,6 +2,12 @@
 
 {% set pageName = "Reporting period saved" %}
 
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
 
 {% block content %}
 <div class="nhsuk-grid-row">

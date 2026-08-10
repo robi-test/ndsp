@@ -53,27 +53,27 @@
         name: "portals",
         fieldset: {
           legend: {
-            text: "Where should this announcement be displayed?",
+            text: "Who should this announcement be shown to??",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
         hint: {
-          text: "Select all areas where users should see this announcement."
+          text: "Select all users who should see this announcement."
         },
         items: [
            {
-            value: "permission-request-portal",
-            text: "Permission request",
+            value: "users-with-no-permissions-portal",
+            text: "Users with no permissions",
             checked: false
           },
           {
-            value: "submitter-portal",
-            text: "File submission",
+            value: "submitters-and-local-administrators-portal",
+            text: "Submitters and local administrators",
             checked: false
           },
           {
-            value: "management-portal",
-            text: "Collection management and monitoring",
+            value: "collection-managers-portal",
+            text: "Collection managers",
             checked: false
           }
         ]

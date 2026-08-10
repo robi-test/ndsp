@@ -2,17 +2,7 @@
 
 {% set pageName = "Reporting period saved" %}
 
-{% block beforeContent %}
-  {% from "breadcrumb/macro.njk" import breadcrumb %}
-  {{ breadcrumb({
-    items: [
-      { href: "../home", text: "Home" },
-      { href: "../configuration-collections", text: "Collections configuration" },
-      { href: "../dids-configuration", text: "Diagnostic Imaging Data Set (V2.0)" },
-      { href: "reporting-periods", text: "Reporting periods" }
-    ]
-  }) }}
-{% endblock %}
+
 
 {% block content %}
 <div class="nhsuk-grid-row">
@@ -31,7 +21,7 @@
     
 
     <p class="nhsuk-u-margin-top-6">
-      <a href="periods2" class="nhsuk-link">Return to reporting periods</a>
+      <a href="periods" class="nhsuk-link">Return to reporting periods</a>
     </p>
 
   </div>
