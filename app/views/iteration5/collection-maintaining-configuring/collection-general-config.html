@@ -1,0 +1,89 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Community Rehabilitation Contacts Dataset (CRCD) - General configuration" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "crcd-configuration",
+      text: "Community Rehabilitation Contacts Dataset (CRCD)"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">General configuration</h1>
+    <p class="nhsuk-body">View or manage the general settings for this collection.</p>
+
+    <dl class="nhsuk-summary-list nhsuk-u-margin-top-6">
+
+      <div class="nhsuk-summary-list__row nhsuk-u-margin-top-2">
+        <dt class="nhsuk-summary-list__key">Type of submissions allowed</dt>
+        <dd class="nhsuk-summary-list__value">Resubmissions<br>Test submissions</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-submission-types">Change<span class="nhsuk-u-visually-hidden"> type of submissions allowed</span></a>
+        </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Roles </dt>
+        <dd class="nhsuk-summary-list__value">Submitter<br>Local administrator<br>Group monitoring</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-roles">Change<span class="nhsuk-u-visually-hidden"> roles allowed to submit</span></a>
+        </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Submission method</dt>
+        <dd class="nhsuk-summary-list__value">File upload<br>API</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-submission-method">Change<span class="nhsuk-u-visually-hidden"> submission method</span></a>
+        </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Submission frequency</dt>
+        <dd class="nhsuk-summary-list__value">Monthly</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-frequency">Change<span class="nhsuk-u-visually-hidden"> frequency</span></a>
+        </dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Accepted file format</dt>
+        <dd class="nhsuk-summary-list__value">.csv</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-file-format">Change<span class="nhsuk-u-visually-hidden"> accepted file format</span></a>
+        </dd>
+      </div>
+   
+      
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Validation failure handling</dt>
+        <dd class="nhsuk-summary-list__value">File rejection</dd>
+        <dd class="nhsuk-summary-list__actions">
+          <a href="collection-config-validation-handling">Change<span class="nhsuk-u-visually-hidden"> validation failure handling</span></a>
+        </dd>
+      </div>
+    </dl>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

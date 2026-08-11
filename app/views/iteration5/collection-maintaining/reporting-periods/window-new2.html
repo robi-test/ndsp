@@ -825,7 +825,7 @@
   <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
     <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
       <h1 class="nhsuk-fieldset__heading">
-       Submission type
+       Submission type (optional)
       </h1>
     </legend>
     <div class="" data-module="nhsuk-checkboxes">
@@ -993,7 +993,10 @@
 </fieldset>
   {% from "button/macro.njk" import button %}
 <div class="nhsuk-u-margin-top-8">
-<button class="nhsuk-button" type="button" id="save-window-btn">Save</button>
+{{ button({
+  text: "Save",
+  href: "create-window-saved"
+}) }}
 </div>
       </div>
     </div>
@@ -1689,13 +1692,23 @@
         if(tSel&&!tSel.value){if(tErr)tErr.style.display='';if(tGrp)tGrp.classList.add('nhsuk-form-group--error');if(tSel)tSel.classList.add('nhsuk-select--error');errors.push({message:'Select a notification template for additional schedule entry '+(i+1),href:'#notification-template-'+idx});}
       });
 
-      // 7. Specific organisations
+      // 7. Organisation scope (mandatory)
       var orgSel=document.querySelector('input[name="organisation-scope"]:checked');
       var orgGrp=document.getElementById('org-scope-group'); var orgErr=document.getElementById('org-scope-error');
       if(orgErr)orgErr.style.display='none'; if(orgGrp)orgGrp.classList.remove('nhsuk-form-group--error');
-      if(orgSel&&orgSel.value==='specific'){
+      if(!orgSel){
+        var orgErrSpan=orgErr?orgErr.querySelector('.nhsuk-u-visually-hidden'):null;
+        if(orgErr){orgErr.textContent='';if(orgErrSpan)orgErr.appendChild(orgErrSpan);orgErr.appendChild(document.createTextNode(' Select the organisations this submission window applies to'));orgErr.style.display='';}
+        if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');
+        errors.push({message:'Select the organisations this submission window applies to',href:'#organisation-scope'});
+      } else if(orgSel.value==='specific'){
         var orgList=document.getElementById('organisation-list');
-        if(!orgList||orgList.children.length===0){if(orgErr)orgErr.style.display='';if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');errors.push({message:'Select at least one organisation',href:'#organisation-scope-2'});}
+        if(!orgList||orgList.children.length===0){
+          var orgErrSpan2=orgErr?orgErr.querySelector('.nhsuk-u-visually-hidden'):null;
+          if(orgErr){orgErr.textContent='';if(orgErrSpan2)orgErr.appendChild(orgErrSpan2);orgErr.appendChild(document.createTextNode(' Select at least one organisation'));orgErr.style.display='';}
+          if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');
+          errors.push({message:'Select at least one organisation',href:'#organisation-scope-2'});
+        }
       }
 
       // Show/hide error summary

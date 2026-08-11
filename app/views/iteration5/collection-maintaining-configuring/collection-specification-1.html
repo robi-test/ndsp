@@ -1,0 +1,125 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Specification" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "crcd-configuration",
+      text: "Community Rehabilitation Contacts Dataset (CRCD)"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">Specification</h1>
+  
+
+    <!-- Specification name and version panel -->
+    <div class="spec-panel nhsuk-u-margin-top-6">
+      <div class="spec-panel__header">
+        <h2 class="nhsuk-heading-s nhsuk-u-margin-bottom-0">Specification name and version</h2>
+        <p><a href="#">Change</a></p>
+      </div>
+      <div class="spec-panel__body">
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-0">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Specification name</dt>
+            <dd class="nhsuk-summary-list__value">ICSDS V1.0</dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Version</dt>
+            <dd class="nhsuk-summary-list__value">1.0</dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Start date</dt>
+            <dd class="nhsuk-summary-list__value">1/10/2026</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Tables panel -->
+    <div class="spec-panel nhsuk-u-margin-top-4">
+      <div class="spec-panel__header">
+        <h2 class="nhsuk-heading-s nhsuk-u-margin-bottom-0">Tables</h2>
+        <p><a href="#">+ Add table</a></p>
+      </div>
+      <div class="spec-panel__body">
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-0">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Table 1 name</dt>
+            <dd class="nhsuk-summary-list__value">ICSD_Header</dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="#">View/Edit</a>
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Table 2 name</dt>
+            <dd class="nhsuk-summary-list__value">ICSD_PatientDem</dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="collection-spec-table2">View/Edit</a>
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Table 3 name</dt>
+            <dd class="nhsuk-summary-list__value">ICSD_GPSpec</dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="#">View/Edit</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Rules panel -->
+    <div class="spec-panel nhsuk-u-margin-top-4">
+      <div class="spec-panel__header">
+        <h2 class="nhsuk-heading-s nhsuk-u-margin-bottom-0">Validation rules</h2>
+        <p><a href="#">View/Edit</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .spec-panel {
+    border: 1px solid #d8dde0;
+    background-color: #ffffff;
+    
+  }
+
+  .spec-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #d8dde0;
+  }
+
+  .spec-panel__body {
+    padding: 0 24px;
+  }
+
+  .spec-panel__body .nhsuk-summary-list__row:last-child {
+    border-bottom: none;
+  }
+</style>
+{% endblock %}

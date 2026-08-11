@@ -1,0 +1,124 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Table 2 - ICSD_PatientDem" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "crcd-configuration",
+      text: "Community Rehabilitation Contacts Dataset (CRCD)"
+    },
+    {
+      href: "collection-specification-1",
+      text: "Specification"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">Table 2 - ICSD_PatientDem</h1>
+
+    <div class="nhsuk-action-link nhsuk-u-margin-bottom-6">
+      <a class="nhsuk-action-link__link" href="#">
+        <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="36" height="36">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+        </svg>
+        <span class="nhsuk-action-link__text">Add new data item</span>
+      </a>
+    </div>
+
+    <div class="spec-panel">
+      <table class="nhsuk-table">
+        <thead class="nhsuk-table__head">
+          <tr>
+            <th class="nhsuk-table__header" scope="col">Internal column name</th>
+            <th class="nhsuk-table__header" scope="col">Data Item Name</th>
+            <th class="nhsuk-table__header" scope="col">Data Item description</th>
+            <th class="nhsuk-table__header" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">LocalPatientID</td>
+            <td class="nhsuk-table__cell">LOCAL PATIENT IDENTIFIER (EXTENDED)</td>
+            <td class="nhsuk-table__cell">A number used to identify a PATIENT uniquely within a Health Care Provider. It may be different from the PATIENT's casenote number and may be assigned automatically by the computer system.</td>
+            <td class="nhsuk-table__cell"><a href="collection-spec-table2-item1">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">OrgLocalPatientID</td>
+            <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)</td>
+            <td class="nhsuk-table__cell">Organisation responsible for that local patient identifier.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">PersonBirthDate</td>
+            <td class="nhsuk-table__cell">PERSON BIRTH DATE</td>
+            <td class="nhsuk-table__cell">Patient's date of birth.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">PersonGenderCode</td>
+            <td class="nhsuk-table__cell">PERSON STATED GENDER CODE</td>
+            <td class="nhsuk-table__cell">Patient's stated gender.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">EthnicCategory</td>
+            <td class="nhsuk-table__cell">ETHNIC CATEGORY</td>
+            <td class="nhsuk-table__cell">Recorded ethnic category.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">ServiceRequestID</td>
+            <td class="nhsuk-table__cell">SERVICE REQUEST IDENTIFIER</td>
+            <td class="nhsuk-table__cell">Identifier for the referral/service request.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">ReferralRequestDate</td>
+            <td class="nhsuk-table__cell">REFERRAL REQUEST RECEIVED DATE</td>
+            <td class="nhsuk-table__cell">Date the referral was received.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">SourceOfReferral</td>
+            <td class="nhsuk-table__cell">SOURCE OF REFERRAL FOR COMMUNITY</td>
+            <td class="nhsuk-table__cell">Where the referral originated.</td>
+            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .spec-panel {
+    border: 1px solid #d8dde0;
+    background-color: #ffffff;
+    padding:20px;
+  }
+
+  .spec-panel .nhsuk-table {
+    margin-bottom: 0;
+  }
+</style>
+{% endblock %}

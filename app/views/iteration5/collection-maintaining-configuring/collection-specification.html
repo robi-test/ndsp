@@ -1,0 +1,96 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Specification" %}
+
+{% block beforeContent %}
+{% from "breadcrumb/macro.njk" import breadcrumb %}
+{{ breadcrumb({
+  items: [
+    {
+      href: "home",
+      text: "Home"
+    },
+    {
+      href: "configuration-collections",
+      text: "Collections configuration"
+    },
+    {
+      href: "crcd-configuration",
+      text: "Community Rehabilitation Contacts Dataset (CRCD)"
+    }
+  ]
+}) }}
+{% endblock %}
+
+{% block content %}
+{% from 'tag/macro.njk' import tag %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2  nhsuk-u-margin-bottom-2">
+
+    <h1 class="nhsuk-heading-l">Specification</h1>
+
+    <div class="nhsuk-action-link nhsuk-u-margin-top-4">
+  <a class="nhsuk-action-link__link  nhsuk-u-margin-top-2" href="#">
+    <svg class="nhsuk-icon nhsuk-icon__arrow-right-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" width="36" height="36">
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 2a10 10 0 0 0-9.95 9h11.64L9.74 7.05a1 1 0 0 1 1.41-1.41l5.66 5.65a1 1 0 0 1 0 1.42l-5.66 5.65a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.41L13.69 13H2.05A10 10 0 1 0 12 2z"></path>
+    </svg>
+    <span class="nhsuk-action-link__text">Create a new specification</span>
+  </a>
+</div>
+
+
+    <!-- Specification name and version panel -->
+    <div class="spec-panel nhsuk-u-margin-top-6">
+  
+      <div class="spec-panel__body">
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-0">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Specification name</dt>
+            <dd class="nhsuk-summary-list__value">ICSDS Test V0.1</dd>
+            <dd class="nhsuk-summary-list__actions">{{ tag({ text: "Active", classes: "nhsuk-tag--green" }) }}</dd>
+            <dd class="nhsuk-summary-list__actions"><a href="#">Manage<span class="nhsuk-u-visually-hidden"> ICSDS Test V0.1</span></a></dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Specification name</dt>
+            <dd class="nhsuk-summary-list__value">ICSDS V1.0</dd>
+            <dd class="nhsuk-summary-list__actions">{{ tag({ text: "Inactive", classes: "nhsuk-tag--grey" }) }}</dd>
+            <dd class="nhsuk-summary-list__actions"><a href="collection-specification-1">Manage<span class="nhsuk-u-visually-hidden"> ICSDS V1.0</span></a></dd>
+          </div>
+          
+        </dl>
+      </div>
+    </div>
+
+ 
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .spec-panel {
+    border: 1px solid #d8dde0;
+    background-color: #ffffff;
+  }
+
+  .spec-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #d8dde0;
+  }
+
+  .spec-panel__body {
+    padding: 0 24px;
+  }
+
+  .spec-panel__body .nhsuk-summary-list__row:last-child {
+    border-bottom: none;
+  }
+</style>
+{% endblock %}

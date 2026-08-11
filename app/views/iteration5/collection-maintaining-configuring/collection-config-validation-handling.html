@@ -1,0 +1,57 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Validation failure handling" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from "radios/macro.njk" import radios %}
+
+    {{ radios({
+      idPrefix: "validation-handling",
+      name: "validation-handling",
+      fieldset: {
+        legend: {
+          text: "Validation failure handling",
+          classes: "nhsuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      hint: {
+        text: "Select how validation failures are handled when organisations submit data for this collection."
+      },
+      items: [
+        {
+          value: "file-rejection",
+          text: "File rejection",
+          hint: {
+            text: "The entire submitted file is rejected if any validation errors are found."
+          },
+          checked: true
+        },
+        {
+          value: "record-rejection",
+          text: "Record rejection",
+          hint: {
+            text: "Only the individual records that fail validation are rejected; the rest of the file is accepted."
+          }
+        }
+      ]
+    }) }}
+
+    <button class="nhsuk-button nhsuk-u-margin-top-4" onclick="location.href='collection-general-config'">Save</button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

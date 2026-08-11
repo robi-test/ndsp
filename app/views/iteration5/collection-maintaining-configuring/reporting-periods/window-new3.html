@@ -112,33 +112,14 @@
           Submission window start
         </h1>
       </legend>
-      <div id="date-of-start-hint" class="nhsuk-hint">For example, 18 09 2026</div>
+      <div id="date-of-start-hint" class="nhsuk-hint">For example, 27/9/2026</div>
       <span class="nhsuk-error-message" id="start-date-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a submission window start date</span>
-      <div id="submission-window-start" class="nhsuk-date-input nhsuk-u-margin-bottom-6 ">
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-day">
-              Day
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-day" name="submissionWindowStart[day]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-month">
-              Month
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-start-month" name="submissionWindowStart[month]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-start-year">
-              Year
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-start-year" name="submissionWindowStart[year]" type="text" inputmode="numeric">
-          </div>
-        </div>
+      <div class="nhsuk-u-margin-bottom-6" style="display:flex; align-items:stretch; position:relative; width:fit-content;">
+        <input class="nhsuk-input" type="text" id="win-start-input" name="submissionWindowStart" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px; border-right:none; border-radius:0;">
+        <button type="button" id="win-start-cal-btn" aria-label="Open calendar for start date" style="background:#005eb8; border:2px solid #005eb8; padding:6px 10px; cursor:pointer; display:flex; align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        </button>
+        <div id="win-start-cal-panel" style="display:none; position:absolute; top:100%; left:0; z-index:200; background:white; border:2px solid #212b32; padding:12px; min-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
       </div>
 
 {% set startTimeHtml %}
@@ -212,33 +193,14 @@
           Submission window end
         </h1>
       </legend>
-      <div id="date-of-birth-hint" class="nhsuk-hint">For example, 18 09 2026</div>
+      <div id="date-of-birth-hint" class="nhsuk-hint">For example, 27/9/2026</div>
       <span class="nhsuk-error-message" id="end-date-error" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a submission window end date</span>
-      <div id="submission-window-end" class="nhsuk-date-input nhsuk-u-margin-bottom-6 bottom">
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-day">
-              Day
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-day" name="submissionWindowEnd[day]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-month">
-              Month
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="submission-window-end-month" name="submissionWindowEnd[month]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="submission-window-end-year">
-              Year
-            </label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="submission-window-end-year" name="submissionWindowEnd[year]" type="text" inputmode="numeric">
-          </div>
-        </div>
+      <div class="nhsuk-u-margin-bottom-6" style="display:flex; align-items:stretch; position:relative; width:fit-content;">
+        <input class="nhsuk-input" type="text" id="win-end-input" name="submissionWindowEnd" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px; border-right:none; border-radius:0;">
+        <button type="button" id="win-end-cal-btn" aria-label="Open calendar for end date" style="background:#005eb8; border:2px solid #005eb8; padding:6px 10px; cursor:pointer; display:flex; align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        </button>
+        <div id="win-end-cal-panel" style="display:none; position:absolute; top:100%; left:0; z-index:200; background:white; border:2px solid #212b32; padding:12px; min-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
       </div>
 
 {% set endTimeHtml %}
@@ -826,7 +788,7 @@
   <fieldset class="nhsuk-fieldset" aria-describedby="example-hint">
     <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
       <h1 class="nhsuk-fieldset__heading">
-       Submission type (optional)
+       Submission type
       </h1>
     </legend>
     <div class="" data-module="nhsuk-checkboxes">
@@ -889,27 +851,14 @@
           Remove
         </button>
       </div>
-      <div class="nhsuk-hint nhsuk-u-margin-top-1">For example, 18 3 2026.</div>
+      <div class="nhsuk-hint nhsuk-u-margin-top-1">For example, 27/9/2026</div>
       <span class="nhsuk-error-message" id="notification-date-error-__index__" style="display:none;"><span class="nhsuk-u-visually-hidden">Error:</span> Enter a date for this additional schedule entry</span>
-      <div class="nhsuk-date-input">
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-day-__index__">Day</label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-day-__index__" name="notifications[__index__][day]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-month-__index__">Month</label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="notification-date-month-__index__" name="notifications[__index__][month]" type="text" inputmode="numeric">
-          </div>
-        </div>
-        <div class="nhsuk-date-input__item">
-          <div class="nhsuk-form-group">
-            <label class="nhsuk-label nhsuk-date-input__label" for="notification-date-year-__index__">Year</label>
-            <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="notification-date-year-__index__" name="notifications[__index__][year]" type="text" inputmode="numeric">
-          </div>
-        </div>
+      <div style="display:flex; align-items:stretch; position:relative; width:fit-content;" class="nhsuk-u-margin-bottom-2">
+        <input class="nhsuk-input" type="text" id="notif-date-input-__index__" name="notifications[__index__][date]" placeholder="DD/MM/YYYY" autocomplete="off" style="width:160px; border-right:none; border-radius:0;">
+        <button type="button" id="notif-date-cal-btn-__index__" aria-label="Open calendar for additional date" style="background:#005eb8; border:2px solid #005eb8; padding:6px 10px; cursor:pointer; display:flex; align-items:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>
+        </button>
+        <div id="notif-date-cal-panel-__index__" style="display:none; position:absolute; top:100%; left:0; z-index:200; background:white; border:2px solid #212b32; padding:12px; min-width:280px; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
       </div>
     </div>
 
@@ -987,6 +936,12 @@
           if (targetId) { var target = document.getElementById(targetId); if (target) target.classList.remove('nhsuk-radios__conditional--hidden'); }
         });
       });
+      // Wire up date picker for this new entry
+      var idx = counter - 1;
+      var notifPanelIds = ['win-start-cal-panel', 'win-end-cal-panel'];
+      // collect all existing notif panels
+      document.querySelectorAll('[id^="notif-date-cal-panel-"]').forEach(function(p){ notifPanelIds.push(p.id); });
+      initDatePicker('notif-date-input-' + idx, 'notif-date-cal-btn-' + idx, 'notif-date-cal-panel-' + idx, notifPanelIds);
     });
   })();
 </script>
@@ -994,10 +949,7 @@
 </fieldset>
   {% from "button/macro.njk" import button %}
 <div class="nhsuk-u-margin-top-8">
-{{ button({
-  text: "Save",
-  href: "create-window-saved"
-}) }}
+<button class="nhsuk-button" type="button" id="save-window-btn">Save</button>
 </div>
       </div>
     </div>
@@ -1693,23 +1645,13 @@
         if(tSel&&!tSel.value){if(tErr)tErr.style.display='';if(tGrp)tGrp.classList.add('nhsuk-form-group--error');if(tSel)tSel.classList.add('nhsuk-select--error');errors.push({message:'Select a notification template for additional schedule entry '+(i+1),href:'#notification-template-'+idx});}
       });
 
-      // 7. Organisation scope (mandatory)
+      // 7. Specific organisations
       var orgSel=document.querySelector('input[name="organisation-scope"]:checked');
       var orgGrp=document.getElementById('org-scope-group'); var orgErr=document.getElementById('org-scope-error');
       if(orgErr)orgErr.style.display='none'; if(orgGrp)orgGrp.classList.remove('nhsuk-form-group--error');
-      if(!orgSel){
-        var orgErrSpan=orgErr?orgErr.querySelector('.nhsuk-u-visually-hidden'):null;
-        if(orgErr){orgErr.textContent='';if(orgErrSpan)orgErr.appendChild(orgErrSpan);orgErr.appendChild(document.createTextNode(' Select the organisations this submission window applies to'));orgErr.style.display='';}
-        if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');
-        errors.push({message:'Select the organisations this submission window applies to',href:'#organisation-scope'});
-      } else if(orgSel.value==='specific'){
+      if(orgSel&&orgSel.value==='specific'){
         var orgList=document.getElementById('organisation-list');
-        if(!orgList||orgList.children.length===0){
-          var orgErrSpan2=orgErr?orgErr.querySelector('.nhsuk-u-visually-hidden'):null;
-          if(orgErr){orgErr.textContent='';if(orgErrSpan2)orgErr.appendChild(orgErrSpan2);orgErr.appendChild(document.createTextNode(' Select at least one organisation'));orgErr.style.display='';}
-          if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');
-          errors.push({message:'Select at least one organisation',href:'#organisation-scope-2'});
-        }
+        if(!orgList||orgList.children.length===0){if(orgErr)orgErr.style.display='';if(orgGrp)orgGrp.classList.add('nhsuk-form-group--error');errors.push({message:'Select at least one organisation',href:'#organisation-scope-2'});}
       }
 
       // Show/hide error summary
@@ -1796,6 +1738,108 @@
 
       window.location.href = 'window-new2-confirm?' + qs.toString();
     });
+
+    // Calendar date picker
+    var initDatePicker;
+    (function () {
+      var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var DAY_LABELS  = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+      function parseDMY(s) {
+        var m = (s || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (!m) return null;
+        var d = new Date(+m[3], +m[2]-1, +m[1]);
+        return isNaN(d) ? null : d;
+      }
+
+      function renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect) {
+        var today = new Date();
+        var firstDay = new Date(viewYear, viewMonth, 1);
+        var startDow = firstDay.getDay();
+        startDow = (startDow === 0) ? 6 : startDow - 1;
+        var daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+        var prevMonth = viewMonth === 0  ? { y: viewYear-1, m: 11 } : { y: viewYear, m: viewMonth-1 };
+        var nextMonth = viewMonth === 11 ? { y: viewYear+1, m: 0  } : { y: viewYear, m: viewMonth+1 };
+
+        var html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:4px;">' +
+          '<button type="button" data-cal-prev-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous year">&#171;</button>' +
+          '<button type="button" data-cal-prev-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Previous month">&#8249;</button>' +
+          '<span style="font-weight:600;font-size:14px;flex:1;text-align:center;">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</span>' +
+          '<button type="button" data-cal-next-month style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next month">&#8250;</button>' +
+          '<button type="button" data-cal-next-year style="background:none;border:1px solid #adb5bd;padding:2px 7px;cursor:pointer;font-size:16px;" title="Next year">&#187;</button>' +
+          '</div><table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr>';
+        DAY_LABELS.forEach(function(d) { html += '<th style="padding:4px 2px;text-align:center;font-weight:600;color:#425563;">' + d + '</th>'; });
+        html += '</tr></thead><tbody><tr>';
+        for (var i = 0; i < startDow; i++) html += '<td></td>';
+        for (var day = 1; day <= daysInMonth; day++) {
+          var dow = (startDow + day - 1) % 7;
+          var isToday = (day === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear());
+          var isSel   = selectedDate && (day === selectedDate.getDate() && viewMonth === selectedDate.getMonth() && viewYear === selectedDate.getFullYear());
+          var bg = isSel ? '#335c9b' : (isToday ? '#f0b400' : 'transparent');
+          var col = isSel ? 'white' : '#212b32';
+          var fw  = (isSel || isToday) ? '600' : 'normal';
+          html += '<td style="padding:2px;"><button type="button" data-cal-day="' + day + '" style="width:32px;height:32px;border:none;background:' + bg + ';color:' + col + ';font-weight:' + fw + ';cursor:pointer;border-radius:2px;font-size:13px;">' + day + '</button></td>';
+          if (dow === 6 && day < daysInMonth) html += '</tr><tr>';
+        }
+        html += '</tr></tbody></table>';
+        panel.innerHTML = html;
+
+        panel.querySelector('[data-cal-prev-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, prevMonth.y-1, viewMonth); });
+        panel.querySelector('[data-cal-prev-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, prevMonth.y, prevMonth.m); });
+        panel.querySelector('[data-cal-next-month]').addEventListener('click', function(e){ e.stopPropagation(); onSelect(null, nextMonth.y, nextMonth.m); });
+        panel.querySelector('[data-cal-next-year]').addEventListener('click',  function(e){ e.stopPropagation(); onSelect(null, nextMonth.y+1, viewMonth); });
+        panel.querySelectorAll('[data-cal-day]').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var picked = new Date(viewYear, viewMonth, +this.getAttribute('data-cal-day'));
+            onSelect(picked, viewYear, viewMonth);
+          });
+        });
+      }
+
+      function initDatePickerFn(inputId, calBtnId, panelId, allPanelIds) {
+        var input  = document.getElementById(inputId);
+        var calBtn = document.getElementById(calBtnId);
+        var panel  = document.getElementById(panelId);
+        if (!input || !calBtn || !panel) return;
+        var today = new Date();
+        var viewYear = today.getFullYear(), viewMonth = today.getMonth(), selectedDate = null;
+
+        function onSelect(date, y, m) {
+          if (date) {
+            selectedDate = date;
+            input.value = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+            panel.style.display = 'none';
+          }
+          viewYear = y; viewMonth = m;
+          if (panel.style.display !== 'none') renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect);
+        }
+
+        calBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          allPanelIds.forEach(function(pid) {
+            if (pid !== panelId) { var p = document.getElementById(pid); if (p) p.style.display = 'none'; }
+          });
+          if (panel.style.display === 'block') { panel.style.display = 'none'; }
+          else { renderCalendar(panel, viewYear, viewMonth, selectedDate, onSelect); panel.style.display = 'block'; }
+        });
+
+        input.addEventListener('blur', function() {
+          var d = parseDMY(this.value);
+          selectedDate = d || null;
+          if (d) { viewYear = d.getFullYear(); viewMonth = d.getMonth(); }
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!input.contains(e.target) && !calBtn.contains(e.target) && !panel.contains(e.target)) panel.style.display = 'none';
+        });
+      }
+
+      var allPanels = ['win-start-cal-panel', 'win-end-cal-panel'];
+      initDatePicker = initDatePickerFn;
+      initDatePickerFn('win-start-input', 'win-start-cal-btn', 'win-start-cal-panel', allPanels);
+      initDatePickerFn('win-end-input',   'win-end-cal-btn',   'win-end-cal-panel',   allPanels);
+    })();
 
     </script>
 {% endblock %}

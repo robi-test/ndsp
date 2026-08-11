@@ -1,0 +1,49 @@
+{% extends "iteration5/collection-mantaining-monitoring/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "August 2026 — Reporting period" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">August 2026</h1>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Reporting period" },
+          value: { text: "August 2026" }
+        },
+        {
+          key: { text: "Start date" },
+          value: { text: "1 August 2026" }
+        },
+        {
+          key: { text: "End date" },
+          value: { text: "31 August 2026" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Diagnostic Imaging Data Set (V2.0)" }
+        },
+        {
+          key: { text: "Submission windows" },
+          value: { text: "2 windows" }
+        }
+      ]
+    }) }}
+
+    <a href="period-edit-august" class="nhsuk-button nhsuk-button--primary nhsuk-u-margin-top-4">Edit reporting period</a>
+
+  </div>
+</div>
+{% endblock %}

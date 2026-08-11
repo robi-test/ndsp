@@ -1,0 +1,58 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Type of submissions allowed" %}
+
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from "checkboxes/macro.njk" import checkboxes %}
+
+    {{ checkboxes({
+      idPrefix: "submission-types",
+      name: "submission-types",
+      fieldset: {
+        legend: {
+          text: "Type of submissions allowed",
+          classes: "nhsuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      hint: {
+        text: "Select all submission types that organisations can make for this collection."
+      },
+      items: [
+        {
+          value: "resubmissions",
+          text: "Resubmissions",
+          checked: true
+        },
+        {
+          value: "test-submissions",
+          text: "Test submissions",
+          checked: true
+        },
+        {
+          value: "nil-submission",
+          text: "Nil-submission",
+          checked: false
+        }
+      ]
+    }) }}
+
+    <button class="nhsuk-button nhsuk-u-margin-top-4" onclick="location.href='collection-general-config'">Save</button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

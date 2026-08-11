@@ -1,0 +1,72 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Frequency" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from "radios/macro.njk" import radios %}
+
+    {{ radios({
+      idPrefix: "frequency",
+      name: "frequency",
+      fieldset: {
+        legend: {
+          text: "Frequency",
+          classes: "nhsuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      hint: {
+        text: "Select how often organisations are required to submit data for this collection."
+      },
+      items: [
+      {
+          value: "annual",
+          text: "Annual",
+          checked: false
+        },
+        {
+          value: "quarterly",
+          text: "Quarterly",
+          checked: false
+        },
+        {
+          value: "monthly",
+          text: "Monthly",
+          checked: true
+        },
+        {
+          value: "weekly",
+          text: "Weekly",
+          checked: false
+        },
+        {
+          value: "daily",
+          text: "Daily",
+          checked: false
+        },
+        {
+          value: "continuous",
+          text: "Continuous",
+          checked: false
+        }
+      ]
+    }) }}
+
+    <button class="nhsuk-button nhsuk-u-margin-top-2" onclick="location.href='collection-general-config'">Save</button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

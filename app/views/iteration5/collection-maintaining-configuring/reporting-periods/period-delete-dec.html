@@ -1,0 +1,52 @@
+{% extends "iteration5/collection-mantaining-monitoring/reporting-periods/layout-collection-management.html" %}
+
+{% set pageName = "December 2026 — Reporting period" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "summary-list/macro.njk" import summaryList %}
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <h1 class="nhsuk-heading-l">Are you sure you want to delete this reporting period?</h1>
+
+    <p>You are about to delete the following reporting period:</p>
+
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Reporting period" },
+          value: { text: "December 2026" }
+        },
+        {
+          key: { text: "Start date" },
+          value: { text: "1 December 2026" }
+        },
+        {
+          key: { text: "End date" },
+          value: { text: "31 December 2026" }
+        },
+        {
+          key: { text: "Collection" },
+          value: { text: "Diagnostic Imaging Data Set (V2.0)" }
+        },
+        {
+          key: { text: "Submission windows" },
+          value: { text: "2 windows" }
+        }
+      ]
+    }) }}
+
+    <a href="periods2" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-4 nhsuk-u-margin-right-3">Cancel</a>
+    <a href="delete-period-saved" class="nhsuk-button nhsuk-button--warning nhsuk-u-margin-top-4">Delete</a>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Accepted file format" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    {% from "checkboxes/macro.njk" import checkboxes %}
+
+    {{ checkboxes({
+      idPrefix: "file-format",
+      name: "file-format",
+      fieldset: {
+        legend: {
+          text: "Accepted file format",
+          classes: "nhsuk-fieldset__legend--l",
+          isPageHeading: true
+        }
+      },
+      hint: {
+        text: "Select the file formats that organisations can use when submitting data for this collection."
+      },
+      items: [
+        {
+          value: "csv",
+          text: ".csv",
+          checked: true
+        },
+        {
+          value: "xml",
+          text: ".xml"
+        },
+        {
+          value: "json",
+          text: ".json"
+        },
+        {
+          value: "xlsx",
+          text: ".xlsx"
+        }
+      ]
+    }) }}
+
+    <button class="nhsuk-button  nhsuk-u-margin-top-2" onclick="location.href='collection-general-config'">Save</button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

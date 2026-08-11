@@ -1,6 +1,8 @@
 {% extends "iteration5/collection-mantaining-monitoring/reporting-periods/layout-collection-management.html" %}
 
-{% set pageName = "Diagnostic Imaging Data Set (V2.0) — Extension deadlines" %}
+{% set pageName = "Diagnostic Imaging Data Set (V2.0) - Reporting periods" %}
+
+{% from "breadcrumb/macro.njk" import breadcrumb %}
 
 {% block beforeContent %}
   {{ backLink({
@@ -10,17 +12,22 @@
 {% endblock %}
 
 {% block content %}
-{% from "summary-list/macro.njk" import summaryList %}
-{% from 'tag/macro.njk' import tag %}
 
-<div class="nhsuk-grid-row">
-  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+    <div class="nhsuk-grid-row">
+      <div class="nhsuk-grid-column-two-thirds">
 
-    <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:16px;">
-      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-2">Extension deadlines</h1>
-      <!-- <p><a href="extension-edit" class="nhsuk-link">Edit</a></p> -->
-    
-    </div>
+        <h1 class="nhsuk-heading-l nhsuk-u-margin-top-3">Are you sure you want to make changes to this submission window?</h1>
+         <!-- <div class="nhsuk-warning-callout">
+          <h3 class="nhsuk-warning-callout__label">
+            <span role="text">
+              <span class="nhsuk-u-visually-hidden">Important: </span>
+              Impact on submissions
+            </span>
+          </h3>
+          <p>This submission window is currently open and making changes will affect the ability of organisations to submit data. All affected submitters will be automatically notified of these changes.</p>
+        </div> -->
+
+        <p>You are about to make changes to the following submission window:</p>
 
 
     {{ summaryList({
@@ -58,7 +65,7 @@
       ]
     }) }}
 
-    <h3 class="nhsuk-heading-m nhsuk-u-margin-top-8">Additional schedule date 1</h3>
+       <h3 class="nhsuk-heading-m nhsuk-u-margin-top-8">Additional schedule date 1</h3>
 
     {{ summaryList({
       rows: [
@@ -74,14 +81,27 @@
         }
       ]
     }) }}
+       
 
-      <form method="post" action="extension-edit2">
-          <input type="hidden" name="action" value="delete">
-          <button class="nhsuk-button nhsuk-button" type="submit">
-            Edit submission window
+        <div class="nhsuk-inset-text">
+          <span class="nhsuk-u-visually-hidden">Information: </span>
+          <p>This action cannot be undone.</p>
+        </div>
+
+        <form method="post" action="save-banner-extension-saved">
+          <input type="hidden" name="action" value="edit">
+        
+          <button class="nhsuk-button" type="submit">
+            Save changes
           </button>
-    </form>
+        </form>
 
-  </div>
-</div>
+      </div>
+    </div>
+
+    {% endblock %}
+
+{% block scripts %}
+<script>
+</script>
 {% endblock %}
