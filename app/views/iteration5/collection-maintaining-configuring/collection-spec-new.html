@@ -1,0 +1,65 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Specification details" %}
+
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">Specification details</h1>
+    
+    <div class="nhsuk-form-group nhsuk-u-margin-top-6">
+      <label class="nhsuk-label nhsuk-label--s" for="spec-name">Specification name</label>
+      <input class="nhsuk-input" id="spec-name" name="specName" type="text" value=" " style="max-width: 100%;">
+    </div>
+
+    <div class="nhsuk-form-group">
+      <label class="nhsuk-label nhsuk-label--s" for="spec-version">Version</label>
+      <input class="nhsuk-input nhsuk-input--width-5" id="spec-version" name="specVersion" type="text" value=" ">
+    </div>
+
+    <div class="nhsuk-form-group">
+      <fieldset class="nhsuk-fieldset" role="group" aria-describedby="spec-start-date-hint">
+        <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--s">
+          Start date
+        </legend>
+        <div id="spec-start-date-hint" class="nhsuk-hint">For example, 1 10 2025</div>
+        <div class="nhsuk-date-input">
+          <div class="nhsuk-date-input__item">
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label nhsuk-date-input__label" for="spec-start-day">Day</label>
+              <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="spec-start-day" name="specStartDay" type="text" inputmode="numeric" value=" ">
+            </div>
+          </div>
+          <div class="nhsuk-date-input__item">
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label nhsuk-date-input__label" for="spec-start-month">Month</label>
+              <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-2" id="spec-start-month" name="specStartMonth" type="text" inputmode="numeric" value=" ">
+            </div>
+          </div>
+          <div class="nhsuk-date-input__item">
+            <div class="nhsuk-form-group">
+              <label class="nhsuk-label nhsuk-date-input__label" for="spec-start-year">Year</label>
+              <input class="nhsuk-input nhsuk-date-input__input nhsuk-input--width-4" id="spec-start-year" name="specStartYear" type="text" inputmode="numeric" value=" ">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+
+    <button class="nhsuk-button nhsuk-u-margin-top-4" onclick="location.href='collection-specification'">Save</button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

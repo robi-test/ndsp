@@ -12,8 +12,8 @@
 {% block content %}
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
-    <h1 class="nhsuk-heading-l">LocalPatientID</h1>
-
+    <h1 class="nhsuk-heading-l">Add a data item</h1>
+    
     <div class="nhsuk-inset-text">
       <span class="nhsuk-u-visually-hidden">Information: </span>
       <p>Table 2 - ICSD_PatientDem</p>
@@ -22,108 +22,148 @@
     <div class="spec-panel nhsuk-u-margin-top-4">
       <div class="spec-panel__body" style="padding: 24px;">
 
+        
+<!-- 
+        <p class="nhsuk-body-s nhsuk-u-margin-bottom-1"><strong>Select data item</strong></p>
+        <p class="nhsuk-body-s">Select a data item (this can also be interpreted as a field in a web-form) from the list below. You can start typing in the box to quickly find and select the desired data item.</p>
+        <p class="nhsuk-body-s"><a href="#">NHS Data Model and Dictionary</a></p>
+        <p class="nhsuk-body-s">If you don't find the right data item in the library, you can create a new one.</p>
+        <p class="nhsuk-body-s nhsuk-u-margin-bottom-6"><a href="#">Create a new data item</a></p>
+ -->
         <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label nhsuk-label--s" for="data-item-search">Data item name</label>
           <div class="data-item-typeahead" style="position:relative;">
-            <input class="nhsuk-input" id="data-item-search" name="dataItemSearch" type="text" autocomplete="off" placeholder="Search data items..." style="width:100%;" value="LOCAL PATIENT IDENTIFIER (EXTENDED)">
+            <input class="nhsuk-input" id="data-item-search" name="dataItemSearch" type="text" autocomplete="off" placeholder="Search data items..." style="width:100%;">
             <ul id="data-item-suggestions" role="listbox" style="display:none; position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #b1b4b6; margin:0; padding:0; list-style:none; z-index:100; max-height:220px; overflow-y:auto;"></ul>
-            <input type="hidden" id="data-item-name" name="dataItemName" value="local-patient-id">
+            <input type="hidden" id="data-item-name" name="dataItemName">
           </div>
         </div>
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label nhsuk-label--s" for="data-item-description">Data item description</label>
-          <textarea class="nhsuk-textarea" id="data-item-description" name="dataItemDescription" rows="4" readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">A number used to identify a PATIENT uniquely within a Health Care Provider. It may be different from the PATIENT's casenote number and may be assigned automatically by the computer system.</textarea>
+          <textarea class="nhsuk-textarea" id="data-item-description" name="dataItemDescription" rows="4" readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;"></textarea>
         </div>
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
           <label class="nhsuk-label nhsuk-label--s" for="internal-column-name">Internal column name</label>
-          <input class="nhsuk-input" id="internal-column-name" name="internalColumnName" type="text" value="LocalPatientID">
+          <input class="nhsuk-input" id="internal-column-name" name="internalColumnName" type="text" value=" ">
         </div>
-
         <hr>
         <h3 class="nhsuk-heading-s">Data format</h3>
-
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
-          <label class="nhsuk-label nhsuk-label--s" for="data-type">Data type</label>
-          <input class="nhsuk-input nhsuk-input--width-40" id="data-type" name="dataType" type="text" value="String" readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
+            <label class="nhsuk-label nhsuk-label--s" for="data-type">Data type</label>
+            <input class="nhsuk-input nhsuk-input--width-40" id="data-type" name="dataType" type="text" value=" " readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
         </div>
-
         <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4">
+          
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
             <label class="nhsuk-label nhsuk-label--s" for="length-type">Length</label>
-            <input class="nhsuk-input nhsuk-input--width-20" id="length-type" name="lengthType" type="text" value="Max" readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
+            <input class="nhsuk-input nhsuk-input--width-20" id="length-type" name="lengthType" type="text" value=" " readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
           </div>
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
             <label class="nhsuk-label nhsuk-u-visually-hidden" for="length-value">Length value</label>
-            <input class="nhsuk-input nhsuk-input--width-10" id="length-value" name="lengthValue" type="text" value="20" readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
+            <input class="nhsuk-input nhsuk-input--width-10" id="length-value" name="lengthValue" type="text" value=" " readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
           </div>
         </div>
-
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
-          <label class="nhsuk-label nhsuk-label--s" for="pattern">Pattern</label>
-          <input class="nhsuk-input nhsuk-input--width-10" id="pattern" name="pattern" type="text" value=" " readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
-        </div>
-
+            <label class="nhsuk-label nhsuk-label--s" for="pattern">Pattern</label>
+            <input class="nhsuk-input nhsuk-input--width-10" id="pattern" name="pattern" type="text" value=" " readonly style="background-color:#f0f4f5; color:#4c6272; cursor:default;">
+          </div>
         <h3 class="nhsuk-heading-s">When validation fails</h3>
-
-        <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4">
+        <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4 ">
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
             <label class="nhsuk-label nhsuk-label--s" for="format-response">Response to validation</label>
             <select class="nhsuk-select" id="format-response" name="formatResponse">
-              <option value="reject" selected>File rejection</option>
+              <option value=" " selected>Choose from the list</option>
+              <option value="reject">File rejection</option>
               <option value="warn">Warning</option>
             </select>
           </div>
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
             <label class="nhsuk-label nhsuk-label--s" for="format-error-code">Error code</label>
-            <input class="nhsuk-input nhsuk-input--width-10" id="format-error-code" name="formatErrorCode" type="text" value="ICSDH1">
+            <input class="nhsuk-input nhsuk-input--width-10" id="format-error-code" name="formatErrorCode" type="text" value=" ">
           </div>
         </div>
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
           <label class="nhsuk-label nhsuk-label--s" for="format-error-message">Error/Warning message</label>
-          <textarea class="nhsuk-textarea" id="format-error-message" name="formatErrorMessage" rows="2">Local patient identifier (Extended) has an incorrect data format.</textarea>
+          <textarea class="nhsuk-textarea" id="format-error-message" name="formatErrorMessage" rows="2"> </textarea>
         </div>
 
         <hr>
+
         <h3 class="nhsuk-heading-s nhsuk-u-margin-top-4">Is this data item required?</h3>
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
           <select class="nhsuk-select" id="mandation" name="mandation">
-            <option value="mandatory" selected>Mandatory</option>
+            <option value=" " selected>Choose from the list</option>
+            <option value="mandatory">Mandatory</option>
             <option value="required">Required</option>
             <option value="optional">Optional</option>
           </select>
         </div>
-
         <h3 class="nhsuk-heading-s">When validation fails</h3>
-
         <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4">
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
             <label class="nhsuk-label nhsuk-label--s" for="mandation-response">Response to validation</label>
             <select class="nhsuk-select" id="mandation-response" name="mandationResponse">
-              <option value="reject" selected>File rejection</option>
+              <option value=" " selected>Choose from the list</option>
+              <option value="reject">File rejection</option>
               <option value="warn">Warning</option>
               <option value="N/A">N/A</option>
             </select>
           </div>
           <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
             <label class="nhsuk-label nhsuk-label--s" for="mandation-error-code">Error code</label>
-            <input class="nhsuk-input nhsuk-input--width-10" id="mandation-error-code" name="mandationErrorCode" type="text" value="ICSDH2">
+            <input class="nhsuk-input nhsuk-input--width-10" id="mandation-error-code" name="mandationErrorCode" type="text" value=" ">
           </div>
         </div>
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
           <label class="nhsuk-label nhsuk-label--s" for="mandation-error-message">Error/Warning message</label>
-          <textarea class="nhsuk-textarea" id="mandation-error-message" name="mandationErrorMessage" rows="2">Rejected - Local patient identifier (Extended) is blank.</textarea>
+          <textarea class="nhsuk-textarea" id="mandation-error-message" name="mandationErrorMessage" rows="2"> </textarea>
         </div>
 
-        <hr>
+         <hr>
 
+        <h3 class="nhsuk-heading-s nhsuk-u-margin-top-4">Validation rule 1</h3>
+
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
+          <select class="nhsuk-select" id="mandation" name="mandation">
+            <option value=" " selected>Choose from the list</option>
+            <option value="mandatory">Pattern (Regex)</option>
+            <option value="required">Equal to</option>
+            <option value="optional">Different from</option>
+            <option value="required">Equal to</option>
+            <option value="optional">Different from</option>
+            <option value="optional">...</option>
+          </select>
+        </div>
+
+        <h3 class="nhsuk-heading-s">When validation fails</h3>
+        <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4">
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+            <label class="nhsuk-label nhsuk-label--s" for="mandation-response">Response to validation</label>
+            <select class="nhsuk-select" id="mandation-response" name="mandationResponse">
+              <option value=" " selected>Choose from the list</option>
+              <option value="reject">File rejection</option>
+              <option value="warn">Warning</option>
+              <option value="N/A">N/A</option>
+            </select>
+          </div>
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+            <label class="nhsuk-label nhsuk-label--s" for="mandation-error-code">Error code</label>
+            <input class="nhsuk-input nhsuk-input--width-10" id="mandation-error-code" name="mandationErrorCode" type="text" value=" ">
+          </div>
+        </div>
+
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-6">
+          <label class="nhsuk-label nhsuk-label--s" for="mandation-error-message">Error/Warning message</label>
+          <textarea class="nhsuk-textarea" id="mandation-error-message" name="mandationErrorMessage" rows="2"> </textarea>
+        </div>
+         <hr>
+         <div><button class="nhsuk-button nhsuk-button--secondary" onclick="location.href=' '">Add validation rule</button></div>
         
-        <div><button class="nhsuk-button nhsuk-button--secondary" onclick="location.href=' '">Add validation rule</button></div>
-
         <button class="nhsuk-button" onclick="location.href='collection-spec-table2'">Save</button>
 
       </div>
@@ -166,16 +206,16 @@
       { value: 'source-of-referral',    label: 'SOURCE OF REFERRAL FOR COMMUNITY' }
     ];
 
-    var searchInput = document.getElementById('data-item-search');
-    var suggestions = document.getElementById('data-item-suggestions');
-    var hiddenInput = document.getElementById('data-item-name');
-    var highlighted = -1;
+    var searchInput  = document.getElementById('data-item-search');
+    var suggestions  = document.getElementById('data-item-suggestions');
+    var hiddenInput  = document.getElementById('data-item-name');
+    var highlighted  = -1;
 
     function renderList(filtered) {
       suggestions.innerHTML = '';
       highlighted = -1;
       if (!filtered.length) { suggestions.style.display = 'none'; return; }
-      filtered.forEach(function (item) {
+      filtered.forEach(function (item, i) {
         var li = document.createElement('li');
         li.textContent = item.label;
         li.setAttribute('role', 'option');
@@ -190,8 +230,8 @@
     }
 
     function selectItem(item) {
-      searchInput.value = item.label;
-      hiddenInput.value = item.value;
+      searchInput.value  = item.label;
+      hiddenInput.value  = item.value;
       suggestions.style.display = 'none';
     }
 
@@ -239,4 +279,3 @@
   })();
 </script>
 {% endblock %}
-
