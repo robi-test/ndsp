@@ -24,6 +24,7 @@
       </a>
     </div>
 
+
     <div class="spec-panel">
       <table class="nhsuk-table">
         <thead class="nhsuk-table__head">
@@ -39,49 +40,49 @@
             <td class="nhsuk-table__cell">LocalPatientID</td>
             <td class="nhsuk-table__cell">LOCAL PATIENT IDENTIFIER (EXTENDED)</td>
             <td class="nhsuk-table__cell">A number used to identify a PATIENT uniquely within a Health Care Provider. It may be different from the PATIENT's casenote number and may be assigned automatically by the computer system.</td>
-            <td class="nhsuk-table__cell"><a href="collection-spec-table2-item1">View</a></td>
+            <td class="nhsuk-table__cell"><a href="collection-spec-table2-view-item1">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="collection-spec-table2-delete-item1">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">OrgLocalPatientID</td>
             <td class="nhsuk-table__cell">ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)</td>
             <td class="nhsuk-table__cell">Organisation responsible for that local patient identifier.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">PersonBirthDate</td>
             <td class="nhsuk-table__cell">PERSON BIRTH DATE</td>
             <td class="nhsuk-table__cell">Patient's date of birth.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">PersonGenderCode</td>
             <td class="nhsuk-table__cell">PERSON STATED GENDER CODE</td>
             <td class="nhsuk-table__cell">Patient's stated gender.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">EthnicCategory</td>
             <td class="nhsuk-table__cell">ETHNIC CATEGORY</td>
             <td class="nhsuk-table__cell">Recorded ethnic category.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">ServiceRequestID</td>
             <td class="nhsuk-table__cell">SERVICE REQUEST IDENTIFIER</td>
             <td class="nhsuk-table__cell">Identifier for the referral/service request.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">ReferralRequestDate</td>
             <td class="nhsuk-table__cell">REFERRAL REQUEST RECEIVED DATE</td>
             <td class="nhsuk-table__cell">Date the referral was received.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
           <tr class="nhsuk-table__row">
             <td class="nhsuk-table__cell">SourceOfReferral</td>
             <td class="nhsuk-table__cell">SOURCE OF REFERRAL FOR COMMUNITY</td>
             <td class="nhsuk-table__cell">Where the referral originated.</td>
-            <td class="nhsuk-table__cell"><a href="#">View</a></td>
+            <td class="nhsuk-table__cell"><a href="#">View</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">Delete</a></td>
           </tr>
         </tbody>
       </table>
@@ -102,5 +103,8 @@
   .spec-panel .nhsuk-table {
     margin-bottom: 0;
   }
+  td.nhsuk-table__cell {
+    min-width: 150px;
+}
 </style>
 {% endblock %}

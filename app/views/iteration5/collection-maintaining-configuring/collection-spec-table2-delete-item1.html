@@ -1,0 +1,51 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Delete data item - Table 2 - ICSD_PatientDem" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">Are you sure you want to delete this data item?</h1>
+
+    <p>You are about to delete the following data item from Table 2 - ICSD_PatientDem:</p>
+
+    <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Internal column name</dt>
+        <dd class="nhsuk-summary-list__value">LocalPatientID</dd>
+      </div>
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Data item name</dt>
+        <dd class="nhsuk-summary-list__value">LOCAL PATIENT IDENTIFIER (EXTENDED)</dd>
+      </div>
+      <!-- <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Data item description</dt>
+        <dd class="nhsuk-summary-list__value">A number used to identify a PATIENT uniquely within a Health Care Provider. It may be different from the PATIENT's casenote number and may be assigned automatically by the computer system.</dd>
+      </div> -->
+    </dl>
+
+    <div class="nhsuk-inset-text">
+      <span class="nhsuk-u-visually-hidden">Information: </span>
+      <p>Please think carefully before proceeding. Deleting this data item will remove it and all associated validation rules from the table specification.</p>
+      <p>This action cannot be undone.</p>
+    </div>
+
+    <form method="post" action="collection-spec-table2-delete-item1-confirmed">
+      <input type="hidden" name="action" value="delete">
+      <a class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-right-3" href="collection-spec-table2">Cancel</a>
+      <button class="nhsuk-button nhsuk-button--warning" type="submit">
+        Delete data item
+      </button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

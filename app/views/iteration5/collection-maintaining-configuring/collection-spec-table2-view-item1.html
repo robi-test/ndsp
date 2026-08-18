@@ -1,0 +1,154 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "View data item: Table 2 - ICSD_PatientDem" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+    <h1 class="nhsuk-heading-l">LocalPatientID</h1>
+
+    <div class="nhsuk-inset-text">
+      <span class="nhsuk-u-visually-hidden">Information: </span>
+      <p>Table 2 - ICSD_PatientDem</p>
+    </div>
+
+    <div class="spec-panel nhsuk-u-margin-top-8">
+      <div class="spec-panel__body" style="padding: 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-0">Data item</h2>
+          <a href="collection-spec-table2-edit-item1">Edit data item</a>
+        </div>
+
+        <dl class="nhsuk-summary-list nhsuk-u-margin-top-4">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Data item name</dt>
+            <dd class="nhsuk-summary-list__value">LOCAL PATIENT IDENTIFIER (EXTENDED)</dd>
+            <dd class="nhsuk-summary-list__actions">
+
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Data item description</dt>
+            <dd class="nhsuk-summary-list__value">A number used to identify a PATIENT uniquely within a Health Care Provider. It may be different from the PATIENT's casenote number and may be assigned automatically by the computer system.</dd>
+            <dd class="nhsuk-summary-list__actions"></dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Internal column name</dt>
+            <dd class="nhsuk-summary-list__value">LocalPatientID</dd>
+            <dd class="nhsuk-summary-list__actions">
+            
+            </dd>
+          </div>
+        </dl>
+
+      <div class="nhsuk-u-margin-top-8">
+        <h2 class="nhsuk-heading-m">Data item format</h2>
+
+        <dl class="nhsuk-summary-list">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Data type</dt>
+            <dd class="nhsuk-summary-list__value">String</dd>
+            <dd class="nhsuk-summary-list__actions"></dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Length</dt>
+            <dd class="nhsuk-summary-list__value">Max 20</dd>
+            <dd class="nhsuk-summary-list__actions"></dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Pattern</dt>
+            <dd class="nhsuk-summary-list__value nhsuk-u-secondary-text-colour">None</dd>
+            <dd class="nhsuk-summary-list__actions"></dd>
+          </div>
+        </dl>
+        </div>
+
+        <h3 class="nhsuk-heading-s">When format validation fails</h3>
+
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Response to validation</dt>
+            <dd class="nhsuk-summary-list__value">File rejection</dd>
+            <dd class="nhsuk-summary-list__actions">
+        
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Error code</dt>
+            <dd class="nhsuk-summary-list__value">ICSDH1</dd>
+            <dd class="nhsuk-summary-list__actions">
+          
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Error/Warning message</dt>
+            <dd class="nhsuk-summary-list__value">Local patient identifier (Extended) has an incorrect data format.</dd>
+            <dd class="nhsuk-summary-list__actions">
+         
+            </dd>
+          </div>
+        </dl>
+
+ <div class="nhsuk-u-margin-top-8">
+        <h2 class="nhsuk-heading-m nhsuk-u-margin-top-4">Is this data item required?</h2>
+
+        <dl class="nhsuk-summary-list">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Requirement</dt>
+            <dd class="nhsuk-summary-list__value">Mandatory</dd>
+            <dd class="nhsuk-summary-list__actions">
+         
+            </dd>
+          </div>
+        </dl>
+
+        <h3 class="nhsuk-heading-s">When mandation validation fails</h3>
+
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-6">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Response to validation</dt>
+            <dd class="nhsuk-summary-list__value">File rejection</dd>
+            <dd class="nhsuk-summary-list__actions">
+          
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Error code</dt>
+            <dd class="nhsuk-summary-list__value">ICSDH2</dd>
+            <dd class="nhsuk-summary-list__actions">
+            
+            </dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Error/Warning message</dt>
+            <dd class="nhsuk-summary-list__value">Rejected - Local patient identifier (Extended) is blank.</dd>
+            <dd class="nhsuk-summary-list__actions">
+             
+            </dd>
+          </div>
+        </dl>
+
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .spec-panel {
+    border: 1px solid #d8dde0;
+    background-color: #ffffff;
+  }
+</style>
+{% endblock %}
+

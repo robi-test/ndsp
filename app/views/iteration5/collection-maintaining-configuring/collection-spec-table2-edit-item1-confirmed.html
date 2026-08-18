@@ -1,0 +1,32 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Data item updated" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-5">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">
+          Data item updated successfully
+        </h3>
+        <p>The changes to <strong>LocalPatientID</strong> have been saved to Table 2 - ICSD_PatientDem.</p>
+      </div>
+    </div>
+
+    <h2 class="nhsuk-heading-m">What happens next</h2>
+    <p>The updated data item specification is now active for this collection table.</p>
+
+    <a href="collection-spec-table2">
+      Back to Table 2 - ICSD_PatientDem
+    </a>
+
+  </div>
+</div>
+{% endblock %}
