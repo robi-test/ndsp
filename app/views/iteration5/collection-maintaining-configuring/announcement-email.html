@@ -1,6 +1,6 @@
 {% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
 
-{% set pageName = "Create or edit announcement banner" %}
+{% set pageName = "Create an email template" %}
 
 {% block beforeContent %}
   {{ backLink({
@@ -15,50 +15,49 @@
 
     <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
 
-    <form action="/iteration5/collection-maintaining-configuring/announcement-banners-confirm" method="post">
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-confirm" method="post">
 
-      <!-- Announcement title -->
+      <!-- Email subject -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-8">
-        <label class="nhsuk-label nhsuk-label--m" for="announcement-title">
-          Announcement title
+        <label class="nhsuk-label nhsuk-label--m" for="email-subject">
+          Email subject
         </label>
-        <div id="announcement-title-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the heading for the announcement banner.</p>
-          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
-          <p class="nhsuk-u-margin-bottom-0">Maximum 50 characters.</p>
+        <div id="email-subject-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the subject line for the email.</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9).</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 30 characters.</p>
         </div>
-        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" maxlength="50" aria-describedby="announcement-title-hint announcement-title-count">
-        <p id="announcement-title-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">50 characters remaining</p>
+        <input class="nhsuk-input" id="email-subject" name="email-subject" type="text" maxlength="30" aria-describedby="email-subject-hint email-subject-count">
+        <p id="email-subject-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">30 characters remaining</p>
       </div>
 
-      <!-- Announcement content -->
+      <!-- Email template content -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-8">
-        <label class="nhsuk-label nhsuk-label--m" for="announcement-content">
-          Announcement content
+        <label class="nhsuk-label nhsuk-label--m" for="email-content">
+          Email template content
         </label>
-        <div id="announcement-content-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the body for the announcement banner.</p>
-          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
-          <p class="nhsuk-u-margin-bottom-0">Maximum 200 characters.</p>
+        <div id="email-content-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email template. This can't contain links.</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 500 characters.</p>
         </div>
-        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" maxlength="200" aria-describedby="announcement-content-hint announcement-content-count"></textarea>
-        <p id="announcement-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">200 characters remaining</p>
+        <textarea class="nhsuk-textarea" id="email-content" name="email-content" rows="5" maxlength="500" aria-describedby="email-content-hint email-content-count"></textarea>
+        <p id="email-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">500 characters remaining</p>
       </div>
 
-      <!-- Which portal(s) -->
-      <div class="nhsuk-u-margin-top-8  nhsuk-u-margin-bottom-8">
+      <!-- Which users -->
+    <div class="nhsuk-u-margin-top-8  nhsuk-u-margin-bottom-8">
       {% from 'checkboxes/macro.njk' import checkboxes %}
       {{ checkboxes({
         idPrefix: "portals",
         name: "portals",
         fieldset: {
           legend: {
-            text: "Who should this announcement be shown to??",
+            text: "Who should this email template be shown to?",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
         hint: {
-          text: "Select all users who should see this announcement."
+          text: "Select all users who should receive this email template."
         },
         items: [
            {
@@ -72,23 +71,28 @@
             checked: false
           },
           {
-            value: "collection-managers-portal",
-            text: "Collection managers",
+            value: "monitoring-users-portal",
+            text: "Monitoring users",
+            checked: false
+          },
+          {
+            value: "group-monitoring-portal",
+            text: "Group-monitoring users",
             checked: false
           }
         ]
       }) }}
-      </div>
+      </div> 
 
       <!-- Which collection(s) -->
-    <!--   <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+      <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
       {% from 'checkboxes/macro.njk' import checkboxes %}
       {{ checkboxes({
         idPrefix: "collections",
         name: "collections",
         fieldset: {
           legend: {
-            text: "Which collection(s) should this banner be displayed for?",
+            text: "Which collection(s) should this email template be used for?",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
@@ -106,35 +110,74 @@
           }
         ]
       }) }}
-      </div> -->
-      <!-- When should this announcement be displayed? -->
+      </div>
+      <!-- When should this email template be sent? -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-6">
-        <fieldset class="nhsuk-fieldset">
-          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-            When should this announcement be displayed?
-          </legend>
-          <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
-            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
-              <label class="nhsuk-label" for="display-date">Date</label>
-              <input class="nhsuk-input" id="display-date" name="display-date" type="date" style="width: 280px;">
-            </div>
-            <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
-              <label class="nhsuk-label" for="display-time-input">Time</label>
-              <div class="time-picker" id="display-time-picker">
-                <button type="button" class="time-picker__trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Select display time">
-                  <span class="time-picker__value">Select time</span>
-                  <span class="time-picker__arrow" aria-hidden="true">&#9660;</span>
-                </button>
-                <ul class="time-picker__list" role="listbox" aria-label="Display time options" tabindex="-1" style="display:none;"></ul>
-                <input type="hidden" id="display-time-input" name="display-time">
-              </div>
+
+        {% set eventRevealHtml %}
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+          <label class="nhsuk-label" for="trigger-event">Select event</label>
+          <div class="nhsuk-hint">The email will be sent automatically when the selected event occurs.</div>
+          <select class="nhsuk-select" id="trigger-event" name="trigger-event">
+            <option value="">Choose an event</option>
+            <option value="window-opens">Submission window opens</option>
+            <option value="window-closes">Submission window closes</option>
+            <option value="window-extended">Submission window extended</option>
+            <option value="deadline-7days">Submission deadline approaching (7 days)</option>
+            <option value="deadline-1day">Submission deadline approaching (1 day)</option>
+            <option value="collection-live">Collection goes live</option>
+            <option value="collection-closed">Collection is closed</option>
+          </select>
+        </div>
+        {% endset %}
+
+        {% set dateRevealHtml %}
+        <div style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+            <label class="nhsuk-label" for="display-date">Date</label>
+            <input class="nhsuk-input" id="display-date" name="display-date" type="date" style="width: 280px;">
+          </div>
+          <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+            <label class="nhsuk-label" for="display-time-input">Time</label>
+            <div class="time-picker" id="display-time-picker">
+              <button type="button" class="time-picker__trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Select display time">
+                <span class="time-picker__value">Select time</span>
+                <span class="time-picker__arrow" aria-hidden="true">&#9660;</span>
+              </button>
+              <ul class="time-picker__list" role="listbox" aria-label="Display time options" tabindex="-1" style="display:none;"></ul>
+              <input type="hidden" id="display-time-input" name="display-time">
             </div>
           </div>
-        </fieldset>
+        </div>
+        {% endset %}
+
+        {% from 'radios/macro.njk' import radios %}
+        {{ radios({
+          idPrefix: "send-trigger",
+          name: "send-trigger",
+          fieldset: {
+            legend: {
+              text: "When should this email template be sent?",
+              classes: "nhsuk-fieldset__legend--m"
+            }
+          },
+          items: [
+            {
+              value: "event",
+              text: "On the occasion of a specific event",
+              conditional: { html: eventRevealHtml }
+            },
+            {
+              value: "date",
+              text: "At a specific date",
+              conditional: { html: dateRevealHtml }
+            }
+          ]
+        }) }}
       </div>
 
       <!-- When should this announcement end? -->
-      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+ <!--      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
         <fieldset class="nhsuk-fieldset">
           <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
             When should this announcement end?
@@ -157,13 +200,13 @@
             </div>
           </div>
         </fieldset>
-      </div>
+      </div> -->
   <div class="nhsuk-u-margin-bottom-8">
       <!-- Email notification -->
       {% from 'radios/macro.njk' import radios %}
 
       {% set emailTemplateHtml %}
-     <div class="nhsuk-form-group">
+        <!-- <div class="nhsuk-form-group">
           <label class="nhsuk-label nhsuk-label--m" for="email-template">Which email template should be used?</label>
           <div class="nhsuk-hint">Select the template for the email notification sent to users.</div>
           <select class="nhsuk-select" id="email-template" name="email-template">
@@ -172,10 +215,10 @@
             <option value="template-2">Template 2</option>
             <option value="template-3">Template 3</option>
           </select>
-        </div> 
+        </div> -->
       {% endset %}
 
-      {{ radios({
+      <!-- {{ radios({
         idPrefix: "email-notification",
         name: "email-notification",
         fieldset: {
@@ -199,7 +242,7 @@
             checked: false
           }
         ]
-      }) }}
+      }) }} -->
 
       {% from 'button/macro.njk' import button %}
 
@@ -380,8 +423,8 @@
       input.addEventListener('input', update);
       update();
     }
-    initCounter('announcement-title',   'announcement-title-count',   50);
-    initCounter('announcement-content', 'announcement-content-count', 200);
+    initCounter('announcement-title',   'announcement-title-count',   30);
+    initCounter('announcement-content', 'announcement-content-count', 500);
   }());
 
   // Pre-fill form from query params when editing an existing banner

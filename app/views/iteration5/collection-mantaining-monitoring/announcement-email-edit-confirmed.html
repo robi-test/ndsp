@@ -1,0 +1,29 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Email notification updated" %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-3">
+
+    <div class="nhsuk-notification-banner nhsuk-notification-banner--success" role="alert" aria-labelledby="nhsuk-notification-banner-title" data-module="nhsuk-notification-banner">
+      <div class="nhsuk-notification-banner__header">
+        <h2 class="nhsuk-notification-banner__title" id="nhsuk-notification-banner-title">Success</h2>
+      </div>
+      <div class="nhsuk-notification-banner__content">
+        <h3 class="nhsuk-notification-banner__heading">Email notification updated</h3>
+        <p>The email notification <strong>New feature available for DIDS</strong> has been updated successfully.</p>
+      </div>
+    </div>
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">What happens next?</h2>
+    <p>The updated notification settings are now active. The email will be sent to Submitters on the date and time specified.</p>
+    <p>If you need to make further changes, you can edit the notification from the bespoke notifications list.</p>
+
+    <p class="nhsuk-u-margin-top-6">
+      <a href="notification-settings2" class="nhsuk-link">Return to email notification settings</a>
+    </p>
+
+  </div>
+</div>
+{% endblock %}

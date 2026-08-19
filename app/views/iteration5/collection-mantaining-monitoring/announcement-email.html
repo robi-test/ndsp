@@ -24,7 +24,7 @@
         </label>
         <div id="email-subject-hint" class="nhsuk-hint">
           <p class="nhsuk-u-margin-bottom-1">This will be the subject line for the email.</p>
-          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9).</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase and uppercase characters, digits (0-9).</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 30 characters.</p>
         </div>
         <input class="nhsuk-input" id="email-subject" name="email-subject" type="text" maxlength="30" aria-describedby="email-subject-hint email-subject-count">
@@ -37,7 +37,7 @@
           Email template content
         </label>
         <div id="email-content-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email template. This can't contain links.</p>
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email template. It can't contain links.</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 500 characters.</p>
         </div>
         <textarea class="nhsuk-textarea" id="email-content" name="email-content" rows="5" maxlength="500" aria-describedby="email-content-hint email-content-count"></textarea>
@@ -60,19 +60,9 @@
           text: "Select all users who should receive this email template."
         },
         items: [
-           {
-            value: "users-with-no-permissions-portal",
-            text: "Users with no permissions",
-            checked: false
-          },
           {
-            value: "submitters-and-local-administrators-portal",
-            text: "Submitters and local administrators",
-            checked: false
-          },
-          {
-            value: "collection-managers-portal",
-            text: "Collection managers",
+            value: "submitters",
+            text: "Submitters",
             checked: false
           }
         ]
@@ -80,7 +70,7 @@
       </div> 
 
       <!-- Which collection(s) -->
-      <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
+<!--       <div class="nhsuk-u-margin-top-8 nhsuk-u-margin-bottom-8">
       {% from 'checkboxes/macro.njk' import checkboxes %}
       {{ checkboxes({
         idPrefix: "collections",
@@ -105,24 +95,33 @@
           }
         ]
       }) }}
-      </div>
+      </div> -->
       <!-- When should this email template be sent? -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-6">
 
         {% set eventRevealHtml %}
-        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label" for="trigger-event">Select event</label>
           <div class="nhsuk-hint">The email will be sent automatically when the selected event occurs.</div>
           <select class="nhsuk-select" id="trigger-event" name="trigger-event">
             <option value="">Choose an event</option>
             <option value="window-opens">Submission window opens</option>
-            <option value="window-closes">Submission window closes</option>
-            <option value="window-extended">Submission window extended</option>
-            <option value="deadline-7days">Submission deadline approaching (7 days)</option>
-            <option value="deadline-1day">Submission deadline approaching (1 day)</option>
-            <option value="collection-live">Collection goes live</option>
-            <option value="collection-closed">Collection is closed</option>
+            <option value="deadline-7days">Submission window closes</option>
+            <option value="collection-closed">Provisional processing deadline</option>
           </select>
+        </div>
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+          <label class="nhsuk-label" for="event-offset-days">Send</label>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input class="nhsuk-input nhsuk-input--width-3" id="event-offset-days" name="event-offset-days" type="number" min="0" value="1" style="text-align: center;">
+            <span class="nhsuk-body">day(s)</span>
+            <select class="nhsuk-select" id="event-offset-direction" name="event-offset-direction" style="width: auto;">
+              <option value="before">before</option>
+              <option value="on">on</option>
+              <option value="after">after</option>
+            </select>
+            <span class="nhsuk-body">the event</span>
+          </div>
         </div>
         {% endset %}
 
@@ -159,13 +158,18 @@
           items: [
             {
               value: "event",
-              text: "On the occasion of a specific event",
+              text: "Based on a specific event",
               conditional: { html: eventRevealHtml }
             },
             {
               value: "date",
-              text: "At a specific date",
+              text: "On a specific date",
               conditional: { html: dateRevealHtml }
+            },
+            {
+              value: "when-needed",
+              text: "Send manually",
+              conditional: { html: whenNeededRevealHtml }
             }
           ]
         }) }}

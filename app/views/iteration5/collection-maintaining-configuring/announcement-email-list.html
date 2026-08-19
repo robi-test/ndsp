@@ -1,0 +1,125 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Announcement email notifications" %}
+
+{% block beforeContent %}
+  {% from 'breadcrumb/macro.njk' import breadcrumb %}
+  {{ breadcrumb({
+    items: [
+      {
+        href: "/iteration5/collection-mantaining-monitoring/home",
+        text: "Home"
+      },
+      {
+        href: "/iteration5/collection-mantaining-monitoring/configuration-collections",
+        text: "Collections configuration"
+      }
+    ],
+    item: {
+      text: "Announcement banners"
+    }
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-full nhsuk-u-margin-top-2">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-0">{{ pageName }}</h1>
+    </div>
+
+    <p class="nhsuk-u-margin-top-4">Manage announcement email notifications displayed across one or more collections.</p>
+    {% from "details/macro.njk" import details %}
+
+{% set dummyNhsNumber = "999 123 4567" %}
+
+
+
+
+    {% from 'button/macro.njk' import button %}
+    {{ button({
+      text: "Create new email notification",
+      href: "announcement-email",
+      classes: "nhsuk-button--small"
+    }) }}
+
+    {% set banners = [
+      {
+        title: "Planned maintenance – 20 July",
+        users: "All users",
+        collections: "All collections",
+        schedule: "20 Jul 2026, 06:00",
+        
+        status: "Scheduled"
+      },
+      {
+        title: "Temporary validation issue affecting LCSDS submissions",
+        users: "Submitters, Local administrators",
+        collections: "LCSDS",
+        schedule: "14 Jul 2026, 09:00",
+        
+        status: "Sent"
+      },
+      {
+        title: "New monitoring feature available for DIDS",
+        users: "Monitoring users",
+        collections: "DIDS",
+        schedule: "01 Jul 2026, 08:00",
+        
+        status: "Sent"
+      }
+    ] %}
+
+    {% if banners.length > 0 %}
+    <table class="nhsuk-table nhsuk-u-margin-top-4">
+      <thead class="nhsuk-table__head">
+        <tr class="nhsuk-table__row">
+          <th class="nhsuk-table__header" scope="col">Subject</th>
+          <th class="nhsuk-table__header" scope="col">Users</th>
+          <th class="nhsuk-table__header" scope="col">Collection(s)</th>
+          <th class="nhsuk-table__header" scope="col">Send date</th>
+          <th class="nhsuk-table__header" scope="col">Status</th>
+          <th class="nhsuk-table__header" scope="col"><span class="nhsuk-u-visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody class="nhsuk-table__body">
+        {% for email in banners %}
+        <tr class="nhsuk-table__row">
+          <td class="nhsuk-table__cell">{{ email.title }}</td>
+          <td class="nhsuk-table__cell">{{ email.users }}</td>
+          <td class="nhsuk-table__cell">{{ email.collections }}</td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ email.schedule }}</td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ email.status }}</td>
+          <td class="nhsuk-table__cell">
+            {% if email.status === "Active" %}
+              <strong class="nhsuk-tag nhsuk-tag--green">Active</strong>
+            {% elif email.status === "Scheduled" %}
+              <strong class="nhsuk-tag nhsuk-tag--blue">Scheduled</strong>
+            {% else %}
+              <strong class="nhsuk-tag nhsuk-tag--grey">Expired</strong>
+            {% endif %}
+          </td>
+          <td class="nhsuk-table__cell" style="white-space: nowrap;">
+            {% if loop.index === 1 %}
+              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners?edit=1&title=System+maintenance+%E2%80%93+20+August&content=Scheduled+system+maintenance+will+take+place+on+20+July+2026.+Some+portal+features+may+be+unavailable+during+this+time.&portals=submitter-portal,management-portal,permission-request-portal&collections=dids,lcsds&display-date=2026-07-20&display-time=06%3A00am&end-date=2026-07-20&end-time=11%3A00pm&email-notification=yes&email-template=template-1">Edit</a>
+            {% else %}
+              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Edit</a>
+            {% endif %}
+            <span aria-hidden="true"> | </span>
+            <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-delete?title={{ email.title | urlencode }}&users={{ email.users | urlencode }}&collections={{ email.collections | urlencode }}&displayFrom={{ email.displayFrom | urlencode }}&displayUntil={{ email.displayUntil | urlencode }}&status={{ email.status | urlencode }}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="nhsuk-u-margin-top-4">No announcement banners have been created yet.</p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
