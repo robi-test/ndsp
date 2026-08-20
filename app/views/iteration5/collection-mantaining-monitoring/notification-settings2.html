@@ -32,7 +32,7 @@
           {% from "summary-list/macro.njk" import summaryList %}
           {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
-            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-4 nhsuk-u-margin-top-8">Standard notifications</h2>
+            <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-6 nhsuk-u-margin-top-8">Standard notifications</h2>
             <a id="change-notification-link" href="notification-settings1-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
           {{ summaryList({
@@ -83,7 +83,7 @@
 
            {% from 'button/macro.njk' import button %}
     {{ button({
-      text: "+ Create new email notification",
+      text: "Create new email notification",
       href: "announcement-email",
       classes: "nhsuk-button--small"
     }) }}
@@ -128,8 +128,16 @@
                 <td class="nhsuk-table__cell">Reminder: submission deadline in 1 day</td>
                 <td class="nhsuk-table__cell">Submitters</td>
                 <td class="nhsuk-table__cell">Send manually</td>
-                <td class="nhsuk-table__cell">01 Jul 2026, 08:00</td>
+                <td class="nhsuk-table__cell">29 Jul 2026, 08:00</td>
                 <td class="nhsuk-table__cell">{{ tag({text: "Active", classes: "nhsuk-tag--green"}) }}</td>
+                <td class="nhsuk-table__cell"><a href="#">View</a> | <a href="#">Delete</a></td>
+              </tr>
+               <tr class="nhsuk-table__row">
+                <td class="nhsuk-table__cell">Reminder: submission deadline in 3 day</td>
+                <td class="nhsuk-table__cell">Submitters</td>
+                <td class="nhsuk-table__cell">Send manually</td>
+                <td class="nhsuk-table__cell">28 Jun 2026, 08:00</td>
+                <td class="nhsuk-table__cell">{{ tag({text: "Not active", classes: "nhsuk-tag--red"}) }}</td>
                 <td class="nhsuk-table__cell"><a href="#">View</a> | <a href="#">Delete</a></td>
               </tr>
             </tbody>
@@ -238,7 +246,7 @@ td.nhsuk-table__cell {
 }
 
 a {
-  font-size: 16px;
+  font-size: 1.1875rem;;
 }
 </style>
 {% endblock %}

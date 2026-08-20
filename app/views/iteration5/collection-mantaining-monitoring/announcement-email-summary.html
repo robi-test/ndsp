@@ -1,0 +1,67 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = data['email-subject'] or "New email notification" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0">Notification details</h2>
+      <a href="announcement-email">Change</a>
+    </div>
+
+    {% from "summary-list/macro.njk" import summaryList %}
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Send to" },
+          value: { text: data['portals'] or "Not specified" }
+        },
+        {
+          key: { text: "When to send" },
+          value: { text: "Based on a specific event" if data['send-trigger'] == "event" else ("On a specific date" if data['send-trigger'] == "date" else "Send manually") }
+        },
+        {
+          key: { text: "Event" if data['send-trigger'] == "event" else ("Send date" if data['send-trigger'] == "date" else "Category") },
+          value: { text: (data['trigger-event'] + " — " + (data['event-offset-days'] + " day(s) " if data['event-offset-direction'] != "on" else "") + data['event-offset-direction'] + " the event") if data['send-trigger'] == "event" else (data['display-date'] + ", " + data['display-time'] if data['send-trigger'] == "date" else data['email-category']) }
+        }
+      ]
+    }) }}
+
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0">Email content</h2>
+      <a href="announcement-email">Change</a>
+    </div>
+
+    {% from "summary-list/macro.njk" import summaryList %}
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Subject line" },
+          value: { text: data['email-subject'] or "Not specified" }
+        },
+        {
+          key: { text: "Body" },
+          value: { html: "<p style='white-space:pre-wrap;'>" + (data['email-content'] or "Not specified") + "</p>" }
+        }
+      ]
+    }) }}
+
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-email-created" method="post">
+      {% from 'button/macro.njk' import button %}
+      {{ button({ text: "Save notification" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}

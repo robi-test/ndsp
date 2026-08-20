@@ -1,6 +1,6 @@
 {% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
-{% set pageName = "Create an email template" %}
+{% set pageName = "Create an email notification" %}
 
 {% block beforeContent %}
   {{ backLink({
@@ -15,15 +15,14 @@
 
     <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
 
-    <form action="/iteration5/collection-mantaining-monitoring/announcement-banners-confirm" method="post">
+    <form action="/iteration5/collection-mantaining-monitoring/announcement-email-summary" method="post">
 
       <!-- Email subject -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-8">
         <label class="nhsuk-label nhsuk-label--m" for="email-subject">
-          Email subject
+          Subject line
         </label>
         <div id="email-subject-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the subject line for the email.</p>
           <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase and uppercase characters, digits (0-9).</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 30 characters.</p>
         </div>
@@ -34,10 +33,10 @@
       <!-- Email template content -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-8">
         <label class="nhsuk-label nhsuk-label--m" for="email-content">
-          Email template content
+          Email content
         </label>
         <div id="email-content-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email template. It can't contain links.</p>
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email. It can't contain links.</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 500 characters.</p>
         </div>
         <textarea class="nhsuk-textarea" id="email-content" name="email-content" rows="5" maxlength="500" aria-describedby="email-content-hint email-content-count"></textarea>
@@ -52,7 +51,7 @@
         name: "portals",
         fieldset: {
           legend: {
-            text: "Who should this email template be shown to?",
+            text: "Who should this email template be sent to?",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
@@ -100,7 +99,22 @@
       <div class="nhsuk-form-group nhsuk-u-margin-top-6">
 
         {% set eventRevealHtml %}
-        <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
+       
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+          <label class="nhsuk-label" for="event-offset-days">Send</label>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <input class="nhsuk-input nhsuk-input--width-3" id="event-offset-days" name="event-offset-days" type="number" min="0" value="" style="text-align: center;">
+            <span class="nhsuk-body-m nhsuk-u-margin-bottom-0">day(s)</span>
+            <select class="nhsuk-select" id="event-offset-direction" name="event-offset-direction" style="width: auto;" onchange="(function(sel){var d=document.getElementById('event-offset-days');if(sel.value==='on'){d.value='';d.disabled=true;d.style.backgroundColor='#f0f4f5';d.style.color='#4c6272';}else{d.disabled=false;d.style.backgroundColor='';d.style.color='';}})(this)">
+              <option value="" disabled selected>Select an option</option>
+              <option value="before">before</option>
+              <option value="on">on</option>
+              <option value="after">after</option>
+            </select>
+            <span class="nhsuk-body-m  nhsuk-u-margin-bottom-0">the event</span>
+          </div>
+        </div>
+         <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label" for="trigger-event">Select event</label>
           <div class="nhsuk-hint">The email will be sent automatically when the selected event occurs.</div>
           <select class="nhsuk-select" id="trigger-event" name="trigger-event">
@@ -109,19 +123,6 @@
             <option value="deadline-7days">Submission window closes</option>
             <option value="collection-closed">Provisional processing deadline</option>
           </select>
-        </div>
-        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
-          <label class="nhsuk-label" for="event-offset-days">Send</label>
-          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-            <input class="nhsuk-input nhsuk-input--width-3" id="event-offset-days" name="event-offset-days" type="number" min="0" value="1" style="text-align: center;">
-            <span class="nhsuk-body">day(s)</span>
-            <select class="nhsuk-select" id="event-offset-direction" name="event-offset-direction" style="width: auto;">
-              <option value="before">before</option>
-              <option value="on">on</option>
-              <option value="after">after</option>
-            </select>
-            <span class="nhsuk-body">the event</span>
-          </div>
         </div>
         {% endset %}
 
@@ -142,6 +143,22 @@
               <input type="hidden" id="display-time-input" name="display-time">
             </div>
           </div>
+        </div>
+        {% endset %}
+
+        {% set whenNeededRevealHtml %}
+       <!--  <div class="nhsuk-inset-text nhsuk-u-margin-bottom-4">
+          <span class="nhsuk-u-visually-hidden">Information: </span>
+          <p class="nhsuk-u-margin-bottom-0">Categories help identify the right template when sending emails manually from other sections of the portal.</p>
+        </div> -->
+        <div class="nhsuk-form-group nhsuk-u-margin-bottom-0">
+          <label class="nhsuk-label" for="email-category">Category</label>
+          <div class="nhsuk-hint">Categories help identify the right template when sending emails manually from other sections of the portal.</div>
+          <select class="nhsuk-select" id="email-category" name="email-category">
+            <option value="">Choose a category</option>
+            <option value="reminders">Reminders</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         {% endset %}
 

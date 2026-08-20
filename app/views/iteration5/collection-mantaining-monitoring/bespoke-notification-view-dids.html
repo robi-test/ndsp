@@ -20,27 +20,30 @@
       
     </div>
 
-    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">Notification details</h2>
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0">Notification details</h2>
+      <a href="announcement-email-edit">Edit notification</a>
+    </div>
 
     {% from "summary-list/macro.njk" import summaryList %}
     {{ summaryList({
       rows: [
         {
-          key: { text: "Subject" },
-          value: { text: "New feature available for DIDS" }
-        },
-        {
-          key: { text: "Users" },
+          key: { text: "Send to" },
           value: { text: "Submitters" }
         },
 
         {
-          key: { text: "Send trigger" },
+          key: { text: "When to send" },
           value: { text: "On a specific date" }
         },
         {
-          key: { text: "Send date" },
+          key: { text: "Send on" },
           value: { text: "01 Jul 2026, 08:00" }
+        },
+        {
+          key: { text: "Category" },
+          value: { text: "N/A" }
         },
         {
           key: { text: "Status" },
@@ -59,15 +62,13 @@
           value: { text: "New feature available for DIDS" }
         },
         {
-          key: { text: "Body" },
+          key: { text: "Email content (Body)" },
           value: { html: "<p>Dear Colleague,<br><br>A new feature is now available for DIDS in the National Data Submission Portal.</p><p>Dear colleague, The update is designed to make it easier to manage your submissions and review submission information.</p><p>You do not need to take any action before your next submission. The new feature will be available when you next use DIDS.</p><p class='nhsuk-u-margin-bottom-0'>If you need support, contact the NDSP Service Desk.<br><br>NDSP Team</p>" }
         }
       ]
     }) }}
 
-    <a href="announcement-email-edit" class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-4">
-      Edit notification
-    </a>
+    <a href="bespoke-notification-view-dids-confirmed" class="nhsuk-button nhsuk-u-margin-top-4">Save notification</a>
 
   </div>
 </div>

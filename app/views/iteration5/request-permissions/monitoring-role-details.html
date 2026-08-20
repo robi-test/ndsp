@@ -28,7 +28,7 @@ The name and email address shown are taken from the account you used to sign in.
 {% elif selectedRole == 'local-admin' %}
   {% set roleLabel = 'Local admin' %}
 {% elif selectedRole == 'monitoring' %}
-  {% set roleLabel = 'Monitoring role' %}
+  {% set roleLabel = 'Group monitoring' %}
 {% endif %}
 
 {% set agreedTerms = 'Not agreed' %}
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const roleMap = {
     submitter: 'Submitter',
     'local-admin': 'Local admin',
-    monitoring: 'Monitoring role'
+    monitoring: 'Group monitoring'
   };
 
   const storedRole = sessionStorage.getItem('summary.role') || '';
