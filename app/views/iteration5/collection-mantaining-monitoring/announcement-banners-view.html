@@ -1,0 +1,82 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "Announcement banner" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <h2 class="nhsuk-heading-m">Banner details</h2>
+      {% if data['editable'] !== '0' %}
+      <a href="/iteration5/collection-mantaining-monitoring/announcement-banners?announcement-title={{ data['title'] | urlencode | safe }}&announcement-content={{ data['content'] | urlencode | safe }}&email-notification={{ 'yes' if data['emailNotification'] == 'Yes' else 'no' }}">Edit banner</a>
+      {% endif %}
+    </div>
+
+    <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-8">
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Announcement title</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['title'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Announcement content</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['content'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Users</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['users'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Collection(s)</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['collections'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Display from</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['displayFrom'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Display until</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['displayUntil'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Email notification</dt>
+        <dd class="nhsuk-summary-list__value">{{ data['emailNotification'] or '—' }}</dd>
+      </div>
+
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">Status</dt>
+        <dd class="nhsuk-summary-list__value">
+          {% if data['status'] == 'Active' %}
+            <strong class="nhsuk-tag nhsuk-tag--green">Active</strong>
+          {% elif data['status'] == 'Scheduled' %}
+            <strong class="nhsuk-tag nhsuk-tag--blue">Scheduled</strong>
+          {% elif data['status'] == 'Expired' %}
+            <strong class="nhsuk-tag nhsuk-tag--grey">Expired</strong>
+          {% else %}—{% endif %}
+        </dd>
+      </div>
+
+    </dl>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

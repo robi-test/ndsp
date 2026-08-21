@@ -23,11 +23,10 @@
           Announcement title
         </label>
         <div id="announcement-title-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the heading for the announcement banner.</p>
-          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters and digits (0-9).-</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 50 characters.</p>
         </div>
-        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" maxlength="50" aria-describedby="announcement-title-hint announcement-title-count">
+        <input class="nhsuk-input" id="announcement-title" name="announcement-title" type="text" maxlength="50" aria-describedby="announcement-title-hint announcement-title-count" value="{{ data['announcement-title'] }}">
         <p id="announcement-title-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">50 characters remaining</p>
       </div>
 
@@ -37,11 +36,10 @@
           Announcement content
         </label>
         <div id="announcement-content-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the body for the announcement banner.</p>
-          <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase characters, uppercase characters, digits (0-9), and the following symbols such as , . -</p>
+          <p class="nhsuk-u-margin-bottom-0">This must contain only lowercase and uppercase letters, numbers (0–9), and common punctuation such as : ; , .-</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 200 characters.</p>
         </div>
-        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" maxlength="200" aria-describedby="announcement-content-hint announcement-content-count"></textarea>
+        <textarea class="nhsuk-textarea" id="announcement-content" name="announcement-content" rows="5" maxlength="200" aria-describedby="announcement-content-hint announcement-content-count">{{ data['announcement-content'] }}</textarea>
         <p id="announcement-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">200 characters remaining</p>
       </div>
 
@@ -49,11 +47,11 @@
       <div class="nhsuk-u-margin-top-8  nhsuk-u-margin-bottom-8">
       {% from 'checkboxes/macro.njk' import checkboxes %}
       {{ checkboxes({
-        idPrefix: "portals",
-        name: "portals",
+        idPrefix: "users",
+        name: "users",
         fieldset: {
           legend: {
-            text: "Who should this announcement be shown to??",
+            text: "Who should this announcement be shown to?",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
@@ -61,20 +59,15 @@
           text: "Select all users who should see this announcement."
         },
         items: [
-           {
-            value: "users-with-no-permissions-portal",
-            text: "Users with no permissions",
-            checked: false
-          },
           {
             value: "submitters-and-local-administrators-portal",
             text: "Submitters and local administrators",
-            checked: false
+            checked: data['usersRaw'] and 'submitters-and-local-administrators-portal' in data['usersRaw']
           },
           {
             value: "collection-managers-portal",
-            text: "Collection managers",
-            checked: false
+            text: "Collection managers and monitoring users",
+            checked: data['usersRaw'] and 'collection-managers-portal' in data['usersRaw']
           }
         ]
       }) }}
@@ -98,11 +91,13 @@
         items: [
           {
             value: "dids",
-            text: "Diagnostic Imaging Data Set (V2.0)"
+            text: "Diagnostic Imaging Data Set (V2.0)",
+            checked: data['collectionsRaw'] and 'dids' in data['collectionsRaw']
           },
           {
             value: "lcsds",
-            text: "Lung Cancer Screening Data Set"
+            text: "Lung Cancer Screening Data Set",
+            checked: data['collectionsRaw'] and 'lcsds' in data['collectionsRaw']
           }
         ]
       }) }}
@@ -180,23 +175,23 @@
         name: "email-notification",
         fieldset: {
           legend: {
-            text: "Should an email notification be sent to all users?",
+            text: "Should an email notification be sent to users?",
             classes: "nhsuk-fieldset__legend--m"
           }
         },
         hint: {
-          text: "If yes, the email will be sent to all users at the same date and time as when the announcement banner is set to display. The banner title and content will also be used for the email notification."
+          text: "If yes, the email will be scheduled to send at the same date and time the announcement banner starts displaying. The banner title and content will also be used as the email subject and message."
         },
         items: [
           {
             value: "no",
             text: "No",
-            checked: false
+            checked: data['email-notification'] == 'no'
           },
           {
             value: "yes",
             text: "Yes",
-            checked: false
+            checked: data['email-notification'] == 'yes'
           }
         ]
       }) }}
@@ -395,10 +390,10 @@
     if (titleEl && params.get('title')) titleEl.value = params.get('title');
     if (contentEl && params.get('content')) contentEl.value = params.get('content');
 
-    // Checkboxes: portals
-    var portalValues = (params.get('portals') || '').split(',').filter(Boolean);
+    // Checkboxes: users
+    var portalValues = (params.get('users') || '').split(',').filter(Boolean);
     portalValues.forEach(function (v) {
-      var cb = document.querySelector('input[name="portals"][value="' + v + '"]');
+      var cb = document.querySelector('input[name="users"][value="' + v + '"]');
       if (cb) cb.checked = true;
     });
 

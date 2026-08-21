@@ -29,69 +29,87 @@
       <h1 class="nhsuk-heading-l nhsuk-u-margin-bottom-0">{{ pageName }}</h1>
     </div>
 
-    <p class="nhsuk-u-margin-top-4">Manage announcement banners displayed across one or more collections.<br> For a better user experience, avoid displaying multiple announcement banners at the same time. Where possible, schedule banners so that only one is visible at a time.</p>
+    <p class="nhsuk-u-margin-top-4">For a better user experience, avoid displaying multiple announcement banners at the same time. </p>
     {% from "details/macro.njk" import details %}
 
-{% set dummyNhsNumber = "999 123 4567" %}
+{% from "action-link/macro.njk" import actionLink %}
+
+{{ actionLink({
+  text: "Create new banner",
+  href: "announcement-banners?announcement-title=&announcement-content=&email-notification=&usersRaw=&collectionsRaw="
+}) }}
 
 
-
-
+<!-- 
     {% from 'button/macro.njk' import button %}
     {{ button({
       text: "Create new banner",
       href: "announcement-banners",
       classes: "nhsuk-button--small"
     }) }}
-
+ -->
     {% set banners = [
       {
         title: "System maintenance – 20 July",
-        portals: "Permission request Portal, Submitter Portal, Management Portal",
-        collections: "Diagnostic Imaging Data Set (V2.0), Lung Cancer Screening Data Set",
-        displayFrom: "20 Jul 2026, 06:00",
-        displayUntil: "20 Jul 2026, 23:00",
+        content: "Scheduled system maintenance will take place on 20 September 2026. Some portal features may be unavailable during this time.",
+        collections: "DIDS, LCSDS, LCC",
+        users: "Submitters, Collection managers",
+        usersRaw: "submitters-and-local-administrators-portal,collection-managers-portal",
+        collectionsRaw: "dids,lcsds",
+        displayFrom: "20 Sept 2026, 06:00",
+        displayUntil: "20 Sept 2026, 23:00",
+        emailNotification: "Yes",
         status: "Scheduled"
       },
       {
         title: "Additional DIDS submission window added",
-        portals: "Submitter Portal",
-        collections: "Diagnostic Imaging Data Set (V2.0)",
-        displayFrom: "14 Jul 2026, 09:00",
-        displayUntil: "31 Jul 2026, 23:00",
+        content: "An additional submission window for the Diagnostic Imaging Data Set has been added. Please check the schedule for updated dates.",
+        collections: "DIDS",
+        users: "Submitters",
+        usersRaw: "submitters-and-local-administrators-portal",
+        collectionsRaw: "dids",
+        displayFrom: "14 Aug 2026, 09:00",
+        displayUntil: "24 Sept 2026, 23:00",
+        emailNotification: "No",
         status: "Active"
       },
       {
         title: "LCSDS specification updated",
-        portals: "Management Portal",
-        collections: "Lung Cancer Screening Data Set",
+        content: "The Lung Cancer Screening Data Set specification has been updated. Please review the latest version before your next submission.",
+        collections: "LCSDS",
+        users: "Submitters",
+        usersRaw: "submitters-and-local-administrators-portal",
+        collectionsRaw: "lcsds",
         displayFrom: "01 Jul 2026, 08:00",
         displayUntil: "10 Jul 2026, 18:00",
+        emailNotification: "Yes",
         status: "Expired"
       }
     ] %}
 
     {% if banners.length > 0 %}
-    <table class="nhsuk-table nhsuk-u-margin-top-4">
+    <table class="nhsuk-table nhsuk-table--sortable nhsuk-u-margin-top-4">
       <thead class="nhsuk-table__head">
         <tr class="nhsuk-table__row">
-          <th class="nhsuk-table__header" scope="col">Title</th>
-          <th class="nhsuk-table__header" scope="col">Portal(s)</th>
-          <th class="nhsuk-table__header" scope="col">Collection(s)</th>
-          <th class="nhsuk-table__header" scope="col">Display from</th>
-          <th class="nhsuk-table__header" scope="col">Display until</th>
-          <th class="nhsuk-table__header" scope="col">Status</th>
-          <th class="nhsuk-table__header" scope="col"><span class="nhsuk-u-visually-hidden">Actions</span></th>
+          <th class="nhsuk-table__header" scope="col" data-sort="string">Title</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="string">Collection(s)</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="none">Users</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="string">Display from</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="string">Display until</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="none">Email notification</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="string">Status</th>
+          <th class="nhsuk-table__header" scope="col" data-sort="none">Actions</th>
         </tr>
       </thead>
       <tbody class="nhsuk-table__body">
         {% for banner in banners %}
         <tr class="nhsuk-table__row">
           <td class="nhsuk-table__cell">{{ banner.title }}</td>
-          <td class="nhsuk-table__cell">{{ banner.portals }}</td>
           <td class="nhsuk-table__cell">{{ banner.collections }}</td>
+          <td class="nhsuk-table__cell">{{ banner.users }}</td>
           <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ banner.displayFrom }}</td>
           <td class="nhsuk-table__cell" style="white-space: nowrap;">{{ banner.displayUntil }}</td>
+          <td class="nhsuk-table__cell">{{ banner.emailNotification }}</td>
           <td class="nhsuk-table__cell">
             {% if banner.status === "Active" %}
               <strong class="nhsuk-tag nhsuk-tag--green">Active</strong>
@@ -102,13 +120,11 @@
             {% endif %}
           </td>
           <td class="nhsuk-table__cell" style="white-space: nowrap;">
-            {% if loop.index === 1 %}
-              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners?edit=1&title=System+maintenance+%E2%80%93+20+July&content=Scheduled+system+maintenance+will+take+place+on+20+July+2026.+Some+portal+features+may+be+unavailable+during+this+time.&portals=submitter-portal,management-portal,permission-request-portal&collections=dids,lcsds&display-date=2026-07-20&display-time=06%3A00am&end-date=2026-07-20&end-time=11%3A00pm&email-notification=yes&email-template=template-1">Edit</a>
-            {% else %}
-              <a href="/iteration5/collection-mantaining-monitoring/announcement-banners">Edit</a>
-            {% endif %}
+            <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-view?title={{ banner.title | urlencode }}&content={{ banner.content | urlencode }}&collections={{ banner.collections | urlencode }}&users={{ banner.users | urlencode }}&usersRaw={{ banner.usersRaw | urlencode }}&collectionsRaw={{ banner.collectionsRaw | urlencode }}&displayFrom={{ banner.displayFrom | urlencode }}&displayUntil={{ banner.displayUntil | urlencode }}&emailNotification={{ banner.emailNotification | urlencode }}&status={{ banner.status | urlencode }}&editable={{ '0' if loop.index === 1 else '1' }}">View</a>
+            {% if loop.index > 1 %}
             <span aria-hidden="true"> | </span>
             <a href="/iteration5/collection-mantaining-monitoring/announcement-banners-delete?title={{ banner.title | urlencode }}&portals={{ banner.portals | urlencode }}&collections={{ banner.collections | urlencode }}&displayFrom={{ banner.displayFrom | urlencode }}&displayUntil={{ banner.displayUntil | urlencode }}&status={{ banner.status | urlencode }}">Delete</a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}
@@ -123,4 +139,66 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+(function () {
+  function parseValue(text, type) {
+    var t = (text || '').trim();
+    if (type === 'number') return Number(t.replace(/[^0-9.\-]+/g, ''));
+    if (type === 'date') { var d = Date.parse(t); return isNaN(d) ? t.toLowerCase() : d; }
+    return t.toLowerCase();
+  }
+
+  function indexOfCell(th) {
+    var cells = Array.prototype.slice.call(th.parentElement.children);
+    var idx = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === th) return idx;
+      idx += cells[i].colSpan || 1;
+    }
+    return -1;
+  }
+
+  function sortTable(table, colIndex, type, direction) {
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var rows = Array.prototype.slice.call(tbody.rows);
+    rows.sort(function (a, b) {
+      var av = parseValue(a.cells[colIndex] && a.cells[colIndex].innerText, type);
+      var bv = parseValue(b.cells[colIndex] && b.cells[colIndex].innerText, type);
+      if (av < bv) return direction === 'ascending' ? -1 : 1;
+      if (av > bv) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+    var frag = document.createDocumentFragment();
+    rows.forEach(function (r) { frag.appendChild(r); });
+    tbody.appendChild(frag);
+  }
+
+  document.querySelectorAll('table.nhsuk-table--sortable').forEach(function (table) {
+    var ths = table.tHead ? table.tHead.querySelectorAll('th') : [];
+    ths.forEach(function (th) {
+      var type = th.getAttribute('data-sort') || 'string';
+      if (type === 'none') return;
+      th.setAttribute('aria-sort', 'none');
+      var label = th.textContent.trim();
+      if (!th.querySelector('button')) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nhsuk-table-sort__button';
+        btn.innerHTML = '<span class="nhsuk-table-sort__label">' + label + '</span><span class="nhsuk-table-sort__indicator" aria-hidden="true"></span>';
+        th.textContent = '';
+        th.appendChild(btn);
+      }
+      th.querySelector('button').addEventListener('click', function () {
+        var current = th.getAttribute('aria-sort');
+        var next = current === 'ascending' ? 'descending' : 'ascending';
+        th.parentElement.querySelectorAll('th[aria-sort]').forEach(function (t) { t.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', next);
+        var colIndex = indexOfCell(th);
+        sortTable(table, colIndex, type, next);
+      });
+    });
+  });
+}());
+</script>
 {% endblock %}

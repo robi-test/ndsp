@@ -27,7 +27,7 @@
     </div>
 
     <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-8">
-
+the date
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Announcement title</dt>
         <dd class="nhsuk-summary-list__value">{{ data['announcement-title'] or '—' }}</dd>
@@ -39,15 +39,15 @@
       </div>
 
       <div class="nhsuk-summary-list__row">
-        <dt class="nhsuk-summary-list__key">Portal(s)</dt>
+        <dt class="nhsuk-summary-list__key">Users</dt>
         <dd class="nhsuk-summary-list__value">
-          {% set portals = data['portals'] %}
-          {% if portals %}
-            {% if portals is string %}{% set portals = [portals] %}{% endif %}
+          {% set users = data['users'] %}
+          {% if users %}
+            {% if users is string %}{% set users = [users] %}{% endif %}
             {% set portalLabels = [] %}
-            {% for p in portals %}
-              {% if p == 'submitter-portal' %}{% set portalLabels = portalLabels.concat(['Submitter Portal']) %}{% endif %}
-              {% if p == 'management-portal' %}{% set portalLabels = portalLabels.concat(['Management Portal']) %}{% endif %}
+            {% for p in users %}
+              {% if p == 'submitters-and-local-administrators-portal' %}{% set portalLabels = portalLabels.concat(['Submitters and local administrators']) %}{% endif %}
+              {% if p == 'collection-managers-portal' %}{% set portalLabels = portalLabels.concat(['Collection managers and monitoring users']) %}{% endif %}
             {% endfor %}
             {{ portalLabels | join(', ') }}
           {% else %}—{% endif %}
@@ -73,14 +73,14 @@
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Display from</dt>
         <dd class="nhsuk-summary-list__value">
-          {{ data['display-date'] or '—' }}{% if data['display-time'] %} at {{ data['display-time'] }}{% endif %}
+          {{ data['display-date'] | dateFormat or '—' }}{% if data['display-time'] %} at {{ data['display-time'] | timeFormat }}{% endif %}
         </dd>
       </div>
 
       <div class="nhsuk-summary-list__row">
         <dt class="nhsuk-summary-list__key">Display until</dt>
         <dd class="nhsuk-summary-list__value">
-          {{ data['end-date'] or '—' }}{% if data['end-time'] %} at {{ data['end-time'] }}{% endif %}
+          {{ data['end-date'] | dateFormat or '—' }}{% if data['end-time'] %} at {{ data['end-time'] | timeFormat }}{% endif %}
         </dd>
       </div>
 
@@ -93,10 +93,6 @@
         </dd>
       </div>
 
-      <div class="nhsuk-summary-list__row">
-        <dt class="nhsuk-summary-list__key">Email template</dt>
-        <dd class="nhsuk-summary-list__value">{{ data['email-template'] or '—' }}</dd>
-      </div>
 
     </dl>
 

@@ -32,6 +32,26 @@ module.exports = function (env) { /* eslint-disable-line func-names,no-unused-va
 
   ------------------------------------------------------------------ */
 
+  // Converts 24h time string (HH:MM) to 12h am/pm format
+  filters.timeFormat = function (time) {
+    if (!time) return '';
+    var parts = time.split(':');
+    if (parts.length !== 2) return time;
+    var h = parseInt(parts[0], 10);
+    var m = parts[1];
+    var suffix = h < 12 ? 'am' : 'pm';
+    var h12 = h % 12 || 12;
+    return (h12 < 10 ? '0' + h12 : '' + h12) + ':' + m + suffix;
+  };
+
+  // Converts yyyy-mm-dd date string to dd-mm-yyyy
+  filters.dateFormat = function (date) {
+    if (!date) return '';
+    var parts = date.split('-');
+    if (parts.length !== 3) return date;
+    return parts[2] + '-' + parts[1] + '-' + parts[0];
+  };
+
   /* keep the following line to return your filters to the app  */
   return filters;
 };
