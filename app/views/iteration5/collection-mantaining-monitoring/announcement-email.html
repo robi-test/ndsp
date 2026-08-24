@@ -35,10 +35,10 @@
         </label>
         <div id="email-subject-hint" class="nhsuk-hint">
           <p class="nhsuk-u-margin-bottom-0">This must contain only the following: lowercase and uppercase characters, digits (0-9).</p>
-          <p class="nhsuk-u-margin-bottom-0">Maximum 30 characters.</p>
+          <p class="nhsuk-u-margin-bottom-0">Maximum 100 characters.</p>
         </div>
-        <input class="nhsuk-input" id="email-subject" name="email-subject" type="text" maxlength="30" aria-describedby="email-subject-hint email-subject-count">
-        <p id="email-subject-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">30 characters remaining</p>
+        <input class="nhsuk-input" id="email-subject" name="email-subject" type="text" maxlength="100" aria-describedby="email-subject-hint email-subject-count">
+        <p id="email-subject-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">100 characters remaining</p>
       </div>
 
       <!-- Email template content -->
@@ -105,6 +105,16 @@
           {
             value: "submitters",
             text: "Submitters",
+            checked: false
+          },
+          {
+            value: "monitoring-users",
+            text: "Monitoring users",
+            checked: false
+          },
+          {
+            value: "collection-managers",
+            text: "Collection managers",
             checked: false
           }
         ]
@@ -482,7 +492,7 @@
       input.addEventListener('input', update);
       update();
     }
-    initCounter('announcement-title',   'announcement-title-count',   30);
+    initCounter('announcement-title',   'announcement-title-count',   100);
     initCounter('announcement-content', 'announcement-content-count', 500);
   }());
 

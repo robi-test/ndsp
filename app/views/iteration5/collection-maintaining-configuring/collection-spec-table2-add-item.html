@@ -23,7 +23,7 @@
       <div class="spec-panel__body" style="padding: 24px;">
 
         <p class="nhsuk-body-s">Select a data item from the list. You can start typing in the box to find and select the desired data item.  
-        <!-- <p class="nhsuk-body-s"><a href="#">NHS Data Model and Library</a></p> -->If you don't find the right data item in the library, you can create a new one.<br><a href="#">Create a new data item</a></p>
+        <!-- <p class="nhsuk-body-s"><a href="#">NHS Data Model and Library</a></p> -->If you don't find the right data item in the library, you can create a new one.<br><a href="collection-spec-table2-create-item">Create a new data item</a></p>
 
         <div class="nhsuk-form-group nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label nhsuk-label--s" for="data-item-search">Data item name</label>
@@ -33,6 +33,8 @@
             <input type="hidden" id="data-item-name" name="dataItemName">
           </div>
         </div>
+
+        <div id="item-fields" style="display:none;">
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label nhsuk-label--s" for="data-item-description">Data item description</label>
@@ -161,6 +163,8 @@
         
         <button class="nhsuk-button" onclick="location.href='collection-spec-table2'">Save</button>
 
+        </div><!-- /item-fields -->
+
       </div>
     </div>
 
@@ -191,14 +195,14 @@
 <script>
   (function () {
     var items = [
-      { value: 'local-patient-id',      label: 'LOCAL PATIENT IDENTIFIER (EXTENDED)' },
-      { value: 'org-local-patient-id',  label: 'ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)' },
-      { value: 'person-birth-date',     label: 'PERSON BIRTH DATE' },
-      { value: 'person-gender-code',    label: 'PERSON STATED GENDER CODE' },
-      { value: 'ethnic-category',       label: 'ETHNIC CATEGORY' },
-      { value: 'service-request-id',    label: 'SERVICE REQUEST IDENTIFIER' },
-      { value: 'referral-request-date', label: 'REFERRAL REQUEST RECEIVED DATE' },
-      { value: 'source-of-referral',    label: 'SOURCE OF REFERRAL FOR COMMUNITY' }
+      { value: 'local-patient-id',      label: 'LOCAL PATIENT IDENTIFIER (EXTENDED)',              description: 'A number or code that uniquely identifies a PATIENT within a local organisation, extended to allow for longer identifiers.', dataType: 'AN', lengthType: 'AN', lengthValue: '10', pattern: '' },
+      { value: 'org-local-patient-id',  label: 'ORGANISATION IDENTIFIER (LOCAL PATIENT IDENTIFIER)', description: 'The ODS code for the organisation that assigned the LOCAL PATIENT IDENTIFIER.', dataType: 'AN', lengthType: 'AN', lengthValue: '3',  pattern: '' },
+      { value: 'person-birth-date',     label: 'PERSON BIRTH DATE',                                  description: 'The date on which a PERSON was born.', dataType: 'DATE', lengthType: 'AN', lengthValue: '8',  pattern: 'CCYYMMDD' },
+      { value: 'person-gender-code',    label: 'PERSON STATED GENDER CODE',                          description: 'A code that defines the gender of a PERSON as stated by the PERSON.', dataType: 'AN', lengthType: 'AN', lengthValue: '1',  pattern: '' },
+      { value: 'ethnic-category',       label: 'ETHNIC CATEGORY',                                    description: 'The ethnic category code that best describes the ethnic group or background of the PERSON, as defined by the 2001 Census.', dataType: 'AN', lengthType: 'AN', lengthValue: '2',  pattern: '' },
+      { value: 'service-request-id',    label: 'SERVICE REQUEST IDENTIFIER',                         description: 'An identifier for the Service Request, assigned by the requesting organisation.', dataType: 'AN', lengthType: 'AN', lengthValue: '50', pattern: '' },
+      { value: 'referral-request-date', label: 'REFERRAL REQUEST RECEIVED DATE',                     description: 'The date a REFERRAL REQUEST was received by the health care provider.', dataType: 'DATE', lengthType: 'AN', lengthValue: '8',  pattern: 'CCYYMMDD' },
+      { value: 'source-of-referral',    label: 'SOURCE OF REFERRAL FOR COMMUNITY',                   description: 'A code that identifies the source of referral for a community service.', dataType: 'AN', lengthType: 'AN', lengthValue: '2',  pattern: '' }
     ];
 
     var searchInput  = document.getElementById('data-item-search');
@@ -225,9 +229,19 @@
     }
 
     function selectItem(item) {
-      searchInput.value  = item.label;
-      hiddenInput.value  = item.value;
+      searchInput.value = item.label;
+      hiddenInput.value = item.value;
       suggestions.style.display = 'none';
+
+      // Pre-populate read-only fields from data dictionary metadata
+      document.getElementById('data-item-description').value = item.description || '';
+      document.getElementById('data-type').value             = item.dataType    || '';
+      document.getElementById('length-type').value           = item.lengthType  || '';
+      document.getElementById('length-value').value          = item.lengthValue || '';
+      document.getElementById('pattern').value               = item.pattern     || '';
+      document.getElementById('internal-column-name').value  = item.value.replace(/-/g, '_');
+
+      document.getElementById('item-fields').style.display = 'block';
     }
 
     function setHighlight(index) {
@@ -243,7 +257,11 @@
     searchInput.addEventListener('input', function () {
       var q = this.value.trim().toLowerCase();
       hiddenInput.value = '';
-      if (!q) { suggestions.style.display = 'none'; return; }
+      if (!q) {
+        suggestions.style.display = 'none';
+        document.getElementById('item-fields').style.display = 'none';
+        return;
+      }
       renderList(items.filter(function (i) { return i.label.toLowerCase().includes(q); }));
     });
 

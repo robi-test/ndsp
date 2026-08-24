@@ -1,6 +1,6 @@
 {% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
-{% set pageName = "New feature available for DIDS" %}
+{% set pageName = "Reminder: submission deadline in 1 day" %}
 
 {% block beforeContent %}
   {{ backLink({
@@ -22,7 +22,7 @@
 
     <div style="display:flex; justify-content:space-between; align-items:baseline;">
       <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-0">Notification details</h2>
-      <a href="announcement-email-edit">Edit notification</a>
+      <a href="bespoke-notification-edit-dids">Edit notification</a>
     </div>
 
     {% from "summary-list/macro.njk" import summaryList %}
@@ -35,19 +35,15 @@
 
         {
           key: { text: "When to send" },
-          value: { text: "On a specific date" }
-        },
-        {
-          key: { text: "Send on" },
-          value: { text: "01 Jul 2026, 08:00" }
+          value: { text: "Send manually" }
         },
         {
           key: { text: "Category" },
-          value: { text: "N/A" }
+          value: { text: "Reminder" }
         },
         {
           key: { text: "Status" },
-          value: { text: "Sent" }
+          value: { text: "Active" }
         }
       ]
     }) }}
@@ -59,11 +55,19 @@
       rows: [
         {
           key: { text: "Subject line" },
-          value: { text: "New feature available for DIDS" }
+          value: { text: "National Data Submission Portal: Submission deadline in 1 day for ((collection))" }
         },
         {
           key: { text: "Email content (Body)" },
-          value: { html: "<p>Dear Colleague,<br><br>A new feature is now available for DIDS in the National Data Submission Portal.</p><p>Dear colleague, The update is designed to make it easier to manage your submissions and review submission information.</p><p>You do not need to take any action before your next submission. The new feature will be available when you next use DIDS.</p><p class='nhsuk-u-margin-bottom-0'>If you need support, contact the NDSP Service Desk.<br><br>NDSP Team</p>" }
+          value: { html: "<p>Dear Colleague,<br><br>This is a reminder that your submission for ((collection)) is due in 1 day.<br>
+
+The submission deadline is ((submission deadline)) for the ((reporting period)) reporting period.<br>
+
+Our records show that your organisation has not yet submitted.<br>
+
+Please submit your file before the deadline.<br>
+
+If you have already submitted since this reminder was sent, you do not need to take any further action.<br><br>NDSP Team</p>" }
         }
       ]
     }) }}

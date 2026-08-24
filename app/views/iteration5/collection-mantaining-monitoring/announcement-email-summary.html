@@ -48,11 +48,11 @@
       rows: [
         {
           key: { text: "Subject line" },
-          value: { text: data['email-subject'] or "Not specified" }
+          value: { text: data['announcement-title'] or "Not specified" }
         },
         {
           key: { text: "Body" },
-          value: { html: "<p style='white-space:pre-wrap;'>" + (data['email-content'] or "Not specified") + "</p>" }
+          value: { html: "<p style='white-space:pre-line;'>" + (data['email-content'] or "Not specified") + "</p>" }
         }
       ]
     }) }}
@@ -64,4 +64,5 @@
 
   </div>
 </div>
+
 {% endblock %}
