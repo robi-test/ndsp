@@ -33,7 +33,7 @@
           {% from "tag/macro.njk" import tag %}
           <div class="notification-summary-header">
             <h2 class="nhsuk-heading-m nhsuk-u-margin-bottom-6 nhsuk-u-margin-top-8">Standard notifications</h2>
-            <a id="change-notification-link" href="notification-settings1-edit" class="nhsuk-link-l">Change notification setting</a>
+            <a id="change-notification-link" href="notification-settings2-edit" class="nhsuk-link-l">Change notification setting</a>
           </div>
           {{ summaryList({
             classes: "notification-summary-list",
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
         qs.set(name, tagEl.textContent.trim() === 'Active' ? 'yes' : 'no');
       }
     });
-    changeLink.href = 'notification-settings1-edit?' + qs.toString();
+    changeLink.href = 'notification-settings2-edit?' + qs.toString();
   }
 });
 </script>

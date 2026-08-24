@@ -17,6 +17,17 @@
 
     <form action="/iteration5/collection-mantaining-monitoring/announcement-email-summary" method="post">
 
+      <!-- Notification name -->
+      <div class="nhsuk-form-group nhsuk-u-margin-top-8">
+        <label class="nhsuk-label nhsuk-label--m" for="notification-name">
+          Notification name
+        </label>
+        <div id="notification-name-hint" class="nhsuk-hint">
+          <p class="nhsuk-u-margin-bottom-0">Give this notification a name to identify it.</p>
+        </div>
+        <input class="nhsuk-input" id="notification-name" name="notification-name" type="text" maxlength="50" aria-describedby="notification-name-hint">
+      </div>
+
       <!-- Email subject -->
       <div class="nhsuk-form-group nhsuk-u-margin-top-8">
         <label class="nhsuk-label nhsuk-label--m" for="email-subject">
@@ -36,9 +47,41 @@
           Email content
         </label>
         <div id="email-content-hint" class="nhsuk-hint">
-          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email. It can't contain links.</p>
+          <p class="nhsuk-u-margin-bottom-1">This will be the body for the email.</p>
           <p class="nhsuk-u-margin-bottom-0">Maximum 500 characters.</p>
         </div>
+
+        {% from "details/macro.njk" import details %}
+        {{ details({
+          text: "Help with formatting and personalisation",
+          html: '
+            <table class="nhsuk-table">
+              <thead class="nhsuk-table__head">
+                <tr class="nhsuk-table__row">
+                  <th class="nhsuk-table__header" scope="col">What you want to add</th>
+                  <th class="nhsuk-table__header" scope="col">Enter</th>
+                </tr>
+              </thead>
+              <tbody class="nhsuk-table__body">
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Collection name</td><td class="nhsuk-table__cell"><code>((collection))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Reporting period</td><td class="nhsuk-table__cell"><code>((reporting period))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Submission window</td><td class="nhsuk-table__cell"><code>((submission window))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Window opening date</td><td class="nhsuk-table__cell"><code>((window opening date))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Submission deadline</td><td class="nhsuk-table__cell"><code>((submission deadline))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Organisation</td><td class="nhsuk-table__cell"><code>((organisation))</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">New paragraph</td><td class="nhsuk-table__cell">Leave an empty line between paragraphs</td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Heading</td><td class="nhsuk-table__cell"><code># Heading</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Subheading</td><td class="nhsuk-table__cell"><code>## Subheading</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Bullet point</td><td class="nhsuk-table__cell"><code>* Item</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Numbered item</td><td class="nhsuk-table__cell"><code>1. Item</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Inset text</td><td class="nhsuk-table__cell"><code>^ Important information</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Divider</td><td class="nhsuk-table__cell"><code>---</code></td></tr>
+                <tr class="nhsuk-table__row"><td class="nhsuk-table__cell">Link</td><td class="nhsuk-table__cell"><code>[View the guidance](https://www.example.com)</code></td></tr>
+              </tbody>
+            </table>
+          '
+        }) }}
+
         <textarea class="nhsuk-textarea" id="email-content" name="email-content" rows="5" maxlength="500" aria-describedby="email-content-hint email-content-count"></textarea>
         <p id="email-content-count" class="nhsuk-hint nhsuk-u-margin-top-1" aria-live="polite">500 characters remaining</p>
       </div>

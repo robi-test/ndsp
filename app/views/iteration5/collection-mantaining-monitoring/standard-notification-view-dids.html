@@ -1,0 +1,81 @@
+{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+
+{% set pageName = "New feature available for DIDS" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+{% from "tag/macro.njk" import tag %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <div class="nhsuk-u-margin-bottom-2">
+      
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6 nhsuk-u-margin-bottom-4">Notification details</h2>
+
+    </div>
+
+    {% from "summary-list/macro.njk" import summaryList %}
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Send to" },
+          value: { text: "Submitters" }
+        },
+
+        {
+          key: { text: "Type" },
+          value: { text: "Standard" }
+        },
+        {
+          key: { text: "Send on" },
+          value: { text: "5 days before the submission deadline" }
+        }
+      ]
+    }) }}
+
+    <h2 class="nhsuk-heading-m nhsuk-u-margin-top-6">Email content</h2>
+
+    {% from "summary-list/macro.njk" import summaryList %}
+    {{ summaryList({
+      rows: [
+        {
+          key: { text: "Subject line" },
+          value: { text: "National data Submission Portal (NDSP) - [Collection] [Submission Window Name] now open" }
+        },
+        {
+          key: { text: "Email content (Body)" },
+          value: { html: "<p>Dear Colleague,<br><br>
+            A submission window on the National Data Submission Portal is now open. You can begin uploading and validating your files to ensure timely submission. <br><br>
+
+            Key details: <br><br>
+
+            Collection: [Collection] <br>
+            Submission window: [Submission Window Name] <br>
+            Deadline: [Window Close – Date & Time] <br>
+            Please make sure your files are submitted and validated before the deadline to avoid any delays or compliance issues. <br><br>
+
+            If you need assistance or have any questions, please contact the support team at: 
+            ssd.nationalservicedesk@nhs.net<br><br>
+
+            Thank you, <br>
+
+            NHS National Data Submission Portal Team</p>" }
+        }
+      ]
+    }) }}
+
+
+  </div>
+</div>
+{% endblock %}
