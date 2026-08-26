@@ -24,18 +24,6 @@
       </div>
 
 
-    <div class="nhsuk-grid-row nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-6">
-      <div class="nhsuk-grid-column-one-half">
-        <div class="nhsuk-form-group">
-          <label class="nhsuk-label" for="collection-select"><strong>Collection</strong></label>
-          <div class="nhsuk-hint" id="collection-select-hint">Select a collection to view its users.</div>
-          <select class="nhsuk-select" id="collection-select" name="collection" aria-describedby="collection-select-hint">
-            <option value="Lung Cancer Screening Data Set">Lung Cancer Screening Data Set (LCSDS)</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
     <div class="nhsuk-tabs" data-module="nhsuk-tabs">
       <h2 class="nhsuk-tabs__title">Contents</h2>
       <ul class="nhsuk-tabs__list">
@@ -49,15 +37,30 @@
       <div class="nhsuk-tabs__panel" id="tab-all">
 
       <form id="table-filters" method="get" action="#" role="search" aria-label="Filter users">
-        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px;">
-          <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative;">
-            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-search"><strong>Search by name / email:</strong></label>
-            <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete=" " readonly placeholder="Start typing to search..." style="width: 230px;">
+        <div style="display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 10px;">
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0; overflow: hidden;">
+            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-search"><strong>Name / email:</strong></label>
+            <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete=" " readonly placeholder="Search..." style="width: 100%; min-width: 0;">
             <ul id="search-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:230px; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
           </div>
-          <div class="nhsuk-form-group" style="margin-bottom: 12px;">
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 1 1 0; min-width: 0; overflow: hidden;">
+            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-role"><strong>Role:</strong></label>
+            <select class="nhsuk-select" id="filter-role" name="role" style="width: 100%; min-width: 0; max-width: 100%;">
+              <option value="">All roles</option>
+              <option value="Submitter">Submitter</option>
+              <option value="Local administrator">Local administrator</option>
+            </select>
+          </div>
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 2 1 0; min-width: 0; overflow: hidden;">
+            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="collection-select"><strong>Collection:</strong></label>
+            <select class="nhsuk-select" id="collection-select" name="collection" style="width: 100%; min-width: 0; max-width: 100%;">
+              <option value="Lung Cancer Screening Data Set">All collections</option>
+               <option value="Lung Cancer Screening Data Set">Lung Cancer Screening Data Set (LCSDS)</option>
+            </select>
+          </div>
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 2 1 0; min-width: 0; overflow: hidden;">
             <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-org"><strong>Organisation:</strong></label>
-            <select class="nhsuk-select" id="filter-org" name="org" style="width: 200px;">
+            <select class="nhsuk-select" id="filter-org" name="org" style="width: 100%; min-width: 0; max-width: 100%;">
               <option value="">All organisations</option>
               <option value="Kernow Diagnostic (KD1)">Kernow Diagnostic (KD1)</option>
               <option value="Plymouth Diagnostic (PD2)">Plymouth Diagnostic (PD2)</option>
@@ -65,15 +68,9 @@
               <option value="Torbay and South Devon Diagnostic (TS4)">Torbay and South Devon Diagnostic (TS4)</option>
             </select>
           </div>
-          <div class="nhsuk-form-group" style="margin-bottom: 12px;">
-            <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-role"><strong>Role:</strong></label>
-            <select class="nhsuk-select" id="filter-role" name="role" style="width: 160px;">
-              <option value="">All roles</option>
-              <option value="Submitter">Submitter</option>
-              <option value="Local administrator">Local administrator</option>
-            </select>
-          </div>
-          <div class="nhsuk-form-group" style="margin-bottom: 12px;">
+        </div>
+        <div style="display: flex; align-items: flex-end; gap: 10px;">
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 0 0 auto;">
             <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-status"><strong>Status:</strong></label>
             <select class="nhsuk-select" id="filter-status" name="status" style="width: 160px;">
               <option value="">All statuses</option>
@@ -81,7 +78,7 @@
               <option value="Revoked">Revoked</option>
             </select>
           </div>
-          <div style="margin-bottom: 12px;">
+          <div style="margin-bottom: 12px; flex: 0 0 auto;">
             <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="submit">Apply</button>
           </div>
         </div>
@@ -100,6 +97,7 @@
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Name</th>
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Email</th>
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Role</th>
+          <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Collection</th>
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Organisation</th>
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Status</th>
           <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Action</th>
@@ -291,15 +289,30 @@
       <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="tab-pending">
 
         <form id="pending-filters" method="get" action="#" role="search" aria-label="Filter pending and rejected users">
-          <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px;">
-            <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative;">
-              <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-search"><strong>Search by name / email:</strong></label>
-              <input class="nhsuk-input" id="pending-search" name="search" type="text" autocomplete="new-password" readonly placeholder="Start typing to search..." style="width: 230px;">
+          <div style="display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 10px;">
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0; overflow: hidden;">
+              <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-search"><strong>Name / email:</strong></label>
+              <input class="nhsuk-input" id="pending-search" name="search" type="text" autocomplete="new-password" readonly placeholder="Start typing to search..." style="width: 100%; min-width: 0;">
               <ul id="pending-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:230px; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
             </div>
-            <div class="nhsuk-form-group" style="margin-bottom: 12px;">
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 1 1 0; min-width: 0; overflow: hidden;">
+              <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-role"><strong>Role:</strong></label>
+              <select class="nhsuk-select" id="pending-role" name="role" style="width: 100%; min-width: 0; max-width: 100%;">
+                <option value="">All roles</option>
+                <option value="Submitter">Submitter</option>
+                <option value="Local administrator">Local administrator</option>
+              </select>
+            </div>
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 2 1 0; min-width: 0; overflow: hidden;">
+              <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-collection"><strong>Collection:</strong></label>
+              <select class="nhsuk-select" id="pending-collection" name="collection" style="width: 100%; min-width: 0; max-width: 100%;">
+                <option value="Lung Cancer Screening Data Set">All collections</option>
+                <option value="Lung Cancer Screening Data Set">Lung Cancer Screening Data Set (LCSDS)</option>
+              </select>
+            </div>
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 2 1 0; min-width: 0; overflow: hidden;">
               <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-org"><strong>Organisation:</strong></label>
-              <select class="nhsuk-select" id="pending-org" name="org" style="width: 200px;">
+              <select class="nhsuk-select" id="pending-org" name="org" style="width: 100%; min-width: 0; max-width: 100%;">
                 <option value="">All organisations</option>
                 <option value="Kernow Diagnostic (KD1)">Kernow Diagnostic (KD1)</option>
                 <option value="Plymouth Diagnostic (PD2)">Plymouth Diagnostic (PD2)</option>
@@ -307,15 +320,9 @@
                 <option value="Torbay and South Devon Diagnostic (TS4)">Torbay and South Devon Diagnostic (TS4)</option>
               </select>
             </div>
-            <div class="nhsuk-form-group" style="margin-bottom: 12px;">
-              <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-role"><strong>Role:</strong></label>
-              <select class="nhsuk-select" id="pending-role" name="role" style="width: 160px;">
-                <option value="">All roles</option>
-                <option value="Submitter">Submitter</option>
-                <option value="Local administrator">Local administrator</option>
-              </select>
-            </div>
-            <div class="nhsuk-form-group" style="margin-bottom: 12px;">
+          </div>
+          <div style="display: flex; align-items: flex-end; gap: 10px;">
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 0 0 auto;">
               <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-status"><strong>Status:</strong></label>
               <select class="nhsuk-select" id="pending-status" name="status" style="width: 160px;">
                 <option value="">All statuses</option>
@@ -323,7 +330,7 @@
                 <option value="Rejected">Rejected</option>
               </select>
             </div>
-            <div style="margin-bottom: 12px;">
+            <div style="margin-bottom: 12px; flex: 0 0 auto;">
               <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="submit">Apply</button>
             </div>
           </div>
@@ -342,6 +349,7 @@
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Name</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Email</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Role</th>
+              <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Collection</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="string">Organisation (ODS)</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="date">Request submitted</th>
               <th scope="col" class="nhsuk-table__header" role="columnheader" data-sort="none">Status</th>
@@ -353,6 +361,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>David Okafor</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email</span>d.okafor@inhealthgroup.com</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span>Lung Cancer Screening Data Set</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>Plymouth Diagnostic (PD2)</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Request submitted</span>18 Jul 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--yellow">Pending</strong></td>
@@ -362,6 +371,7 @@
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Name</span>Tom Brennan</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Email</span>t.brennan@inhealthgroup.com</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Role</span>Submitter</td>
+              <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span>Lung Cancer Screening Data Set</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation (ODS)</span>Torbay and South Devon Diagnostic (TS4)</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Request submitted</span>15 Jul 2026</td>
               <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Status</span><strong class="nhsuk-tag nhsuk-tag--red">Rejected</strong></td>
@@ -377,6 +387,20 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+// Insert Collection cells from data-collection attribute before Organisation cells
+;(function () {
+  document.querySelectorAll('#users-table tbody tr').forEach(function (row) {
+    var orgCell = row.querySelector('td[data-collection]');
+    if (!orgCell) return;
+    var td = document.createElement('td');
+    td.className = 'nhsuk-table__cell';
+    td.setAttribute('role', 'cell');
+    td.innerHTML = '<span class="nhsuk-table-responsive__heading" aria-hidden="true">Collection</span>' + orgCell.getAttribute('data-collection');
+    orgCell.parentNode.insertBefore(td, orgCell);
+  });
+}());
+</script>
 <script>
 (function () {
   var table = document.getElementById('users-table');
@@ -396,8 +420,8 @@
       name: row.cells[0].innerText.replace('Name', '').trim(),
       email: row.cells[1].innerText.replace('Email', '').trim(),
       role: row.cells[2].innerText.replace('Role', '').trim(),
-      org: row.cells[3].innerText.replace('Organisation (ODS)', '').trim(),
-      status: row.cells[4].querySelector('.nhsuk-tag') ? row.cells[4].querySelector('.nhsuk-tag').innerText.trim() : ''
+      org: row.cells[4].innerText.replace('Organisation (ODS)', '').trim(),
+      status: row.cells[5].querySelector('.nhsuk-tag') ? row.cells[5].querySelector('.nhsuk-tag').innerText.trim() : ''
     };
   }
 
@@ -622,6 +646,7 @@ sortTable(table, colIndex, type, next)
   var searchInput = document.getElementById('pending-search');
   var orgSelect  = document.getElementById('pending-org');
   var roleSelect = document.getElementById('pending-role');
+  var collectionSelect = document.getElementById('pending-collection');
   var statusSelect = document.getElementById('pending-status');
   var noLabel    = document.getElementById('pending-no-filters-label');
   var clearLink  = document.getElementById('pending-clear-link');
@@ -640,8 +665,8 @@ sortTable(table, colIndex, type, next)
       name:   row.cells[0].innerText.replace('Name', '').trim(),
       email:  row.cells[1].innerText.replace('Email', '').trim(),
       role:   row.cells[2].innerText.replace('Role', '').trim(),
-      org:    row.cells[3].innerText.replace('Organisation (ODS)', '').trim(),
-      status: row.cells[4].querySelector('.nhsuk-tag') ? row.cells[4].querySelector('.nhsuk-tag').innerText.trim() : ''
+      org:    row.cells[4].innerText.replace('Organisation (ODS)', '').trim(),
+      status: row.cells[6].querySelector('.nhsuk-tag') ? row.cells[6].querySelector('.nhsuk-tag').innerText.trim() : ''
     };
   }
 
@@ -693,7 +718,7 @@ sortTable(table, colIndex, type, next)
   form.addEventListener('submit', function (e) { e.preventDefault(); applyFilters(); });
   clearLink.addEventListener('click', function (e) {
     e.preventDefault();
-    searchInput.value = ''; orgSelect.value = ''; roleSelect.value = ''; statusSelect.value = '';
+    searchInput.value = ''; orgSelect.value = ''; roleSelect.value = ''; statusSelect.value = ''; if (collectionSelect) collectionSelect.value = '';
     applyFilters();
   });
 
