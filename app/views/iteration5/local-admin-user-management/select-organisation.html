@@ -16,49 +16,26 @@
 
 
 {% from 'input/macro.njk' import input %}
-<div class="nhsuk-form-group">
-  <label class="nhsuk-label nhsuk-label--m nhsuk-u-margin-top-6" for="organisation-search">
-        Organisation name
-  </label>
-  <div class="nhsuk-hint" id="organisation-search-hint">
-        Start typing to search the organisation.
+
+<div class="nhsuk-form-group nhsuk-u-margin-top-6">
+  <label class="nhsuk-label nhsuk-label--m" for="ods-code-input">ODS code</label>
+  <div class="nhsuk-hint" id="ods-code-hint">
+    Enter the ODS code for the organisation. 
   </div>
-  <div class="organisation-search-input-wrap">
-    <input class="nhsuk-input nhsuk-input--width-30" id="organisation-search" name="organisation-search" type="text" aria-describedby="organisation-search-hint" autocomplete="off" style="width: 600px; max-width: 100%;">
-    <span id="organisation-search-spinner" class="organisation-search-spinner" aria-hidden="true"></span>
-  </div>
-  
-  <!-- Dropdown suggestions -->
-  <div id="organisation-suggestions" style="display: none; position: absolute; background: white; border: 2px solid #005eb8; border-top: none; max-width: 600px; z-index: 1000;">
-  </div>
-  <p id="organisation-search-status" class="nhsuk-body-s nhsuk-u-margin-top-2"></p>
+  <input class="nhsuk-input nhsuk-input--width-10" id="ods-code-input" name="ods-code-input" type="text" autocomplete="off" aria-describedby="ods-code-hint" placeholder="">
 </div>
 
-<p class="nhsuk-u-margin-bottom-8"> </p>
-{{ input({
-  label: {
-    text: "ODS code",
-    classes: "nhsuk-label--m",
-    isPageHeading: "true"
-  },
-  hint: {
-    text: "This ODS code appears based on the organisation name code you entered."
-  },
-  id: "ods-code-field",
-  name: "ods-code-field",
-  classes: "nhsuk-input--width-10",
-  inputmode: "string",
-  attributes: {
-    disabled: "disabled",
-    readonly: "readonly",
-    style: "background-color: #dfe4e5; cursor: not-allowed;"
-  }
-}) }}
+<div class="nhsuk-form-group nhsuk-u-margin-top-6">
+  <label class="nhsuk-label nhsuk-label--m" for="organisation-name">Organisation name</label>
+  <div class="nhsuk-hint" id="organisation-name-hint">
+    This organisation name appears based on the ODS code you entered.
+  </div>
+  <input class="nhsuk-input" id="organisation-name" name="organisation-name" type="text" aria-describedby="organisation-name-hint" readonly style="background-color:#dfe4e5; cursor:not-allowed; width:100%; max-width:600px;">
+</div>
 
-
- <button id="continue-to-role" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
-                Continue
-              </button>
+<button id="continue-to-role" type="button" class="nhsuk-button nhsuk-u-margin-top-4">
+  Continue
+</button>
 </div>
 
 
@@ -72,191 +49,57 @@
   </div>
 </div>
 
-{% block pageScripts %}
-<script src="/js/odsHospitalSearchService.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('organisation-search');
-  const searchSpinner = document.getElementById('organisation-search-spinner');
-        const searchStatus = document.getElementById('organisation-search-status');
-        const suggestionsDiv = document.getElementById('organisation-suggestions');
-        const odsCodeField = document.getElementById('ods-code-field');
-        const continueButton = document.getElementById('continue-to-role');
-
-  if (!searchInput || !searchSpinner || !searchStatus || !suggestionsDiv || !odsCodeField || !continueButton || !window.OdsHospitalSearchService) {
-            return;
-        }
-
-        const service = new window.OdsHospitalSearchService();
-        let selectedOrganisation = null;
-        let debounceTimer = null;
-
-        const params = new URLSearchParams(window.location.search);
-        const incomingOrgCode = (params.get('orgCode') || '').trim();
-        const incomingOrgName = (params.get('orgName') || '').trim();
-        const incomingRole = (params.get('role') || '').trim();
-
-        const localOrganisations = [
-          { code: 'A0J1B', name: 'Torbay and South Devon Diagnostic' },
-          { code: 'L3X7K', name: 'Kernow Diagnostic' },
-          { code: 'S9M2P', name: 'Plymouth Diagnostic' },
-          { code: 'W4T1N', name: 'North Devon Diagnostic' }
-        ];
-
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.trim();
-            selectedOrganisation = null;
-            odsCodeField.value = '';
-
-            if (debounceTimer) {
-                clearTimeout(debounceTimer);
-            }
-
-            if (searchTerm.length < 2) {
-              setLoading(false);
-                searchStatus.textContent = 'Enter at least 2 characters to search.';
-                suggestionsDiv.style.display = 'none';
-                suggestionsDiv.innerHTML = '';
-                return;
-            }
-
-            searchStatus.textContent = '';
-
-            debounceTimer = setTimeout(function () {
-                try {
-              setLoading(true);
-
-                const localMatches = localOrganisations.filter((item) =>
-                  item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  item.code.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-
-                renderSuggestions(localMatches);
-                
-                } catch (error) {
-                    searchStatus.textContent = `Search failed: ${error.message || error}`;
-                    suggestionsDiv.style.display = 'none';
-                    suggestionsDiv.innerHTML = '';
-              } finally {
-                setLoading(false);
-                }
-            }, 250);
-        });
-
-        const localAdminAlertCodes = ['L3X7K', 'S9M2P', 'W4T1N', 'G8R5C'];
-
-        continueButton.addEventListener('click', function() {
-          const orgName = searchInput.value.trim();
-          const orgCode = odsCodeField.value.trim();
-
-          if (!orgName || !orgCode) {
-            window.location.href = 'select-organisation-error';
-                return;
-            }
-
-          sessionStorage.setItem('summary.organisation', orgName);
-          sessionStorage.setItem('summary.ods', orgCode);
-
-          const qs = new URLSearchParams();
-          qs.set('orgCode', orgCode);
-          qs.set('orgName', orgName);
-          if (incomingRole) qs.set('role', incomingRole);
-
-          if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
-            window.location.href = `local-admin-alert?${qs.toString()}`;
-          } else {
-            window.location.href = `select-role?${qs.toString()}`;
-          }
-        });
-
-        document.addEventListener('click', function(event) {
-            if (!searchInput.contains(event.target) && !suggestionsDiv.contains(event.target)) {
-                suggestionsDiv.style.display = 'none';
-            }
-        });
-
-        function renderSuggestions(matches) {
-            suggestionsDiv.innerHTML = '';
-          searchStatus.textContent = '';
-
-            if (!matches.length) {
-                suggestionsDiv.style.display = 'none';
-                return;
-            }
-
-            matches.forEach((org) => {
-                const suggestionItem = document.createElement('div');
-                suggestionItem.className = 'suggestion-item';
-                suggestionItem.style.cssText = 'padding: 10px; cursor: pointer; border-bottom: 1px solid #f0f4f5;';
-                suggestionItem.innerHTML = `<strong>${escapeHtml(org.name)}</strong>`;
-
-                suggestionItem.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = '#f0f4f5';
-                });
-
-                suggestionItem.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = 'white';
-                });
-
-                suggestionItem.addEventListener('click', function() {
-                    selectedOrganisation = org;
-                    searchInput.value = org.name;
-                    odsCodeField.value = org.code;
-                  searchStatus.textContent = '';
-                    suggestionsDiv.style.display = 'none';
-                });
-
-                suggestionsDiv.appendChild(suggestionItem);
-            });
-
-            suggestionsDiv.style.display = 'block';
-        }
-
-          function setLoading(isLoading) {
-            searchSpinner.style.display = isLoading ? 'inline-block' : 'none';
-          }
-
-        function escapeHtml(value) {
-            return String(value)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/\"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-        }
-});
-</script>
 {% endblock %}
 
-<style>
-.suggestion-item:hover {
-    background-color: #f0f4f5 !important;
-}
+{% block pageScripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var odsInput       = document.getElementById('ods-code-input');
+  var orgNameField   = document.getElementById('organisation-name');
+  var continueButton = document.getElementById('continue-to-role');
 
-.organisation-search-input-wrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
+  if (!odsInput || !orgNameField || !continueButton) return;
 
-.organisation-search-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #d8dde0;
-  border-top-color: #005eb8;
-  border-radius: 50%;
-  animation: organisation-search-spin 0.8s linear infinite;
-  display: none;
-}
+  var localOrganisations = [
+    { code: 'A0J1B', name: 'Torbay and South Devon Diagnostic' },
+    { code: 'L3X7K', name: 'Kernow Diagnostic' },
+    { code: 'S9M2P', name: 'Plymouth Diagnostic' },
+    { code: 'W4T1N', name: 'North Devon Diagnostic' }
+  ];
 
-@keyframes organisation-search-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+  var params          = new URLSearchParams(window.location.search);
+  var incomingRole    = (params.get('role') || '').trim();
+  var localAdminAlertCodes = ['L3X7K', 'S9M2P', 'W4T1N', 'G8R5C'];
 
-#organisation-suggestions {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-</style>
+  odsInput.addEventListener('input', function () {
+    var code  = this.value.trim().toUpperCase();
+    var match = localOrganisations.find(function (o) { return o.code.toUpperCase() === code; });
+    orgNameField.value = match ? match.name : '';
+  });
 
+  continueButton.addEventListener('click', function () {
+    var orgCode = odsInput.value.trim();
+    var orgName = orgNameField.value.trim();
+
+    if (!orgCode || !orgName) {
+      window.location.href = 'select-organisation-error';
+      return;
+    }
+
+    sessionStorage.setItem('summary.organisation', orgName);
+    sessionStorage.setItem('summary.ods', orgCode);
+
+    var qs = new URLSearchParams();
+    qs.set('orgCode', orgCode);
+    qs.set('orgName', orgName);
+    if (incomingRole) qs.set('role', incomingRole);
+
+    if (incomingRole === 'local-admin' && localAdminAlertCodes.includes(orgCode)) {
+      window.location.href = 'local-admin-alert?' + qs.toString();
+    } else {
+      window.location.href = 'select-role?' + qs.toString();
+    }
+  });
+});
+</script>
 {% endblock %}
