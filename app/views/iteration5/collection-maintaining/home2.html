@@ -1,4 +1,4 @@
-{% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
+{% extends "iteration5/collection-maintaining/layout.html" %}
 
 {% set pageName = serviceName %}
 
@@ -18,7 +18,8 @@
         <p>There are <strong>8 pending permission requests</strong> for the Lung Cancer Screening Data Set (LCSDS). <a href="pending-permission-requests">Review requests</a></p>
       </div>
 
-          <p >Currently you can manage the following collection(s):
+  
+      <p >Currently you can manage the following collection(s):
       <ul>
         <li style="font-size: 18px;"><strong>Diagnostic Imaging Data Set (DIDS v2.0)</strong></li>
         <li style="font-size: 18px;"><strong>Lung Cancer Screening Data Set (LCSDS)</strong></li>
@@ -30,9 +31,9 @@
         html: "
           <p>How to get permissions:
               <ol>
-                <li>Decide what permissions you need by reviewing <a href='#'>the collection management roles</a> that are available on NDSP and the associated terms and conditions.</li>
+                <li>Decide what permissions you need by reviewing <a href='https://nhs.sharepoint.com/:p:/s/msteams_06cc2a/IQAQCb2krGaEQ4HXW8EMKdH3ATO-0auQYpao-m-N6RAb2HE?e=oNwWiiNDSP%20Roles%20&%20Terms%20=&%20Conditions=&isSPOFile=1&ovuser=37c354b2-85b0-47f5-b222-07b48d774ee3%2Croberta.pavone1%40nhs.net&wdExp=TEAMS-TREATMENT&web=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI1MC8yNjA3MDIxNTcxMSJ9'>the collection management roles</a> that are available on NDSP and the associated terms and conditions.</li>
                 <li>Agree with your line manager that these role(s) are right for you, and retain evidence of this agreement.</li>
-                <li>Complete <a href='#'>the ServiceNow form</a> to request access</li>
+                <li>Complete <a href='https://www.support.digitalservices.nhs.uk/csm?id=sc_cat_item&sys_id=330541a81b118b1483b0a7d0b24bcbcb'>the ServiceNow form</a> to request access</li>
                 <li>Attach evidence of approval from your line manager and submit.</li>
               </ol>
                 If everything is correct within your application, your permission request should be granted within a few days. 
@@ -40,19 +41,11 @@
          
               "
         }) }}
+     
 
+  
+<!-- 
        <ul class="nhsuk-grid-row nhsuk-card-group ">
-       <!--  <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
-        {{ card({
-          primary: "true",
-          descriptionHtml: '
-            <div class="nhsuk-u-margin-bottom-3">
-              <p class="nhsuk-u-margin-bottom-2"><a href="submissions0" class="nhsuk-card__link nhsuk-heading-s">Collections configurations</a></p>
-            </div>
-            <p class="nhsuk-body-m nhsuk-u-margin-bottom-0">View and manage collection settings, organisations, reporting periods, and submission windows</p>
-          '
-        }) }}
-        </li> -->
         <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
         {{ card({
           primary: "true",
@@ -65,7 +58,7 @@
             <p class="nhsuk-body-m nhsuk-u-margin-bottom-0">View all data submissions across collections.</p>
           '
         }) }}
-        </li>
+        </li>    
        </ul>
 
   <ul class="nhsuk-grid-row nhsuk-card-group ">
@@ -108,11 +101,11 @@
     </ul> 
 
 
-      <hr>  
+      <hr>   -->
 <!--       <h2>
         Diagnostic Imaging Data Set (V2.0)
       </h2> -->
-
+<!-- 
 <div class="nhsuk-grid-column-full nhsuk-u-margin-top-6 ">
           <div class="nhsuk-table__panel-with-heading-tab">
             <h3 class="nhsuk-table__heading-tab">Next deadlines</h3>
@@ -151,26 +144,7 @@
                   <td class="nhsuk-table__cell" data-sort-value="2026-09">September 2026</td>
                   <td class="nhsuk-table__cell" data-sort-value="2026-10-31">31 Oct 2026, 11.59.59pm</td>
                 </tr>
-          <!--       <tr class="nhsuk-table__row">
-                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-05">May 2026</td>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-11-30">30 Nov 2026, 11.59.59pm</td>
-                </tr>
-                <tr class="nhsuk-table__row">
-                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-06">June 2026</td>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-12-31">31 Dec 2026, 11.59.59pm</td>
-                </tr>
-                <tr class="nhsuk-table__row">
-                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-07">July 2026</td>
-                  <td class="nhsuk-table__cell" data-sort-value="2027-01-31">31 Jan 2027, 11.59.59pm</td>
-                </tr>
-                <tr class="nhsuk-table__row">
-                  <th scope="row" class="nhsuk-table__header">Diagnostic Imaging Data Set (DIDS v2.0)</th>
-                  <td class="nhsuk-table__cell" data-sort-value="2026-08">August 2026</td>
-                  <td class="nhsuk-table__cell" data-sort-value="2027-02-28">28 Feb 2027, 11.59.59pm</td>
-                </tr> -->
+
               </tbody>
             </table>
             <p class="nhsuk-u-margin-top-4">* Only the nearest upcoming deadlines are shown in this table.</p>
@@ -178,7 +152,7 @@
 
       <hr>  
  </div>    
-    
+     -->
 
 
 

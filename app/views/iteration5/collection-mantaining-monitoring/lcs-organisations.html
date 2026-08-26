@@ -33,7 +33,8 @@
         <div class="nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">
           <button id="download-csv" class="nhsuk-button nhsuk-button--secondary nhsuk-button--small" type="button">Download CSV</button>
         </div>
-<div class=" nhsuk-u-margin-top-6 ">
+<div class=" nhsuk-u-margin-top-4 ">
+        <p>Add organisations to the collection.</p>
             {{ actionLink({
               text: "Add organisation(s)",
               href: "add-organisation-method-lcs"
@@ -43,7 +44,10 @@
           <div class="nhsuk-table-filters__grid">
             <div class="nhsuk-form-group">
               <label class="nhsuk-label" for="filter-search"><strong>Organisation / ODS</strong></label>
-              <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete="off" placeholder="Start typing to search...">
+              <div style="position:relative;">
+                <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete="off" placeholder="Start typing to search...">
+                <ul id="filter-search-suggestions" role="listbox" style="display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #b1b4b6;margin:0;padding:0;list-style:none;z-index:200;max-height:220px;overflow-y:auto;"></ul>
+              </div>
             </div>
             <!-- GROUP FILTER HIDDEN
             <div class="nhsuk-form-group">
@@ -398,11 +402,53 @@ document.getElementById('download-csv').addEventListener('click', function () {
   var rows = Array.prototype.slice.call(tbody.rows);
   var form = document.getElementById('table-filters2');
   var searchInput = document.getElementById('filter-search');
+  var suggestionsList = document.getElementById('filter-search-suggestions');
   var statusSelect = document.getElementById('filter-status');
   var clearBtn = document.querySelector('[data-clear-filters]');
   var chipsContainer = document.getElementById('selected-chips');
   var filtersSection = document.getElementById('selected-filters');
   var resultsCount = document.querySelector('.results-count-align-right');
+
+  // Autocomplete: show org name suggestions after 3 characters
+  searchInput.addEventListener('input', function () {
+    var q = this.value.trim().toLowerCase();
+    suggestionsList.innerHTML = '';
+    if (q.length < 3) { suggestionsList.style.display = 'none'; return; }
+    var matches = [];
+    rows.forEach(function (row) {
+      var name = row.cells[0].innerText.replace('Organisation name', '').trim();
+      if (name.toLowerCase().indexOf(q) !== -1) matches.push(name);
+    });
+    if (!matches.length) { suggestionsList.style.display = 'none'; return; }
+    matches.forEach(function (name) {
+      var li = document.createElement('li');
+      li.textContent = name;
+      li.setAttribute('role', 'option');
+      li.style.cssText = 'padding:10px 12px;cursor:pointer;font-size:1rem;border-bottom:1px solid #f0f4f5;';
+      li.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        searchInput.value = name;
+        suggestionsList.style.display = 'none';
+        applyFilters();
+      });
+      li.addEventListener('mouseover', function () { this.style.background = '#005eb8'; this.style.color = '#fff'; });
+      li.addEventListener('mouseout',  function () { this.style.background = ''; this.style.color = ''; });
+      suggestionsList.appendChild(li);
+    });
+    suggestionsList.style.display = 'block';
+  });
+
+  searchInput.addEventListener('blur', function () {
+    setTimeout(function () { suggestionsList.style.display = 'none'; }, 150);
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { suggestionsList.style.display = 'none'; }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('[style*="position:relative"]')) suggestionsList.style.display = 'none';
+  });
 
   function getRowData(row) {
     var orgName = row.cells[0].innerText.replace('Organisation name', '').trim();
