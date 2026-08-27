@@ -44,7 +44,19 @@
 
         <div class="nhsuk-form-group nhsuk-u-margin-bottom-4">
           <label class="nhsuk-label nhsuk-label--s" for="data-type">Data type</label>
-          <input class="nhsuk-input nhsuk-input--width-40" id="data-type" name="dataType" type="text">
+          <select class="nhsuk-select" id="data-type" name="dataType">
+            <option value="">Select a data type</option>
+            <option value="AN">Alphanumeric (AN)</option>
+            <option value="STRING">String</option>
+            <option value="NUMBER">Number</option>
+            <option value="DATE">Date</option>
+            <option value="DATETIME">Date and time</option>
+            <option value="BOOLEAN">Boolean</option>
+            <option value="NHS_NUMBER">NHS number</option>
+            <option value="ODS_CODE">ODS code</option>
+            <option value="POSTCODE">Postcode</option>
+            <option value="EMAIL">Email address</option>
+          </select>
         </div>
 
         <div style="display: flex; gap: 16px; align-items: flex-end;" class="nhsuk-u-margin-bottom-4">

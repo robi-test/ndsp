@@ -1,0 +1,89 @@
+{% extends "iteration5/collection-maintaining-configuring/layout-collection-management.html" %}
+
+{% set pageName = "Set up collection" %}
+
+{% block beforeContent %}
+  {{ backLink({
+    href: "home",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <h1 class="nhsuk-heading-l">{{ pageName }}</h1>
+
+    <!-- Collection summary -->
+    <div class="nhsuk-card nhsuk-u-margin-bottom-6" style="border: 1px solid #d8dde0;">
+      <div class="nhsuk-card__content" style="padding: 20px 24px;">
+        <div style="text-align: right;">
+          <a href="#">Change</a>
+        </div>
+        <dl class="nhsuk-summary-list nhsuk-u-margin-bottom-0">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Collection name</dt>
+            <dd class="nhsuk-summary-list__value">Community Rehabilitation Contacts Dataset (CRCD)</dd>
+          </div>
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">Description</dt>
+            <dd class="nhsuk-summary-list__value">The Community Rehabilitation Contacts Dataset (CRCD) captures data on community rehabilitation services and contacts provided to patients across NHS organisations.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <!-- Task list -->
+    <div class="nhsuk-card" style="border: 1px solid #d8dde0;">
+      <div class="nhsuk-card__content" style="padding: 0;">
+
+        <ul class="nhsuk-list" style="margin: 0; padding: 0; list-style: none;">
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="collection-general-config" class="nhsuk-link">General submission requirements</a>
+            <strong class="nhsuk-tag nhsuk-tag--green" style="white-space: nowrap; margin-left: 16px;">In progress</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="collection-spec" class="nhsuk-link">Create specification</a>
+            <strong class="nhsuk-tag nhsuk-tag--grey" style="white-space: nowrap; margin-left: 16px;">Not yet started</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="#" class="nhsuk-link">Set up reporting periods</a>
+            <strong class="nhsuk-tag nhsuk-tag--grey" style="white-space: nowrap; margin-left: 16px;">Not yet started</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="dids-organisations" class="nhsuk-link">Submitting organisations</a>
+            <strong class="nhsuk-tag nhsuk-tag--grey" style="white-space: nowrap; margin-left: 16px;">Not yet started</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="#" class="nhsuk-link">Guidelines and templates</a>
+            <strong class="nhsuk-tag nhsuk-tag--grey" style="white-space: nowrap; margin-left: 16px;">Not yet started</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <a href="#" class="nhsuk-link">Set notifications</a>
+            <strong class="nhsuk-tag nhsuk-tag--grey" style="white-space: nowrap; margin-left: 16px;">Not yet started</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #d8dde0;">
+            <span class="nhsuk-u-color-secondary-text-colour">Test collection</span>
+            <strong class="nhsuk-tag nhsuk-tag--white" style="white-space: nowrap; margin-left: 16px; color: #4c6272; border: 1px solid #b1b4b6;">Can't be started yet</strong>
+          </li>
+
+          <li style="display: flex; justify-content: space-between; align-items: center; padding: 16px 24px;">
+            <span class="nhsuk-u-color-secondary-text-colour">Sign off</span>
+            <strong class="nhsuk-tag nhsuk-tag--white" style="white-space: nowrap; margin-left: 16px; color: #4c6272; border: 1px solid #b1b4b6;">Can't be started yet</strong>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
