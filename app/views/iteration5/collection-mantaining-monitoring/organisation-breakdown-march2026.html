@@ -1,7 +1,7 @@
 {% extends "iteration5/collection-mantaining-monitoring/layout-collection-management.html" %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
-{% set pageName = "October 2026 Submission details" %}
+{% set pageName = "March 2026 Submission details" %}
 
 {% block beforeContent %}
 {% from "breadcrumb/macro.njk" import breadcrumb %}
@@ -30,7 +30,7 @@
     <div class="nhsuk-grid-column-full">
       <div class="nhsuk-width-container">
         <main class="nhsuk-main-wrapper" id="maincontent" role="main">
-            <h1 class="nhsuk-heading-lm nhsuk-u-margin-bottom-8">October 2026</h1>
+            <h1 class="nhsuk-heading-lm nhsuk-u-margin-bottom-8">March 2026</h1>
 
             {% from "summary-list/macro.njk" import summaryList %}
             {{ summaryList({
@@ -41,16 +41,16 @@
                 },
                 {
                   key: { text: "Reporting period" },
-                  value: { text: "October 2026" }
+                  value: { text: "March 2026" }
                 }
               ]
             }) }}
 
-          <div class="nhsuk-inset-text" style="margin-bottom:24px;">
+ <!--          <div class="nhsuk-inset-text" style="margin-bottom:24px;">
             <span class="nhsuk-u-visually-hidden">Information: </span>
-            <p style="margin:0 0 16px 0; font-size:1.1875rem;"><strong><a href="non-submitting-organisations" class="nhsuk-link" style="font-size:1.1875rem;">2 organisation(s)</a></strong> have not yet submitted for this period.</p>
-            <!-- <button class="nhsuk-button nhsuk-button--secondary nhsuk-u-margin-top-2 nhsuk-button--secondary nhsuk-u-margin-bottom-4" type="button" id="bulk-send-reminder-btn" style="font-size:1.1875rem; padding:10px 24px; min-height:0;">Send reminder to all</button> -->
-          </div>
+            <p style="margin:0 0 16px 0; font-size:1.1875rem;"><strong><a href="submissions-org-march2026" class="nhsuk-link" style="font-size:1.1875rem;">2 organisation(s)</a></strong> have not yet submitted for this period.</p>
+            
+          </div> -->
 
     <div class="nhsuk-tabs" data-module="nhsuk-tabs">
       <h2 class="nhsuk-tabs__title">Contents</h2>
@@ -77,7 +77,6 @@
               <option value="">All statuses</option>
               <option value="Submitted">Submitted</option>
               <option value="No valid submission">No valid submission</option>
-              
             </select>
           </div>
           <button class="nhsuk-button nhsuk-u-margin-bottom-0" type="button" id="org-breakdown-apply" onclick="return false">Apply</button>
@@ -114,7 +113,7 @@
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Accepted</span>0</td> 
             <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Test submission</span>1</td>
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Last submission</span>25 Nov 2026, 09:30</td>
-            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submissions-org">View</a></td>
+            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Action</span><a href="submissions-org-march2026">View</a></td>
           </tr>
           <tr class="nhsuk-table__row" role="row">
            <td class="nhsuk-table__cell" role="cell"><span class="nhsuk-table-responsive__heading" aria-hidden="true">Organisation</span>Healthshare Diagnostics (NYR)</td>           
@@ -535,8 +534,8 @@
     var statusCell = row.cells[1];
     if (!statusCell) return false;
     var txt = (statusCell.innerText || statusCell.textContent || '').toLowerCase();
+    var txt = (statusCell.innerText || statusCell.textContent || '').toLowerCase();
     return txt.indexOf('no valid submission') !== -1 || txt.indexOf('no valid submission') !== -1;
-  }
 
   function showSuccess(msg) {
     var banner = document.getElementById('reminder-success-banner');
