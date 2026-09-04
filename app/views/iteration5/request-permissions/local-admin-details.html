@@ -41,7 +41,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Name"
       },
       value: {
-        text: "Laura Smith"
+        text: "James Jackson"
       }
     },
     {
@@ -49,7 +49,7 @@ The name and email address shown are taken from the account you used to sign in.
         text: "Email address"
       },
       value: {
-        text: "laura.smith@nhs.net"
+        text: "james.jackson@nhs.net"
       }
     },
     {
@@ -65,6 +65,23 @@ The name and email address shown are taken from the account you used to sign in.
             href: "select-collection",
             text: "Change",
             visuallyHiddenText: "collection"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Role"
+      },
+      value: {
+        html: '<span id="summary-role">' + roleLabel + '</span>'
+      },
+      actions: {
+        items: [
+          {
+            href: "select-role",
+            text: "Change",
+            visuallyHiddenText: "role"
           }
         ]
       }
@@ -103,23 +120,7 @@ The name and email address shown are taken from the account you used to sign in.
         ]
       }
     },
-     {
-      key: {
-        text: "Role"
-      },
-      value: {
-        html: '<span id="summary-role">' + roleLabel + '</span>'
-      },
-      actions: {
-        items: [
-          {
-            href: "select-role",
-            text: "Change",
-            visuallyHiddenText: "role"
-          }
-        ]
-      }
-    },
+    
     {
       key: {
         text: "IG manager full name"
