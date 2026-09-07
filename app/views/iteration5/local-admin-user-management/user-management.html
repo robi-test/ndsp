@@ -38,10 +38,10 @@
 
       <form id="table-filters" method="get" action="#" role="search" aria-label="Filter users">
         <div style="display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 10px;">
-          <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0; overflow: hidden;">
+          <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0;">
             <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-search"><strong>Name / email:</strong></label>
-            <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete=" " readonly placeholder="Search..." style="width: 100%; min-width: 0;">
-            <ul id="search-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:230px; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
+            <input class="nhsuk-input" id="filter-search" name="search" type="text" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="search-suggestions" placeholder="Start typing to search..." style="width: 100%; min-width: 0;">
+            <ul id="search-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:100%; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
           </div>
           <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 1 1 0; min-width: 0; overflow: hidden;">
             <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="filter-role"><strong>Role:</strong></label>
@@ -290,10 +290,10 @@
 
         <form id="pending-filters" method="get" action="#" role="search" aria-label="Filter pending and rejected users">
           <div style="display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 10px;">
-            <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0; overflow: hidden;">
+            <div class="nhsuk-form-group" style="margin-bottom: 12px; position: relative; flex: 2 1 0; min-width: 0;">
               <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-search"><strong>Name / email:</strong></label>
-              <input class="nhsuk-input" id="pending-search" name="search" type="text" autocomplete="new-password" readonly placeholder="Start typing to search..." style="width: 100%; min-width: 0;">
-              <ul id="pending-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:230px; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
+              <input class="nhsuk-input" id="pending-search" name="search" type="text" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="pending-suggestions" placeholder="Start typing to search..." style="width: 100%; min-width: 0;">
+              <ul id="pending-suggestions" role="listbox" aria-label="Suggestions" style="display:none; position:absolute; top:100%; left:0; width:100%; margin:0; padding:0; list-style:none; background:#fff; border:1px solid #4c6272; z-index:100; max-height:220px; overflow-y:auto; box-shadow:0 2px 6px rgba(0,0,0,0.15);"></ul>
             </div>
             <div class="nhsuk-form-group" style="margin-bottom: 12px; flex: 1 1 0; min-width: 0; overflow: hidden;">
               <label class="nhsuk-label nhsuk-u-margin-bottom-1" for="pending-role"><strong>Role:</strong></label>
@@ -583,11 +583,95 @@ sortTable(table, colIndex, type, next)
 }());
 </script>
 <script>
+// Shared autocomplete behaviour for the name/email search inputs
+;(function () {
+  window.ndspAutocomplete = function (input, list, getValues, onSelect) {
+    var activeIndex = -1;
+
+    function options() { return list.querySelectorAll('li'); }
+
+    function close() {
+      list.style.display = 'none';
+      list.innerHTML = '';
+      activeIndex = -1;
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    function highlight(index) {
+      var items = options();
+      if (!items.length) return;
+      if (index < 0) index = items.length - 1;
+      if (index >= items.length) index = 0;
+      Array.prototype.forEach.call(items, function (li, i) {
+        var on = i === index;
+        li.style.background = on ? '#f0f4f5' : '';
+        li.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      activeIndex = index;
+      items[index].scrollIntoView({ block: 'nearest' });
+    }
+
+    function select(value) {
+      input.value = value;
+      close();
+      if (onSelect) onSelect(value);
+    }
+
+    function show(query) {
+      list.innerHTML = '';
+      activeIndex = -1;
+      var q = query.toLowerCase();
+      if (q.length < 1) { close(); return; }
+
+      var matches = getValues().filter(function (item) {
+        return item.label.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 8);
+
+      if (!matches.length) { close(); return; }
+
+      matches.forEach(function (item) {
+        var li = document.createElement('li');
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+        li.setAttribute('data-value', item.value);
+        li.style.cssText = 'padding:8px 12px; cursor:pointer; font-size:1rem; border-bottom:1px solid #f0f4f5;';
+        var start = item.label.toLowerCase().indexOf(q);
+        li.appendChild(document.createTextNode(item.label.slice(0, start)));
+        var strong = document.createElement('strong');
+        strong.textContent = item.label.slice(start, start + q.length);
+        li.appendChild(strong);
+        li.appendChild(document.createTextNode(item.label.slice(start + q.length)));
+        li.addEventListener('mousedown', function (e) { e.preventDefault(); select(item.value); });
+        li.addEventListener('mouseover', function () { li.style.background = '#f0f4f5'; });
+        li.addEventListener('mouseout', function () { if (options()[activeIndex] !== li) li.style.background = ''; });
+        list.appendChild(li);
+      });
+
+      list.style.display = 'block';
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    input.addEventListener('input', function () { show(input.value.trim()); });
+    input.addEventListener('focus', function () { show(input.value.trim()); });
+    input.addEventListener('blur', function () { setTimeout(close, 150); });
+
+    input.addEventListener('keydown', function (e) {
+      var open = list.style.display === 'block';
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (open) highlight(activeIndex + 1); else show(input.value.trim()); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) highlight(activeIndex - 1); }
+      else if (e.key === 'Enter' && open && activeIndex > -1) { e.preventDefault(); select(options()[activeIndex].getAttribute('data-value')); }
+      else if (e.key === 'Escape') { close(); }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!list.contains(e.target) && e.target !== input) close();
+    });
+  };
+}());
+</script>
+<script>
 // Autocomplete for name/email search
 ;(function () {
-  // Remove readonly after load to prevent browser autofill suggestions
-  var searchEl = document.getElementById('filter-search');
-  if (searchEl) setTimeout(function () { searchEl.removeAttribute('readonly'); }, 50);
   var input = document.getElementById('filter-search');
   var list  = document.getElementById('search-suggestions');
   var tbody = document.querySelector('#users-table tbody');
@@ -599,42 +683,17 @@ sortTable(table, colIndex, type, next)
     Array.prototype.forEach.call(tbody.rows, function (row) {
       var name  = row.cells[0] ? row.cells[0].innerText.replace('Name', '').trim() : '';
       var email = row.cells[1] ? row.cells[1].innerText.replace('Email', '').trim() : '';
-      if (name  && !seen[name])  { seen[name]  = true; values.push({ label: name,  type: 'name' }); }
-      if (email && !seen[email]) { seen[email] = true; values.push({ label: email, type: 'email' }); }
+      if (!name && !email) return;
+      var key = name + '|' + email;
+      if (seen[key]) return;
+      seen[key] = true;
+      values.push({ label: email ? name + ' (' + email + ')' : name, value: name || email });
     });
     return values;
   }
 
-  function showSuggestions(q) {
-    list.innerHTML = '';
-    if (q.length < 2) { list.style.display = 'none'; return; }
-    var matches = getUniqueValues().filter(function (v) {
-      return v.label.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    }).slice(0, 8);
-
-    if (!matches.length) { list.style.display = 'none'; return; }
-
-    matches.forEach(function (match) {
-      var li = document.createElement('li');
-      li.setAttribute('role', 'option');
-      li.style.cssText = 'padding:8px 12px; cursor:pointer; font-size:1rem; border-bottom:1px solid #f0f4f5;';
-      li.textContent = match.label;
-      li.addEventListener('mousedown', function (e) {
-        e.preventDefault();
-        input.value = match.label;
-        list.style.display = 'none';
-      });
-      li.addEventListener('mouseover', function () { li.style.background = '#f0f4f5'; });
-      li.addEventListener('mouseout',  function () { li.style.background = ''; });
-      list.appendChild(li);
-    });
-    list.style.display = 'block';
-  }
-
-  input.addEventListener('input', function () { showSuggestions(input.value.trim()); });
-  input.addEventListener('focus', function () { showSuggestions(input.value.trim()); });
-  document.addEventListener('click', function (e) {
-    if (!list.contains(e.target) && e.target !== input) list.style.display = 'none';
+  window.ndspAutocomplete(input, list, getUniqueValues, function () {
+    input.form.dispatchEvent(new Event('submit', { cancelable: true }));
   });
 }());
 </script>
@@ -654,9 +713,6 @@ sortTable(table, colIndex, type, next)
   var list       = document.getElementById('pending-suggestions');
 
   if (!table || !form) return;
-
-  // Remove readonly after load
-  if (searchInput) setTimeout(function () { searchInput.removeAttribute('readonly'); }, 50);
 
   var rows = Array.prototype.slice.call(table.tBodies[0].rows);
 
@@ -727,39 +783,16 @@ sortTable(table, colIndex, type, next)
     var seen = {}, vals = [];
     rows.forEach(function (row) {
       var d = getRowData(row);
-      if (d.name  && !seen[d.name])  { seen[d.name]  = true; vals.push(d.name); }
-      if (d.email && !seen[d.email]) { seen[d.email] = true; vals.push(d.email); }
+      if (!d.name && !d.email) return;
+      var key = d.name + '|' + d.email;
+      if (seen[key]) return;
+      seen[key] = true;
+      vals.push({ label: d.email ? d.name + ' (' + d.email + ')' : d.name, value: d.name || d.email });
     });
     return vals;
   }
 
-  function showSuggestions(q) {
-    list.innerHTML = '';
-    if (q.length < 2) { list.style.display = 'none'; return; }
-    var matches = getUniqueValues().filter(function (v) {
-      return v.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    }).slice(0, 8);
-    if (!matches.length) { list.style.display = 'none'; return; }
-    matches.forEach(function (val) {
-      var li = document.createElement('li');
-      li.setAttribute('role', 'option');
-      li.style.cssText = 'padding:8px 12px; cursor:pointer; font-size:1rem; border-bottom:1px solid #f0f4f5;';
-      li.textContent = val;
-      li.addEventListener('mousedown', function (e) {
-        e.preventDefault(); searchInput.value = val; list.style.display = 'none';
-      });
-      li.addEventListener('mouseover', function () { li.style.background = '#f0f4f5'; });
-      li.addEventListener('mouseout',  function () { li.style.background = ''; });
-      list.appendChild(li);
-    });
-    list.style.display = 'block';
-  }
-
-  searchInput.addEventListener('input', function () { showSuggestions(searchInput.value.trim()); });
-  searchInput.addEventListener('focus', function () { showSuggestions(searchInput.value.trim()); });
-  document.addEventListener('click', function (e) {
-    if (!list.contains(e.target) && e.target !== searchInput) list.style.display = 'none';
-  });
+  window.ndspAutocomplete(searchInput, list, getUniqueValues, applyFilters);
 }());
 </script>
 {% endblock %}
