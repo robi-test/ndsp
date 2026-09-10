@@ -259,7 +259,10 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const storedRole = sessionStorage.getItem('summary.role') || '';
-  const roleLabel = roleMap[storedRole] || '';
+  const includeSubmitterPermissions = sessionStorage.getItem('summary.includeSubmitterPermissions') === 'true';
+  const roleLabel = storedRole === 'local-admin' && includeSubmitterPermissions
+    ? 'Local administrator, Submitter'
+    : roleMap[storedRole] || '';
 
   setText('summary-collection', sessionStorage.getItem('summary.collections'), 'Not provided');
   setText('summary-organisation', sessionStorage.getItem('summary.organisation'), 'Not provided');

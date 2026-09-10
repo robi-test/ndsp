@@ -26,10 +26,25 @@
             </label>
           </div>
           <div class="nhsuk-radios__item">
-            <input class="nhsuk-radios__input" id="role-localadmin" name="role" type="radio" value="local-admin">
+            <input class="nhsuk-radios__input" id="role-localadmin" name="role" type="radio" value="local-admin" aria-controls="local-admin-permissions-conditional" aria-expanded="false">
             <label class="nhsuk-label nhsuk-radios__label" for="role-localadmin">
               Local Administrator
             </label>
+          </div>
+          <div class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" id="local-admin-permissions-conditional">
+            <div class="nhsuk-form-group">
+              <div class="nhsuk-checkboxes  nhsuk-u-margin-top-5">
+                <div class="nhsuk-checkboxes__item">
+                  <input class="nhsuk-checkboxes__input" id="include-submitter-permissions" name="includeSubmitterPermissions" type="checkbox" value="yes" aria-describedby="include-submitter-permissions-hint">
+                  <label class="nhsuk-label nhsuk-checkboxes__label" for="include-submitter-permissions">
+                    Include submitter permissions
+                  </label>
+                  <div class="nhsuk-hint nhsuk-checkboxes__hint" id="include-submitter-permissions-hint">
+                    Local administrators can manage user permissions for their organisation. If you also need to submit data, you can include Submitter permissions in this request.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="nhsuk-radios__item">
             <input class="nhsuk-radios__input" id="role-monitoring" name="role" type="radio" value="monitoring">
@@ -75,9 +90,7 @@
       </div>
     </details> -->
 
-<!-- <p class="nhsuk-u-margin-top-4"style="color:red; font-weight:600; ">Prototype navigation only: <a href="select-role2">Second design option</a></p>
-  </div>
-</div> -->
+
      
   </div>
 </div>
@@ -91,6 +104,21 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
+  const roleInputs = document.querySelectorAll('input[name="role"]');
+  const localAdminConditional = document.getElementById('local-admin-permissions-conditional');
+  const localAdminInput = document.getElementById('role-localadmin');
+  const submitterPermissionsInput = document.getElementById('include-submitter-permissions');
+
+  function updateLocalAdminConditional() {
+    const isLocalAdminSelected = localAdminInput.checked;
+    localAdminConditional.classList.toggle('nhsuk-radios__conditional--hidden', !isLocalAdminSelected);
+    localAdminInput.setAttribute('aria-expanded', String(isLocalAdminSelected));
+  }
+
+  roleInputs.forEach(function (roleInput) {
+    roleInput.addEventListener('change', updateLocalAdminConditional);
+  });
+
   const params = new URLSearchParams(window.location.search);
   const orgCode = (params.get('orgCode') || '').trim();
   const orgName = (params.get('orgName') || '').trim();
@@ -100,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (selected && selected.value) {
       sessionStorage.setItem('summary.role', selected.value);
     }
+    sessionStorage.setItem('summary.includeSubmitterPermissions', String(Boolean(submitterPermissionsInput.checked)));
 
     let target = 'select-organisation';
     if (selected && selected.value === 'monitoring') {

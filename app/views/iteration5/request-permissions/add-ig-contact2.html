@@ -1,0 +1,258 @@
+{% extends "iteration5/request-permissions/layout.html" %}
+{% set pageName = "IG manager contact details" %}
+{% block beforeContent %}
+  {{ backLink({
+    href: "javascript:history.back()",
+    text: "Back"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div id="ig-contact-page" class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds nhsuk-u-margin-top-2">
+
+    <div id="ig-contact-error-summary" class="nhsuk-error-summary" aria-labelledby="ig-contact-error-summary-title" role="alert" tabindex="-1" style="display:none;">
+      <h2 class="nhsuk-error-summary__title" id="ig-contact-error-summary-title">There is a problem</h2>
+      <div class="nhsuk-error-summary__body">
+        <ul class="nhsuk-list nhsuk-error-summary__list" id="ig-error-list"></ul>
+      </div>
+    </div>
+
+    <h1>{{ pageName }}</h1>
+
+    <p>To request permissions, you must provide the contact details of the organisation's Information Governance (IG) manager. They will receive an email from NDSP asking them to approve your request by replying to that email.<br>
+      The name and email address must be registered on the ODS registers. You can confirm this by checking the <a href="https://www.odsdatasearchandexport.nhs.uk/">ODS Portal</a> and the <a href="https://digital.nhs.uk/services/organisation-data-service/view-or-update-registers">public registers</a>.
+    </p>
+
+    <p class="nhsuk-u-margin-bottom-8"> </p>
+
+    <form action="/iteration1/permission-management/no-existing-local-admin/add-ig-contact" method="post">
+
+      <div id="selected-organisation-summary" class="nhsuk-inset-text" style="display:none;"></div>
+
+      <div id="ig-contact-list-group" class="nhsuk-form-group" style="display:none;">
+        <label class="nhsuk-label nhsuk-label--m">Available IG contacts</label>
+        <p class="nhsuk-body nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-2">NDSP searched the ODS portal and found the following IG management contact(s).</p>
+        <p id="ig-contact-select-hint" class="nhsuk-body-s nhsuk-u-margin-top-2 nhsuk-u-margin-bottom-4" style="display:none;">
+          Select the one you find relevant.
+        </p>
+        <div id="ig-contact-list" class="nhsuk-radios" role="radiogroup" aria-label="IG contacts"></div>
+        <div id="manual-ig-contact-choice" style="display:none;">
+          <p class="nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-4"><strong>OR</strong></p>
+          <div class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="ig-details-not-listed" name="igContactChoice" type="radio" value="not-listed" aria-controls="manual-ig-contact-fields" aria-expanded="false">
+              <label class="nhsuk-label nhsuk-radios__label" for="ig-details-not-listed">
+                IG details are not listed above
+              </label>
+              <div class="nhsuk-hint nhsuk-radios__hint">
+                If the correct details are already on the ODS Portal, you can enter them manually. Changes may take up to 2 weeks to appear on NDSP.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% from 'input/macro.njk' import input %}
+      <div id="manual-ig-contact-fields" class="nhsuk-radios__conditional nhsuk-radios__conditional--hidden" aria-live="polite">
+        {{ input({
+          label: { text: "IG manager full name", classes: "nhsuk-label--m" },
+          id: "ig-name",
+          name: "ig-name",
+          value: data['ig-name'],
+          classes: "nhsuk-input--width-30",
+          inputmode: "string",
+          attributes: { readonly: "true", style: "background-color: #e6e7e7;" }
+        }) }}
+        <p class="nhsuk-u-margin-bottom-8"> </p>
+        {{ input({
+          label: { text: "IG manager email address", classes: "nhsuk-label--m" },
+          id: "email-address-field",
+          name: "email-address-field",
+          value: data['email-address-field'],
+          classes: "nhsuk-input--width-30",
+          inputmode: "email",
+          attributes: { readonly: "true", style: "background-color: #e6e7e7;" }
+        }) }}
+      </div>
+
+    </form>
+
+    <button id="continue-to-context" type="button" class="nhsuk-button nhsuk-u-margin-top-7">
+      Continue
+    </button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+  <script src="/js/odsHospitalSearchService.js"></script>
+  <script>
+    (function () {
+      const contactListGroup  = document.getElementById('ig-contact-list-group')
+      const contactList       = document.getElementById('ig-contact-list')
+      const contactSelectHint = document.getElementById('ig-contact-select-hint')
+      const manualContactChoice = document.getElementById('manual-ig-contact-choice')
+      const manualContactRadio = document.getElementById('ig-details-not-listed')
+      const manualContactFields = document.getElementById('manual-ig-contact-fields')
+      const igNameInput = document.getElementById('ig-name')
+      const igEmailInput = document.getElementById('email-address-field')
+      const selectedSummary   = document.getElementById('selected-organisation-summary')
+      const errorSummary      = document.getElementById('ig-contact-error-summary')
+      const errorList         = document.getElementById('ig-error-list')
+      const continueButton    = document.getElementById('continue-to-context')
+      let manualEntryAvailable = false
+
+      if (!window.OdsHospitalSearchService) return
+
+      const service      = new window.OdsHospitalSearchService()
+      const params       = new URLSearchParams(window.location.search)
+      const orgCodeParam = (params.get('orgCode') || '').trim()
+      const orgNameParam = (params.get('orgName') || '').trim()
+      const roleParam    = (params.get('role')    || '').trim()
+
+      function setManualContactFieldsVisible(isVisible) {
+        if (manualContactFields) {
+          manualContactFields.classList.toggle('nhsuk-radios__conditional--hidden', !isVisible)
+        }
+        if (manualContactRadio) {
+          manualContactRadio.setAttribute('aria-expanded', String(isVisible))
+        }
+        ;[igNameInput, igEmailInput].forEach(function (input) {
+          if (!input) return
+          if (isVisible) {
+            input.removeAttribute('readonly')
+            input.style.backgroundColor = '#ffffff'
+          } else {
+            input.setAttribute('readonly', 'true')
+            input.style.backgroundColor = '#e6e7e7'
+          }
+        })
+      }
+
+      if (manualContactRadio) {
+        manualContactRadio.addEventListener('change', function () {
+          setManualContactFieldsVisible(manualContactRadio.checked)
+        })
+      }
+
+      if (orgCodeParam && selectedSummary) {
+        selectedSummary.style.display = 'block'
+        selectedSummary.innerHTML = '<strong>Selected organisation:</strong> ' + escapeHtml(orgNameParam || orgCodeParam) + ' (' + escapeHtml(orgCodeParam) + ')'
+      }
+
+      if (orgCodeParam) runSearch(orgCodeParam, orgNameParam)
+
+      if (continueButton) {
+        continueButton.addEventListener('click', function () {
+          clearErrors()
+          const selected = contactList ? contactList.querySelector('input[name="ig-contact-radio"]:checked') : null
+          const manualContactSelected = manualEntryAvailable || (manualContactRadio && manualContactRadio.checked)
+          if (!selected && !manualContactSelected) {
+            showErrorSummary([{ text: 'Select an IG manager contact', href: '#ig-contact-radio-0' }])
+            return
+          }
+          const chosenName = manualContactSelected
+            ? (igNameInput ? igNameInput.value.trim() : '')
+            : selected.getAttribute('data-name') || ''
+          const chosenEmail = manualContactSelected
+            ? (igEmailInput ? igEmailInput.value.trim() : '')
+            : selected.getAttribute('data-email') || ''
+          const errors = []
+          if (!chosenName) {
+            errors.push({ text: 'Enter the full name of the IG manager', href: '#ig-name' })
+          }
+          if (!chosenEmail) {
+            errors.push({ text: 'Enter the IG manager email address', href: '#email-address-field' })
+          }
+          if (errors.length) {
+            showErrorSummary(errors)
+            return
+          }
+          sessionStorage.setItem('summary.igName',  chosenName)
+          sessionStorage.setItem('summary.igEmail', chosenEmail)
+          if (orgNameParam) sessionStorage.setItem('summary.organisation', orgNameParam)
+          if (orgCodeParam) sessionStorage.setItem('summary.ods', orgCodeParam)
+          window.location.href = 'add-ig-context?orgCode=' + encodeURIComponent(orgCodeParam) + '&orgName=' + encodeURIComponent(orgNameParam) + '&role=' + encodeURIComponent(roleParam)
+        })
+      }
+
+      async function runSearch(query, selectedName) {
+        if (!contactListGroup || !contactList) return
+        try {
+          const matches = await service.searchHospitals(query)
+          if (!matches.length) {
+            contactListGroup.style.display = 'block'
+            contactList.innerHTML = '<p class="nhsuk-body-s">No IG contact details were found for the selected organisation.</p>'
+            if (manualContactChoice) manualContactChoice.style.display = 'none'
+            manualEntryAvailable = true
+            setManualContactFieldsVisible(true)
+            return
+          }
+          const match = selectedName
+            ? matches.find(function(m) { return m.name.toLowerCase() === selectedName.toLowerCase() }) || matches[0]
+            : matches[0]
+          if (match && match.igContacts && match.igContacts.length > 0) {
+            contactListGroup.style.display = 'block'
+            if (contactSelectHint) contactSelectHint.style.display = 'block'
+            if (manualContactChoice) manualContactChoice.style.display = 'block'
+            manualEntryAvailable = false
+            setManualContactFieldsVisible(false)
+            contactList.innerHTML = match.igContacts.map(function(contact, index) {
+              var roleText = contact.igManagementRole
+                ? '<span class="nhsuk-hint nhsuk-u-margin-bottom-0"><strong>Role:</strong> ' + escapeHtml(contact.igManagementRole) + '</span>'
+                : ''
+              var emailText = contact.email
+                ? '<span class="nhsuk-hint nhsuk-u-margin-bottom-0"><strong>Email:</strong> ' + escapeHtml(contact.email) + '</span>'
+                : '<span class="nhsuk-hint nhsuk-u-margin-bottom-0"><strong>Email:</strong> <span style="color:#d5281b;">No email on record</span></span>'
+              return '<div class="nhsuk-radios__item">' +
+                '<input class="nhsuk-radios__input" id="ig-contact-radio-' + index + '" name="ig-contact-radio" type="radio" value="' + index + '" data-name="' + escapeHtml(contact.name || '') + '" data-email="' + escapeHtml(contact.email || '') + '">' +
+                '<label class="nhsuk-label nhsuk-radios__label" for="ig-contact-radio-' + index + '" style="text-transform:uppercase;font-weight:700;">' + escapeHtml(contact.name || 'Unknown') + '</label>' +
+                roleText + emailText +
+                '</div>'
+            }).join('')
+            contactList.querySelectorAll('input[name="ig-contact-radio"]').forEach(function (radio) {
+              radio.addEventListener('change', function () {
+                if (manualContactRadio) manualContactRadio.checked = false
+                setManualContactFieldsVisible(false)
+              })
+            })
+          } else {
+            contactListGroup.style.display = 'block'
+            contactList.innerHTML = '<p class="nhsuk-body-s">No IG contacts were found for this organisation.</p>'
+            if (manualContactChoice) manualContactChoice.style.display = 'none'
+            manualEntryAvailable = true
+            setManualContactFieldsVisible(true)
+          }
+        } catch (err) {
+          if (contactListGroup) {
+            contactListGroup.style.display = 'block'
+            contactList.innerHTML = '<p class="nhsuk-body-s" style="color:#d5281b;">Search failed: ' + escapeHtml(err.message || String(err)) + '</p>'
+          }
+        }
+      }
+
+      function escapeHtml(v) {
+        return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')
+      }
+
+      function showErrorSummary(errors) {
+        if (!errorSummary || !errorList) return
+        errorList.innerHTML = errors.map(function(e) { return '<li><a href="' + escapeHtml(e.href) + '">' + escapeHtml(e.text) + '</a></li>' }).join('')
+        errorSummary.style.display = 'block'
+        errorSummary.focus()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+
+      function clearErrors() {
+        if (errorSummary) errorSummary.style.display = 'none'
+        if (errorList)    errorList.innerHTML = ''
+      }
+    })()
+  </script>
+  <style>
+    #ig-contact-page p { font-size: 1.1875rem; }
+    #ig-contact-page .nhsuk-inset-text { font-size: 1.1875rem; }
+  </style>
+{% endblock %}
